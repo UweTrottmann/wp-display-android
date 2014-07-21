@@ -1,0 +1,94 @@
+{
+  "appDesc": {
+    "message": "Zeigt durch den TCP Server des alpha innotec Luxtronik 2.0 Wärmepumpen-Controllers zur Verfügung gestellte Statusinformationen an.", 
+    "description":"The description of the application, displayed in the web store."
+  },
+  "connect": {
+    "message": "Verbinden",
+    "description": ""
+  },
+  "connected": {
+    "message": "Verbunden mit",
+    "description": ""
+  },
+  "disconnect": {
+    "message": "Trennen",
+    "description": ""
+  },
+  "disconnected": {
+    "message": "Getrennt",
+    "description": ""
+  },
+  "titleSettings": {
+    "message": "Einstellungen",
+    "description": ""
+  },
+  "hostname": {
+    "message": "Hostname/IP",
+    "description": ""
+  },
+  "port": {
+    "message": "Port",
+    "description": ""
+  },
+  "titleAbout": {
+    "message": "Was macht diese App?",
+    "description": ""
+  },
+  "tempOutgoing": {
+    "message": "Vorlauf",
+    "description": ""
+  },
+  "tempReturn": {
+    "message": "Rücklauf",
+    "description": ""
+  },
+  "tempReturnShould": {
+    "message": "Rücklauf Soll",
+    "description": ""
+  },
+  "tempOutdoors": {
+    "message": "Außentemperatur",
+    "description": ""
+  },
+  "tempWater": {
+    "message": "Brauchwasser",
+    "description": ""
+  },
+  "tempWaterShould": {
+    "message": "Brauchwasser Soll",
+    "description": ""
+  },
+  "tempSourceIn": {
+    "message": "Wärmequelle Ein",
+    "description": ""
+  },
+  "tempSourceOut": {
+    "message": "Wärmequelle Aus",
+    "description": ""
+  },
+  "timeReceived": {
+    "message": "Letzte Aktualisierung",
+    "description": ""
+  },
+  "timeCompressorNoop": {
+    "message": "Verdichter Stillstand",
+    "description": ""
+  },
+  "timePumpActive": {
+    "message": "Wärmepumpe aktiv",
+    "description": "Time the heat pump is running."
+  },
+  "timeRest": {
+    "message": "Ruhezeit",
+    "description": "Time the system needs to rest to avoid wear before restarting."
+  },
+  "timeReturnLower": {
+    "message": "T Rücklauf < (T Rücklauf Soll - Hysterese)",
+    "description": ""
+  },
+  "timeReturnHigher": {
+    "message": "T Rücklauf > (T Rücklauf Soll + Hysterese)",
+    "description": ""
+  }
+}

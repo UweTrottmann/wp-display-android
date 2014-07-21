@@ -1,0 +1,26 @@
+@import url('bootstrap/css/bootstrap.min.css');
+
+html, body {
+  margin: 0;
+  padding: 8px 8px 0 8px;
+  height: 100%;
+}
+
+body {
+    font-family: sans-serif;
+    color: #333333;
+    background: #ffffff;
+    overflow: auto;
+}
+
+.temp-value {
+  font-size: 48px;
+}
+
+#settings {
+  background: #f5f5f5;
+  margin-top: 16px;
+  padding: 16px;
+}
+
+#port { width: 50px; }
