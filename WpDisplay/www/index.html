@@ -18,7 +18,7 @@
     <div class="container-fluid">
 
       <!-- controls -->
-      <div class="row">
+      <div id="controls-top" class="row">
         <div class="col-sm-6">
           <button type="button" class="btn btn-default" ng-click="toggleConnection()" ng-model="btnConnect">{{textBtnConnect}}</button>
           <button type="button" class="btn btn-default" ng-click="toggleSettings()">
@@ -39,10 +39,18 @@
       <div id="settings" ng-show="isShowingSettings">
         <div>
           <h4>{{strTitleSettings}}</h4>
-          <label for="host">{{strLabelHost}}:</label>
-          <input type="text" ng-model="host" ng-change="saveSettings()">
-          <label for="port">{{strLabelPort}}:</label>
-          <input type="number" id="port" ng-model="port" ng-change="saveSettings()">
+            <div class="row">
+              <div class="col-xs-12">
+                <label for="host">{{strLabelHost}}</label>
+                <input type="text" ng-model="host" ng-change="saveSettings()">
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-xs-12">
+                <label for="port">{{strLabelPort}}</label>
+                <input type="number" id="port" ng-model="port" ng-change="saveSettings()">
+              </div>
+            </div>
         </div>
         <div>
           <h4>{{strTitleAbout}}</h4>

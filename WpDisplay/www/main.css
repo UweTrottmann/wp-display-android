@@ -2,7 +2,7 @@
 
 html, body {
   margin: 0;
-  padding: 8px 8px 0 8px;
+  padding: 0;
   height: 100%;
 }
 
@@ -15,6 +15,10 @@ body {
 
 .temp-value {
   font-size: 48px;
+}
+
+#controls-top {
+  padding: 16px 0 0 0;
 }
 
 #settings {
