@@ -2,7 +2,7 @@
 <widget id="com.uwetrottmann.wpdisplay" version="2.3.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <name>WP Display</name>
     <description>__MSG_appDesc__</description>
-    <author />
+    <author>undefined</author>
     <preference name="KeyboardShrinksView" value="true" />
     <preference name="StatusBarOverlaysWebView" value="false" />
     <preference name="StatusBarBackgroundColor" value="#000000" />
