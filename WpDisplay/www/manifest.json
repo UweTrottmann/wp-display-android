@@ -1,6 +1,7 @@
 {
   "name": "WP Display",
   "description": "__MSG_appDesc__",
+  "author": "Uwe Trottmann",
   "default_locale": "en",
   "version": "2.3.1",
   "manifest_version": 2,
