@@ -26,6 +26,8 @@ public class MainActivity extends ActionBarActivity
      */
     private CharSequence mTitle;
 
+    private ConnectionFragment connectionFragment;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -39,14 +41,34 @@ public class MainActivity extends ActionBarActivity
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
+
+        // setup connection fragment
+        connectionFragment = (ConnectionFragment) getSupportFragmentManager().findFragmentByTag(
+                "connection");
+        if (connectionFragment == null) {
+            connectionFragment = new ConnectionFragment();
+            getSupportFragmentManager().beginTransaction()
+                    .add(connectionFragment, "connection")
+                    .commit();
+        }
     }
 
     @Override
     public void onNavigationDrawerItemSelected(int position) {
+        Fragment f;
+        switch (position) {
+            case 0:
+                f = new DisplayFragment();
+                break;
+            default:
+                f = PlaceholderFragment.newInstance(position + 1);
+                break;
+        }
+
         // update the main content by replacing fragments
         FragmentManager fragmentManager = getSupportFragmentManager();
         fragmentManager.beginTransaction()
-                .replace(R.id.container, PlaceholderFragment.newInstance(position + 1))
+                .replace(R.id.container, f)
                 .commit();
     }
 
