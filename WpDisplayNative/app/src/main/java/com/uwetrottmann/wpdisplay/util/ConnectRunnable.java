@@ -1,17 +1,19 @@
 package com.uwetrottmann.wpdisplay.util;
 
-import android.util.Log;
 import de.greenrobot.event.EventBus;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+import timber.log.Timber;
 
 class ConnectRunnable implements Runnable {
 
     public interface ConnectListener {
         Socket getSocket();
+
         InputStream getInputStream();
+
         OutputStream getOutputStream();
 
         void setSocket(Socket socket, InputStream in, OutputStream out);
@@ -33,20 +35,23 @@ class ConnectRunnable implements Runnable {
 
         Socket socket = listener.getSocket();
         if (socket != null && socket.isConnected()) {
-            Log.i(ConnectionTools.TAG, "connect: already connected");
+            Timber.d("run: already connected");
         }
-        Log.i(ConnectionTools.TAG, "connect");
+        Timber.d("run: connecting");
+
+        String host = "192.168.178.51";
+        int port = 8888;
 
         try {
             // connect, create in and out streams
-            socket = new Socket("192.168.178.51", 8888);
+            socket = new Socket(host, port);
             listener.setSocket(socket, socket.getInputStream(), socket.getOutputStream());
 
             // post success
             EventBus.getDefault().postSticky(new ConnectionTools.ConnectionEvent(true));
             return;
         } catch (IOException e) {
-            Log.e(ConnectionTools.TAG, e.getMessage());
+            Timber.e(e, "run: connecting to " + host + ":" + port + " failed");
             if (socket != null) {
                 try {
                     socket.close();

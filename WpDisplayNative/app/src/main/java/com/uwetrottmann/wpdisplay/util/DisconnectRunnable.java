@@ -1,15 +1,13 @@
 package com.uwetrottmann.wpdisplay.util;
 
-import android.util.Log;
 import de.greenrobot.event.EventBus;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
+import timber.log.Timber;
 
 public class DisconnectRunnable implements Runnable {
-
-    private static final String TAG = "DisconnectRunnable";
 
     private final ConnectRunnable.ConnectListener listener;
 
@@ -25,7 +23,7 @@ public class DisconnectRunnable implements Runnable {
         // Moves the current Thread into the background
         android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_BACKGROUND);
 
-        Log.i(TAG, "run: disconnecting");
+        Timber.d("run: disconnecting");
 
         try {
             InputStream in = listener.getInputStream();
@@ -43,7 +41,7 @@ public class DisconnectRunnable implements Runnable {
                 socket.close();
             }
         } catch (IOException e) {
-            Log.e(ConnectionTools.TAG, e.getMessage());
+            Timber.e(e, "run: disconnecting failed");
         }
 
         listener.setSocket(null, null, null);

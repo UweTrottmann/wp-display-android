@@ -10,8 +10,6 @@ import java.util.concurrent.Executors;
 
 public class ConnectionTools implements ConnectRunnable.ConnectListener {
 
-    public static final String TAG = "ConnectionTools";
-
     public static class ConnectionEvent {
         public boolean isConnected;
 
