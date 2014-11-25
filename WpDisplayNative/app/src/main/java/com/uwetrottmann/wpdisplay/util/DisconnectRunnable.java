@@ -18,6 +18,9 @@ public class DisconnectRunnable implements Runnable {
 
     @Override
     public void run() {
+        // Moves the current Thread into the background
+        android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_BACKGROUND);
+
         Socket socket = listener.getSocket();
         if (socket == null) {
             Log.i(ConnectionTools.TAG, "disconnect: socket is null");
