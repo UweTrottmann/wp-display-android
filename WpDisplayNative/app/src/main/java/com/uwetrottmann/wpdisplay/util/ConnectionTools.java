@@ -10,6 +10,8 @@ import java.util.concurrent.Executors;
 
 public class ConnectionTools implements ConnectRunnable.ConnectListener {
 
+    private static ConnectionTools _instance;
+
     public static class ConnectionEvent {
         public boolean isConnected;
 
@@ -22,14 +24,23 @@ public class ConnectionTools implements ConnectRunnable.ConnectListener {
 
     private final ConnectRunnable connectRunnable;
     private final DisconnectRunnable disconnectRunnable;
+    private final DataRequestRunnable requestRunnable;
 
     private Socket socket;
     private DataInputStream inputStream;
     private DataOutputStream outputStream;
 
-    public ConnectionTools() {
+    public synchronized static ConnectionTools get() {
+        if (_instance == null) {
+            _instance = new ConnectionTools();
+        }
+        return _instance;
+    }
+
+    private ConnectionTools() {
         connectRunnable = new ConnectRunnable(this);
         disconnectRunnable = new DisconnectRunnable(this);
+        requestRunnable = new DataRequestRunnable(this);
     }
 
     public void connect() {
@@ -40,18 +51,22 @@ public class ConnectionTools implements ConnectRunnable.ConnectListener {
         executor.execute(disconnectRunnable);
     }
 
+    public void requestStatusData() {
+        executor.execute(requestRunnable);
+    }
+
     @Override
     public Socket getSocket() {
         return socket;
     }
 
     @Override
-    public InputStream getInputStream() {
+    public DataInputStream getInputStream() {
         return inputStream;
     }
 
     @Override
-    public OutputStream getOutputStream() {
+    public DataOutputStream getOutputStream() {
         return outputStream;
     }
 

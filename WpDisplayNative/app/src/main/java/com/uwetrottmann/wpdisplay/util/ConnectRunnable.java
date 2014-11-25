@@ -1,6 +1,8 @@
 package com.uwetrottmann.wpdisplay.util;
 
 import de.greenrobot.event.EventBus;
+import java.io.DataInputStream;
+import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -12,9 +14,9 @@ class ConnectRunnable implements Runnable {
     public interface ConnectListener {
         Socket getSocket();
 
-        InputStream getInputStream();
+        DataInputStream getInputStream();
 
-        OutputStream getOutputStream();
+        DataOutputStream getOutputStream();
 
         void setSocket(Socket socket, InputStream in, OutputStream out);
     }

@@ -5,6 +5,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
@@ -19,6 +20,7 @@ import org.apache.http.impl.cookie.DateUtils;
  */
 public class DisplayFragment extends Fragment {
 
+    @InjectView(R.id.buttonDisplayGetData) Button buttonGetData;
     @InjectView(R.id.textViewDisplayStatus) TextView textStatus;
 
     @Override
@@ -26,6 +28,13 @@ public class DisplayFragment extends Fragment {
             Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_display, container, false);
         ButterKnife.inject(this, v);
+
+        buttonGetData.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ConnectionTools.get().requestStatusData();
+            }
+        });
 
         return v;
     }
