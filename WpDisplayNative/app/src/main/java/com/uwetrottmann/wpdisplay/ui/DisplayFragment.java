@@ -1,4 +1,4 @@
-package com.uwetrottmann.wpdisplay;
+package com.uwetrottmann.wpdisplay.ui;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
+import com.uwetrottmann.wpdisplay.R;
 import com.uwetrottmann.wpdisplay.util.ConnectionTools;
 import de.greenrobot.event.EventBus;
 import java.util.Date;

@@ -1,4 +1,4 @@
-package com.uwetrottmann.wpdisplay;
+package com.uwetrottmann.wpdisplay.ui;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import com.uwetrottmann.wpdisplay.R;
 
 public class MainActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {

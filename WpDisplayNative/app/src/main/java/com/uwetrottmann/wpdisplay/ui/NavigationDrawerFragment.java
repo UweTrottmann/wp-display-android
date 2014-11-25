@@ -1,4 +1,4 @@
-package com.uwetrottmann.wpdisplay;
+package com.uwetrottmann.wpdisplay.ui;
 
 import android.support.v7.app.ActionBarActivity;
 import android.app.Activity;
@@ -21,6 +21,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
+import com.uwetrottmann.wpdisplay.R;
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer. See the <a

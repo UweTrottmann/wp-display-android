@@ -1,4 +1,4 @@
-package com.uwetrottmann.wpdisplay;
+package com.uwetrottmann.wpdisplay.ui;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
