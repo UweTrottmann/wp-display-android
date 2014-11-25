@@ -11,6 +11,7 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import com.uwetrottmann.wpdisplay.R;
 import com.uwetrottmann.wpdisplay.util.ConnectionTools;
+import com.uwetrottmann.wpdisplay.util.DataRequestRunnable;
 import de.greenrobot.event.EventBus;
 import java.util.Date;
 import org.apache.http.impl.cookie.DateUtils;
@@ -22,6 +23,7 @@ public class DisplayFragment extends Fragment {
 
     @InjectView(R.id.buttonDisplayGetData) Button buttonGetData;
     @InjectView(R.id.textViewDisplayStatus) TextView textStatus;
+    @InjectView(R.id.textViewTemperature) TextView textTemperature;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -64,5 +66,10 @@ public class DisplayFragment extends Fragment {
     public void onEventMainThread(ConnectionTools.ConnectionEvent event) {
         textStatus.setText(event.isConnected ? "Connected at " + DateUtils.formatDate(new Date())
                 : "Disconnected at " + DateUtils.formatDate(new Date()));
+    }
+
+    @SuppressWarnings("UnusedDeclaration")
+    public void onEventMainThread(DataRequestRunnable.DataEvent event) {
+        textTemperature.setText(String.valueOf(event.data.getTemperatureOutdoors()));
     }
 }
