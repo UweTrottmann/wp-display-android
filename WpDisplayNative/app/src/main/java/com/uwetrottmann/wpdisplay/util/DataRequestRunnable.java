@@ -1,5 +1,6 @@
 package com.uwetrottmann.wpdisplay.util;
 
+import com.uwetrottmann.wpdisplay.model.StatusData;
 import de.greenrobot.event.EventBus;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -13,9 +14,9 @@ import timber.log.Timber;
 public class DataRequestRunnable implements Runnable {
 
     public static class DataEvent {
-        public int[] data;
+        public StatusData data;
 
-        public DataEvent(int[] data) {
+        public DataEvent(StatusData data) {
             this.data = data;
         }
     }
@@ -69,15 +70,17 @@ public class DataRequestRunnable implements Runnable {
             in.readInt();
             // length (from server, so untrusted!)
             // cap maximum number of bytes read
-            int length = Math.min(in.readInt(), RESPONSE_LENGTH_BYTES_MAX);
+            int length = Math.min(in.readInt(), StatusData.LENGTH_BYTES);
+
+            // create array with max size
+            int[] data = new int[StatusData.LENGTH_BYTES];
 
             // try reading sent data
-            int[] data = new int[length];
             for (int i = 0; i < length; i++) {
                 data[i] = in.readInt();
             }
 
-            EventBus.getDefault().post(new DataEvent(data));
+            EventBus.getDefault().post(new DataEvent(new StatusData(data)));
         } catch (IOException e) {
             Timber.e(e, "run: failed to request data");
         }
