@@ -47,6 +47,7 @@ class ConnectRunnable implements Runnable {
         try {
             // connect, create in and out streams
             socket = new Socket(host, port);
+            socket.setSoTimeout(15 * 1000); // 15 sec
             listener.setSocket(socket, socket.getInputStream(), socket.getOutputStream());
 
             // post success
