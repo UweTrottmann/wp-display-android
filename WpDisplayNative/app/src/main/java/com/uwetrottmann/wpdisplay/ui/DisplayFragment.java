@@ -10,6 +10,7 @@ import android.widget.TextView;
 import butterknife.ButterKnife;
 import butterknife.InjectView;
 import com.uwetrottmann.wpdisplay.R;
+import com.uwetrottmann.wpdisplay.model.StatusData;
 import com.uwetrottmann.wpdisplay.util.ConnectionTools;
 import com.uwetrottmann.wpdisplay.util.DataRequestRunnable;
 import de.greenrobot.event.EventBus;
@@ -70,6 +71,7 @@ public class DisplayFragment extends Fragment {
 
     @SuppressWarnings("UnusedDeclaration")
     public void onEventMainThread(DataRequestRunnable.DataEvent event) {
-        textTemperature.setText(String.valueOf(event.data.getTemperatureOutdoors()));
+        textTemperature.setText(
+                String.valueOf(event.data.getTemperature(StatusData.Temperature.OUTDOORS)));
     }
 }

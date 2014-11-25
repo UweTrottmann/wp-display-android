@@ -11,27 +11,43 @@ public class StatusData {
      */
     public final static int LENGTH_BYTES = 80;
 
-    interface Index {
-        /**
-         * All following are temparature values, factor 10, Celsius.
-         */
-        int TEMP_OUTGOING = 10;
-        int TEMP_RETURN = 11;
-        int TEMP_RETURN_SHOULD = 12;
-        int TEMP_OUTDOORS = 15;
-        int TEMP_WATER = 17;
-        int TEMP_WATER_SHOULD = 18;
-        int TEMP_SOURCE_IN = 19;
-        int TEMP_SOURCE_OUT = 20;
+    /**
+     * Temperature values, factor 10, Celsius.
+     */
+    public enum Temperature {
 
-        /**
-         * All following are time values, Seconds.
-         */
-        int TIME_PUMP_ACTIVE = 67;
-        int TIME_REST = 71;
-        int TIME_COMPRESSOR_NOOP = 73;
-        int TIME_RETURN_LOWER = 74;
-        int TIME_RETURN_HIGHER = 75;
+        OUTGOING(10),
+        RETURN(11),
+        RETURN_SHOULD(12),
+        OUTDOORS(15),
+        WATER(17),
+        WATER_SHOULD(18),
+        SOURCE_IN(19),
+        SOURCE_OUT(20);
+
+        public final int offset;
+
+        private Temperature(int offset) {
+            this.offset = offset;
+        }
+    }
+
+    /**
+     * Time values, factor 1, Seconds.
+     */
+    public enum Time {
+
+        TIME_PUMP_ACTIVE(67),
+        TIME_REST(71),
+        TIME_COMPRESSOR_NOOP(73),
+        TIME_RETURN_LOWER(74),
+        TIME_RETURN_HIGHER(75);
+
+        public final int offset;
+
+        private Time(int offset) {
+            this.offset = offset;
+        }
     }
 
     private int[] rawData;
@@ -44,19 +60,33 @@ public class StatusData {
         this.rawData = rawData;
     }
 
-    public double getTemperatureOutdoors() {
-        return getTemperature(Index.TEMP_OUTDOORS);
+    public double getTemperature(Temperature temperature) {
+        int tempRaw = getValueAt(temperature.offset);
+        return tempRaw / 10.0;
     }
 
-    private double getTemperature(int index) {
-        int tempRaw = getValueAt(index);
-        return tempRaw / 10.0;
+    public String getTime(Time time) {
+        int elapsedSeconds = getValueAt(time.offset);
+
+        long hours = 0;
+        long minutes = 0;
+        if (elapsedSeconds >= 3600) {
+            hours = elapsedSeconds / 3600;
+            elapsedSeconds -= hours * 3600;
+        }
+        if (elapsedSeconds >= 60) {
+            minutes = elapsedSeconds / 60;
+            elapsedSeconds -= minutes * 60;
+        }
+        long seconds = elapsedSeconds;
+
+        return hours + " h " + minutes + " min " + seconds + " sec";
     }
 
     private int getValueAt(int index) {
         if (index + 1 > rawData.length) {
             throw new IllegalArgumentException(
-                    "index must be from 0 to array length " + rawData.length);
+                    "offset must be from 0 to array length " + rawData.length);
         }
 
         return rawData[index];
