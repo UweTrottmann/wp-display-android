@@ -3,14 +3,18 @@ package com.uwetrottmann.wpdisplay.util;
 import android.util.Log;
 import de.greenrobot.event.EventBus;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.Socket;
 
 class ConnectRunnable implements Runnable {
 
     public interface ConnectListener {
         Socket getSocket();
+        InputStream getInputStream();
+        OutputStream getOutputStream();
 
-        void setSocket(Socket socket);
+        void setSocket(Socket socket, InputStream in, OutputStream out);
     }
 
     private final ConnectListener listener;
@@ -34,12 +38,24 @@ class ConnectRunnable implements Runnable {
         Log.i(ConnectionTools.TAG, "connect");
 
         try {
+            // connect, create in and out streams
             socket = new Socket("192.168.178.51", 8888);
-            listener.setSocket(socket);
+            listener.setSocket(socket, socket.getInputStream(), socket.getOutputStream());
+
+            // post success
+            EventBus.getDefault().postSticky(new ConnectionTools.ConnectionEvent(true));
+            return;
         } catch (IOException e) {
             Log.e(ConnectionTools.TAG, e.getMessage());
+            if (socket != null) {
+                try {
+                    socket.close();
+                } catch (IOException ignored) {
+                }
+            }
         }
 
-        EventBus.getDefault().postSticky(new ConnectionTools.ConnectionEvent(true));
+        // post failure
+        EventBus.getDefault().postSticky(new ConnectionTools.ConnectionEvent(false));
     }
 }
