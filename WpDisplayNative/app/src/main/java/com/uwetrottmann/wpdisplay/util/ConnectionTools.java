@@ -18,7 +18,7 @@ public class ConnectionTools implements ConnectRunnable.ConnectListener {
         }
     }
 
-    private ExecutorService executor = Executors.newFixedThreadPool(1);
+    private final ExecutorService executor = Executors.newFixedThreadPool(1);
 
     private final ConnectRunnable connectRunnable;
     private final DisconnectRunnable disconnectRunnable;
