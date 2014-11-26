@@ -17,10 +17,10 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import com.uwetrottmann.wpdisplay.R;
 import com.uwetrottmann.wpdisplay.model.StatusData;
+import com.uwetrottmann.wpdisplay.settings.ConnectionSettings;
 import com.uwetrottmann.wpdisplay.util.ConnectionTools;
 import com.uwetrottmann.wpdisplay.util.DataRequestRunnable;
 import de.greenrobot.event.EventBus;
-import java.util.Date;
 import java.util.Locale;
 import org.apache.http.impl.cookie.DateUtils;
 
@@ -104,8 +104,11 @@ public class DisplayFragment extends Fragment {
             return;
         }
 
-        textStatus.setText(event.isConnected ? "Connected at " + DateUtils.formatDate(new Date())
-                : "Disconnected at " + DateUtils.formatDate(new Date()));
+        String host = ConnectionSettings.getHost(getActivity());
+        int port = ConnectionSettings.getPort(getActivity());
+        host = host + ":" + port;
+        textStatus.setText(event.isConnected ? getString(R.string.label_connected, host)
+                : getString(R.string.label_connection_error, host));
     }
 
     @SuppressWarnings("UnusedDeclaration")
