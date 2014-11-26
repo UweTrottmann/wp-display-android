@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.text.SpannableStringBuilder;
-import android.text.Spanned;
 import android.text.style.TextAppearanceSpan;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -158,24 +157,21 @@ public class DisplayFragment extends Fragment {
     private void setTemperature(TextView view, int labelResId, double value) {
         SpannableStringBuilder builder = new SpannableStringBuilder();
 
-        builder.append(String.format(Locale.getDefault(), "%.1f", value));
+        builder.append(getString(labelResId));
         builder.setSpan(new TextAppearanceSpan(getActivity(),
-                        R.style.TextAppearance_AppCompat_Display3), 0, builder.length(),
-                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-        int lengthOld = builder.length();
-        builder.append(getString(R.string.unit_celsius));
-        builder.setSpan(new TextAppearanceSpan(getActivity(),
-                        R.style.TextAppearance_AppCompat_Headline), lengthOld, builder.length(),
-                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                        R.style.TextAppearance_AppCompat_Caption), 0, builder.length(), 0);
 
         builder.append("\n");
 
-        lengthOld = builder.length();
-        builder.append(getString(labelResId));
+        int lengthOld = builder.length();
+        builder.append(String.format(Locale.getDefault(), "%.1f", value));
         builder.setSpan(new TextAppearanceSpan(getActivity(),
-                        R.style.TextAppearance_AppCompat_Caption), lengthOld, builder.length(),
-                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                        R.style.TextAppearance_AppCompat_Display3), lengthOld, builder.length(), 0);
+
+        lengthOld = builder.length();
+        builder.append(getString(R.string.unit_celsius));
+        builder.setSpan(new TextAppearanceSpan(getActivity(),
+                        R.style.TextAppearance_App_Unit), lengthOld, builder.length(), 0);
 
         view.setText(builder);
     }
@@ -183,18 +179,16 @@ public class DisplayFragment extends Fragment {
     private void setTime(TextView view, int labelResId, String value) {
         SpannableStringBuilder builder = new SpannableStringBuilder();
 
-        builder.append(value);
+        builder.append(getString(labelResId));
         builder.setSpan(new TextAppearanceSpan(getActivity(),
-                        R.style.TextAppearance_AppCompat_Display1), 0, builder.length(),
-                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                        R.style.TextAppearance_AppCompat_Caption), 0, builder.length(), 0);
 
         builder.append("\n");
 
         int lengthOld = builder.length();
-        builder.append(getString(labelResId));
+        builder.append(value);
         builder.setSpan(new TextAppearanceSpan(getActivity(),
-                        R.style.TextAppearance_AppCompat_Caption), lengthOld, builder.length(),
-                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+                        R.style.TextAppearance_AppCompat_Display1), lengthOld, builder.length(), 0);
 
         view.setText(builder);
     }

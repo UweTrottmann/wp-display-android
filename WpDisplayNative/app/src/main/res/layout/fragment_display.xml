@@ -18,6 +18,7 @@
             android:id="@+id/buttonDisplayPause"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/padding_default"
             android:text="@string/action_pause" />
 
         <!-- Give focus to prevent auto-scroll to selectable text views -->
@@ -25,6 +26,7 @@
             android:id="@+id/textViewDisplayStatus"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/padding_default"
             android:focusable="true"
             android:focusableInTouchMode="true"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
@@ -33,80 +35,113 @@
             android:id="@+id/textViewDisplayTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            tools:text="Wed, 26 Nov 2014 09:00:57 GMT+00:00"
+            android:layout_marginBottom="@dimen/padding_default"
+            tools:text="Nov 16, 2014 17:00:57 PM"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
             android:textIsSelectable="true" />
 
-        <TextView
-            android:id="@+id/textViewDisplayTempOutgoing"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:text="12.4"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display3"
-            android:textIsSelectable="true" />
+            android:layout_marginBottom="@dimen/padding_default"
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/textViewDisplayTempReturn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="12.4"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display3"
-            android:textIsSelectable="true" />
+            <TextView
+                android:id="@+id/textViewDisplayTempOutgoing"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                tools:text="12.4"
+                android:textIsSelectable="true" />
 
-        <TextView
-            android:id="@+id/textViewDisplayTempOutdoors"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="12.4"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display3"
-            android:textIsSelectable="true" />
+            <TextView
+                android:id="@+id/textViewDisplayTempReturn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                tools:text="12.4"
+                android:textIsSelectable="true" />
 
-        <TextView
-            android:id="@+id/textViewDisplayTempReturnShould"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="12.4"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display3"
-            android:textIsSelectable="true" />
+        </LinearLayout>
 
-        <TextView
-            android:id="@+id/textViewDisplayTempWater"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:text="12.4"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display3"
-            android:textIsSelectable="true" />
+            android:layout_marginBottom="@dimen/padding_default"
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/textViewDisplayTempWaterShould"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="12.4"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display3"
-            android:textIsSelectable="true" />
+            <TextView
+                android:id="@+id/textViewDisplayTempOutdoors"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                tools:text="12.4"
+                android:textIsSelectable="true" />
 
-        <TextView
-            android:id="@+id/textViewDisplayTempSourceIn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            tools:text="12.4"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display3"
-            android:textIsSelectable="true" />
+            <TextView
+                android:id="@+id/textViewDisplayTempReturnShould"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                tools:text="12.4"
+                android:textIsSelectable="true" />
 
-        <TextView
-            android:id="@+id/textViewDisplayTempSourceOut"
-            android:layout_width="wrap_content"
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            tools:text="12.4"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display3"
-            android:textIsSelectable="true" />
+            android:layout_marginBottom="@dimen/padding_default"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textViewDisplayTempWater"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                tools:text="12.4"
+                android:textIsSelectable="true" />
+
+            <TextView
+                android:id="@+id/textViewDisplayTempWaterShould"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                tools:text="12.4"
+                android:textIsSelectable="true" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/padding_default"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/textViewDisplayTempSourceIn"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                tools:text="12.4"
+                android:textIsSelectable="true" />
+
+            <TextView
+                android:id="@+id/textViewDisplayTempSourceOut"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                tools:text="12.4"
+                android:textIsSelectable="true" />
+
+        </LinearLayout>
 
         <TextView
             android:id="@+id/textViewDisplayTimeActive"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/padding_default"
             tools:text="1h 2min 3sec"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
             android:textIsSelectable="true" />
 
         <TextView
@@ -114,7 +149,6 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             tools:text="1h 2min 3sec"
-            android:textAppearance="@style/TextAppearance.AppCompat.Display1"
             android:textIsSelectable="true" />
 
     </LinearLayout>
