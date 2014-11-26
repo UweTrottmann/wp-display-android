@@ -7,6 +7,7 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
+import android.text.format.DateUtils;
 import android.text.style.TextAppearanceSpan;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -22,7 +23,6 @@ import com.uwetrottmann.wpdisplay.util.ConnectionTools;
 import com.uwetrottmann.wpdisplay.util.DataRequestRunnable;
 import de.greenrobot.event.EventBus;
 import java.util.Locale;
-import org.apache.http.impl.cookie.DateUtils;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -48,6 +48,8 @@ public class DisplayFragment extends Fragment {
             Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_display, container, false);
         ButterKnife.inject(this, v);
+
+        setStatusText(R.string.label_connecting);
 
         buttonPause.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,11 +106,14 @@ public class DisplayFragment extends Fragment {
             return;
         }
 
+        setStatusText(
+                event.isConnected ? R.string.label_connected : R.string.label_connection_error);
+    }
+
+    private void setStatusText(int statusResId) {
         String host = ConnectionSettings.getHost(getActivity());
         int port = ConnectionSettings.getPort(getActivity());
-        host = host + ":" + port;
-        textStatus.setText(event.isConnected ? getString(R.string.label_connected, host)
-                : getString(R.string.label_connection_error, host));
+        textStatus.setText(getString(statusResId, host + ":" + port));
     }
 
     @SuppressWarnings("UnusedDeclaration")
@@ -139,7 +144,9 @@ public class DisplayFragment extends Fragment {
         setTime(textTimeInactive, R.string.label_time_compressor_inactive,
                 event.data.getTime(StatusData.Time.TIME_COMPRESSOR_NOOP));
 
-        textTime.setText(DateUtils.formatDate(event.data.getTimestamp()));
+        textTime.setText(
+                DateUtils.formatDateTime(getActivity(), event.data.getTimestamp().getTime(),
+                        DateUtils.FORMAT_ABBREV_ALL));
 
         // request new data
         ConnectionTools.get(getActivity()).requestStatusDataDelayed();

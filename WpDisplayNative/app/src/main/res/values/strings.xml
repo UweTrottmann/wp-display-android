@@ -10,6 +10,7 @@
     <string name="action_pause">Pause</string>
     <string name="action_resume">Resume</string>
 
+    <string name="label_connecting">Connecting to %s…</string>
     <string name="label_connected">Connected to %s</string>
     <string name="label_connection_error">Could not connect to %s</string>
 

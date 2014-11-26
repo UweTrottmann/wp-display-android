@@ -61,7 +61,7 @@ public class ConnectionTools implements ConnectionListener {
      * Immediately requests data.
      */
     public void requestStatusData() {
-        if (isPaused) {
+        if (isPaused() || !isConnected()) {
             return;
         }
         executor.execute(requestRunnable);
@@ -71,7 +71,7 @@ public class ConnectionTools implements ConnectionListener {
      * Requests data, delayed by 2 seconds.
      */
     public void requestStatusDataDelayed() {
-        if (isPaused) {
+        if (isPaused() || !isConnected()) {
             return;
         }
         executor.schedule(requestRunnable, 2, TimeUnit.SECONDS);
@@ -82,6 +82,10 @@ public class ConnectionTools implements ConnectionListener {
      */
     public synchronized void pause(boolean enable) {
         isPaused = enable;
+    }
+
+    private synchronized boolean isConnected() {
+        return socket != null && socket.isConnected();
     }
 
     /**

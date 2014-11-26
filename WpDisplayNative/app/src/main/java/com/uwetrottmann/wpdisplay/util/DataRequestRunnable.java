@@ -5,6 +5,7 @@ import de.greenrobot.event.EventBus;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
+import java.net.Socket;
 import timber.log.Timber;
 
 /**
@@ -34,6 +35,12 @@ public class DataRequestRunnable implements Runnable {
     public void run() {
         // Moves the current Thread into the background
         android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_BACKGROUND);
+
+        Socket socket = listener.getSocket();
+        if (socket == null || !socket.isConnected()) {
+            Timber.e("run: failed, no connection");
+            return;
+        }
 
         Timber.d("run: requesting status data");
 
