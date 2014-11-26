@@ -21,15 +21,9 @@ public class DataRequestRunnable implements Runnable {
         }
     }
 
-    /**
-     * Maximum length of data read. Sent data is 183 bytes long, but we don't care about the rest,
-     * yet.
-     */
-    private final static int RESPONSE_LENGTH_BYTES_MAX = 80;
+    private final ConnectionListener listener;
 
-    private final ConnectRunnable.ConnectListener listener;
-
-    public DataRequestRunnable(ConnectRunnable.ConnectListener listener) {
+    public DataRequestRunnable(ConnectionListener listener) {
         if (listener == null) {
             throw new IllegalArgumentException("listener must not be null");
         }
@@ -40,6 +34,8 @@ public class DataRequestRunnable implements Runnable {
     public void run() {
         // Moves the current Thread into the background
         android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_BACKGROUND);
+
+        Timber.d("run: requesting status data");
 
         DataInputStream in = listener.getInputStream();
         DataOutputStream out = listener.getOutputStream();
@@ -80,7 +76,12 @@ public class DataRequestRunnable implements Runnable {
                 data[i] = in.readInt();
             }
 
-            EventBus.getDefault().post(new DataEvent(new StatusData(data)));
+            // don't update data if we have been paused
+            if (listener.isPaused()) {
+                Timber.d("run: not posting data, paused");
+                return;
+            }
+            EventBus.getDefault().postSticky(new DataEvent(new StatusData(data)));
         } catch (IOException e) {
             Timber.e(e, "run: failed to request data");
         }

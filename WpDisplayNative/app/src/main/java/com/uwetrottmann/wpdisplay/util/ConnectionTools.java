@@ -5,10 +5,11 @@ import java.io.DataOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.Socket;
-import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
-public class ConnectionTools implements ConnectRunnable.ConnectListener {
+public class ConnectionTools implements ConnectionListener {
 
     private static ConnectionTools _instance;
 
@@ -20,7 +21,7 @@ public class ConnectionTools implements ConnectRunnable.ConnectListener {
         }
     }
 
-    private final ExecutorService executor = Executors.newFixedThreadPool(1);
+    private final ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
 
     private final ConnectRunnable connectRunnable;
     private final DisconnectRunnable disconnectRunnable;
@@ -29,6 +30,8 @@ public class ConnectionTools implements ConnectRunnable.ConnectListener {
     private Socket socket;
     private DataInputStream inputStream;
     private DataOutputStream outputStream;
+
+    private boolean isPaused;
 
     public synchronized static ConnectionTools get() {
         if (_instance == null) {
@@ -51,8 +54,39 @@ public class ConnectionTools implements ConnectRunnable.ConnectListener {
         executor.execute(disconnectRunnable);
     }
 
+    /**
+     * Immediately requests data.
+     */
     public void requestStatusData() {
+        if (isPaused) {
+            return;
+        }
         executor.execute(requestRunnable);
+    }
+
+    /**
+     * Requests data, delayed by 2 seconds.
+     */
+    public void requestStatusDataDelayed() {
+        if (isPaused) {
+            return;
+        }
+        executor.schedule(requestRunnable, 2, TimeUnit.SECONDS);
+    }
+
+    /**
+     * Any request calls will be ignored until pause is disabled.
+     */
+    public synchronized void pause(boolean enable) {
+        isPaused = enable;
+    }
+
+    /**
+     * Whether request calls are currently ignored.
+     */
+    @Override
+    public boolean isPaused() {
+        return isPaused;
     }
 
     @Override

@@ -1,29 +1,15 @@
 package com.uwetrottmann.wpdisplay.util;
 
 import de.greenrobot.event.EventBus;
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.net.Socket;
 import timber.log.Timber;
 
 class ConnectRunnable implements Runnable {
 
-    public interface ConnectListener {
-        Socket getSocket();
+    private final ConnectionListener listener;
 
-        DataInputStream getInputStream();
-
-        DataOutputStream getOutputStream();
-
-        void setSocket(Socket socket, InputStream in, OutputStream out);
-    }
-
-    private final ConnectListener listener;
-
-    public ConnectRunnable(ConnectListener listener) {
+    public ConnectRunnable(ConnectionListener listener) {
         if (listener == null) {
             throw new IllegalArgumentException("listener must not be null");
         }

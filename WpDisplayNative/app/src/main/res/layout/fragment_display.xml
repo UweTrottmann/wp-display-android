@@ -7,10 +7,10 @@
     tools:context="com.uwetrottmann.wpdisplay.ui.DisplayFragment">
 
     <Button
-        android:id="@+id/buttonDisplayGetData"
+        android:id="@+id/buttonDisplayPause"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/action_get_data" />
+        android:text="@string/action_pause" />
 
     <TextView
         android:id="@+id/textViewDisplayStatus"
@@ -19,7 +19,13 @@
         android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
     <TextView
-        android:id="@+id/textViewTemperature"
+        android:id="@+id/textViewDisplayTemperature"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1" />
+
+    <TextView
+        android:id="@+id/textViewDisplayTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="@style/TextAppearance.AppCompat.Display1" />

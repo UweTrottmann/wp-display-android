@@ -9,9 +9,9 @@ import timber.log.Timber;
 
 public class DisconnectRunnable implements Runnable {
 
-    private final ConnectRunnable.ConnectListener listener;
+    private final ConnectionListener listener;
 
-    public DisconnectRunnable(ConnectRunnable.ConnectListener listener) {
+    public DisconnectRunnable(ConnectionListener listener) {
         if (listener == null) {
             throw new IllegalArgumentException("listener must not be null");
         }

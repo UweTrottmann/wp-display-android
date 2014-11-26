@@ -1,5 +1,7 @@
 package com.uwetrottmann.wpdisplay.model;
 
+import java.util.Date;
+
 /**
  * Holder object for heat pump controller status data.
  */
@@ -51,6 +53,7 @@ public class StatusData {
     }
 
     private int[] rawData;
+    private Date timestamp;
 
     public StatusData(int[] rawData) {
         if (rawData.length != LENGTH_BYTES) {
@@ -58,13 +61,27 @@ public class StatusData {
                     "array is not size " + LENGTH_BYTES + " but was " + rawData.length);
         }
         this.rawData = rawData;
+        this.timestamp = new Date();
     }
 
+    /**
+     * Return the {@link java.util.Date} this status data was stored.
+     */
+    public Date getTimestamp() {
+        return timestamp;
+    }
+
+    /**
+     * Get a Celsius temperature value.
+     */
     public double getTemperature(Temperature temperature) {
         int tempRaw = getValueAt(temperature.offset);
         return tempRaw / 10.0;
     }
 
+    /**
+     * Get a time duration string, formatted like "1h 2min 3sec".
+     */
     public String getTime(Time time) {
         int elapsedSeconds = getValueAt(time.offset);
 
@@ -80,7 +97,7 @@ public class StatusData {
         }
         long seconds = elapsedSeconds;
 
-        return hours + " h " + minutes + " min " + seconds + " sec";
+        return hours + "h " + minutes + "min " + seconds + "sec";
     }
 
     private int getValueAt(int index) {

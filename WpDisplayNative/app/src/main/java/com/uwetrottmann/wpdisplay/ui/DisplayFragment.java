@@ -22,9 +22,10 @@ import org.apache.http.impl.cookie.DateUtils;
  */
 public class DisplayFragment extends Fragment {
 
-    @InjectView(R.id.buttonDisplayGetData) Button buttonGetData;
+    @InjectView(R.id.buttonDisplayPause) Button buttonPause;
     @InjectView(R.id.textViewDisplayStatus) TextView textStatus;
-    @InjectView(R.id.textViewTemperature) TextView textTemperature;
+    @InjectView(R.id.textViewDisplayTemperature) TextView textTemperature;
+    @InjectView(R.id.textViewDisplayTime) TextView textTime;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -32,12 +33,21 @@ public class DisplayFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_display, container, false);
         ButterKnife.inject(this, v);
 
-        buttonGetData.setOnClickListener(new View.OnClickListener() {
+        buttonPause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                ConnectionTools.get().requestStatusData();
+                if (ConnectionTools.get().isPaused()) {
+                    ConnectionTools.get().pause(false);
+                    ConnectionTools.get().requestStatusData();
+                    buttonPause.setText(R.string.action_pause);
+                } else {
+                    ConnectionTools.get().pause(true);
+                    buttonPause.setText(R.string.action_resume);
+                }
             }
         });
+        buttonPause.setText(
+                ConnectionTools.get().isPaused() ? R.string.action_resume : R.string.action_pause);
 
         return v;
     }
@@ -47,6 +57,7 @@ public class DisplayFragment extends Fragment {
         super.onStart();
 
         EventBus.getDefault().registerSticky(this);
+        ConnectionTools.get().requestStatusData();
     }
 
     @Override
@@ -65,13 +76,25 @@ public class DisplayFragment extends Fragment {
 
     @SuppressWarnings("UnusedDeclaration")
     public void onEventMainThread(ConnectionTools.ConnectionEvent event) {
+        if (!isAdded()) {
+            return;
+        }
+
         textStatus.setText(event.isConnected ? "Connected at " + DateUtils.formatDate(new Date())
                 : "Disconnected at " + DateUtils.formatDate(new Date()));
     }
 
     @SuppressWarnings("UnusedDeclaration")
     public void onEventMainThread(DataRequestRunnable.DataEvent event) {
+        if (!isAdded()) {
+            return;
+        }
+
         textTemperature.setText(
                 String.valueOf(event.data.getTemperature(StatusData.Temperature.OUTDOORS)));
+        textTime.setText(DateUtils.formatDate(event.data.getTimestamp()));
+
+        // request new data
+        ConnectionTools.get().requestStatusDataDelayed();
     }
 }
