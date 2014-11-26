@@ -43,7 +43,6 @@ public class NavigationDrawerFragment extends Fragment {
     private DrawerLayout mDrawerLayout;
     private ListView mDrawerListView;
 
-    private View mFragmentContainerView;
     private int mCurrentSelectedPosition = 0;
     private boolean mFromSavedInstanceState;
     private boolean mUserLearnedDrawer;
@@ -102,14 +101,13 @@ public class NavigationDrawerFragment extends Fragment {
     /**
      * Users of this fragment must call this method to set up the navigation drawer interactions.
      *
-     * @param fragmentId The android:id of this fragment in its activity's layout.
      * @param drawerLayout The DrawerLayout containing this fragment's UI.
+     * @param actionBarToolbar The Toolbar used as the action bar.
      */
-    public void setUp(int fragmentId, DrawerLayout drawerLayout, Toolbar actionBarToolbar) {
+    public void setUp(DrawerLayout drawerLayout, Toolbar actionBarToolbar) {
         actionBarToolbar.setNavigationIcon(R.drawable.ic_drawer);
         actionBarToolbar.setNavigationContentDescription(R.string.navigation_drawer_open);
 
-        mFragmentContainerView = getActivity().findViewById(fragmentId);
         mDrawerLayout = drawerLayout;
 
         // set a custom shadow that overlays the main content when the drawer opens
@@ -149,7 +147,7 @@ public class NavigationDrawerFragment extends Fragment {
         // If the user hasn't 'learned' about the drawer, open it to introduce them to the drawer,
         // per the navigation drawer design guidelines.
         if (!mUserLearnedDrawer && !mFromSavedInstanceState) {
-            mDrawerLayout.openDrawer(mFragmentContainerView);
+            mDrawerLayout.openDrawer(GravityCompat.START);
         }
     }
 
@@ -159,7 +157,7 @@ public class NavigationDrawerFragment extends Fragment {
             mDrawerListView.setItemChecked(position, true);
         }
         if (mDrawerLayout != null) {
-            mDrawerLayout.closeDrawer(mFragmentContainerView);
+            mDrawerLayout.closeDrawer(GravityCompat.START);
         }
         if (mCallbacks != null) {
             mCallbacks.onNavigationDrawerItemSelected(position);

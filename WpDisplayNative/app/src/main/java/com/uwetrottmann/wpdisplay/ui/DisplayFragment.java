@@ -1,7 +1,10 @@
 package com.uwetrottmann.wpdisplay.ui;
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.ActionBar;
+import android.support.v7.app.ActionBarActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,6 +53,14 @@ public class DisplayFragment extends Fragment {
                 ConnectionTools.get().isPaused() ? R.string.action_resume : R.string.action_pause);
 
         return v;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+
+        ActionBar actionBar = ((ActionBarActivity) getActivity()).getSupportActionBar();
+        actionBar.setTitle(R.string.title_display);
     }
 
     @Override

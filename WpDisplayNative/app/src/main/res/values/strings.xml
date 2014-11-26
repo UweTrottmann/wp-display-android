@@ -12,4 +12,7 @@
 
     <string name="label_temp_outdoors">Outdoors</string>
 
+    <string name="label_host">Host (e.g. 192.168.0.42)</string>
+    <string name="label_port">Port (e.g. 8888)</string>
+
 </resources>
