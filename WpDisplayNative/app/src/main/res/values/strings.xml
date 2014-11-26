@@ -11,6 +11,8 @@
     <string name="action_resume">Resume</string>
 
     <string name="label_temp_outdoors">Outdoors</string>
+    <string name="label_time_pump_active">Pump active</string>
+    <string name="label_time_compressor_inactive">Compressor inactive</string>
 
     <string name="label_host">Host (e.g. 192.168.0.42)</string>
     <string name="label_port">Port (e.g. 8888)</string>

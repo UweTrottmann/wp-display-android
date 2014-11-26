@@ -32,6 +32,8 @@ public class DisplayFragment extends Fragment {
     @InjectView(R.id.buttonDisplayPause) Button buttonPause;
     @InjectView(R.id.textViewDisplayStatus) TextView textStatus;
     @InjectView(R.id.textViewDisplayTemperature) TextView textTemperature;
+    @InjectView(R.id.textViewDisplayTimeActive) TextView textTimeActive;
+    @InjectView(R.id.textViewDisplayTimeInactive) TextView textTimeInactive;
     @InjectView(R.id.textViewDisplayTime) TextView textTime;
 
     @Override
@@ -107,6 +109,11 @@ public class DisplayFragment extends Fragment {
 
         setTemperature(textTemperature, R.string.label_temp_outdoors,
                 event.data.getTemperature(StatusData.Temperature.OUTDOORS));
+        setTime(textTimeActive, R.string.label_time_pump_active,
+                event.data.getTime(StatusData.Time.TIME_PUMP_ACTIVE));
+        setTime(textTimeInactive, R.string.label_time_compressor_inactive,
+                event.data.getTime(StatusData.Time.TIME_COMPRESSOR_NOOP));
+
         textTime.setText(DateUtils.formatDate(event.data.getTimestamp()));
 
         // request new data
@@ -130,6 +137,25 @@ public class DisplayFragment extends Fragment {
         builder.append("\n");
 
         lengthOld = builder.length();
+        builder.append(getString(labelResId));
+        builder.setSpan(new TextAppearanceSpan(getActivity(),
+                        R.style.TextAppearance_AppCompat_Caption), lengthOld, builder.length(),
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        view.setText(builder);
+    }
+
+    private void setTime(TextView view, int labelResId, String value) {
+        SpannableStringBuilder builder = new SpannableStringBuilder();
+
+        builder.append(value);
+        builder.setSpan(new TextAppearanceSpan(getActivity(),
+                        R.style.TextAppearance_AppCompat_Display1), 0, builder.length(),
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        builder.append("\n");
+
+        int lengthOld = builder.length();
         builder.append(getString(labelResId));
         builder.setSpan(new TextAppearanceSpan(getActivity(),
                         R.style.TextAppearance_AppCompat_Caption), lengthOld, builder.length(),
