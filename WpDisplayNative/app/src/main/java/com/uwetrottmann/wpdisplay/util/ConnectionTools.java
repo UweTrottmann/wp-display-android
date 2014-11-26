@@ -16,16 +16,21 @@ public class ConnectionTools implements ConnectionListener {
     private static ConnectionTools _instance;
 
     public static class ConnectionEvent {
+        public boolean isConnecting;
         public boolean isConnected;
+        public String host;
+        public int port;
 
-        public ConnectionEvent(boolean isConnected) {
+        public ConnectionEvent(boolean isConnecting, boolean isConnected, String host, int port) {
+            this.isConnecting = isConnecting;
             this.isConnected = isConnected;
+            this.host = host;
+            this.port = port;
         }
     }
 
     private final ScheduledExecutorService executor = Executors.newScheduledThreadPool(1);
 
-    private final ConnectRunnable connectRunnable;
     private final DisconnectRunnable disconnectRunnable;
     private final DataRequestRunnable requestRunnable;
 
@@ -35,43 +40,42 @@ public class ConnectionTools implements ConnectionListener {
 
     private boolean isPaused;
 
-    public synchronized static ConnectionTools get(Context context) {
+    public synchronized static ConnectionTools get() {
         if (_instance == null) {
-            _instance = new ConnectionTools(context.getApplicationContext());
+            _instance = new ConnectionTools();
         }
         return _instance;
     }
 
-    private ConnectionTools(Context context) {
-        connectRunnable = new ConnectRunnable(this, ConnectionSettings.getHost(context),
-                ConnectionSettings.getPort(context));
+    private ConnectionTools() {
         disconnectRunnable = new DisconnectRunnable(this);
         requestRunnable = new DataRequestRunnable(this);
     }
 
-    public void connect() {
-        executor.execute(connectRunnable);
+    public synchronized void connect(Context context) {
+        executor.execute(new ConnectRunnable(this, ConnectionSettings.getHost(context),
+                ConnectionSettings.getPort(context)));
     }
 
-    public void disconnect() {
+    public synchronized void disconnect() {
         executor.execute(disconnectRunnable);
     }
 
     /**
      * Immediately requests data.
      */
-    public void requestStatusData() {
-        if (isPaused() || !isConnected()) {
+    public synchronized void requestStatusData() {
+        if (isPaused()) {
             return;
         }
-        executor.execute(requestRunnable);
+        executor.schedule(requestRunnable, 0, TimeUnit.SECONDS);
     }
 
     /**
      * Requests data, delayed by 2 seconds.
      */
-    public void requestStatusDataDelayed() {
-        if (isPaused() || !isConnected()) {
+    public synchronized void requestStatusDataDelayed() {
+        if (isPaused()) {
             return;
         }
         executor.schedule(requestRunnable, 2, TimeUnit.SECONDS);
@@ -82,10 +86,6 @@ public class ConnectionTools implements ConnectionListener {
      */
     public synchronized void pause(boolean enable) {
         isPaused = enable;
-    }
-
-    private synchronized boolean isConnected() {
-        return socket != null && socket.isConnected();
     }
 
     /**

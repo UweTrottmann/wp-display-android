@@ -30,17 +30,6 @@ public class MainActivity extends ActionBarActivity
                     .commit();
         }
         navDrawerFragment.setUp((DrawerLayout) findViewById(R.id.drawer_layout), actionBarToolbar);
-
-        // setup connection fragment
-        ConnectionFragment connectionFragment
-                = (ConnectionFragment) getSupportFragmentManager().findFragmentByTag(
-                "connection");
-        if (connectionFragment == null) {
-            connectionFragment = new ConnectionFragment();
-            getSupportFragmentManager().beginTransaction()
-                    .add(connectionFragment, "connection")
-                    .commit();
-        }
     }
 
     @Override

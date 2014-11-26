@@ -18,7 +18,6 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import com.uwetrottmann.wpdisplay.R;
 import com.uwetrottmann.wpdisplay.model.StatusData;
-import com.uwetrottmann.wpdisplay.settings.ConnectionSettings;
 import com.uwetrottmann.wpdisplay.util.ConnectionTools;
 import com.uwetrottmann.wpdisplay.util.DataRequestRunnable;
 import de.greenrobot.event.EventBus;
@@ -49,23 +48,22 @@ public class DisplayFragment extends Fragment {
         View v = inflater.inflate(R.layout.fragment_display, container, false);
         ButterKnife.inject(this, v);
 
-        setStatusText(R.string.label_connecting);
-
         buttonPause.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (ConnectionTools.get(v.getContext()).isPaused()) {
-                    ConnectionTools.get(v.getContext()).pause(false);
-                    ConnectionTools.get(v.getContext()).requestStatusData();
+                if (ConnectionTools.get().isPaused()) {
+                    ConnectionTools.get().pause(false);
+                    ConnectionTools.get().requestStatusData();
                     buttonPause.setText(R.string.action_pause);
                 } else {
-                    ConnectionTools.get(v.getContext()).pause(true);
+                    ConnectionTools.get().pause(true);
                     buttonPause.setText(R.string.action_resume);
                 }
             }
         });
-        buttonPause.setText(ConnectionTools.get(v.getContext()).isPaused() ? R.string.action_resume
+        buttonPause.setText(ConnectionTools.get().isPaused() ? R.string.action_resume
                 : R.string.action_pause);
+        buttonPause.setEnabled(false);
 
         return v;
     }
@@ -83,13 +81,15 @@ public class DisplayFragment extends Fragment {
         super.onStart();
 
         EventBus.getDefault().registerSticky(this);
-        ConnectionTools.get(getActivity()).requestStatusData();
+        ConnectionTools.get().connect(getActivity());
+        ConnectionTools.get().requestStatusData();
     }
 
     @Override
     public void onStop() {
         super.onStop();
 
+        ConnectionTools.get().disconnect();
         EventBus.getDefault().unregister(this);
     }
 
@@ -106,14 +106,18 @@ public class DisplayFragment extends Fragment {
             return;
         }
 
-        setStatusText(
-                event.isConnected ? R.string.label_connected : R.string.label_connection_error);
-    }
+        buttonPause.setEnabled(event.isConnected);
 
-    private void setStatusText(int statusResId) {
-        String host = ConnectionSettings.getHost(getActivity());
-        int port = ConnectionSettings.getPort(getActivity());
-        textStatus.setText(getString(statusResId, host + ":" + port));
+        // status text
+        int statusResId;
+        if (event.isConnecting) {
+            statusResId = R.string.label_connecting;
+        } else if (event.isConnected) {
+            statusResId = R.string.label_connected;
+        } else {
+            statusResId = R.string.label_connection_error;
+        }
+        textStatus.setText(getString(statusResId, event.host + ":" + event.port));
     }
 
     @SuppressWarnings("UnusedDeclaration")
@@ -149,7 +153,7 @@ public class DisplayFragment extends Fragment {
                         DateUtils.FORMAT_ABBREV_ALL));
 
         // request new data
-        ConnectionTools.get(getActivity()).requestStatusDataDelayed();
+        ConnectionTools.get().requestStatusDataDelayed();
     }
 
     private void setTemperature(TextView view, int labelResId, double value) {

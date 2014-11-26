@@ -1,6 +1,5 @@
 package com.uwetrottmann.wpdisplay.util;
 
-import de.greenrobot.event.EventBus;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -45,7 +44,5 @@ public class DisconnectRunnable implements Runnable {
         }
 
         listener.setSocket(null, null, null);
-
-        EventBus.getDefault().postSticky(new ConnectionTools.ConnectionEvent(false));
     }
 }
