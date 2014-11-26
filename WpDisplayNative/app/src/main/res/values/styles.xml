@@ -9,8 +9,6 @@
 
     <style name="Widget.App" />
 
-    <style name="Widget.App.ActionBar">
-        <item name="android:background">?attr/colorPrimary</item>
-    </style>
+    <style name="Widget.App.ActionBar"/>
 
 </resources>
