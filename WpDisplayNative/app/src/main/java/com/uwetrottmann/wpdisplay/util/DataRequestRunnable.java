@@ -42,6 +42,10 @@ public class DataRequestRunnable implements Runnable {
             return;
         }
 
+        if (Thread.interrupted()) {
+            return;
+        }
+
         Timber.d("run: requesting status data");
 
         DataInputStream in = listener.getInputStream();
