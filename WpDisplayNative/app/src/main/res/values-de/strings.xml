@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">WpDisplay</string>
+    <string name="navigation_drawer_open">Navigation öffnen</string>
+
+    <string name="title_display">Anzeige</string>
+    <string name="title_settings">Einstellungen</string>
+
+    <string name="action_pause">Pause</string>
+    <string name="action_resume">Fortsetzen</string>
+
+    <string name="label_temp_outgoing">Vorlauf</string>
+    <string name="label_temp_return">Rücklauf</string>
+    <string name="label_temp_return_should">Rücklauf Soll</string>
+    <string name="label_temp_water">Wasser</string>
+    <string name="label_temp_water_should">Wasser Soll</string>
+    <string name="label_temp_outdoors">Außen</string>
+    <string name="label_temp_source_in">Wärmequelle Eingehend</string>
+    <string name="label_temp_source_out">Wärmequelle Ausgehend</string>
+    <string name="label_time_pump_active">Pumpe aktiv</string>
+    <string name="label_time_compressor_inactive">Verdichter Stillstand</string>
+
+    <string name="label_host">Kontrollgerät Host/IP-Adresse (z.B. 192.168.0.42)</string>
+    <string name="label_port">Kontrollgerät Port (z.B. 8888)</string>
+
+</resources>
