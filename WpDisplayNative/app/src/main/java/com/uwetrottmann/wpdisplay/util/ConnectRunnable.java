@@ -8,12 +8,16 @@ import timber.log.Timber;
 class ConnectRunnable implements Runnable {
 
     private final ConnectionListener listener;
+    private final String host;
+    private final int port;
 
-    public ConnectRunnable(ConnectionListener listener) {
+    public ConnectRunnable(ConnectionListener listener, String host, int port) {
         if (listener == null) {
             throw new IllegalArgumentException("listener must not be null");
         }
         this.listener = listener;
+        this.host = host;
+        this.port = port;
     }
 
     @Override
@@ -26,9 +30,6 @@ class ConnectRunnable implements Runnable {
             Timber.d("run: already connected");
         }
         Timber.d("run: connecting");
-
-        String host = "192.168.178.51";
-        int port = 8888;
 
         try {
             // connect, create in and out streams

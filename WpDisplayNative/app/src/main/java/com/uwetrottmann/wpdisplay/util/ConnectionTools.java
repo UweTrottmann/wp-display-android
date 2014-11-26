@@ -1,5 +1,7 @@
 package com.uwetrottmann.wpdisplay.util;
 
+import android.content.Context;
+import com.uwetrottmann.wpdisplay.settings.ConnectionSettings;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.InputStream;
@@ -33,15 +35,16 @@ public class ConnectionTools implements ConnectionListener {
 
     private boolean isPaused;
 
-    public synchronized static ConnectionTools get() {
+    public synchronized static ConnectionTools get(Context context) {
         if (_instance == null) {
-            _instance = new ConnectionTools();
+            _instance = new ConnectionTools(context.getApplicationContext());
         }
         return _instance;
     }
 
-    private ConnectionTools() {
-        connectRunnable = new ConnectRunnable(this);
+    private ConnectionTools(Context context) {
+        connectRunnable = new ConnectRunnable(this, ConnectionSettings.getHost(context),
+                ConnectionSettings.getPort(context));
         disconnectRunnable = new DisconnectRunnable(this);
         requestRunnable = new DataRequestRunnable(this);
     }
