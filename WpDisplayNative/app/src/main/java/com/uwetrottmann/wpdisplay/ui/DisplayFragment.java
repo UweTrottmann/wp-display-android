@@ -31,7 +31,14 @@ public class DisplayFragment extends Fragment {
 
     @InjectView(R.id.buttonDisplayPause) Button buttonPause;
     @InjectView(R.id.textViewDisplayStatus) TextView textStatus;
-    @InjectView(R.id.textViewDisplayTemperature) TextView textTemperature;
+    @InjectView(R.id.textViewDisplayTempOutgoing) TextView textTempOutgoing;
+    @InjectView(R.id.textViewDisplayTempReturn) TextView textTempReturn;
+    @InjectView(R.id.textViewDisplayTempOutdoors) TextView textTempOutdoors;
+    @InjectView(R.id.textViewDisplayTempReturnShould) TextView textTempReturnShould;
+    @InjectView(R.id.textViewDisplayTempWater) TextView textTempWater;
+    @InjectView(R.id.textViewDisplayTempWaterShould) TextView textTempWaterShould;
+    @InjectView(R.id.textViewDisplayTempSourceIn) TextView textTempSourceIn;
+    @InjectView(R.id.textViewDisplayTempSourceOut) TextView textTempSourceOut;
     @InjectView(R.id.textViewDisplayTimeActive) TextView textTimeActive;
     @InjectView(R.id.textViewDisplayTimeInactive) TextView textTimeInactive;
     @InjectView(R.id.textViewDisplayTime) TextView textTime;
@@ -107,8 +114,23 @@ public class DisplayFragment extends Fragment {
             return;
         }
 
-        setTemperature(textTemperature, R.string.label_temp_outdoors,
+        setTemperature(textTempOutgoing, R.string.label_temp_outgoing,
+                event.data.getTemperature(StatusData.Temperature.OUTGOING));
+        setTemperature(textTempReturn, R.string.label_temp_return,
+                event.data.getTemperature(StatusData.Temperature.RETURN));
+        setTemperature(textTempOutdoors, R.string.label_temp_outdoors,
                 event.data.getTemperature(StatusData.Temperature.OUTDOORS));
+        setTemperature(textTempReturnShould, R.string.label_temp_return_should,
+                event.data.getTemperature(StatusData.Temperature.RETURN_SHOULD));
+        setTemperature(textTempWater, R.string.label_temp_water,
+                event.data.getTemperature(StatusData.Temperature.WATER));
+        setTemperature(textTempWaterShould, R.string.label_temp_water_should,
+                event.data.getTemperature(StatusData.Temperature.WATER_SHOULD));
+        setTemperature(textTempSourceIn, R.string.label_temp_source_in,
+                event.data.getTemperature(StatusData.Temperature.SOURCE_IN));
+        setTemperature(textTempSourceOut, R.string.label_temp_source_out,
+                event.data.getTemperature(StatusData.Temperature.SOURCE_OUT));
+
         setTime(textTimeActive, R.string.label_time_pump_active,
                 event.data.getTime(StatusData.Time.TIME_PUMP_ACTIVE));
         setTime(textTimeInactive, R.string.label_time_compressor_inactive,
