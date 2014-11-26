@@ -7,7 +7,6 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.text.SpannableStringBuilder;
 import android.text.Spanned;
-import android.text.format.DateUtils;
 import android.text.style.TextAppearanceSpan;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,6 +20,7 @@ import com.uwetrottmann.wpdisplay.model.StatusData;
 import com.uwetrottmann.wpdisplay.util.ConnectionTools;
 import com.uwetrottmann.wpdisplay.util.DataRequestRunnable;
 import de.greenrobot.event.EventBus;
+import java.text.DateFormat;
 import java.util.Locale;
 
 /**
@@ -148,9 +148,8 @@ public class DisplayFragment extends Fragment {
         setTime(textTimeInactive, R.string.label_time_compressor_inactive,
                 event.data.getTime(StatusData.Time.TIME_COMPRESSOR_NOOP));
 
-        textTime.setText(
-                DateUtils.formatDateTime(getActivity(), event.data.getTimestamp().getTime(),
-                        DateUtils.FORMAT_ABBREV_ALL));
+
+        textTime.setText(DateFormat.getDateTimeInstance().format(event.data.getTimestamp()));
 
         // request new data
         ConnectionTools.get().requestStatusDataDelayed();
