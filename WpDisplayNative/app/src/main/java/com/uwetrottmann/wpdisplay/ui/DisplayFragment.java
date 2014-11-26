@@ -5,6 +5,9 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
+import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.style.TextAppearanceSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +21,7 @@ import com.uwetrottmann.wpdisplay.util.ConnectionTools;
 import com.uwetrottmann.wpdisplay.util.DataRequestRunnable;
 import de.greenrobot.event.EventBus;
 import java.util.Date;
+import java.util.Locale;
 import org.apache.http.impl.cookie.DateUtils;
 
 /**
@@ -101,11 +105,36 @@ public class DisplayFragment extends Fragment {
             return;
         }
 
-        textTemperature.setText(
-                String.valueOf(event.data.getTemperature(StatusData.Temperature.OUTDOORS)));
+        setTemperature(textTemperature, R.string.label_temp_outdoors,
+                event.data.getTemperature(StatusData.Temperature.OUTDOORS));
         textTime.setText(DateUtils.formatDate(event.data.getTimestamp()));
 
         // request new data
         ConnectionTools.get().requestStatusDataDelayed();
+    }
+
+    private void setTemperature(TextView view, int labelResId, double value) {
+        SpannableStringBuilder builder = new SpannableStringBuilder();
+
+        builder.append(String.format(Locale.getDefault(), "%.1f", value));
+        builder.setSpan(new TextAppearanceSpan(getActivity(),
+                        R.style.TextAppearance_AppCompat_Display3), 0, builder.length(),
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        int lengthOld = builder.length();
+        builder.append(getString(R.string.unit_celsius));
+        builder.setSpan(new TextAppearanceSpan(getActivity(),
+                        R.style.TextAppearance_AppCompat_Headline), lengthOld, builder.length(),
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        builder.append("\n");
+
+        lengthOld = builder.length();
+        builder.append(getString(labelResId));
+        builder.setSpan(new TextAppearanceSpan(getActivity(),
+                        R.style.TextAppearance_AppCompat_Caption), lengthOld, builder.length(),
+                Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        view.setText(builder);
     }
 }
