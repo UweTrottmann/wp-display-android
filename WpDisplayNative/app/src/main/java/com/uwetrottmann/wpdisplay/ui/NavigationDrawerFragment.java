@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 import com.uwetrottmann.wpdisplay.R;
+import de.greenrobot.event.EventBus;
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer. See the <a
@@ -25,6 +26,25 @@ import com.uwetrottmann.wpdisplay.R;
  * guidelines</a> for a complete explanation of the behaviors implemented here.
  */
 public class NavigationDrawerFragment extends Fragment {
+
+    public static class NavigationRequest {
+        public Position position;
+
+        public NavigationRequest(Position position) {
+            this.position = position;
+        }
+    }
+
+    public enum Position {
+        DISPLAY(0),
+        SETTINGS(1);
+
+        public final int value;
+
+        private Position(int value) {
+            this.value = value;
+        }
+    }
 
     /**
      * Remember the position of the selected item.
@@ -73,6 +93,7 @@ public class NavigationDrawerFragment extends Fragment {
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
+
         // Indicate that this fragment would like to influence the set of actions in the action bar.
         setHasOptionsMenu(true);
     }
@@ -199,16 +220,21 @@ public class NavigationDrawerFragment extends Fragment {
     @Override
     public void onAttach(Activity activity) {
         super.onAttach(activity);
+
         try {
             mCallbacks = (NavigationDrawerCallbacks) activity;
         } catch (ClassCastException e) {
             throw new ClassCastException("Activity must implement NavigationDrawerCallbacks.");
         }
+
+        EventBus.getDefault().register(this);
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
+
+        EventBus.getDefault().unregister(this);
         mCallbacks = null;
     }
 
@@ -233,6 +259,11 @@ public class NavigationDrawerFragment extends Fragment {
             return true;
         }
         return false;
+    }
+
+    @SuppressWarnings("UnusedDeclaration")
+    public void onEventMainThread(NavigationRequest event) {
+        selectItem(event.position.value);
     }
 
     /**

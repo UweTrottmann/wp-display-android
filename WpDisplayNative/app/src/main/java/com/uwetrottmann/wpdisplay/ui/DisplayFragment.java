@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.ActionBarActivity;
 import android.text.SpannableStringBuilder;
+import android.text.TextUtils;
 import android.text.style.TextAppearanceSpan;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -16,6 +17,7 @@ import butterknife.ButterKnife;
 import butterknife.InjectView;
 import com.uwetrottmann.wpdisplay.R;
 import com.uwetrottmann.wpdisplay.model.StatusData;
+import com.uwetrottmann.wpdisplay.settings.ConnectionSettings;
 import com.uwetrottmann.wpdisplay.util.ConnectionTools;
 import com.uwetrottmann.wpdisplay.util.DataRequestRunnable;
 import de.greenrobot.event.EventBus;
@@ -26,6 +28,10 @@ import java.util.Locale;
  * A simple {@link Fragment} subclass.
  */
 public class DisplayFragment extends Fragment {
+
+    @InjectView(R.id.containerDisplaySnackbar) View snackBar;
+    @InjectView(R.id.textViewDisplaySnackbar) TextView snackBarText;
+    @InjectView(R.id.buttonDisplaySnackbar) Button snackBarButton;
 
     @InjectView(R.id.buttonDisplayPause) Button buttonPause;
     @InjectView(R.id.textViewDisplayStatus) TextView textStatus;
@@ -66,6 +72,11 @@ public class DisplayFragment extends Fragment {
                 : R.string.action_pause);
         buttonPause.setEnabled(false);
 
+        // show empty data
+        populateViews(new StatusData(new int[StatusData.LENGTH_BYTES]));
+
+        showSnackBar(false);
+
         return v;
     }
 
@@ -82,7 +93,26 @@ public class DisplayFragment extends Fragment {
         super.onStart();
 
         EventBus.getDefault().registerSticky(this);
-        ConnectionTools.get().connect(getActivity());
+        connectOrNotify();
+    }
+
+    private void connectOrNotify() {
+        String host = ConnectionSettings.getHost(getActivity());
+        int port = ConnectionSettings.getPort(getActivity());
+        if (TextUtils.isEmpty(host) || port < 0 || port > 65535) {
+            setupSnackBar(R.string.setup_missing, R.string.action_setup,
+                    new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            EventBus.getDefault()
+                                    .post(new NavigationDrawerFragment.NavigationRequest(
+                                            NavigationDrawerFragment.Position.SETTINGS));
+                        }
+                    });
+            showSnackBar(true);
+        } else {
+            ConnectionTools.get().connect(getActivity());
+        }
     }
 
     @Override
@@ -129,8 +159,10 @@ public class DisplayFragment extends Fragment {
             return;
         }
 
-        StatusData data = event.data;
+        populateViews(event.data);
+    }
 
+    private void populateViews(StatusData data) {
         setTemperature(textTempOutgoing, R.string.label_temp_outgoing,
                 data.getTemperature(StatusData.Temperature.OUTGOING));
         setTemperature(textTempReturn, R.string.label_temp_return,
@@ -199,5 +231,20 @@ public class DisplayFragment extends Fragment {
                 R.style.TextAppearance_AppCompat_Display1), lengthOld, builder.length(), 0);
 
         view.setText(builder);
+    }
+
+    private void showSnackBar(boolean visible) {
+        snackBar.setVisibility(visible ? View.VISIBLE : View.GONE);
+    }
+
+    private void setupSnackBar(int titleResId, int actionResId, View.OnClickListener action) {
+        snackBarText.setText(titleResId);
+        if (actionResId > 0 && action != null) {
+            snackBarButton.setText(actionResId);
+            snackBarButton.setOnClickListener(action);
+            snackBarButton.setVisibility(View.VISIBLE);
+        } else {
+            snackBarButton.setVisibility(View.GONE);
+        }
     }
 }
