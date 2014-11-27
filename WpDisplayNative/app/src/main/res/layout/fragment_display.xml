@@ -182,15 +182,18 @@
         android:layout_height="wrap_content"
         android:layout_gravity="bottom"
         android:orientation="horizontal"
-        android:background="@color/snackbar"
-        android:paddingLeft="24dp">
+        android:background="@color/snackbar">
 
         <TextView
             android:id="@+id/textViewDisplaySnackbar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:singleLine="true"
+            android:layout_gravity="center_vertical"
+            android:paddingLeft="24dp"
+            android:paddingTop="@dimen/padding_large"
+            android:paddingBottom="@dimen/padding_large"
+            android:maxLines="2"
             android:ellipsize="end"
             tools:text="@string/setup_missing"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
@@ -200,6 +203,7 @@
             android:id="@+id/buttonDisplaySnackbar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
             android:paddingLeft="24dp"
             android:paddingRight="24dp"
             tools:text="@string/action_setup"

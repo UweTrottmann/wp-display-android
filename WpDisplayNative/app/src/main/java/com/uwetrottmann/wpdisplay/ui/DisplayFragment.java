@@ -173,6 +173,15 @@ public class DisplayFragment extends Fragment {
             ConnectionTools.get().requestStatusData(true);
         } else {
             statusResId = R.string.label_connection_error;
+            setupSnackBar(R.string.message_no_connection, R.string.action_retry,
+                    new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            ConnectionTools.get().connect(getActivity());
+                            showSnackBar(false);
+                        }
+                    });
+            showSnackBar(true);
         }
         textStatus.setText(getString(statusResId, event.host + ":" + event.port));
     }

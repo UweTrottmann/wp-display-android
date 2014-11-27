@@ -12,7 +12,7 @@
 
     <string name="label_connecting">Verbinde mit %s…</string>
     <string name="label_connected">Verbunden mit %s</string>
-    <string name="label_connection_error">Verbindung mit %s nicht möglich.\nÜberprüfen Sie Ihre Netzwerkverbindung und Einstellungen.</string>
+    <string name="label_connection_error">Verbindung mit %s nicht möglich.</string>
 
     <string name="label_temp_outgoing">Vorlauf</string>
     <string name="label_temp_return">Rücklauf</string>
@@ -33,5 +33,7 @@
 
     <string name="setup_missing">Einstellungen unvollständig</string>
     <string name="action_setup">Einrichten</string>
+    <string name="message_no_connection">Keine Verbindung. Netzwerk und Einstellungen überprüfen.</string>
+    <string name="action_retry">Wiederholen</string>
 
 </resources>
