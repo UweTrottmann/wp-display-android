@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">WP Display</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+
+    <string name="title_display">Display</string>
+    <string name="title_settings">Settings</string>
+
+    <string name="action_pause">Pause</string>
+    <string name="action_resume">Resume</string>
+
+    <string name="label_connecting">Connecting to %s…</string>
+    <string name="label_connected">Connected to %s</string>
+    <string name="label_connection_error">Could not connect to %s.</string>
+
+    <string name="label_temp_outgoing">Outgoing</string>
+    <string name="label_temp_return">Return</string>
+    <string name="label_temp_return_should">Return Target</string>
+    <string name="label_temp_water">Hot Water</string>
+    <string name="label_temp_water_should">Hot Water Target</string>
+    <string name="label_temp_outdoors">Outdoors</string>
+    <string name="label_temp_source_in">Heat Source Inflow</string>
+    <string name="label_temp_source_out">Heat Source Outflow</string>
+    <string name="label_time_pump_active">Pump active</string>
+    <string name="label_time_compressor_inactive">Compressor inactive</string>
+    <string name="label_time_rest">Mandatory rest</string>
+    <string name="label_time_return_lower">Return &lt; Target - Hysteresis</string>
+    <string name="label_time_return_higher">Return &gt; Target + Hysteresis</string>
+
+    <string name="label_host">Controller Host/IP-address (e.g. 192.168.0.42)</string>
+    <string name="label_port">Controller Port (default 8888)</string>
+
+    <string name="setup_missing">Configuration incomplete</string>
+    <string name="action_setup">Setup</string>
+    <string name="message_no_connection">Could not connect. Check your network connection and settings.</string>
+    <string name="action_retry">Retry</string>
+
+    <string name="settings_instructions">You can find the IP address of the controller via its settings interface. The default port is 8888.\n\nYou have to be connected to the same network as the controller (e.g. use a VPN connection into your home for remote access).</string>
+
+</resources>

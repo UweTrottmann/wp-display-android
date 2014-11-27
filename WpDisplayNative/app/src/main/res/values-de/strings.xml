@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">WP Display</string>
+    <string name="navigation_drawer_open">Navigation öffnen</string>
+
+    <string name="title_display">Anzeige</string>
+    <string name="title_settings">Einstellungen</string>
+
+    <string name="action_pause">Pause</string>
+    <string name="action_resume">Fortsetzen</string>
+
+    <string name="label_connecting">Verbinde mit %s…</string>
+    <string name="label_connected">Verbunden mit %s</string>
+    <string name="label_connection_error">Verbindung mit %s nicht möglich.</string>
+
+    <string name="label_temp_outgoing">Vorlauf</string>
+    <string name="label_temp_return">Rücklauf</string>
+    <string name="label_temp_return_should">Rücklauf Soll</string>
+    <string name="label_temp_water">Brauchwasser</string>
+    <string name="label_temp_water_should">Brauchwasser Soll</string>
+    <string name="label_temp_outdoors">Außen</string>
+    <string name="label_temp_source_in">Wärmequelle Eingehend</string>
+    <string name="label_temp_source_out">Wärmequelle Ausgehend</string>
+    <string name="label_time_pump_active">Pumpe aktiv</string>
+    <string name="label_time_compressor_inactive">Verdichter Stillstand</string>
+    <string name="label_time_rest">Zwangspause</string>
+    <string name="label_time_return_lower">Rücklauf &lt; Soll - Hysterese</string>
+    <string name="label_time_return_higher">Rücklauf &gt; Soll + Hysterese</string>
+
+    <string name="label_host">Kontrollgerät Host/IP-Adresse (z.B. 192.168.0.42)</string>
+    <string name="label_port">Kontrollgerät Port (Standardmäßig 8888)</string>
+
+    <string name="setup_missing">Einstellungen unvollständig</string>
+    <string name="action_setup">Einrichten</string>
+    <string name="message_no_connection">Keine Verbindung. Netzwerk und Einstellungen überprüfen.</string>
+    <string name="action_retry">Wiederholen</string>
+
+    <string name="settings_instructions">Sie finden die IP-Adresse des Kontrollgeräts in dessen Einstellungen. Der Port ist standardmäßig 8888.\n\nSie müssen mit dem gleichen Netzwerk wie das Kontrollgerät verbunden sein (benutzen Sie z.B. eine VPN Verbindung in Ihr Zuhause für Zugriff von unterwegs).</string>
+
+</resources>
