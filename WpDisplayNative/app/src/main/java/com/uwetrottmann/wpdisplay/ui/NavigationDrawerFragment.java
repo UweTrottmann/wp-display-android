@@ -8,7 +8,6 @@ import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.widget.Toolbar;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -139,12 +138,8 @@ public class NavigationDrawerFragment extends Fragment {
      * Users of this fragment must call this method to set up the navigation drawer interactions.
      *
      * @param drawerLayout The DrawerLayout containing this fragment's UI.
-     * @param actionBarToolbar The Toolbar used as the action bar.
      */
-    public void setUp(DrawerLayout drawerLayout, Toolbar actionBarToolbar) {
-        actionBarToolbar.setNavigationIcon(R.drawable.ic_drawer);
-        actionBarToolbar.setNavigationContentDescription(R.string.navigation_drawer_open);
-
+    public void setUp(DrawerLayout drawerLayout) {
         mDrawerLayout = drawerLayout;
 
         // set a custom shadow that overlays the main content when the drawer opens

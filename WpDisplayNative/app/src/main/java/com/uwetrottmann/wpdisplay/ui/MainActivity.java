@@ -21,15 +21,11 @@ public class MainActivity extends ActionBarActivity
         setSupportActionBar(actionBarToolbar);
 
         // setup nav drawer
+        actionBarToolbar.setNavigationIcon(R.drawable.ic_drawer);
+        actionBarToolbar.setNavigationContentDescription(R.string.navigation_drawer_open);
         NavigationDrawerFragment navDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
-        if (navDrawerFragment == null) {
-            navDrawerFragment = new NavigationDrawerFragment();
-            getSupportFragmentManager().beginTransaction()
-                    .add(R.id.navigation_drawer, navDrawerFragment)
-                    .commit();
-        }
-        navDrawerFragment.setUp((DrawerLayout) findViewById(R.id.drawer_layout), actionBarToolbar);
+        navDrawerFragment.setUp((DrawerLayout) findViewById(R.id.drawer_layout));
     }
 
     @Override
