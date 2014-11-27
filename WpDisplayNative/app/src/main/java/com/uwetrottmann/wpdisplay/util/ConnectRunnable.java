@@ -38,7 +38,7 @@ class ConnectRunnable implements Runnable {
 
         Timber.d("run: connecting");
         EventBus.getDefault()
-                .postSticky(new ConnectionTools.ConnectionEvent(true, false, host, port));
+                .post(new ConnectionTools.ConnectionEvent(true, false, host, port));
 
         try {
             // connect, create in and out streams
@@ -49,7 +49,7 @@ class ConnectRunnable implements Runnable {
 
             // post success
             EventBus.getDefault()
-                    .postSticky(new ConnectionTools.ConnectionEvent(false, true, host, port));
+                    .post(new ConnectionTools.ConnectionEvent(false, true, host, port));
         } catch (IOException e) {
             Timber.e(e, "run: connection to " + host + ":" + port + " failed");
             try {
@@ -59,7 +59,7 @@ class ConnectRunnable implements Runnable {
 
             // post failure
             EventBus.getDefault()
-                    .postSticky(new ConnectionTools.ConnectionEvent(false, false, host, port));
+                    .post(new ConnectionTools.ConnectionEvent(false, false, host, port));
         }
     }
 }
