@@ -32,8 +32,15 @@
         android:id="@+id/editTextSettingsPort"
         android:layout_width="100dp"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/padding_large"
         android:inputType="number"
         android:maxLength="5"
         tools:text="8888" />
+
+    <TextView
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:text="@string/settings_instructions"
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
 </LinearLayout>
