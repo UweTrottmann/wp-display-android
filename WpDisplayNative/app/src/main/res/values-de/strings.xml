@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">WpDisplay</string>
+    <string name="app_name">WP Display</string>
     <string name="navigation_drawer_open">Navigation öffnen</string>
 
     <string name="title_display">Anzeige</string>
@@ -9,6 +9,10 @@
 
     <string name="action_pause">Pause</string>
     <string name="action_resume">Fortsetzen</string>
+
+    <string name="label_connecting">Verbinde mit %s…</string>
+    <string name="label_connected">Verbunden mit %s</string>
+    <string name="label_connection_error">Verbindung mit %s nicht möglich.\nÜberprüfen Sie Ihre Netzwerkverbindung und Einstellungen.</string>
 
     <string name="label_temp_outgoing">Vorlauf</string>
     <string name="label_temp_return">Rücklauf</string>
