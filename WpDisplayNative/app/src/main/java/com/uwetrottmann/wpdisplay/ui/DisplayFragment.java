@@ -39,6 +39,9 @@ public class DisplayFragment extends Fragment {
     @InjectView(R.id.textViewDisplayTempSourceOut) TextView textTempSourceOut;
     @InjectView(R.id.textViewDisplayTimeActive) TextView textTimeActive;
     @InjectView(R.id.textViewDisplayTimeInactive) TextView textTimeInactive;
+    @InjectView(R.id.textViewDisplayTimeRest) TextView textTimeResting;
+    @InjectView(R.id.textViewDisplayTimeReturnLower) TextView textTimeReturnLower;
+    @InjectView(R.id.textViewDisplayTimeReturnHigher) TextView textTimeReturnHigher;
     @InjectView(R.id.textViewDisplayTime) TextView textTime;
 
     @Override
@@ -126,30 +129,37 @@ public class DisplayFragment extends Fragment {
             return;
         }
 
+        StatusData data = event.data;
+
         setTemperature(textTempOutgoing, R.string.label_temp_outgoing,
-                event.data.getTemperature(StatusData.Temperature.OUTGOING));
+                data.getTemperature(StatusData.Temperature.OUTGOING));
         setTemperature(textTempReturn, R.string.label_temp_return,
-                event.data.getTemperature(StatusData.Temperature.RETURN));
+                data.getTemperature(StatusData.Temperature.RETURN));
         setTemperature(textTempOutdoors, R.string.label_temp_outdoors,
-                event.data.getTemperature(StatusData.Temperature.OUTDOORS));
+                data.getTemperature(StatusData.Temperature.OUTDOORS));
         setTemperature(textTempReturnShould, R.string.label_temp_return_should,
-                event.data.getTemperature(StatusData.Temperature.RETURN_SHOULD));
+                data.getTemperature(StatusData.Temperature.RETURN_SHOULD));
         setTemperature(textTempWater, R.string.label_temp_water,
-                event.data.getTemperature(StatusData.Temperature.WATER));
+                data.getTemperature(StatusData.Temperature.WATER));
         setTemperature(textTempWaterShould, R.string.label_temp_water_should,
-                event.data.getTemperature(StatusData.Temperature.WATER_SHOULD));
+                data.getTemperature(StatusData.Temperature.WATER_SHOULD));
         setTemperature(textTempSourceIn, R.string.label_temp_source_in,
-                event.data.getTemperature(StatusData.Temperature.SOURCE_IN));
+                data.getTemperature(StatusData.Temperature.SOURCE_IN));
         setTemperature(textTempSourceOut, R.string.label_temp_source_out,
-                event.data.getTemperature(StatusData.Temperature.SOURCE_OUT));
+                data.getTemperature(StatusData.Temperature.SOURCE_OUT));
 
         setTime(textTimeActive, R.string.label_time_pump_active,
-                event.data.getTime(StatusData.Time.TIME_PUMP_ACTIVE));
+                data.getTime(StatusData.Time.TIME_PUMP_ACTIVE));
         setTime(textTimeInactive, R.string.label_time_compressor_inactive,
-                event.data.getTime(StatusData.Time.TIME_COMPRESSOR_NOOP));
+                data.getTime(StatusData.Time.TIME_COMPRESSOR_NOOP));
+        setTime(textTimeResting, R.string.label_time_rest,
+                data.getTime(StatusData.Time.TIME_REST));
+        setTime(textTimeReturnLower, R.string.label_time_return_lower,
+                data.getTime(StatusData.Time.TIME_RETURN_LOWER));
+        setTime(textTimeReturnHigher, R.string.label_time_return_higher,
+                data.getTime(StatusData.Time.TIME_RETURN_HIGHER));
 
-
-        textTime.setText(DateFormat.getDateTimeInstance().format(event.data.getTimestamp()));
+        textTime.setText(DateFormat.getDateTimeInstance().format(data.getTimestamp()));
     }
 
     private void setTemperature(TextView view, int labelResId, double value) {
@@ -157,19 +167,19 @@ public class DisplayFragment extends Fragment {
 
         builder.append(getString(labelResId));
         builder.setSpan(new TextAppearanceSpan(getActivity(),
-                        R.style.TextAppearance_AppCompat_Caption), 0, builder.length(), 0);
+                R.style.TextAppearance_AppCompat_Caption), 0, builder.length(), 0);
 
         builder.append("\n");
 
         int lengthOld = builder.length();
         builder.append(String.format(Locale.getDefault(), "%.1f", value));
         builder.setSpan(new TextAppearanceSpan(getActivity(),
-                        R.style.TextAppearance_AppCompat_Display3), lengthOld, builder.length(), 0);
+                R.style.TextAppearance_AppCompat_Display3), lengthOld, builder.length(), 0);
 
         lengthOld = builder.length();
         builder.append(getString(R.string.unit_celsius));
         builder.setSpan(new TextAppearanceSpan(getActivity(),
-                        R.style.TextAppearance_App_Unit), lengthOld, builder.length(), 0);
+                R.style.TextAppearance_App_Unit), lengthOld, builder.length(), 0);
 
         view.setText(builder);
     }
@@ -179,14 +189,14 @@ public class DisplayFragment extends Fragment {
 
         builder.append(getString(labelResId));
         builder.setSpan(new TextAppearanceSpan(getActivity(),
-                        R.style.TextAppearance_AppCompat_Caption), 0, builder.length(), 0);
+                R.style.TextAppearance_AppCompat_Caption), 0, builder.length(), 0);
 
         builder.append("\n");
 
         int lengthOld = builder.length();
         builder.append(value);
         builder.setSpan(new TextAppearanceSpan(getActivity(),
-                        R.style.TextAppearance_AppCompat_Display1), lengthOld, builder.length(), 0);
+                R.style.TextAppearance_AppCompat_Display1), lengthOld, builder.length(), 0);
 
         view.setText(builder);
     }

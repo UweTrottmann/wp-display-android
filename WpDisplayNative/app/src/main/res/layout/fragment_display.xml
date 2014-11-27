@@ -148,6 +148,30 @@
             android:id="@+id/textViewDisplayTimeInactive"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/padding_default"
+            tools:text="1h 2min 3sec"
+            android:textIsSelectable="true" />
+
+        <TextView
+            android:id="@+id/textViewDisplayTimeRest"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/padding_default"
+            tools:text="1h 2min 3sec"
+            android:textIsSelectable="true" />
+
+        <TextView
+            android:id="@+id/textViewDisplayTimeReturnLower"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/padding_default"
+            tools:text="1h 2min 3sec"
+            android:textIsSelectable="true" />
+
+        <TextView
+            android:id="@+id/textViewDisplayTimeReturnHigher"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
             tools:text="1h 2min 3sec"
             android:textIsSelectable="true" />
 
