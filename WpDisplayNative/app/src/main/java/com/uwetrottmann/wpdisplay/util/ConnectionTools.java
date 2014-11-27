@@ -11,6 +11,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
+import timber.log.Timber;
 
 public class ConnectionTools implements ConnectionListener {
 
@@ -54,12 +55,20 @@ public class ConnectionTools implements ConnectionListener {
         requestRunnable = new DataRequestRunnable(this);
     }
 
+    /**
+     * Try to establish a connection, async.
+     */
     public synchronized void connect(Context context) {
+        Timber.d("connect: scheduling");
         executor.execute(new ConnectRunnable(this, ConnectionSettings.getHost(context),
                 ConnectionSettings.getPort(context)));
     }
 
+    /**
+     * Disconnect (if connected) and stop status data requests.
+     */
     public synchronized void disconnect() {
+        Timber.d("disconnect: scheduling");
         cancelStatusDataRequests();
         executor.execute(disconnectRunnable);
     }
@@ -103,6 +112,7 @@ public class ConnectionTools implements ConnectionListener {
             // already running
             return;
         }
+        Timber.d("scheduleStatusDataRequests: scheduling");
         requestSchedule = executor.scheduleWithFixedDelay(requestRunnable, 0, 2,
                 TimeUnit.SECONDS);
     }
