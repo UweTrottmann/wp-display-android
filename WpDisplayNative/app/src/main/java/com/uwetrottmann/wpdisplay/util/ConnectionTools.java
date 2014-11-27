@@ -9,6 +9,7 @@ import java.io.OutputStream;
 import java.net.Socket;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledFuture;
 import java.util.concurrent.TimeUnit;
 
 public class ConnectionTools implements ConnectionListener {
@@ -38,6 +39,7 @@ public class ConnectionTools implements ConnectionListener {
     private DataInputStream inputStream;
     private DataOutputStream outputStream;
 
+    private ScheduledFuture<?> requestSchedule;
     private boolean isPaused;
 
     public synchronized static ConnectionTools get() {
@@ -58,34 +60,58 @@ public class ConnectionTools implements ConnectionListener {
     }
 
     public synchronized void disconnect() {
+        cancelStatusDataRequests();
         executor.execute(disconnectRunnable);
     }
 
     /**
-     * Immediately requests data.
+     * If enabled, will request new status data immediately, then every 2 seconds.
+     *
+     * <p> <b>Note:</b> If already enabled/disabled or paused, will do nothing.
      */
-    public synchronized void requestStatusData() {
-        if (isPaused()) {
+    public synchronized void requestStatusData(boolean enable) {
+        if (isPaused) {
+            // do nothing, paused
             return;
         }
-        executor.schedule(requestRunnable, 0, TimeUnit.SECONDS);
+
+        if (enable) {
+            scheduleStatusDataRequests();
+        } else {
+            cancelStatusDataRequests();
+        }
     }
 
     /**
-     * Requests data, delayed by 2 seconds.
+     * Stop requesting status data.
      */
-    public synchronized void requestStatusDataDelayed() {
-        if (isPaused()) {
-            return;
-        }
-        executor.schedule(requestRunnable, 2, TimeUnit.SECONDS);
+    public synchronized void pause() {
+        isPaused = true;
+        cancelStatusDataRequests();
     }
 
     /**
-     * Any request calls will be ignored until pause is disabled.
+     * Resume requesting status data.
      */
-    public synchronized void pause(boolean enable) {
-        isPaused = enable;
+    public synchronized void resume() {
+        isPaused = false;
+        scheduleStatusDataRequests();
+    }
+
+    private void scheduleStatusDataRequests() {
+        if (requestSchedule != null) {
+            // already running
+            return;
+        }
+        requestSchedule = executor.scheduleWithFixedDelay(requestRunnable, 0, 2,
+                TimeUnit.SECONDS);
+    }
+
+    private void cancelStatusDataRequests() {
+        if (requestSchedule != null) {
+            requestSchedule.cancel(true);
+            requestSchedule = null;
+        }
     }
 
     /**

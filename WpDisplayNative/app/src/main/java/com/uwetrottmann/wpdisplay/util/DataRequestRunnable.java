@@ -43,6 +43,7 @@ public class DataRequestRunnable implements Runnable {
         }
 
         if (Thread.interrupted()) {
+            Timber.d("run: interrupted");
             return;
         }
 
@@ -88,10 +89,11 @@ public class DataRequestRunnable implements Runnable {
             }
 
             // don't update data if we have been paused
-            if (listener.isPaused()) {
-                Timber.d("run: not posting data, paused");
+            if (Thread.interrupted()) {
+                Timber.d("run: not posting data, interrupted");
                 return;
             }
+
             EventBus.getDefault().postSticky(new DataEvent(new StatusData(data)));
         } catch (IOException e) {
             Timber.e(e, "run: failed to request data");

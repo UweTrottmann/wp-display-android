@@ -51,11 +51,10 @@ public class DisplayFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 if (ConnectionTools.get().isPaused()) {
-                    ConnectionTools.get().pause(false);
-                    ConnectionTools.get().requestStatusData();
+                    ConnectionTools.get().resume();
                     buttonPause.setText(R.string.action_pause);
                 } else {
-                    ConnectionTools.get().pause(true);
+                    ConnectionTools.get().pause();
                     buttonPause.setText(R.string.action_resume);
                 }
             }
@@ -81,7 +80,6 @@ public class DisplayFragment extends Fragment {
 
         EventBus.getDefault().registerSticky(this);
         ConnectionTools.get().connect(getActivity());
-        ConnectionTools.get().requestStatusData();
     }
 
     @Override
@@ -105,6 +103,7 @@ public class DisplayFragment extends Fragment {
             return;
         }
 
+        // pause button
         buttonPause.setEnabled(event.isConnected);
 
         // status text
@@ -113,6 +112,8 @@ public class DisplayFragment extends Fragment {
             statusResId = R.string.label_connecting;
         } else if (event.isConnected) {
             statusResId = R.string.label_connected;
+            // start requesting data
+            ConnectionTools.get().requestStatusData(true);
         } else {
             statusResId = R.string.label_connection_error;
         }
@@ -149,9 +150,6 @@ public class DisplayFragment extends Fragment {
 
 
         textTime.setText(DateFormat.getDateTimeInstance().format(event.data.getTimestamp()));
-
-        // request new data
-        ConnectionTools.get().requestStatusDataDelayed();
     }
 
     private void setTemperature(TextView view, int labelResId, double value) {
