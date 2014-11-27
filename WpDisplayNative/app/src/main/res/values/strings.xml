@@ -12,7 +12,7 @@
 
     <string name="label_connecting">Connecting to %s…</string>
     <string name="label_connected">Connected to %s</string>
-    <string name="label_connection_error">Could not connect to %s. Check your network connection and settings.</string>
+    <string name="label_connection_error">Could not connect to %s.\nCheck your network connection and settings.</string>
 
     <string name="label_temp_outgoing">Outgoing</string>
     <string name="label_temp_return">Return</string>
