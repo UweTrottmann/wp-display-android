@@ -9,6 +9,9 @@ import android.text.SpannableStringBuilder;
 import android.text.TextUtils;
 import android.text.style.TextAppearanceSpan;
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -33,7 +36,6 @@ public class DisplayFragment extends Fragment {
     @InjectView(R.id.textViewDisplaySnackbar) TextView snackBarText;
     @InjectView(R.id.buttonDisplaySnackbar) Button snackBarButton;
 
-    @InjectView(R.id.buttonDisplayPause) Button buttonPause;
     @InjectView(R.id.textViewDisplayStatus) TextView textStatus;
     @InjectView(R.id.textViewDisplayTempOutgoing) TextView textTempOutgoing;
     @InjectView(R.id.textViewDisplayTempReturn) TextView textTempReturn;
@@ -50,27 +52,13 @@ public class DisplayFragment extends Fragment {
     @InjectView(R.id.textViewDisplayTimeReturnHigher) TextView textTimeReturnHigher;
     @InjectView(R.id.textViewDisplayTime) TextView textTime;
 
+    private boolean isConnected;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_display, container, false);
         ButterKnife.inject(this, v);
-
-        buttonPause.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (ConnectionTools.get().isPaused()) {
-                    ConnectionTools.get().resume();
-                    buttonPause.setText(R.string.action_pause);
-                } else {
-                    ConnectionTools.get().pause();
-                    buttonPause.setText(R.string.action_resume);
-                }
-            }
-        });
-        buttonPause.setText(ConnectionTools.get().isPaused() ? R.string.action_resume
-                : R.string.action_pause);
-        buttonPause.setEnabled(false);
 
         // show empty data
         populateViews(new StatusData(new int[StatusData.LENGTH_BYTES]));
@@ -86,6 +74,8 @@ public class DisplayFragment extends Fragment {
 
         ActionBar actionBar = ((ActionBarActivity) getActivity()).getSupportActionBar();
         actionBar.setTitle(R.string.title_display);
+
+        setHasOptionsMenu(true);
     }
 
     @Override
@@ -130,6 +120,39 @@ public class DisplayFragment extends Fragment {
         ButterKnife.reset(this);
     }
 
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+        inflater.inflate(R.menu.menu_display, menu);
+
+        boolean paused = ConnectionTools.get().isPaused();
+        MenuItem item = menu.findItem(R.id.menu_action_display_pause);
+        item.setIcon(paused ? R.drawable.ic_play_arrow_white_24dp : R.drawable.ic_pause_white_24dp);
+        item.setTitle(paused ? R.string.action_resume : R.string.action_pause);
+
+        item.setEnabled(isConnected);
+        item.setVisible(isConnected);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_action_display_pause:
+                togglePause();
+                return true;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void togglePause() {
+        if (ConnectionTools.get().isPaused()) {
+            ConnectionTools.get().resume();
+        } else {
+            ConnectionTools.get().pause();
+        }
+        getActivity().supportInvalidateOptionsMenu();
+    }
+
     @SuppressWarnings("UnusedDeclaration")
     public void onEventMainThread(ConnectionTools.ConnectionEvent event) {
         if (!isAdded()) {
@@ -137,7 +160,8 @@ public class DisplayFragment extends Fragment {
         }
 
         // pause button
-        buttonPause.setEnabled(event.isConnected);
+        isConnected = event.isConnected;
+        getActivity().supportInvalidateOptionsMenu();
 
         // status text
         int statusResId;
