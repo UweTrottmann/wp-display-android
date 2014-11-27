@@ -63,8 +63,6 @@ public class DisplayFragment extends Fragment {
         // show empty data
         populateViews(new StatusData(new int[StatusData.LENGTH_BYTES]));
 
-        showSnackBar(false);
-
         return v;
     }
 
@@ -82,6 +80,7 @@ public class DisplayFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
+        showSnackBar(false);
         EventBus.getDefault().registerSticky(this);
         connectOrNotify();
     }
