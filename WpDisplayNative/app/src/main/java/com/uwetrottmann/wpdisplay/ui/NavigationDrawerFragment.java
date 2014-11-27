@@ -1,6 +1,7 @@
 package com.uwetrottmann.wpdisplay.ui;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -14,7 +15,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 import com.uwetrottmann.wpdisplay.R;
 
 /**
@@ -78,24 +81,58 @@ public class NavigationDrawerFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
-        mDrawerListView = (ListView) inflater.inflate(
-                R.layout.fragment_navigation_drawer, container, false);
+        View v = inflater.inflate(R.layout.fragment_navigation_drawer, container, false);
+
+        mDrawerListView = (ListView) v.findViewById(R.id.listViewNavDrawer);
         mDrawerListView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 selectItem(position);
             }
         });
-        mDrawerListView.setAdapter(new ArrayAdapter<>(
-                getActivity(),
-                android.R.layout.simple_list_item_activated_1,
-                android.R.id.text1,
-                new String[] {
-                        getString(R.string.title_display),
-                        getString(R.string.title_settings)
+        mDrawerListView.setAdapter(new NavDrawerAdapter(getActivity(),
+                new NavDrawerItem[] {
+                        new NavDrawerItem(R.drawable.ic_grid_on_grey600_24dp,
+                                R.string.title_display),
+                        new NavDrawerItem(R.drawable.ic_settings_grey600_24dp,
+                                R.string.title_settings)
                 }));
         mDrawerListView.setItemChecked(mCurrentSelectedPosition, true);
-        return mDrawerListView;
+
+        return v;
+    }
+
+    private static class NavDrawerItem {
+        public int iconResId;
+        public int titleResId;
+
+        public NavDrawerItem(int iconResId, int titleResId) {
+            this.iconResId = iconResId;
+            this.titleResId = titleResId;
+        }
+    }
+
+    private static class NavDrawerAdapter extends ArrayAdapter<NavDrawerItem> {
+
+        private final LayoutInflater inflater;
+
+        public NavDrawerAdapter(Context context, NavDrawerItem[] items) {
+            super(context, 0, items);
+            inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        }
+
+        @Override
+        public View getView(int position, View convertView, ViewGroup parent) {
+            convertView = inflater.inflate(R.layout.item_nav_drawer, parent, false);
+            ImageView icon = (ImageView) convertView.findViewById(R.id.menu_icon);
+            TextView title = (TextView) convertView.findViewById(R.id.menu_title);
+
+            NavDrawerItem item = getItem(position);
+            icon.setImageResource(item.iconResId);
+            title.setText(getContext().getString(item.titleResId));
+
+            return convertView;
+        }
     }
 
     /**

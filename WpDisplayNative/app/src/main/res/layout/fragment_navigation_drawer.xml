@@ -1,9 +1,31 @@
-<ListView xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:choiceMode="singleChoice"
-    android:divider="@android:color/transparent"
-    android:dividerHeight="0dp"
-    android:background="@color/background_material_light"
-    tools:context=".NavigationDrawerFragment" />
+    android:orientation="vertical"
+    android:background="@color/background_material_light">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="@dimen/keyline"
+        android:paddingRight="@dimen/keyline"
+        android:paddingTop="@dimen/padding_large"
+        android:paddingBottom="@dimen/padding_large"
+        android:clickable="true"
+        android:text="@string/app_name"
+        android:textAppearance="@style/TextAppearance.AppCompat.Headline" />
+
+    <ListView
+        android:id="@+id/listViewNavDrawer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingTop="@dimen/padding_default"
+        android:paddingBottom="@dimen/padding_default"
+        android:choiceMode="singleChoice"
+        android:divider="@android:color/transparent"
+        android:dividerHeight="0dp"
+        tools:context=".NavigationDrawerFragment" />
+
+</LinearLayout>
+    
