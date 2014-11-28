@@ -39,6 +39,7 @@ public class DataRequestRunnable implements Runnable {
         Socket socket = listener.getSocket();
         if (socket == null || !socket.isConnected()) {
             Timber.e("run: failed, no connection");
+            EventBus.getDefault().post(new ConnectionTools.ConnectionEvent(false, false, null, 0));
             return;
         }
 
@@ -97,6 +98,7 @@ public class DataRequestRunnable implements Runnable {
             EventBus.getDefault().postSticky(new DataEvent(new StatusData(data)));
         } catch (IOException e) {
             Timber.e(e, "run: failed to request data");
+            EventBus.getDefault().post(new ConnectionTools.ConnectionEvent(false, false, null, 0));
         }
     }
 }

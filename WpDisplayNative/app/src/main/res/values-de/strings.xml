@@ -20,8 +20,8 @@
     <string name="label_temp_water">Brauchwasser</string>
     <string name="label_temp_water_should">Brauchwasser Soll</string>
     <string name="label_temp_outdoors">Außen</string>
-    <string name="label_temp_source_in">Wärmequelle Eingehend</string>
-    <string name="label_temp_source_out">Wärmequelle Ausgehend</string>
+    <string name="label_temp_source_in">Von Wärmequelle</string>
+    <string name="label_temp_source_out">Zur Wärmequelle</string>
     <string name="label_time_pump_active">Pumpe aktiv</string>
     <string name="label_time_compressor_inactive">Verdichter Stillstand</string>
     <string name="label_time_rest">Zwangspause</string>

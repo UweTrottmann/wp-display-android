@@ -181,8 +181,15 @@ public class DisplayFragment extends Fragment {
                         }
                     });
             showSnackBar(true);
+            ConnectionTools.get().disconnect();
         }
-        textStatus.setText(getString(statusResId, event.host + ":" + event.port));
+
+        if (TextUtils.isEmpty(event.host) || event.port < 1) {
+            // display generic connection error if host or port not sent
+            textStatus.setText(getString(R.string.message_no_connection));
+        } else {
+            textStatus.setText(getString(statusResId, event.host + ":" + event.port));
+        }
     }
 
     @SuppressWarnings("UnusedDeclaration")
