@@ -20,8 +20,8 @@
     <string name="label_temp_water">Hot Water</string>
     <string name="label_temp_water_should">Hot Water Target</string>
     <string name="label_temp_outdoors">Outdoors</string>
-    <string name="label_temp_source_in">Heat Source Inflow</string>
-    <string name="label_temp_source_out">Heat Source Outflow</string>
+    <string name="label_temp_source_in">From Heat Source</string>
+    <string name="label_temp_source_out">To Heat Source</string>
     <string name="label_time_pump_active">Pump active</string>
     <string name="label_time_compressor_inactive">Compressor inactive</string>
     <string name="label_time_rest">Mandatory rest</string>
