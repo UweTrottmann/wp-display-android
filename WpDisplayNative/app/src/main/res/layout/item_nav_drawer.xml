@@ -19,7 +19,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="48dp"
-    android:background="?android:attr/activatedBackgroundIndicator">
+    android:background="@drawable/background_nav_drawer_item">
 
     <ImageView
         android:id="@+id/menu_icon"
@@ -41,6 +41,7 @@
         android:singleLine="true"
         android:ellipsize="end"
         android:textAppearance="@style/TextAppearance.AppCompat.Menu"
+        android:textColor="@color/nav_drawer_text"
         tools:text="Display" />
 
 </RelativeLayout>

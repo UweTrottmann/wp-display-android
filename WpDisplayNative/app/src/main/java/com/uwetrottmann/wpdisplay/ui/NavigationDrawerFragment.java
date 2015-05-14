@@ -19,9 +19,12 @@ package com.uwetrottmann.wpdisplay.ui;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.content.res.ColorStateList;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
+import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.view.LayoutInflater;
@@ -151,10 +154,13 @@ public class NavigationDrawerFragment extends Fragment {
     private static class NavDrawerAdapter extends ArrayAdapter<NavDrawerItem> {
 
         private final LayoutInflater inflater;
+        private final ColorStateList colorStateListIcon;
 
         public NavDrawerAdapter(Context context, NavDrawerItem[] items) {
             super(context, 0, items);
             inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            colorStateListIcon = getContext().getResources().getColorStateList(
+                    R.color.nav_drawer_icon);
         }
 
         @Override
@@ -164,8 +170,13 @@ public class NavigationDrawerFragment extends Fragment {
             TextView title = (TextView) convertView.findViewById(R.id.menu_title);
 
             NavDrawerItem item = getItem(position);
-            icon.setImageResource(item.iconResId);
+            // title
             title.setText(getContext().getString(item.titleResId));
+            // icon
+            Drawable iconDrawable = DrawableCompat.wrap(
+                    getContext().getResources().getDrawable(item.iconResId));
+            DrawableCompat.setTintList(iconDrawable, colorStateListIcon);
+            icon.setImageDrawable(iconDrawable);
 
             return convertView;
         }
