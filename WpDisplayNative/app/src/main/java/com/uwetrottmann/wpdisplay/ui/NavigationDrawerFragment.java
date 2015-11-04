@@ -16,6 +16,7 @@
 
 package com.uwetrottmann.wpdisplay.ui;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -164,6 +165,8 @@ public class NavigationDrawerFragment extends Fragment {
                     R.color.nav_drawer_icon);
         }
 
+        // Nav drawer only has few items, no point to use a view holder for now
+        @SuppressLint("ViewHolder")
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             convertView = inflater.inflate(R.layout.item_nav_drawer, parent, false);
