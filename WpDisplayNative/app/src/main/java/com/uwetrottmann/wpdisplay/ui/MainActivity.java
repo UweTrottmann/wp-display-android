@@ -23,9 +23,12 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.support.v7.widget.Toolbar;
 import com.uwetrottmann.wpdisplay.R;
+import de.greenrobot.event.EventBus;
 
 public class MainActivity extends ActionBarActivity
         implements NavigationDrawerFragment.NavigationDrawerCallbacks {
+
+    private NavigationDrawerFragment navDrawerFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,20 +42,35 @@ public class MainActivity extends ActionBarActivity
         // setup nav drawer
         actionBarToolbar.setNavigationIcon(R.drawable.ic_drawer);
         actionBarToolbar.setNavigationContentDescription(R.string.navigation_drawer_open);
-        NavigationDrawerFragment navDrawerFragment = (NavigationDrawerFragment)
+        navDrawerFragment = (NavigationDrawerFragment)
                 getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
         navDrawerFragment.setUp((DrawerLayout) findViewById(R.id.drawer_layout));
     }
 
     @Override
+    public void onBackPressed() {
+        if (navDrawerFragment.getCurrentSelectedPosition()
+                == NavigationDrawerFragment.POSITION_SETTINGS) {
+            // support "going back" from settings
+            EventBus.getDefault()
+                    .post(new NavigationDrawerFragment.NavigationRequest(
+                            NavigationDrawerFragment.POSITION_DISPLAY));
+            return;
+        }
+        super.onBackPressed();
+    }
+
+    @Override
     public void onNavigationDrawerItemSelected(int position) {
+
         Fragment f;
         switch (position) {
-            case 0:
-                f = new DisplayFragment();
-                break;
-            default:
+            case NavigationDrawerFragment.POSITION_SETTINGS:
                 f = new SettingsFragment();
+                break;
+            case NavigationDrawerFragment.POSITION_DISPLAY:
+            default:
+                f = new DisplayFragment();
                 break;
         }
 

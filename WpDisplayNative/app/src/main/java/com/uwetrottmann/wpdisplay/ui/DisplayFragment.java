@@ -111,7 +111,7 @@ public class DisplayFragment extends Fragment {
                         public void onClick(View v) {
                             EventBus.getDefault()
                                     .post(new NavigationDrawerFragment.NavigationRequest(
-                                            NavigationDrawerFragment.Position.SETTINGS));
+                                            NavigationDrawerFragment.POSITION_SETTINGS));
                         }
                     });
             showSnackBar(true);
