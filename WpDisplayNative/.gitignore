@@ -2,6 +2,9 @@
 .gradle
 build/
 
+## Proguard
+unused.txt
+
 ### Android
 /local.properties
 /gradle.properties
