@@ -16,6 +16,7 @@
 
 package com.uwetrottmann.wpdisplay.ui;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -23,6 +24,7 @@ import android.content.res.ColorStateList;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.annotation.IntDef;
 import android.support.v4.app.Fragment;
 import android.support.v4.graphics.drawable.DrawableCompat;
 import android.support.v4.view.GravityCompat;
@@ -38,6 +40,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import com.uwetrottmann.wpdisplay.R;
 import de.greenrobot.event.EventBus;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
 
 /**
  * Fragment used for managing interactions for and presentation of a navigation drawer. See the <a
@@ -47,23 +51,21 @@ import de.greenrobot.event.EventBus;
 public class NavigationDrawerFragment extends Fragment {
 
     public static class NavigationRequest {
-        public Position position;
+        @Position
+        public int position;
 
-        public NavigationRequest(Position position) {
+        public NavigationRequest(@Position int position) {
             this.position = position;
         }
     }
 
-    public enum Position {
-        DISPLAY(0),
-        SETTINGS(1);
-
-        public final int value;
-
-        private Position(int value) {
-            this.value = value;
-        }
+    @IntDef({ POSITION_DISPLAY, POSITION_SETTINGS })
+    @Retention(RetentionPolicy.SOURCE)
+    public @interface Position {
     }
+
+    public static final int POSITION_DISPLAY = 0;
+    public static final int POSITION_SETTINGS = 1;
 
     /**
      * Remember the position of the selected item.
@@ -163,6 +165,8 @@ public class NavigationDrawerFragment extends Fragment {
                     R.color.nav_drawer_icon);
         }
 
+        // Nav drawer only has few items, no point to use a view holder for now
+        @SuppressLint("ViewHolder")
         @Override
         public View getView(int position, View convertView, ViewGroup parent) {
             convertView = inflater.inflate(R.layout.item_nav_drawer, parent, false);
@@ -288,15 +292,19 @@ public class NavigationDrawerFragment extends Fragment {
         return false;
     }
 
+    public int getCurrentSelectedPosition() {
+        return mCurrentSelectedPosition;
+    }
+
     @SuppressWarnings("UnusedDeclaration")
     public void onEventMainThread(NavigationRequest event) {
-        selectItem(event.position.value);
+        selectItem(event.position);
     }
 
     /**
      * Callbacks interface that all activities using this fragment must implement.
      */
-    public static interface NavigationDrawerCallbacks {
+    public interface NavigationDrawerCallbacks {
         /**
          * Called when an item in the navigation drawer is selected.
          */
