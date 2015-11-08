@@ -16,6 +16,8 @@
 
 package com.uwetrottmann.wpdisplay.model;
 
+import android.support.annotation.StringRes;
+import com.uwetrottmann.wpdisplay.R;
 import java.util.Date;
 
 /**
@@ -27,7 +29,7 @@ public class StatusData {
      * Maximum length of data supported. Sent status data is actually 183 bytes long, but we don't
      * care about the rest, yet.
      */
-    public final static int LENGTH_BYTES = 80;
+    public final static int LENGTH_BYTES = 100;
 
     /**
      * Temperature values, factor 10, Celsius.
@@ -45,7 +47,7 @@ public class StatusData {
 
         public final int offset;
 
-        private Temperature(int offset) {
+        Temperature(int offset) {
             this.offset = offset;
         }
     }
@@ -63,7 +65,7 @@ public class StatusData {
 
         public final int offset;
 
-        private Time(int offset) {
+        Time(int offset) {
             this.offset = offset;
         }
     }
@@ -114,6 +116,39 @@ public class StatusData {
         long seconds = elapsedSeconds;
 
         return hours + "h " + minutes + "min " + seconds + "sec";
+    }
+
+    private static final int FIRMWARE_VERSION_INDEX_BEGIN = 81;
+    private static final int FIRMWARE_VERSION_LENGTH = 10;
+
+    public String getFirmwareVersion() {
+        String version = "";
+        for (int i = FIRMWARE_VERSION_INDEX_BEGIN;
+                i < FIRMWARE_VERSION_INDEX_BEGIN + FIRMWARE_VERSION_LENGTH; i++) {
+            version += String.valueOf((char) getValueAt(i));
+        }
+        return version;
+    }
+
+    private static final int OPERATING_STATE_INDEX = 80;
+
+    private static final int STATE_HEATING = 0;
+    private static final int STATE_WATER = 1;
+    private static final int STATE_NOOP = 5;
+
+    @StringRes
+    public int getOperatingState() {
+        int state = getValueAt(OPERATING_STATE_INDEX);
+        switch (state) {
+            case STATE_HEATING:
+                return R.string.state_heating;
+            case STATE_WATER:
+                return R.string.state_water;
+            case STATE_NOOP:
+                return R.string.state_noop;
+            default:
+                return R.string.state_unknown;
+        }
     }
 
     private int getValueAt(int index) {
