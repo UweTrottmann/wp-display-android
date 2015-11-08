@@ -30,6 +30,12 @@
 
     <string name="label_firmware">Firmware</string>
 
+    <string name="label_operating_state">Operating State</string>
+    <string name="state_heating">Heating</string>
+    <string name="state_water">Water</string>
+    <string name="state_noop">Inactive</string>
+    <string name="state_unknown">Unknown state</string>
+
     <string name="label_host">Controller Host/IP-address (e.g. 192.168.0.42)</string>
     <string name="label_port">Controller Port (default 8888 or 8889)</string>
 

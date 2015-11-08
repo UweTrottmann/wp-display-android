@@ -69,6 +69,7 @@ public class DisplayFragment extends Fragment {
     @InjectView(R.id.textViewDisplayTime) TextView textTime;
 
     @InjectView(R.id.textViewDisplayFirmware) TextView textFirmware;
+    @InjectView(R.id.textViewDisplayState) TextView textState;
 
     private boolean isConnected;
 
@@ -253,6 +254,8 @@ public class DisplayFragment extends Fragment {
                 data.getTime(StatusData.Time.TIME_RETURN_HIGHER));
 
         // text values
+        setText(textState, R.string.label_operating_state,
+                getContext().getString(data.getOperatingState()));
         setText(textFirmware, R.string.label_firmware, data.getFirmwareVersion());
 
         textTime.setText(DateFormat.getDateTimeInstance().format(data.getTimestamp()));

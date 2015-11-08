@@ -16,6 +16,8 @@
 
 package com.uwetrottmann.wpdisplay.model;
 
+import android.support.annotation.StringRes;
+import com.uwetrottmann.wpdisplay.R;
 import java.util.Date;
 
 /**
@@ -126,6 +128,27 @@ public class StatusData {
             version += String.valueOf((char) getValueAt(i));
         }
         return version;
+    }
+
+    private static final int OPERATING_STATE_INDEX = 80;
+
+    private static final int STATE_HEATING = 0;
+    private static final int STATE_WATER = 1;
+    private static final int STATE_NOOP = 5;
+
+    @StringRes
+    public int getOperatingState() {
+        int state = getValueAt(OPERATING_STATE_INDEX);
+        switch (state) {
+            case STATE_HEATING:
+                return R.string.state_heating;
+            case STATE_WATER:
+                return R.string.state_water;
+            case STATE_NOOP:
+                return R.string.state_noop;
+            default:
+                return R.string.state_unknown;
+        }
     }
 
     private int getValueAt(int index) {
