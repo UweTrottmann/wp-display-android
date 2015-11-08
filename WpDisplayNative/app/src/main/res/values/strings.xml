@@ -28,6 +28,8 @@
     <string name="label_time_return_lower">Return &lt; Target - Hysteresis</string>
     <string name="label_time_return_higher">Return &gt; Target + Hysteresis</string>
 
+    <string name="label_firmware">Firmware</string>
+
     <string name="label_host">Controller Host/IP-address (e.g. 192.168.0.42)</string>
     <string name="label_port">Controller Port (default 8888 or 8889)</string>
 

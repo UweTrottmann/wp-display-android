@@ -28,6 +28,8 @@
     <string name="label_time_return_lower">Rücklauf &lt; Soll - Hysterese</string>
     <string name="label_time_return_higher">Rücklauf &gt; Soll + Hysterese</string>
 
+    <string name="label_firmware">Firmware</string>
+
     <string name="label_host">Kontrollgerät Host/IP-Adresse (z.B. 192.168.0.42)</string>
     <string name="label_port">Kontrollgerät Port (Standardmäßig 8888 oder 8889)</string>
 

@@ -68,6 +68,8 @@ public class DisplayFragment extends Fragment {
     @InjectView(R.id.textViewDisplayTimeReturnHigher) TextView textTimeReturnHigher;
     @InjectView(R.id.textViewDisplayTime) TextView textTime;
 
+    @InjectView(R.id.textViewDisplayFirmware) TextView textFirmware;
+
     private boolean isConnected;
 
     @Override
@@ -220,6 +222,7 @@ public class DisplayFragment extends Fragment {
     }
 
     private void populateViews(StatusData data) {
+        // temperature values
         setTemperature(textTempOutgoing, R.string.label_temp_outgoing,
                 data.getTemperature(StatusData.Temperature.OUTGOING));
         setTemperature(textTempReturn, R.string.label_temp_return,
@@ -237,16 +240,20 @@ public class DisplayFragment extends Fragment {
         setTemperature(textTempSourceOut, R.string.label_temp_source_out,
                 data.getTemperature(StatusData.Temperature.SOURCE_OUT));
 
-        setTime(textTimeActive, R.string.label_time_pump_active,
+        // time values
+        setText(textTimeActive, R.string.label_time_pump_active,
                 data.getTime(StatusData.Time.TIME_PUMP_ACTIVE));
-        setTime(textTimeInactive, R.string.label_time_compressor_inactive,
+        setText(textTimeInactive, R.string.label_time_compressor_inactive,
                 data.getTime(StatusData.Time.TIME_COMPRESSOR_NOOP));
-        setTime(textTimeResting, R.string.label_time_rest,
+        setText(textTimeResting, R.string.label_time_rest,
                 data.getTime(StatusData.Time.TIME_REST));
-        setTime(textTimeReturnLower, R.string.label_time_return_lower,
+        setText(textTimeReturnLower, R.string.label_time_return_lower,
                 data.getTime(StatusData.Time.TIME_RETURN_LOWER));
-        setTime(textTimeReturnHigher, R.string.label_time_return_higher,
+        setText(textTimeReturnHigher, R.string.label_time_return_higher,
                 data.getTime(StatusData.Time.TIME_RETURN_HIGHER));
+
+        // text values
+        setText(textFirmware, R.string.label_firmware, data.getFirmwareVersion());
 
         textTime.setText(DateFormat.getDateTimeInstance().format(data.getTimestamp()));
     }
@@ -273,7 +280,7 @@ public class DisplayFragment extends Fragment {
         view.setText(builder);
     }
 
-    private void setTime(TextView view, int labelResId, String value) {
+    private void setText(TextView view, int labelResId, String value) {
         SpannableStringBuilder builder = new SpannableStringBuilder();
 
         builder.append(getString(labelResId));

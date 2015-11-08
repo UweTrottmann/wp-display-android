@@ -27,7 +27,7 @@ public class StatusData {
      * Maximum length of data supported. Sent status data is actually 183 bytes long, but we don't
      * care about the rest, yet.
      */
-    public final static int LENGTH_BYTES = 80;
+    public final static int LENGTH_BYTES = 100;
 
     /**
      * Temperature values, factor 10, Celsius.
@@ -45,7 +45,7 @@ public class StatusData {
 
         public final int offset;
 
-        private Temperature(int offset) {
+        Temperature(int offset) {
             this.offset = offset;
         }
     }
@@ -63,7 +63,7 @@ public class StatusData {
 
         public final int offset;
 
-        private Time(int offset) {
+        Time(int offset) {
             this.offset = offset;
         }
     }
@@ -114,6 +114,18 @@ public class StatusData {
         long seconds = elapsedSeconds;
 
         return hours + "h " + minutes + "min " + seconds + "sec";
+    }
+
+    private static final int FIRMWARE_VERSION_INDEX_BEGIN = 81;
+    private static final int FIRMWARE_VERSION_LENGTH = 10;
+
+    public String getFirmwareVersion() {
+        String version = "";
+        for (int i = FIRMWARE_VERSION_INDEX_BEGIN;
+                i < FIRMWARE_VERSION_INDEX_BEGIN + FIRMWARE_VERSION_LENGTH; i++) {
+            version += String.valueOf((char) getValueAt(i));
+        }
+        return version;
     }
 
     private int getValueAt(int index) {

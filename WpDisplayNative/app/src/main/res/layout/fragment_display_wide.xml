@@ -192,7 +192,15 @@
                 android:id="@+id/textViewDisplayTimeReturnHigher"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/padding_default"
                 tools:text="@string/label_time_return_higher"
+                android:textIsSelectable="true" />
+
+            <TextView
+                android:id="@+id/textViewDisplayFirmware"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Firmware\nV1.23"
                 android:textIsSelectable="true" />
 
         </LinearLayout>
