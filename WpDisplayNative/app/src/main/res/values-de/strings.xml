@@ -2,7 +2,6 @@
 <resources>
 
     <string name="app_name">Wärmepumpe Display</string>
-    <string name="navigation_drawer_open">Navigation öffnen</string>
 
     <string name="title_display">Anzeige</string>
     <string name="title_settings">Einstellungen</string>

@@ -19,6 +19,7 @@ package com.uwetrottmann.wpdisplay.ui;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.SpannableStringBuilder;
@@ -95,6 +96,7 @@ public class DisplayFragment extends Fragment {
         ActionBar actionBar = ((AppCompatActivity) getActivity()).getSupportActionBar();
         if (actionBar != null) {
             actionBar.setTitle(R.string.title_display);
+            actionBar.setDisplayHomeAsUpEnabled(false);
         }
 
         setHasOptionsMenu(true);
@@ -117,9 +119,7 @@ public class DisplayFragment extends Fragment {
                     new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
-                            EventBus.getDefault()
-                                    .post(new NavigationDrawerFragment.NavigationRequest(
-                                            NavigationDrawerFragment.POSITION_SETTINGS));
+                            showSettingsFragment();
                         }
                     });
             showSnackBar(true);
@@ -162,9 +162,20 @@ public class DisplayFragment extends Fragment {
             case R.id.menu_action_display_pause:
                 togglePause();
                 return true;
+            case R.id.menu_action_display_settings:
+                showSettingsFragment();
+                return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void showSettingsFragment() {
+        FragmentManager fragmentManager = getFragmentManager();
+        fragmentManager.beginTransaction()
+                .replace(R.id.container, new SettingsFragment())
+                .addToBackStack(null)
+                .commit();
     }
 
     private void togglePause() {

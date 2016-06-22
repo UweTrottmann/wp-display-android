@@ -17,18 +17,13 @@
 package com.uwetrottmann.wpdisplay.ui;
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import com.uwetrottmann.wpdisplay.R;
-import de.greenrobot.event.EventBus;
 
-public class MainActivity extends AppCompatActivity
-        implements NavigationDrawerFragment.NavigationDrawerCallbacks {
-
-    private NavigationDrawerFragment navDrawerFragment;
+public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,45 +34,20 @@ public class MainActivity extends AppCompatActivity
         Toolbar actionBarToolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(actionBarToolbar);
 
-        // setup nav drawer
-        actionBarToolbar.setNavigationIcon(R.drawable.ic_drawer);
-        actionBarToolbar.setNavigationContentDescription(R.string.navigation_drawer_open);
-        navDrawerFragment = (NavigationDrawerFragment)
-                getSupportFragmentManager().findFragmentById(R.id.navigation_drawer);
-        navDrawerFragment.setUp((DrawerLayout) findViewById(R.id.drawer_layout));
+        if (savedInstanceState == null) {
+            FragmentManager fragmentManager = getSupportFragmentManager();
+            fragmentManager.beginTransaction()
+                    .replace(R.id.container, new DisplayFragment())
+                    .commit();
+        }
     }
 
     @Override
-    public void onBackPressed() {
-        if (navDrawerFragment.getCurrentSelectedPosition()
-                == NavigationDrawerFragment.POSITION_SETTINGS) {
-            // support "going back" from settings
-            EventBus.getDefault()
-                    .post(new NavigationDrawerFragment.NavigationRequest(
-                            NavigationDrawerFragment.POSITION_DISPLAY));
-            return;
+    public boolean onOptionsItemSelected(MenuItem item) {
+        if (item.getItemId() == android.R.id.home) {
+            getSupportFragmentManager().popBackStack();
+            return true;
         }
-        super.onBackPressed();
-    }
-
-    @Override
-    public void onNavigationDrawerItemSelected(int position) {
-
-        Fragment f;
-        switch (position) {
-            case NavigationDrawerFragment.POSITION_SETTINGS:
-                f = new SettingsFragment();
-                break;
-            case NavigationDrawerFragment.POSITION_DISPLAY:
-            default:
-                f = new DisplayFragment();
-                break;
-        }
-
-        // update the main content by replacing fragments
-        FragmentManager fragmentManager = getSupportFragmentManager();
-        fragmentManager.beginTransaction()
-                .replace(R.id.container, f)
-                .commit();
+        return super.onOptionsItemSelected(item);
     }
 }
