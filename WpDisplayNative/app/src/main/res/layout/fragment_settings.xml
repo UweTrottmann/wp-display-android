@@ -36,7 +36,8 @@
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/padding_default"
-        tools:text="192.168.0.42" />
+        tools:text="192.168.0.42"
+        android:inputType="text" />
 
     <TextView
         android:layout_width="wrap_content"
