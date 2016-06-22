@@ -82,6 +82,7 @@ public class DisplayFragment extends Fragment {
         unbinder = ButterKnife.bind(this, v);
 
         // show empty data
+        setTextSelectable(ConnectionTools.get().isPaused());
         populateViews(new StatusData(new int[StatusData.LENGTH_BYTES]));
 
         return v;
@@ -169,10 +170,32 @@ public class DisplayFragment extends Fragment {
     private void togglePause() {
         if (ConnectionTools.get().isPaused()) {
             ConnectionTools.get().resume();
+            setTextSelectable(false);
         } else {
             ConnectionTools.get().pause();
+            setTextSelectable(true);
         }
         getActivity().supportInvalidateOptionsMenu();
+    }
+
+    /**
+     * Only enable text selection if views are not updating. Otherwise scroll state resets.
+     */
+    private void setTextSelectable(boolean selectable) {
+        textTempOutgoing.setTextIsSelectable(selectable);
+        textTempReturn.setTextIsSelectable(selectable);
+        textTempOutdoors.setTextIsSelectable(selectable);
+        textTempReturnShould.setTextIsSelectable(selectable);
+        textTempWater.setTextIsSelectable(selectable);
+        textTempWaterShould.setTextIsSelectable(selectable);
+        textTempSourceIn.setTextIsSelectable(selectable);
+        textTempSourceOut.setTextIsSelectable(selectable);
+        textTimeActive.setTextIsSelectable(selectable);
+        textTimeInactive.setTextIsSelectable(selectable);
+        textTimeResting.setTextIsSelectable(selectable);
+        textTimeReturnLower.setTextIsSelectable(selectable);
+        textTimeReturnHigher.setTextIsSelectable(selectable);
+        textTime.setTextIsSelectable(selectable);
     }
 
     @SuppressWarnings("UnusedDeclaration")

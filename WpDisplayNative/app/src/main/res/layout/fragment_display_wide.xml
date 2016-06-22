@@ -20,6 +20,7 @@
     android:layout_height="match_parent"
     tools:context="com.uwetrottmann.wpdisplay.ui.DisplayFragment">
 
+    <!-- Give focus to prevent auto-scroll to selectable text views -->
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent">
@@ -45,8 +46,6 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:focusable="true"
-                    android:focusableInTouchMode="true"
                     tools:text="Current Status"
                     android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
@@ -56,8 +55,7 @@
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     tools:text="Nov 16, 2014 17:00:57 PM"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-                    android:textIsSelectable="true" />
+                    android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
             </LinearLayout>
 
@@ -72,32 +70,28 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    tools:text="@string/label_temp_outgoing"
-                    android:textIsSelectable="true" />
+                    tools:text="@string/label_temp_outgoing" />
 
                 <TextView
                     android:id="@+id/textViewDisplayTempReturn"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    tools:text="@string/label_temp_return"
-                    android:textIsSelectable="true" />
+                    tools:text="@string/label_temp_return" />
 
                 <TextView
                     android:id="@+id/textViewDisplayTempWater"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    tools:text="@string/label_temp_water"
-                    android:textIsSelectable="true" />
+                    tools:text="@string/label_temp_water" />
 
                 <TextView
                     android:id="@+id/textViewDisplayTempWaterShould"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    tools:text="@string/label_temp_water_should"
-                    android:textIsSelectable="true" />
+                    tools:text="@string/label_temp_water_should" />
 
             </LinearLayout>
 
@@ -112,32 +106,28 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    tools:text="@string/label_temp_outdoors"
-                    android:textIsSelectable="true" />
+                    tools:text="@string/label_temp_outdoors" />
 
                 <TextView
                     android:id="@+id/textViewDisplayTempReturnShould"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    tools:text="@string/label_temp_return_should"
-                    android:textIsSelectable="true" />
+                    tools:text="@string/label_temp_return_should" />
 
                 <TextView
                     android:id="@+id/textViewDisplayTempSourceIn"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    tools:text="@string/label_temp_source_in"
-                    android:textIsSelectable="true" />
+                    tools:text="@string/label_temp_source_in" />
 
                 <TextView
                     android:id="@+id/textViewDisplayTempSourceOut"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    tools:text="@string/label_temp_source_out"
-                    android:textIsSelectable="true" />
+                    tools:text="@string/label_temp_source_out" />
 
             </LinearLayout>
 
@@ -146,8 +136,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/padding_default"
-                tools:text="Operating State\nHeating"
-                android:textIsSelectable="true" />
+                tools:text="Operating State\nHeating" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -160,16 +149,14 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    tools:text="@string/label_time_pump_active"
-                    android:textIsSelectable="true" />
+                    tools:text="@string/label_time_pump_active" />
 
                 <TextView
                     android:id="@+id/textViewDisplayTimeInactive"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    tools:text="@string/label_time_compressor_inactive"
-                    android:textIsSelectable="true" />
+                    tools:text="@string/label_time_compressor_inactive" />
             </LinearLayout>
 
             <LinearLayout
@@ -183,16 +170,14 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    tools:text="@string/label_time_return_lower"
-                    android:textIsSelectable="true" />
+                    tools:text="@string/label_time_return_lower" />
 
                 <TextView
                     android:id="@+id/textViewDisplayTimeRest"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    tools:text="@string/label_time_rest"
-                    android:textIsSelectable="true" />
+                    tools:text="@string/label_time_rest" />
 
             </LinearLayout>
 
@@ -201,15 +186,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/padding_default"
-                tools:text="@string/label_time_return_higher"
-                android:textIsSelectable="true" />
+                tools:text="@string/label_time_return_higher" />
 
             <TextView
                 android:id="@+id/textViewDisplayFirmware"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                tools:text="Firmware\nV1.23"
-                android:textIsSelectable="true" />
+                tools:text="Firmware\nV1.23" />
 
         </LinearLayout>
 
