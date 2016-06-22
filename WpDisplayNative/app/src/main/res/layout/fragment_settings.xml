@@ -63,8 +63,31 @@
         <TextView
             android:layout_width="300dp"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/padding_large"
             android:text="@string/settings_instructions"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_default"
+            android:layout_marginBottom="@dimen/padding_small"
+            android:text="@string/ask_for_feedback" />
+
+        <Button
+            android:id="@+id/buttonSettingsStore"
+            style="?attr/borderlessButtonStyle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/padding_large"
+            android:textColor="?android:attr/textColorSecondary"
+            android:text="@string/show_on_google_play" />
+
+        <TextView
+            android:id="@+id/textViewSettingsVersion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/version" />
 
     </LinearLayout>
 

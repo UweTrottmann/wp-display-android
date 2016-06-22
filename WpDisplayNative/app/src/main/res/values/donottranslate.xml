@@ -2,5 +2,6 @@
 <resources>
 
     <string name="unit_celsius">°C</string>
+    <string name="store_page_url">https://play.google.com/store/apps/details?id=com.uwetrottmann.wpdisplay</string>
 
 </resources>
