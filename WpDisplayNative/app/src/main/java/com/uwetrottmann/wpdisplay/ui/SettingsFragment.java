@@ -20,14 +20,14 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.ActionBar;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
+import butterknife.Unbinder;
 import com.uwetrottmann.wpdisplay.R;
 import com.uwetrottmann.wpdisplay.settings.ConnectionSettings;
 
@@ -36,15 +36,17 @@ import com.uwetrottmann.wpdisplay.settings.ConnectionSettings;
  */
 public class SettingsFragment extends Fragment {
 
-    @InjectView(R.id.editTextSettingsHost) EditText editTextHost;
-    @InjectView(R.id.editTextSettingsPort) EditText editTextPort;
+    @BindView(R.id.editTextSettingsHost) EditText editTextHost;
+    @BindView(R.id.editTextSettingsPort) EditText editTextPort;
+
+    private Unbinder unbinder;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_settings, container, false);
-        ButterKnife.inject(this, v);
+        unbinder = ButterKnife.bind(this, v);
 
         return v;
     }
@@ -77,7 +79,7 @@ public class SettingsFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
 
-        ButterKnife.reset(this);
+        unbinder.unbind();
     }
 
     private void populateViews() {

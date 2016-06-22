@@ -32,8 +32,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.InjectView;
+import butterknife.Unbinder;
 import com.uwetrottmann.wpdisplay.R;
 import com.uwetrottmann.wpdisplay.model.StatusData;
 import com.uwetrottmann.wpdisplay.settings.ConnectionSettings;
@@ -48,36 +49,37 @@ import java.util.Locale;
  */
 public class DisplayFragment extends Fragment {
 
-    @InjectView(R.id.containerDisplaySnackbar) View snackBar;
-    @InjectView(R.id.textViewDisplaySnackbar) TextView snackBarText;
-    @InjectView(R.id.buttonDisplaySnackbar) Button snackBarButton;
+    @BindView(R.id.containerDisplaySnackbar) View snackBar;
+    @BindView(R.id.textViewDisplaySnackbar) TextView snackBarText;
+    @BindView(R.id.buttonDisplaySnackbar) Button snackBarButton;
 
-    @InjectView(R.id.textViewDisplayStatus) TextView textStatus;
-    @InjectView(R.id.textViewDisplayTempOutgoing) TextView textTempOutgoing;
-    @InjectView(R.id.textViewDisplayTempReturn) TextView textTempReturn;
-    @InjectView(R.id.textViewDisplayTempOutdoors) TextView textTempOutdoors;
-    @InjectView(R.id.textViewDisplayTempReturnShould) TextView textTempReturnShould;
-    @InjectView(R.id.textViewDisplayTempWater) TextView textTempWater;
-    @InjectView(R.id.textViewDisplayTempWaterShould) TextView textTempWaterShould;
-    @InjectView(R.id.textViewDisplayTempSourceIn) TextView textTempSourceIn;
-    @InjectView(R.id.textViewDisplayTempSourceOut) TextView textTempSourceOut;
-    @InjectView(R.id.textViewDisplayTimeActive) TextView textTimeActive;
-    @InjectView(R.id.textViewDisplayTimeInactive) TextView textTimeInactive;
-    @InjectView(R.id.textViewDisplayTimeRest) TextView textTimeResting;
-    @InjectView(R.id.textViewDisplayTimeReturnLower) TextView textTimeReturnLower;
-    @InjectView(R.id.textViewDisplayTimeReturnHigher) TextView textTimeReturnHigher;
-    @InjectView(R.id.textViewDisplayTime) TextView textTime;
+    @BindView(R.id.textViewDisplayStatus) TextView textStatus;
+    @BindView(R.id.textViewDisplayTempOutgoing) TextView textTempOutgoing;
+    @BindView(R.id.textViewDisplayTempReturn) TextView textTempReturn;
+    @BindView(R.id.textViewDisplayTempOutdoors) TextView textTempOutdoors;
+    @BindView(R.id.textViewDisplayTempReturnShould) TextView textTempReturnShould;
+    @BindView(R.id.textViewDisplayTempWater) TextView textTempWater;
+    @BindView(R.id.textViewDisplayTempWaterShould) TextView textTempWaterShould;
+    @BindView(R.id.textViewDisplayTempSourceIn) TextView textTempSourceIn;
+    @BindView(R.id.textViewDisplayTempSourceOut) TextView textTempSourceOut;
+    @BindView(R.id.textViewDisplayTimeActive) TextView textTimeActive;
+    @BindView(R.id.textViewDisplayTimeInactive) TextView textTimeInactive;
+    @BindView(R.id.textViewDisplayTimeRest) TextView textTimeResting;
+    @BindView(R.id.textViewDisplayTimeReturnLower) TextView textTimeReturnLower;
+    @BindView(R.id.textViewDisplayTimeReturnHigher) TextView textTimeReturnHigher;
+    @BindView(R.id.textViewDisplayTime) TextView textTime;
 
-    @InjectView(R.id.textViewDisplayFirmware) TextView textFirmware;
-    @InjectView(R.id.textViewDisplayState) TextView textState;
+    @BindView(R.id.textViewDisplayFirmware) TextView textFirmware;
+    @BindView(R.id.textViewDisplayState) TextView textState;
 
     private boolean isConnected;
+    private Unbinder unbinder;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_display, container, false);
-        ButterKnife.inject(this, v);
+        unbinder = ButterKnife.bind(this, v);
 
         // show empty data
         populateViews(new StatusData(new int[StatusData.LENGTH_BYTES]));
@@ -137,7 +139,7 @@ public class DisplayFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
 
-        ButterKnife.reset(this);
+        unbinder.unbind();
     }
 
     @Override
