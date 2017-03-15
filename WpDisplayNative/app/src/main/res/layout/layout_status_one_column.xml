@@ -17,23 +17,23 @@
   -->
 
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    tools:showIn="@layout/fragment_display">
+    xmlns:tools="http://schemas.android.com/tools">
 
+    <!-- Text color changed in code depending on status. -->
     <TextView
         android:id="@+id/textViewDisplayStatus"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/padding_default"
-        tools:text="Current Status"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+        android:textAppearance="@style/TextAppearance.App.Body1.Green"
+        tools:text="Current Status" />
 
     <TextView
         android:id="@+id/textViewDisplayTime"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="@dimen/padding_default"
-        tools:text="Nov 16, 2014 17:00:57 PM"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+        android:textAppearance="@style/TextAppearance.App.Body1.Secondary"
+        tools:text="Nov 16, 2014 17:00:57 PM" />
 
 </merge>

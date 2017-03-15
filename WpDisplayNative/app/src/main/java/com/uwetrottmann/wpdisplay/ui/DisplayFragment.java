@@ -20,6 +20,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.widget.TextViewCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.text.SpannableStringBuilder;
@@ -244,8 +245,10 @@ public class DisplayFragment extends Fragment {
         if (TextUtils.isEmpty(event.host) || event.port < 1) {
             // display generic connection error if host or port not sent
             textStatus.setText(getString(R.string.message_no_connection));
+            TextViewCompat.setTextAppearance(textStatus, R.style.TextAppearance_App_Body1_Orange);
         } else {
             textStatus.setText(getString(statusResId, event.host + ":" + event.port));
+            TextViewCompat.setTextAppearance(textStatus, R.style.TextAppearance_App_Body1_Green);
         }
     }
 

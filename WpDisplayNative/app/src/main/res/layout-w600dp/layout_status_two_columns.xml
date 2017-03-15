@@ -24,20 +24,21 @@
     android:orientation="horizontal"
     tools:showIn="@layout/fragment_display">
 
+    <!-- Text color changed in code depending on status. -->
     <TextView
         android:id="@+id/textViewDisplayStatus"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        tools:text="Current Status"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+        android:textAppearance="@style/TextAppearance.App.Body1.Orange"
+        tools:text="Current Status" />
 
     <TextView
         android:id="@+id/textViewDisplayTime"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="1"
-        tools:text="Nov 16, 2014 17:00:57 PM"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+        android:textAppearance="@style/TextAppearance.App.Body1.Secondary"
+        tools:text="Nov 16, 2014 17:00:57 PM" />
 
 </LinearLayout>

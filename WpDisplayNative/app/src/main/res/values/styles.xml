@@ -14,8 +14,20 @@
 
     <style name="TextAppearance.App"/>
 
-    <style name="TextAppearance.App.Unit" parent="Base.TextAppearance.AppCompat.Headline">
+    <style name="TextAppearance.App.Unit" parent="TextAppearance.AppCompat.Headline">
         <item name="android:textColor">?android:attr/textColorSecondary</item>
+    </style>
+
+    <style name="TextAppearance.App.Body1.Secondary" parent="TextAppearance.AppCompat.Body1">
+        <item name="android:textColor">?android:attr/textColorSecondary</item>
+    </style>
+
+    <style name="TextAppearance.App.Body1.Green" parent="TextAppearance.AppCompat.Body1">
+        <item name="android:textColor">@color/teal_500</item>
+    </style>
+
+    <style name="TextAppearance.App.Body1.Orange" parent="TextAppearance.AppCompat.Body1">
+        <item name="android:textColor">@color/orange_500</item>
     </style>
 
     <style name="Widget" />
