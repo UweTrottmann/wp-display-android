@@ -8,8 +8,8 @@ android {
         applicationId "com.uwetrottmann.wpdisplay"
         minSdkVersion 15
         targetSdkVersion 25
-        versionCode 8
-        versionName "4"
+        versionCode 9
+        versionName "5"
     }
 
     compileOptions {

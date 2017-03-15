@@ -1,6 +1,12 @@
 Heat Pump Display Release Notes
 ===============================
 
+5 (2017-03-15)
+--------------
+
+- Add more operating states.
+- Tweak some colors to be less offensive.
+
 4 (2016-06-22)
 --------------
 
