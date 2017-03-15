@@ -222,6 +222,7 @@ public class DisplayFragment extends Fragment {
 
         // status text
         int statusResId;
+        boolean isWarning = false;
         if (event.isConnecting) {
             statusResId = R.string.label_connecting;
         } else if (event.isConnected) {
@@ -229,6 +230,7 @@ public class DisplayFragment extends Fragment {
             // start requesting data
             ConnectionTools.get().requestStatusData(true);
         } else {
+            isWarning = true;
             statusResId = R.string.label_connection_error;
             setupSnackBar(R.string.message_no_connection, R.string.action_retry,
                     new View.OnClickListener() {
@@ -245,11 +247,12 @@ public class DisplayFragment extends Fragment {
         if (TextUtils.isEmpty(event.host) || event.port < 1) {
             // display generic connection error if host or port not sent
             textStatus.setText(getString(R.string.message_no_connection));
-            TextViewCompat.setTextAppearance(textStatus, R.style.TextAppearance_App_Body1_Orange);
         } else {
             textStatus.setText(getString(statusResId, event.host + ":" + event.port));
-            TextViewCompat.setTextAppearance(textStatus, R.style.TextAppearance_App_Body1_Green);
         }
+        TextViewCompat.setTextAppearance(textStatus,
+                isWarning ? R.style.TextAppearance_App_Body1_Orange
+                        : R.style.TextAppearance_App_Body1_Green);
     }
 
     @SuppressWarnings("UnusedDeclaration")
