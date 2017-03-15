@@ -14,7 +14,8 @@ unused.txt
 *.iml
 *.ipr
 *.iws
-.idea/
+.idea/*
+!.idea/codeStyleSettings.xml
 
 ### Windows
 # Windows image file caches
