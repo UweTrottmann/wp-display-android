@@ -25,10 +25,11 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
+        android:paddingBottom="@dimen/activity_vertical_margin"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin"
-        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:clipToPadding="false"
         tools:context="com.uwetrottmann.wpdisplay.ui.SettingsFragment">
 
         <TextView
@@ -42,8 +43,8 @@
             android:layout_width="200dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/padding_default"
-            tools:text="192.168.0.42"
-            android:inputType="text" />
+            android:inputType="text"
+            tools:text="192.168.0.42" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -68,26 +69,27 @@
             android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
         <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/padding_default"
-            android:layout_marginBottom="@dimen/padding_small"
-            android:text="@string/ask_for_feedback" />
-
-        <Button
-            android:id="@+id/buttonSettingsStore"
-            style="?attr/borderlessButtonStyle"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/padding_large"
-            android:textColor="?android:attr/textColorSecondary"
-            android:text="@string/show_on_google_play" />
-
-        <TextView
             android:id="@+id/textViewSettingsVersion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="@string/version" />
+            android:layout_marginTop="@dimen/padding_default"
+            android:text="@string/version"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_default"
+            android:text="@string/ask_for_feedback"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textColor="?android:attr/textColorSecondary" />
+
+        <Button
+            android:id="@+id/buttonSettingsStore"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_default"
+            android:text="@string/show_on_google_play" />
 
     </LinearLayout>
 
