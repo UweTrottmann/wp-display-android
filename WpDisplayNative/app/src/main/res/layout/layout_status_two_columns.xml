@@ -22,7 +22,7 @@
     android:layout_height="wrap_content"
     android:layout_marginBottom="@dimen/padding_default"
     android:orientation="horizontal"
-    tools:showIn="@layout/fragment_display">
+    tools:showIn="@layout/fragment_display_two_columns">
 
     <!-- Text color changed in code depending on status. -->
     <TextView

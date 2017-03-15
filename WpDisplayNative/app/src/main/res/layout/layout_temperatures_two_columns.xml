@@ -18,7 +18,7 @@
 
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:showIn="@layout/fragment_display">
+    tools:showIn="@layout/fragment_display_one_column">
 
     <LinearLayout
         android:layout_width="match_parent"

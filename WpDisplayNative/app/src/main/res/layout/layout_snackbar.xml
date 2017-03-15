@@ -24,7 +24,7 @@
     android:layout_gravity="bottom"
     android:orientation="horizontal"
     android:background="@color/snackbar"
-    tools:showIn="@layout/fragment_display">
+    tools:showIn="@layout/fragment_display_one_column">
 
     <TextView
         android:id="@+id/textViewDisplaySnackbar"

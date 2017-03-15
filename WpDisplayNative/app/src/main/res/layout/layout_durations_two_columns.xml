@@ -18,7 +18,14 @@
 
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:showIn="@layout/fragment_display">
+    tools:showIn="@layout/fragment_display_two_columns">
+
+    <TextView
+        android:id="@+id/textViewDisplayState"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/padding_default"
+        tools:text="Operating State\nHeating" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -27,33 +34,18 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/textViewDisplayTempOutgoing"
+            android:id="@+id/textViewDisplayTimeActive"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            tools:text="@string/label_temp_outgoing" />
+            tools:text="@string/label_time_pump_active" />
 
         <TextView
-            android:id="@+id/textViewDisplayTempReturn"
+            android:id="@+id/textViewDisplayTimeInactive"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            tools:text="@string/label_temp_return" />
-
-        <TextView
-            android:id="@+id/textViewDisplayTempWater"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            tools:text="@string/label_temp_water" />
-
-        <TextView
-            android:id="@+id/textViewDisplayTempWaterShould"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            tools:text="@string/label_temp_water_should" />
-
+            tools:text="@string/label_time_compressor_inactive" />
     </LinearLayout>
 
     <LinearLayout
@@ -63,33 +55,32 @@
         android:orientation="horizontal">
 
         <TextView
-            android:id="@+id/textViewDisplayTempOutdoors"
+            android:id="@+id/textViewDisplayTimeReturnLower"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            tools:text="@string/label_temp_outdoors" />
+            tools:text="@string/label_time_return_lower" />
 
         <TextView
-            android:id="@+id/textViewDisplayTempReturnShould"
+            android:id="@+id/textViewDisplayTimeRest"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            tools:text="@string/label_temp_return_should" />
-
-        <TextView
-            android:id="@+id/textViewDisplayTempSourceIn"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            tools:text="@string/label_temp_source_in" />
-
-        <TextView
-            android:id="@+id/textViewDisplayTempSourceOut"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            tools:text="@string/label_temp_source_out" />
+            tools:text="@string/label_time_rest" />
 
     </LinearLayout>
+
+    <TextView
+        android:id="@+id/textViewDisplayTimeReturnHigher"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/padding_default"
+        tools:text="@string/label_time_return_higher" />
+
+    <TextView
+        android:id="@+id/textViewDisplayFirmware"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        tools:text="Firmware\nV1.23" />
 
 </merge>
