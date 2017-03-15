@@ -22,37 +22,36 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="bottom"
-    android:orientation="horizontal"
     android:background="@color/snackbar"
+    android:orientation="horizontal"
+    android:theme="@style/ThemeOverlay.AppCompat.Dark"
     tools:showIn="@layout/fragment_display_one_column">
 
     <TextView
         android:id="@+id/textViewDisplaySnackbar"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_weight="1"
         android:layout_gravity="center_vertical"
+        android:layout_weight="1"
+        android:ellipsize="end"
+        android:maxLines="2"
+        android:paddingBottom="@dimen/padding_large"
         android:paddingLeft="24dp"
         android:paddingStart="24dp"
         android:paddingTop="@dimen/padding_large"
-        android:paddingBottom="@dimen/padding_large"
-        android:maxLines="2"
-        android:ellipsize="end"
-        tools:text="@string/setup_missing"
         android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-        android:textColor="@color/sg_primary_text_default_dark"
-        tools:ignore="RtlSymmetry" />
+        tools:ignore="RtlSymmetry"
+        tools:text="@string/setup_missing" />
 
     <Button
         android:id="@+id/buttonDisplaySnackbar"
+        style="@style/Widget.AppCompat.Button.Borderless.Colored"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
+        android:background="?attr/selectableItemBackgroundBorderless"
         android:paddingLeft="24dp"
         android:paddingRight="24dp"
-        tools:text="@string/action_setup"
-        android:textAppearance="@style/TextAppearance.AppCompat.Button"
-        android:textColor="?attr/colorAccent"
-        android:background="?attr/selectableItemBackgroundBorderless" />
+        tools:text="@string/action_setup" />
 
 </LinearLayout>
