@@ -32,7 +32,12 @@
     <string name="label_operating_state">Betriebszustand</string>
     <string name="state_heating">Heizung</string>
     <string name="state_water">Brauchwasser</string>
+    <string name="state_swimming_pool">Schwimmbad</string>
+    <string name="state_power_supply_company">Energieversorger</string>
+    <string name="state_defrost">Abtauen</string>
     <string name="state_noop">Inaktiv</string>
+    <string name="state_ext_energ">Externe Energiequelle</string>
+    <string name="state_cooling">Kühlbetrieb</string>
     <string name="state_unknown">Unbekannter Zustand</string>
 
     <string name="label_host">Kontrollgerät Host/IP-Adresse (etwa 192.168.0.42)</string>

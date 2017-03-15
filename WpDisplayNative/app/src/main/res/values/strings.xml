@@ -31,8 +31,13 @@
 
     <string name="label_operating_state">Operating State</string>
     <string name="state_heating">Heating</string>
-    <string name="state_water">Water</string>
+    <string name="state_water">Hot Water</string>
+    <string name="state_swimming_pool">Swimming pool</string>
+    <string name="state_power_supply_company">Power supply company</string>
+    <string name="state_defrost">Defrost</string>
     <string name="state_noop">Inactive</string>
+    <string name="state_ext_energ">External power source</string>
+    <string name="state_cooling">Cooling</string>
     <string name="state_unknown">Unknown state</string>
 
     <string name="label_host">Controller Host/IP-address (like 192.168.0.42)</string>

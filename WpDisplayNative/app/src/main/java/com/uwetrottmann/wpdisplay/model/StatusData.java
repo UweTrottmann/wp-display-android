@@ -132,23 +132,40 @@ public class StatusData {
 
     private static final int OPERATING_STATE_INDEX = 80;
 
-    private static final int STATE_HEATING = 0;
-    private static final int STATE_WATER = 1;
-    private static final int STATE_NOOP = 5;
+    private enum OperatingState {
+
+        UNKNOWN(-1, R.string.state_unknown),
+        HEATING(0, R.string.state_heating),
+        WATER(1, R.string.state_water),
+        SWB(2, R.string.state_swimming_pool),
+        EVU(3, R.string.state_power_supply_company),
+        DEFROST(4, R.string.state_defrost),
+        NO_OP(5, R.string.state_noop),
+        EXT_ENERG(6, R.string.state_ext_energ),
+        COOLING(7, R.string.state_cooling);
+
+        public final int index;
+        @StringRes public final int labelRes;
+
+        OperatingState(int index, @StringRes int labelRes) {
+            this.index = index;
+            this.labelRes = labelRes;
+        }
+
+        public static OperatingState fromIndex(int index) {
+            for (OperatingState operatingState : values()) {
+                if (operatingState.index == index) {
+                    return operatingState;
+                }
+            }
+            return UNKNOWN;
+        }
+    }
 
     @StringRes
     public int getOperatingState() {
         int state = getValueAt(OPERATING_STATE_INDEX);
-        switch (state) {
-            case STATE_HEATING:
-                return R.string.state_heating;
-            case STATE_WATER:
-                return R.string.state_water;
-            case STATE_NOOP:
-                return R.string.state_noop;
-            default:
-                return R.string.state_unknown;
-        }
+        return OperatingState.fromIndex(state).labelRes;
     }
 
     private int getValueAt(int index) {
