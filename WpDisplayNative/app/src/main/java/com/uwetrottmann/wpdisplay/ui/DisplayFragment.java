@@ -20,6 +20,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.widget.TextViewCompat;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
@@ -174,6 +175,7 @@ public class DisplayFragment extends Fragment {
     private void showSettingsFragment() {
         FragmentManager fragmentManager = getFragmentManager();
         fragmentManager.beginTransaction()
+                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
                 .replace(R.id.container, new SettingsFragment())
                 .addToBackStack(null)
                 .commit();
