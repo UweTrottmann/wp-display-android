@@ -45,6 +45,8 @@ import com.uwetrottmann.wpdisplay.util.ConnectionTools;
 import com.uwetrottmann.wpdisplay.util.DataRequestRunnable;
 import de.greenrobot.event.EventBus;
 import java.text.DateFormat;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -61,6 +63,8 @@ public class DisplayFragment extends Fragment {
     @BindView(R.id.textViewDisplayTempReturn) TextView textTempReturn;
     @BindView(R.id.textViewDisplayTempOutdoors) TextView textTempOutdoors;
     @BindView(R.id.textViewDisplayTempReturnShould) TextView textTempReturnShould;
+    @BindView(R.id.textViewDisplayTempOutdoorsAvg) TextView textTempOutdoorsAvg;
+    @BindView(R.id.textViewDisplayTempHotGas) TextView textTempHotGas;
     @BindView(R.id.textViewDisplayTempWater) TextView textTempWater;
     @BindView(R.id.textViewDisplayTempWaterShould) TextView textTempWaterShould;
     @BindView(R.id.textViewDisplayTempSourceIn) TextView textTempSourceIn;
@@ -77,12 +81,30 @@ public class DisplayFragment extends Fragment {
 
     private boolean isConnected;
     private Unbinder unbinder;
+    private List<TextView> selectableViews;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
             Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_display, container, false);
         unbinder = ButterKnife.bind(this, v);
+        selectableViews = new LinkedList<>();
+        selectableViews.add(textTempOutgoing);
+        selectableViews.add(textTempReturn);
+        selectableViews.add(textTempOutdoors);
+        selectableViews.add(textTempReturnShould);
+        selectableViews.add(textTempOutdoorsAvg);
+        selectableViews.add(textTempHotGas);
+        selectableViews.add(textTempWater);
+        selectableViews.add(textTempWaterShould);
+        selectableViews.add(textTempSourceIn);
+        selectableViews.add(textTempSourceOut);
+        selectableViews.add(textTimeActive);
+        selectableViews.add(textTimeInactive);
+        selectableViews.add(textTimeResting);
+        selectableViews.add(textTimeReturnLower);
+        selectableViews.add(textTimeReturnHigher);
+        selectableViews.add(textTime);
 
         // show empty data
         setTextSelectable(ConnectionTools.get().isPaused());
@@ -196,20 +218,9 @@ public class DisplayFragment extends Fragment {
      * Only enable text selection if views are not updating. Otherwise scroll state resets.
      */
     private void setTextSelectable(boolean selectable) {
-        textTempOutgoing.setTextIsSelectable(selectable);
-        textTempReturn.setTextIsSelectable(selectable);
-        textTempOutdoors.setTextIsSelectable(selectable);
-        textTempReturnShould.setTextIsSelectable(selectable);
-        textTempWater.setTextIsSelectable(selectable);
-        textTempWaterShould.setTextIsSelectable(selectable);
-        textTempSourceIn.setTextIsSelectable(selectable);
-        textTempSourceOut.setTextIsSelectable(selectable);
-        textTimeActive.setTextIsSelectable(selectable);
-        textTimeInactive.setTextIsSelectable(selectable);
-        textTimeResting.setTextIsSelectable(selectable);
-        textTimeReturnLower.setTextIsSelectable(selectable);
-        textTimeReturnHigher.setTextIsSelectable(selectable);
-        textTime.setTextIsSelectable(selectable);
+        for (TextView textView : selectableViews) {
+            textView.setTextIsSelectable(selectable);
+        }
     }
 
     @SuppressWarnings("UnusedDeclaration")
@@ -276,6 +287,10 @@ public class DisplayFragment extends Fragment {
                 data.getTemperature(StatusData.Temperature.OUTDOORS));
         setTemperature(textTempReturnShould, R.string.label_temp_return_should,
                 data.getTemperature(StatusData.Temperature.RETURN_SHOULD));
+        setTemperature(textTempOutdoorsAvg, R.string.label_temp_outdoors_average,
+                data.getTemperature(StatusData.Temperature.OUTDOORS_AVERAGE));
+        setTemperature(textTempHotGas, R.string.label_temp_hot_gas,
+                data.getTemperature(StatusData.Temperature.HOT_GAS));
         setTemperature(textTempWater, R.string.label_temp_water,
                 data.getTemperature(StatusData.Temperature.WATER));
         setTemperature(textTempWaterShould, R.string.label_temp_water_should,

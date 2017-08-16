@@ -16,9 +16,11 @@
     <string name="label_temp_outgoing">Outgoing</string>
     <string name="label_temp_return">Return</string>
     <string name="label_temp_return_should">Return Target</string>
+    <string name="label_temp_hot_gas">Hot Gas</string>
     <string name="label_temp_water">Hot Water</string>
     <string name="label_temp_water_should">Hot Water Target</string>
     <string name="label_temp_outdoors">Outdoors</string>
+    <string name="label_temp_outdoors_average">Outdoors Average</string>
     <string name="label_temp_source_in">From Heat Source</string>
     <string name="label_temp_source_out">To Heat Source</string>
     <string name="label_time_pump_active">Pump active</string>

@@ -16,9 +16,11 @@
     <string name="label_temp_outgoing">Vorlauf</string>
     <string name="label_temp_return">Rücklauf</string>
     <string name="label_temp_return_should">Rücklauf Soll</string>
+    <string name="label_temp_hot_gas">Heißgas</string>
     <string name="label_temp_water">Brauchwasser</string>
     <string name="label_temp_water_should">Brauchwasser Soll</string>
     <string name="label_temp_outdoors">Außen</string>
+    <string name="label_temp_outdoors_average">Außen Mittel</string>
     <string name="label_temp_source_in">Von Wärmequelle</string>
     <string name="label_temp_source_out">Zur Wärmequelle</string>
     <string name="label_time_pump_active">Pumpe aktiv</string>
