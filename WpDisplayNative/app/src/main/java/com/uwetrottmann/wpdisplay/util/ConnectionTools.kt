@@ -31,9 +31,8 @@ import java.util.concurrent.TimeUnit
 object ConnectionTools : ConnectionListener {
 
     private val executor = Executors.newScheduledThreadPool(1)
-
-    private val disconnectRunnable: DisconnectRunnable
-    private val requestRunnable: DataRequestRunnable
+    private val disconnectRunnable: DisconnectRunnable = DisconnectRunnable(this)
+    private val requestRunnable: DataRequestRunnable = DataRequestRunnable(this)
 
     override var socket: Socket? = null
     override var inputStream: DataInputStream? = null
@@ -46,11 +45,6 @@ object ConnectionTools : ConnectionListener {
     override var isPaused: Boolean = false
 
     class ConnectionEvent(var isConnecting: Boolean, var isConnected: Boolean, var host: String?, var port: Int)
-
-    init {
-        disconnectRunnable = DisconnectRunnable(this)
-        requestRunnable = DataRequestRunnable(this)
-    }
 
     /**
      * Try to establish a connection, async.
@@ -121,10 +115,8 @@ object ConnectionTools : ConnectionListener {
     }
 
     private fun cancelStatusDataRequests() {
-        if (requestSchedule != null) {
-            requestSchedule!!.cancel(true)
-            requestSchedule = null
-        }
+        requestSchedule?.cancel(true)
+        requestSchedule = null
     }
 
     @Synchronized
