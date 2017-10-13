@@ -43,12 +43,11 @@ class SettingsFragment : Fragment() {
     override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
         buttonSettingsStore.setOnClickListener { openWebPage(getString(R.string.store_page_url)) }
 
-        var version: String
-        try {
+        val version = try {
             val packageInfo = context.packageManager.getPackageInfo(context.packageName, 0)
-            version = packageInfo.versionName
+            packageInfo.versionName
         } catch (e: PackageManager.NameNotFoundException) {
-            version = ""
+            ""
         }
 
         textViewSettingsVersion.text = getString(R.string.version, version)
