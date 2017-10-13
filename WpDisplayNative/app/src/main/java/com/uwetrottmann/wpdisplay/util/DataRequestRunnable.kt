@@ -17,7 +17,7 @@
 package com.uwetrottmann.wpdisplay.util
 
 import com.uwetrottmann.wpdisplay.model.StatusData
-import de.greenrobot.event.EventBus
+import org.greenrobot.eventbus.EventBus
 import timber.log.Timber
 import java.io.IOException
 

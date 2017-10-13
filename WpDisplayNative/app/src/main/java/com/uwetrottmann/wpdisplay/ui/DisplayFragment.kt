@@ -35,7 +35,9 @@ import com.uwetrottmann.wpdisplay.model.StatusData
 import com.uwetrottmann.wpdisplay.settings.ConnectionSettings
 import com.uwetrottmann.wpdisplay.util.ConnectionTools
 import com.uwetrottmann.wpdisplay.util.DataRequestRunnable
-import de.greenrobot.event.EventBus
+import org.greenrobot.eventbus.EventBus
+import org.greenrobot.eventbus.Subscribe
+import org.greenrobot.eventbus.ThreadMode
 import java.text.DateFormat
 import java.util.*
 
@@ -115,7 +117,7 @@ class DisplayFragment : Fragment() {
         super.onStart()
 
         showSnackBar(false)
-        EventBus.getDefault().registerSticky(this)
+        EventBus.getDefault().register(this)
         connectOrNotify()
     }
 
@@ -200,6 +202,7 @@ class DisplayFragment : Fragment() {
     }
 
     @Suppress("unused")
+    @Subscribe(threadMode = ThreadMode.MAIN)
     fun onEventMainThread(event: ConnectionTools.ConnectionEvent) {
         if (!isAdded) {
             return
@@ -246,6 +249,7 @@ class DisplayFragment : Fragment() {
     }
 
     @Suppress("unused")
+    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
     fun onEventMainThread(event: DataRequestRunnable.DataEvent) {
         if (!isAdded) {
             return

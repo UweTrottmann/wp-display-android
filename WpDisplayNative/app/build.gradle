@@ -22,7 +22,7 @@ android {
 
     signingConfigs {
         release {
-            if(rootProject.file('keystore.properties').exists()) {
+            if (rootProject.file('keystore.properties').exists()) {
                 def props = new Properties()
                 props.load(new FileInputStream(rootProject.file('keystore.properties')))
 
@@ -38,7 +38,7 @@ android {
         release {
             minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            if(rootProject.file('keystore.properties').exists()) {
+            if (rootProject.file('keystore.properties').exists()) {
                 signingConfig signingConfigs.release
             }
         }
@@ -51,5 +51,5 @@ dependencies {
     implementation 'com.jakewharton:butterknife:8.8.1'
     kapt 'com.jakewharton:butterknife-compiler:8.8.1'
     implementation 'com.jakewharton.timber:timber:4.5.1'
-    implementation 'de.greenrobot:eventbus:2.4.1'
+    compile 'org.greenrobot:eventbus:3.0.0'
 }

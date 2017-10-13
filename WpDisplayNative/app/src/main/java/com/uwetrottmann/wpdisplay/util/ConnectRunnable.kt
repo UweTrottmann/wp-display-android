@@ -16,7 +16,7 @@
 
 package com.uwetrottmann.wpdisplay.util
 
-import de.greenrobot.event.EventBus
+import org.greenrobot.eventbus.EventBus
 import timber.log.Timber
 import java.io.IOException
 import java.net.InetSocketAddress
