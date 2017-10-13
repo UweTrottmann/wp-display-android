@@ -1,0 +1,11 @@
+== Temperatur und Status von Wärmepumpe, Heizung, Warmwasser anzeigen
+
+Zeigt Temperatur und Status von Wärmepumpe, Heizung und Warmwasser von Alpha-InnoTec Luxtronik 2.0 kontrollierten Wärmepumpen an.
+
+Dies ist ein quelloffener Ersatz des mitgelieferten Java-Applet des Controllers, dass auf Mobilgeräten nicht funktioniert. Sie müssen mit dem gleichen Netzwerk wie das Kontrollgerät verbunden sein (sprich für den Zugriff aus der Ferne ist etwa eine VPN-Verbindung in Ihr Netz zuhause notwendig).
+
+Es werden derzeit nur einige Werte angezeigt, es können keine Einstellungen geändert werden.
+
+Hinweise:
+Der Kaufpreis dient lediglich als Schutzgebühr.
+Der Quellcode ist auf GitHub frei verfügbar (siehe Webseite-Schaltfläche).
