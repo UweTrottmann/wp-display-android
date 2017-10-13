@@ -1,6 +1,13 @@
 Heat Pump Display Release Notes
 ===============================
 
+6 (2017-10-13)
+--------------
+
+- Add average and hot gas temperature.
+- Use vector icons.
+- Add adaptive launcher icon for Android Oreo.
+
 5 (2017-03-15)
 --------------
 
