@@ -13,6 +13,8 @@ android {
         targetSdkVersion 26
         versionCode 9
         versionName "5"
+
+        vectorDrawables.useSupportLibrary = true
     }
 
     compileOptions {
