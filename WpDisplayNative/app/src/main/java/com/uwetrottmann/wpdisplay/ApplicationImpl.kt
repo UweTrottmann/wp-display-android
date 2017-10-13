@@ -14,19 +14,18 @@
  * limitations under the License.
  */
 
-package com.uwetrottmann.wpdisplay;
+package com.uwetrottmann.wpdisplay
 
-import android.app.Application;
-import timber.log.Timber;
+import android.app.Application
+import timber.log.Timber
 
-public class ApplicationImpl extends Application {
+class ApplicationImpl : Application() {
 
-    @Override
-    public void onCreate() {
-        super.onCreate();
+    override fun onCreate() {
+        super.onCreate()
 
         if (BuildConfig.DEBUG) {
-            Timber.plant(new Timber.DebugTree());
+            Timber.plant(Timber.DebugTree())
         }
     }
 }
