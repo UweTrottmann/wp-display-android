@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         // setup action bar
-        val actionBarToolbar = findViewById(R.id.toolbar) as Toolbar
+        val actionBarToolbar : Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(actionBarToolbar)
 
         if (savedInstanceState == null) {
