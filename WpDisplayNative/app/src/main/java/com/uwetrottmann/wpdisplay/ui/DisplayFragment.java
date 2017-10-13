@@ -211,7 +211,7 @@ public class DisplayFragment extends Fragment {
             ConnectionTools.get().pause();
             setTextSelectable(true);
         }
-        getActivity().supportInvalidateOptionsMenu();
+        getActivity().invalidateOptionsMenu();
     }
 
     /**
@@ -231,7 +231,7 @@ public class DisplayFragment extends Fragment {
 
         // pause button
         isConnected = event.isConnected;
-        getActivity().supportInvalidateOptionsMenu();
+        getActivity().invalidateOptionsMenu();
 
         // status text
         int statusResId;
