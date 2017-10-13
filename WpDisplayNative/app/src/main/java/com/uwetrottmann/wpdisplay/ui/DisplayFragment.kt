@@ -93,7 +93,7 @@ class DisplayFragment : Fragment() {
         selectableViews.add(textTime)
 
         // show empty data
-        setTextSelectable(ConnectionTools.get().isPaused)
+        setTextSelectable(ConnectionTools.isPaused)
         populateViews(StatusData(IntArray(StatusData.LENGTH_BYTES)))
 
         return v
@@ -127,14 +127,14 @@ class DisplayFragment : Fragment() {
                     View.OnClickListener { showSettingsFragment() })
             showSnackBar(true)
         } else {
-            ConnectionTools.get().connect(activity)
+            ConnectionTools.connect(activity)
         }
     }
 
     override fun onStop() {
         super.onStop()
 
-        ConnectionTools.get().disconnect()
+        ConnectionTools.disconnect()
         EventBus.getDefault().unregister(this)
     }
 
@@ -147,7 +147,7 @@ class DisplayFragment : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         inflater.inflate(R.menu.menu_display, menu)
 
-        val paused = ConnectionTools.get().isPaused
+        val paused = ConnectionTools.isPaused
         val item = menu.findItem(R.id.menu_action_display_pause)
         item.setIcon(if (paused) R.drawable.ic_play_arrow_white_24dp else R.drawable.ic_pause_white_24dp)
         item.setTitle(if (paused) R.string.action_resume else R.string.action_pause)
@@ -180,11 +180,11 @@ class DisplayFragment : Fragment() {
     }
 
     private fun togglePause() {
-        if (ConnectionTools.get().isPaused) {
-            ConnectionTools.get().resume()
+        if (ConnectionTools.isPaused) {
+            ConnectionTools.resume()
             setTextSelectable(false)
         } else {
-            ConnectionTools.get().pause()
+            ConnectionTools.pause()
             setTextSelectable(true)
         }
         activity.invalidateOptionsMenu()
@@ -217,18 +217,18 @@ class DisplayFragment : Fragment() {
             event.isConnected -> {
                 statusResId = R.string.label_connected
                 // start requesting data
-                ConnectionTools.get().requestStatusData(true)
+                ConnectionTools.requestStatusData(true)
             }
             else -> {
                 isWarning = true
                 statusResId = R.string.label_connection_error
                 setupSnackBar(R.string.message_no_connection, R.string.action_retry,
                         View.OnClickListener {
-                            ConnectionTools.get().connect(activity)
+                            ConnectionTools.connect(activity)
                             showSnackBar(false)
                         })
                 showSnackBar(true)
-                ConnectionTools.get().disconnect()
+                ConnectionTools.disconnect()
             }
         }
 

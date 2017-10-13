@@ -14,25 +14,25 @@
  * limitations under the License.
  */
 
-package com.uwetrottmann.wpdisplay.util;
+package com.uwetrottmann.wpdisplay.util
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.Socket;
+import java.io.DataInputStream
+import java.io.DataOutputStream
+import java.io.InputStream
+import java.io.OutputStream
+import java.net.Socket
 
 /**
- * Interfaces for {@link com.uwetrottmann.wpdisplay.util.ConnectionTools} runnables.
+ * Interfaces for [com.uwetrottmann.wpdisplay.util.ConnectionTools] runnables.
  */
-public interface ConnectionListener {
-    Socket getSocket();
+interface ConnectionListener {
+    val socket: Socket?
 
-    DataInputStream getInputStream();
+    val inputStream: DataInputStream?
 
-    DataOutputStream getOutputStream();
+    val outputStream: DataOutputStream?
 
-    void setSocket(Socket socket, InputStream in, OutputStream out);
+    val isPaused: Boolean
 
-    boolean isPaused();
+    fun setSocket(socket: Socket?, `in`: InputStream?, out: OutputStream?)
 }
