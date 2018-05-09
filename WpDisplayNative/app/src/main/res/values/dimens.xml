@@ -8,4 +8,8 @@
     <dimen name="padding_default">8dp</dimen>
     <dimen name="padding_large">16dp</dimen>
 
+    <integer name="spanCount">2</integer>
+    <integer name="spanSizeTemperatures">1</integer>
+    <integer name="spanSizeDurations">2</integer>
+
 </resources>

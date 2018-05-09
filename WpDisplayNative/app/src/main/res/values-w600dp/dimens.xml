@@ -3,4 +3,7 @@
 
     <dimen name="activity_horizontal_margin">24dp</dimen>
 
+    <integer name="spanSizeTemperatures">1</integer>
+    <integer name="spanSizeDurations">1</integer>
+
 </resources>

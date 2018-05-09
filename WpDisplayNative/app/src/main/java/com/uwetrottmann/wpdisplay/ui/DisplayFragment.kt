@@ -20,6 +20,7 @@ import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentTransaction
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.GridLayoutManager
 import android.text.SpannableStringBuilder
 import android.text.TextUtils
@@ -29,6 +30,7 @@ import android.widget.TextView
 import com.uwetrottmann.wpdisplay.R
 import com.uwetrottmann.wpdisplay.display.DisplayAdapter
 import com.uwetrottmann.wpdisplay.model.ConnectionStatus
+import com.uwetrottmann.wpdisplay.model.DisplayItems
 import com.uwetrottmann.wpdisplay.model.StatusData
 import com.uwetrottmann.wpdisplay.settings.ConnectionSettings
 import com.uwetrottmann.wpdisplay.util.ConnectionTools
@@ -55,17 +57,19 @@ class DisplayFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val activeItems = MutableList(15) { it + 1 }
+        val activeItems = MutableList(DisplayItems.map.size) { it + 1 }
         viewAdapter = DisplayAdapter(activeItems)
 
-        // TODO ut: use dimen
-        viewManager = GridLayoutManager(requireContext(), 2).apply {
+        val spanCount = resources.getInteger(R.integer.spanCount)
+        val spanSizeTemperatures = resources.getInteger(R.integer.spanSizeTemperatures)
+        val spanSizeDurations = resources.getInteger(R.integer.spanSizeDurations)
+        viewManager = GridLayoutManager(requireContext(), spanCount).apply {
             spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
                 override fun getSpanSize(position: Int): Int {
                     return when (viewAdapter.getItemViewType(position)) {
-                        DisplayAdapter.VIEW_TYPE_HEADER -> viewManager.spanCount
-                        DisplayAdapter.VIEW_TYPE_DURATION -> viewManager.spanCount
-                        else -> 1
+                        DisplayAdapter.VIEW_TYPE_TEMPERATURE -> spanSizeTemperatures
+                        DisplayAdapter.VIEW_TYPE_DURATION -> spanSizeDurations
+                        else -> viewManager.spanCount
                     }
                 }
             }
@@ -75,6 +79,7 @@ class DisplayFragment : Fragment() {
             setHasFixedSize(true)
             layoutManager = viewManager
             adapter = viewAdapter
+            (itemAnimator as DefaultItemAnimator).supportsChangeAnimations = false
         }
 
         // show empty data
@@ -236,8 +241,6 @@ class DisplayFragment : Fragment() {
 //        setText(textState, R.string.label_operating_state,
 //                requireContext().getString(data.operatingState))
 //        setText(textFirmware, R.string.label_firmware, data.firmwareVersion)
-//
-//        textTime.text = DateFormat.getDateTimeInstance().format(data.timestamp)
     }
 
     private fun setTemperature(view: TextView?, labelResId: Int, value: Double) {
