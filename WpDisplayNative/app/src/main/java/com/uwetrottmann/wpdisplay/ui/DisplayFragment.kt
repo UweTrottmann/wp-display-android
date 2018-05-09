@@ -19,86 +19,66 @@ package com.uwetrottmann.wpdisplay.ui
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentTransaction
-import android.support.v4.widget.TextViewCompat
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.GridLayoutManager
 import android.text.SpannableStringBuilder
 import android.text.TextUtils
 import android.text.style.TextAppearanceSpan
 import android.view.*
-import android.widget.Button
 import android.widget.TextView
-import butterknife.BindView
-import butterknife.ButterKnife
-import butterknife.Unbinder
 import com.uwetrottmann.wpdisplay.R
+import com.uwetrottmann.wpdisplay.display.DisplayAdapter
+import com.uwetrottmann.wpdisplay.model.ConnectionStatus
 import com.uwetrottmann.wpdisplay.model.StatusData
 import com.uwetrottmann.wpdisplay.settings.ConnectionSettings
 import com.uwetrottmann.wpdisplay.util.ConnectionTools
 import com.uwetrottmann.wpdisplay.util.DataRequestRunnable
+import kotlinx.android.synthetic.main.fragment_display_rv.*
+import kotlinx.android.synthetic.main.layout_snackbar.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
-import java.text.DateFormat
 import java.util.*
 
 class DisplayFragment : Fragment() {
 
-    @BindView(R.id.containerDisplaySnackbar) lateinit var snackBar: View
-    @BindView(R.id.textViewDisplaySnackbar) lateinit var snackBarText: TextView
-    @BindView(R.id.buttonDisplaySnackbar) lateinit var snackBarButton: Button
-
-    @BindView(R.id.textViewDisplayStatus) lateinit var textStatus: TextView
-    @BindView(R.id.textViewDisplayTempOutgoing) lateinit var textTempOutgoing: TextView
-    @BindView(R.id.textViewDisplayTempReturn) lateinit var textTempReturn: TextView
-    @BindView(R.id.textViewDisplayTempOutdoors) lateinit var textTempOutdoors: TextView
-    @BindView(R.id.textViewDisplayTempReturnShould) lateinit var textTempReturnShould: TextView
-    @BindView(R.id.textViewDisplayTempOutdoorsAvg) lateinit var textTempOutdoorsAvg: TextView
-    @BindView(R.id.textViewDisplayTempHotGas) lateinit var textTempHotGas: TextView
-    @BindView(R.id.textViewDisplayTempWater) lateinit var textTempWater: TextView
-    @BindView(R.id.textViewDisplayTempWaterShould) lateinit var textTempWaterShould: TextView
-    @BindView(R.id.textViewDisplayTempSourceIn) lateinit var textTempSourceIn: TextView
-    @BindView(R.id.textViewDisplayTempSourceOut) lateinit var textTempSourceOut: TextView
-    @BindView(R.id.textViewDisplayTimeActive) lateinit var textTimeActive: TextView
-    @BindView(R.id.textViewDisplayTimeInactive) lateinit var textTimeInactive: TextView
-    @BindView(R.id.textViewDisplayTimeRest) lateinit var textTimeResting: TextView
-    @BindView(R.id.textViewDisplayTimeReturnLower) lateinit var textTimeReturnLower: TextView
-    @BindView(R.id.textViewDisplayTimeReturnHigher) lateinit var textTimeReturnHigher: TextView
-    @BindView(R.id.textViewDisplayTime) lateinit var textTime: TextView
-
-    @BindView(R.id.textViewDisplayFirmware) lateinit var textFirmware: TextView
-    @BindView(R.id.textViewDisplayState) lateinit var textState: TextView
+    private lateinit var viewAdapter: DisplayAdapter
+    private lateinit var viewManager: GridLayoutManager
 
     private var isConnected: Boolean = false
-    private lateinit var unbinder: Unbinder
-    private lateinit var selectableViews: MutableList<TextView>
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        val v = inflater.inflate(R.layout.fragment_display, container, false)
-        unbinder = ButterKnife.bind(this, v)
-        selectableViews = LinkedList()
-        selectableViews.add(textTempOutgoing)
-        selectableViews.add(textTempReturn)
-        selectableViews.add(textTempOutdoors)
-        selectableViews.add(textTempReturnShould)
-        selectableViews.add(textTempOutdoorsAvg)
-        selectableViews.add(textTempHotGas)
-        selectableViews.add(textTempWater)
-        selectableViews.add(textTempWaterShould)
-        selectableViews.add(textTempSourceIn)
-        selectableViews.add(textTempSourceOut)
-        selectableViews.add(textTimeActive)
-        selectableViews.add(textTimeInactive)
-        selectableViews.add(textTimeResting)
-        selectableViews.add(textTimeReturnLower)
-        selectableViews.add(textTimeReturnHigher)
-        selectableViews.add(textTime)
+        return inflater.inflate(R.layout.fragment_display_rv, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val activeItems = MutableList(15) { it + 1 }
+        viewAdapter = DisplayAdapter(activeItems)
+
+        // TODO ut: use dimen
+        viewManager = GridLayoutManager(requireContext(), 2).apply {
+            spanSizeLookup = object : GridLayoutManager.SpanSizeLookup() {
+                override fun getSpanSize(position: Int): Int {
+                    return when (viewAdapter.getItemViewType(position)) {
+                        DisplayAdapter.VIEW_TYPE_HEADER -> viewManager.spanCount
+                        DisplayAdapter.VIEW_TYPE_DURATION -> viewManager.spanCount
+                        else -> 1
+                    }
+                }
+            }
+        }
+
+        recyclerViewDisplay.apply {
+            setHasFixedSize(true)
+            layoutManager = viewManager
+            adapter = viewAdapter
+        }
 
         // show empty data
-        setTextSelectable(ConnectionTools.isPaused)
-        populateViews(StatusData(IntArray(StatusData.LENGTH_BYTES)))
-
-        return v
+//        setTextSelectable(ConnectionTools.isPaused)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -138,12 +118,6 @@ class DisplayFragment : Fragment() {
 
         ConnectionTools.disconnect()
         EventBus.getDefault().unregister(this)
-    }
-
-    override fun onDestroyView() {
-        super.onDestroyView()
-
-        unbinder.unbind()
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -196,9 +170,10 @@ class DisplayFragment : Fragment() {
      * Only enable text selection if views are not updating. Otherwise scroll state resets.
      */
     private fun setTextSelectable(selectable: Boolean) {
-        for (textView in selectableViews) {
-            textView.setTextIsSelectable(selectable)
-        }
+        // TODO
+//        for (textView in selectableViews) {
+//            textView.setTextIsSelectable(selectable)
+//        }
     }
 
     @Suppress("unused")
@@ -235,17 +210,13 @@ class DisplayFragment : Fragment() {
             }
         }
 
-        if (TextUtils.isEmpty(event.host) || event.port < 1) {
+        val message = if (TextUtils.isEmpty(event.host) || event.port < 1) {
             // display generic connection error if host or port not sent
-            textStatus.text = getString(R.string.message_no_connection)
+            getString(R.string.message_no_connection)
         } else {
-            textStatus.text = getString(statusResId, event.host + ":" + event.port)
+            getString(statusResId, event.host + ":" + event.port)
         }
-        TextViewCompat.setTextAppearance(textStatus,
-                if (isWarning)
-                    R.style.TextAppearance_App_Body1_Orange
-                else
-                    R.style.TextAppearance_App_Body1_Green)
+        viewAdapter.updateStatus(ConnectionStatus(message, isWarning))
     }
 
     @Suppress("unused")
@@ -255,50 +226,18 @@ class DisplayFragment : Fragment() {
             return
         }
 
-        populateViews(event.data)
+        viewAdapter.updateStatusData(event.data)
     }
 
     private fun populateViews(data: StatusData) {
-        // temperature values
-        setTemperature(textTempOutgoing, R.string.label_temp_outgoing,
-                data.getTemperature(StatusData.Temperature.OUTGOING))
-        setTemperature(textTempReturn, R.string.label_temp_return,
-                data.getTemperature(StatusData.Temperature.RETURN))
-        setTemperature(textTempOutdoors, R.string.label_temp_outdoors,
-                data.getTemperature(StatusData.Temperature.OUTDOORS))
-        setTemperature(textTempReturnShould, R.string.label_temp_return_should,
-                data.getTemperature(StatusData.Temperature.RETURN_SHOULD))
-        setTemperature(textTempOutdoorsAvg, R.string.label_temp_outdoors_average,
-                data.getTemperature(StatusData.Temperature.OUTDOORS_AVERAGE))
-        setTemperature(textTempHotGas, R.string.label_temp_hot_gas,
-                data.getTemperature(StatusData.Temperature.HOT_GAS))
-        setTemperature(textTempWater, R.string.label_temp_water,
-                data.getTemperature(StatusData.Temperature.WATER))
-        setTemperature(textTempWaterShould, R.string.label_temp_water_should,
-                data.getTemperature(StatusData.Temperature.WATER_SHOULD))
-        setTemperature(textTempSourceIn, R.string.label_temp_source_in,
-                data.getTemperature(StatusData.Temperature.SOURCE_IN))
-        setTemperature(textTempSourceOut, R.string.label_temp_source_out,
-                data.getTemperature(StatusData.Temperature.SOURCE_OUT))
-
-        // time values
-        setText(textTimeActive, R.string.label_time_pump_active,
-                data.getTime(StatusData.Time.TIME_PUMP_ACTIVE))
-        setText(textTimeInactive, R.string.label_time_compressor_inactive,
-                data.getTime(StatusData.Time.TIME_COMPRESSOR_NOOP))
-        setText(textTimeResting, R.string.label_time_rest,
-                data.getTime(StatusData.Time.TIME_REST))
-        setText(textTimeReturnLower, R.string.label_time_return_lower,
-                data.getTime(StatusData.Time.TIME_RETURN_LOWER))
-        setText(textTimeReturnHigher, R.string.label_time_return_higher,
-                data.getTime(StatusData.Time.TIME_RETURN_HIGHER))
+        viewAdapter.updateStatusData(data)
 
         // text values
-        setText(textState, R.string.label_operating_state,
-                requireContext().getString(data.operatingState))
-        setText(textFirmware, R.string.label_firmware, data.firmwareVersion)
-
-        textTime.text = DateFormat.getDateTimeInstance().format(data.timestamp)
+//        setText(textState, R.string.label_operating_state,
+//                requireContext().getString(data.operatingState))
+//        setText(textFirmware, R.string.label_firmware, data.firmwareVersion)
+//
+//        textTime.text = DateFormat.getDateTimeInstance().format(data.timestamp)
     }
 
     private fun setTemperature(view: TextView?, labelResId: Int, value: Double) {
@@ -341,17 +280,17 @@ class DisplayFragment : Fragment() {
     }
 
     private fun showSnackBar(visible: Boolean) {
-        snackBar.visibility = if (visible) View.VISIBLE else View.GONE
+        containerDisplaySnackbar.visibility = if (visible) View.VISIBLE else View.GONE
     }
 
     private fun setupSnackBar(titleResId: Int, actionResId: Int, action: View.OnClickListener) {
-        snackBarText.setText(titleResId)
+        textViewDisplaySnackbar.setText(titleResId)
         if (actionResId > 0) {
-            snackBarButton.setText(actionResId)
-            snackBarButton.setOnClickListener(action)
-            snackBarButton.visibility = View.VISIBLE
+            buttonDisplaySnackbar.setText(actionResId)
+            buttonDisplaySnackbar.setOnClickListener(action)
+            buttonDisplaySnackbar.visibility = View.VISIBLE
         } else {
-            snackBarButton.visibility = View.GONE
+            buttonDisplaySnackbar.visibility = View.GONE
         }
     }
 }
