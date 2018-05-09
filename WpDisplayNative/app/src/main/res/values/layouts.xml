@@ -17,6 +17,6 @@
 
 <resources>
 
-    <item name="fragment_display" type="layout">@layout/fragment_display_one_column</item>
+    <item name="layout_status" type="layout">@layout/layout_status_one_column</item>
 
 </resources>

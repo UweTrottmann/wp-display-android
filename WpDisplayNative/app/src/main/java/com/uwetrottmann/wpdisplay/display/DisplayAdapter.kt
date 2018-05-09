@@ -19,10 +19,12 @@ package com.uwetrottmann.wpdisplay.display
 import android.support.v4.widget.TextViewCompat
 import android.support.v7.widget.RecyclerView
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
 import com.uwetrottmann.wpdisplay.R
 import com.uwetrottmann.wpdisplay.model.*
+import java.text.DateFormat
 
 class DisplayAdapter(private val itemIds: MutableList<Int>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -63,8 +65,8 @@ class DisplayAdapter(private val itemIds: MutableList<Int>) : RecyclerView.Adapt
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         when (viewType) {
             VIEW_TYPE_HEADER -> {
-                val view = LayoutInflater.from(parent.context).inflate(R.layout.item_text, parent, false)
-                return HeaderViewHolder(view as TextView)
+                val view = LayoutInflater.from(parent.context).inflate(R.layout.layout_status, parent, false)
+                return StatusViewHolder(view)
             }
             VIEW_TYPE_TEMPERATURE -> {
                 val view = LayoutInflater.from(parent.context).inflate(R.layout.item_text, parent, false)
@@ -80,13 +82,14 @@ class DisplayAdapter(private val itemIds: MutableList<Int>) : RecyclerView.Adapt
 
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
-            is HeaderViewHolder -> {
-                holder.textView.text = connectionStatus.message
-                TextViewCompat.setTextAppearance(holder.textView,
+            is StatusViewHolder -> {
+                holder.textViewDisplayStatus.text = connectionStatus.message
+                TextViewCompat.setTextAppearance(holder.textViewDisplayStatus,
                         if (connectionStatus.isWarning)
                             R.style.TextAppearance_App_Body1_Orange
                         else
                             R.style.TextAppearance_App_Body1_Green)
+                holder.textViewDisplayTime.text = DateFormat.getDateTimeInstance().format(statusData.timestamp)
             }
             is TemperatureViewHolder -> {
                 val temperatureItem = DisplayItems.getOrThrow(itemIds[position - 1]) as TemperatureItem
@@ -99,7 +102,11 @@ class DisplayAdapter(private val itemIds: MutableList<Int>) : RecyclerView.Adapt
         }
     }
 
-    class HeaderViewHolder(val textView: TextView) : RecyclerView.ViewHolder(textView)
+    class StatusViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+        val textViewDisplayStatus = itemView.findViewById<TextView>(R.id.textViewDisplayStatus)
+        val textViewDisplayTime = itemView.findViewById<TextView>(R.id.textViewDisplayTime)
+    }
+
     class TemperatureViewHolder(val textView: TextView) : RecyclerView.ViewHolder(textView)
     class DurationViewHolder(val textView: TextView) : RecyclerView.ViewHolder(textView)
 

@@ -21,8 +21,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginBottom="@dimen/padding_default"
-    android:orientation="horizontal"
-    tools:showIn="@layout/fragment_display_two_columns">
+    android:orientation="horizontal">
 
     <!-- Text color changed in code depending on status. -->
     <TextView
