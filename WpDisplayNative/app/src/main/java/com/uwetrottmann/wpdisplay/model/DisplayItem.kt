@@ -85,3 +85,33 @@ class DurationItem(
     }
 
 }
+
+class TextItem(
+        id: Int,
+        @StringRes val labelResId: Int
+) : DisplayItem(id) {
+
+    fun setText(view: TextView, statusData: StatusData) {
+        val context = view.context
+        val value = when (labelResId) {
+            R.string.label_operating_state -> context.getString(statusData.operatingState)
+            R.string.label_firmware -> statusData.firmwareVersion
+            else -> ""
+        }
+        val builder = SpannableStringBuilder()
+
+        builder.append(context.getString(labelResId))
+        builder.setSpan(TextAppearanceSpan(context,
+                R.style.TextAppearance_AppCompat_Caption), 0, builder.length, 0)
+
+        builder.append("\n")
+
+        val lengthOld = builder.length
+        builder.append(value)
+        builder.setSpan(TextAppearanceSpan(context,
+                R.style.TextAppearance_AppCompat_Display1), lengthOld, builder.length, 0)
+
+        view.text = builder
+    }
+
+}

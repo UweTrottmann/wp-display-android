@@ -55,6 +55,7 @@ class DisplayAdapter(private val itemIds: MutableList<Int>) : RecyclerView.Adapt
             when (DisplayItems.getOrThrow(itemId)) {
                 is TemperatureItem -> VIEW_TYPE_TEMPERATURE
                 is DurationItem -> VIEW_TYPE_DURATION
+                is TextItem -> VIEW_TYPE_TEXT
                 else -> throw IllegalArgumentException("View type unknown for position $position")
             }
         }
@@ -75,6 +76,10 @@ class DisplayAdapter(private val itemIds: MutableList<Int>) : RecyclerView.Adapt
             VIEW_TYPE_DURATION -> {
                 val view = LayoutInflater.from(parent.context).inflate(R.layout.item_text, parent, false)
                 return DurationViewHolder(view as TextView)
+            }
+            VIEW_TYPE_TEXT -> {
+                val view = LayoutInflater.from(parent.context).inflate(R.layout.item_text, parent, false)
+                return TextViewHolder(view as TextView)
             }
             else -> throw IllegalArgumentException("View type $viewType not supported")
         }
@@ -99,6 +104,10 @@ class DisplayAdapter(private val itemIds: MutableList<Int>) : RecyclerView.Adapt
                 val durationItem = DisplayItems.getOrThrow(itemIds[position - 1]) as DurationItem
                 durationItem.setDuration(holder.textView, statusData)
             }
+            is TextViewHolder -> {
+                val textItem = DisplayItems.getOrThrow(itemIds[position - 1]) as TextItem
+                textItem.setText(holder.textView, statusData)
+            }
         }
     }
 
@@ -109,11 +118,13 @@ class DisplayAdapter(private val itemIds: MutableList<Int>) : RecyclerView.Adapt
 
     class TemperatureViewHolder(val textView: TextView) : RecyclerView.ViewHolder(textView)
     class DurationViewHolder(val textView: TextView) : RecyclerView.ViewHolder(textView)
+    class TextViewHolder(val textView: TextView) : RecyclerView.ViewHolder(textView)
 
     companion object {
         const val VIEW_TYPE_HEADER = 0
         const val VIEW_TYPE_TEMPERATURE = 1
         const val VIEW_TYPE_DURATION = 2
+        const val VIEW_TYPE_TEXT = 3
     }
 
 }

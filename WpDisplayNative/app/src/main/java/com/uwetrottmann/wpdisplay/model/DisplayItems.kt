@@ -36,11 +36,13 @@ object DisplayItems {
                 TemperatureItem(8, R.string.label_temp_water_should, Temperature.WATER_SHOULD),
                 TemperatureItem(9, R.string.label_temp_source_in, Temperature.SOURCE_IN),
                 TemperatureItem(10, R.string.label_temp_source_out, Temperature.SOURCE_OUT),
-                DurationItem(11, R.string.label_time_pump_active, Time.TIME_PUMP_ACTIVE),
-                DurationItem(12, R.string.label_time_compressor_inactive, Time.TIME_COMPRESSOR_NOOP),
-                DurationItem(13, R.string.label_time_rest, Time.TIME_REST),
-                DurationItem(14, R.string.label_time_return_lower, Time.TIME_RETURN_LOWER),
-                DurationItem(15, R.string.label_time_return_higher, Time.TIME_RETURN_HIGHER)
+                TextItem(11, R.string.label_operating_state),
+                DurationItem(12, R.string.label_time_pump_active, Time.TIME_PUMP_ACTIVE),
+                DurationItem(13, R.string.label_time_compressor_inactive, Time.TIME_COMPRESSOR_NOOP),
+                DurationItem(14, R.string.label_time_rest, Time.TIME_REST),
+                DurationItem(15, R.string.label_time_return_lower, Time.TIME_RETURN_LOWER),
+                DurationItem(16, R.string.label_time_return_higher, Time.TIME_RETURN_HIGHER),
+                TextItem(17, R.string.label_firmware)
         )
         items.forEach { map.put(it.id, it) }
     }

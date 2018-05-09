@@ -22,16 +22,12 @@ import android.support.v4.app.FragmentTransaction
 import android.support.v7.app.AppCompatActivity
 import android.support.v7.widget.DefaultItemAnimator
 import android.support.v7.widget.GridLayoutManager
-import android.text.SpannableStringBuilder
 import android.text.TextUtils
-import android.text.style.TextAppearanceSpan
 import android.view.*
-import android.widget.TextView
 import com.uwetrottmann.wpdisplay.R
 import com.uwetrottmann.wpdisplay.display.DisplayAdapter
 import com.uwetrottmann.wpdisplay.model.ConnectionStatus
 import com.uwetrottmann.wpdisplay.model.DisplayItems
-import com.uwetrottmann.wpdisplay.model.StatusData
 import com.uwetrottmann.wpdisplay.settings.ConnectionSettings
 import com.uwetrottmann.wpdisplay.util.ConnectionTools
 import com.uwetrottmann.wpdisplay.util.DataRequestRunnable
@@ -40,7 +36,6 @@ import kotlinx.android.synthetic.main.layout_snackbar.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
-import java.util.*
 
 class DisplayFragment : Fragment() {
 
@@ -232,54 +227,6 @@ class DisplayFragment : Fragment() {
         }
 
         viewAdapter.updateStatusData(event.data)
-    }
-
-    private fun populateViews(data: StatusData) {
-        viewAdapter.updateStatusData(data)
-
-        // text values
-//        setText(textState, R.string.label_operating_state,
-//                requireContext().getString(data.operatingState))
-//        setText(textFirmware, R.string.label_firmware, data.firmwareVersion)
-    }
-
-    private fun setTemperature(view: TextView?, labelResId: Int, value: Double) {
-        val builder = SpannableStringBuilder()
-
-        builder.append(getString(labelResId))
-        builder.setSpan(TextAppearanceSpan(activity,
-                R.style.TextAppearance_AppCompat_Caption), 0, builder.length, 0)
-
-        builder.append("\n")
-
-        var lengthOld = builder.length
-        builder.append(String.format(Locale.getDefault(), "%.1f", value))
-        builder.setSpan(TextAppearanceSpan(activity,
-                R.style.TextAppearance_AppCompat_Display3), lengthOld, builder.length, 0)
-
-        lengthOld = builder.length
-        builder.append(getString(R.string.unit_celsius))
-        builder.setSpan(TextAppearanceSpan(activity,
-                R.style.TextAppearance_App_Unit), lengthOld, builder.length, 0)
-
-        view!!.text = builder
-    }
-
-    private fun setText(view: TextView, labelResId: Int, value: String) {
-        val builder = SpannableStringBuilder()
-
-        builder.append(getString(labelResId))
-        builder.setSpan(TextAppearanceSpan(activity,
-                R.style.TextAppearance_AppCompat_Caption), 0, builder.length, 0)
-
-        builder.append("\n")
-
-        val lengthOld = builder.length
-        builder.append(value)
-        builder.setSpan(TextAppearanceSpan(activity,
-                R.style.TextAppearance_AppCompat_Display1), lengthOld, builder.length, 0)
-
-        view.text = builder
     }
 
     private fun showSnackBar(visible: Boolean) {
