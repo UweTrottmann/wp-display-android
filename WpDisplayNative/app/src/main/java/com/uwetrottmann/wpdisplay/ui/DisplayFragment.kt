@@ -122,14 +122,14 @@ class DisplayFragment : Fragment() {
     }
 
     private fun connectOrNotify() {
-        val host = ConnectionSettings.getHost(activity)
-        val port = ConnectionSettings.getPort(activity)
+        val host = ConnectionSettings.getHost(requireContext())
+        val port = ConnectionSettings.getPort(requireContext())
         if (TextUtils.isEmpty(host) || port < 0 || port > 65535) {
             setupSnackBar(R.string.setup_missing, R.string.action_setup,
                     View.OnClickListener { showSettingsFragment() })
             showSnackBar(true)
         } else {
-            ConnectionTools.connect(activity)
+            ConnectionTools.connect(requireContext())
         }
     }
 
@@ -174,7 +174,7 @@ class DisplayFragment : Fragment() {
     }
 
     private fun showSettingsFragment() {
-        fragmentManager.beginTransaction()
+        requireFragmentManager().beginTransaction()
                 .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
                 .replace(R.id.container, SettingsFragment())
                 .addToBackStack(null)
@@ -189,7 +189,7 @@ class DisplayFragment : Fragment() {
             ConnectionTools.pause()
             setTextSelectable(true)
         }
-        activity.invalidateOptionsMenu()
+        requireActivity().invalidateOptionsMenu()
     }
 
     /**
@@ -210,7 +210,7 @@ class DisplayFragment : Fragment() {
 
         // pause button
         isConnected = event.isConnected
-        activity.invalidateOptionsMenu()
+        requireActivity().invalidateOptionsMenu()
 
         // status text
         val statusResId: Int
@@ -227,7 +227,7 @@ class DisplayFragment : Fragment() {
                 statusResId = R.string.label_connection_error
                 setupSnackBar(R.string.message_no_connection, R.string.action_retry,
                         View.OnClickListener {
-                            ConnectionTools.connect(activity)
+                            ConnectionTools.connect(requireContext())
                             showSnackBar(false)
                         })
                 showSnackBar(true)
@@ -295,7 +295,7 @@ class DisplayFragment : Fragment() {
 
         // text values
         setText(textState, R.string.label_operating_state,
-                context.getString(data.operatingState))
+                requireContext().getString(data.operatingState))
         setText(textFirmware, R.string.label_firmware, data.firmwareVersion)
 
         textTime.text = DateFormat.getDateTimeInstance().format(data.timestamp)

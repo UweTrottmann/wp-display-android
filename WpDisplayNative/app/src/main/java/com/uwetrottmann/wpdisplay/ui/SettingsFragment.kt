@@ -40,11 +40,12 @@ class SettingsFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_settings, container, false)
     }
 
-    override fun onViewCreated(view: View?, savedInstanceState: Bundle?) {
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         buttonSettingsStore.setOnClickListener { openWebPage(getString(R.string.store_page_url)) }
 
         val version = try {
-            val packageInfo = context.packageManager.getPackageInfo(context.packageName, 0)
+            val packageInfo = requireContext().packageManager
+                    .getPackageInfo(requireContext().packageName, 0)
             packageInfo.versionName
         } catch (e: PackageManager.NameNotFoundException) {
             ""
@@ -76,20 +77,20 @@ class SettingsFragment : Fragment() {
     }
 
     private fun populateViews() {
-        editTextSettingsHost.setText(ConnectionSettings.getHost(activity))
-        editTextSettingsPort.setText(ConnectionSettings.getPort(activity).toString())
+        editTextSettingsHost.setText(ConnectionSettings.getHost(requireContext()))
+        editTextSettingsPort.setText(ConnectionSettings.getPort(requireContext()).toString())
     }
 
     private fun saveSettings() {
         val host = editTextSettingsHost.text.toString()
         val port = Integer.valueOf(editTextSettingsPort.text.toString())!!
-        ConnectionSettings.saveConnectionSettings(activity, host, port)
+        ConnectionSettings.saveConnectionSettings(requireContext(), host, port)
     }
 
     private fun openWebPage(url: String) {
         val webpage = Uri.parse(url)
         val intent = Intent(Intent.ACTION_VIEW, webpage)
-        if (intent.resolveActivity(context.packageManager) != null) {
+        if (intent.resolveActivity(requireContext().packageManager) != null) {
             startActivity(intent)
         }
     }
