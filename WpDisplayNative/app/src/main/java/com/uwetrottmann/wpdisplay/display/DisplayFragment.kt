@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 Uwe Trottmann
+ * Copyright 2018 Uwe Trottmann
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.uwetrottmann.wpdisplay.ui
+package com.uwetrottmann.wpdisplay.display
 
 import android.os.Bundle
 import android.support.v4.app.Fragment
@@ -25,11 +25,11 @@ import android.support.v7.widget.GridLayoutManager
 import android.text.TextUtils
 import android.view.*
 import com.uwetrottmann.wpdisplay.R
-import com.uwetrottmann.wpdisplay.display.DisplayAdapter
 import com.uwetrottmann.wpdisplay.model.ConnectionStatus
 import com.uwetrottmann.wpdisplay.model.DisplayItems
 import com.uwetrottmann.wpdisplay.model.StatusData
 import com.uwetrottmann.wpdisplay.settings.ConnectionSettings
+import com.uwetrottmann.wpdisplay.ui.SettingsFragment
 import com.uwetrottmann.wpdisplay.util.ConnectionTools
 import com.uwetrottmann.wpdisplay.util.DataRequestRunnable
 import kotlinx.android.synthetic.main.fragment_display_rv.*
