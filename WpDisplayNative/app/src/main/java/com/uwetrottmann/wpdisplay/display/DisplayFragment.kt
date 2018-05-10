@@ -29,7 +29,7 @@ import com.uwetrottmann.wpdisplay.model.ConnectionStatus
 import com.uwetrottmann.wpdisplay.model.DisplayItems
 import com.uwetrottmann.wpdisplay.model.StatusData
 import com.uwetrottmann.wpdisplay.settings.ConnectionSettings
-import com.uwetrottmann.wpdisplay.ui.SettingsFragment
+import com.uwetrottmann.wpdisplay.settings.SettingsFragment
 import com.uwetrottmann.wpdisplay.util.ConnectionTools
 import com.uwetrottmann.wpdisplay.util.DataRequestRunnable
 import kotlinx.android.synthetic.main.fragment_display_rv.*
