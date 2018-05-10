@@ -24,6 +24,9 @@ import java.util.*
  * Holder object for heat pump controller status data.
  */
 class StatusData(private val rawData: IntArray) {
+
+    constructor() : this(IntArray(LENGTH_BYTES))
+
     /**
      * Return the [java.util.Date] this status data was stored.
      */

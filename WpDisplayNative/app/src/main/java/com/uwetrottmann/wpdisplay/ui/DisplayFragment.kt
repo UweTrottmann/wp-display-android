@@ -28,6 +28,7 @@ import com.uwetrottmann.wpdisplay.R
 import com.uwetrottmann.wpdisplay.display.DisplayAdapter
 import com.uwetrottmann.wpdisplay.model.ConnectionStatus
 import com.uwetrottmann.wpdisplay.model.DisplayItems
+import com.uwetrottmann.wpdisplay.model.StatusData
 import com.uwetrottmann.wpdisplay.settings.ConnectionSettings
 import com.uwetrottmann.wpdisplay.util.ConnectionTools
 import com.uwetrottmann.wpdisplay.util.DataRequestRunnable
@@ -36,6 +37,8 @@ import kotlinx.android.synthetic.main.layout_snackbar.*
 import org.greenrobot.eventbus.EventBus
 import org.greenrobot.eventbus.Subscribe
 import org.greenrobot.eventbus.ThreadMode
+import java.text.DateFormat
+import java.util.concurrent.Executors
 
 class DisplayFragment : Fragment() {
 
@@ -52,8 +55,7 @@ class DisplayFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val activeItems = MutableList(DisplayItems.map.size) { it + 1 }
-        viewAdapter = DisplayAdapter(activeItems)
+        viewAdapter = DisplayAdapter(DisplayItems.enabled.toMutableList())
 
         val spanCount = resources.getInteger(R.integer.spanCount)
         val spanSizeTemperatures = resources.getInteger(R.integer.spanSizeTemperatures)
@@ -91,6 +93,11 @@ class DisplayFragment : Fragment() {
         }
 
         setHasOptionsMenu(true)
+
+        // show empty data
+        if (savedInstanceState == null) {
+            buildDataAndUpdateAdapter(StatusData())
+        }
     }
 
     override fun onStart() {
@@ -226,7 +233,23 @@ class DisplayFragment : Fragment() {
             return
         }
 
-        viewAdapter.updateStatusData(event.data)
+        buildDataAndUpdateAdapter(event.data)
+    }
+
+    private val threadPool = Executors.newFixedThreadPool(1)
+
+    private fun buildDataAndUpdateAdapter(statusData: StatusData) {
+        val runnable = Runnable {
+            android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_BACKGROUND)
+
+            DisplayItems.enabled.forEach { it.buildCharSequence(requireContext(), statusData) }
+            val listCopy = DisplayItems.enabled.toList()
+            val timestamp = DateFormat.getDateTimeInstance().format(statusData.timestamp)
+            activity?.runOnUiThread {
+                viewAdapter.updateDisplayItems(timestamp, listCopy)
+            }
+        }
+        threadPool.execute(runnable)
     }
 
     private fun showSnackBar(visible: Boolean) {

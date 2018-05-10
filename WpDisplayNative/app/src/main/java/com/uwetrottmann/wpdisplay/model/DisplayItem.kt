@@ -16,25 +16,28 @@
 
 package com.uwetrottmann.wpdisplay.model
 
+import android.content.Context
 import android.support.annotation.StringRes
 import android.text.SpannableStringBuilder
 import android.text.style.TextAppearanceSpan
-import android.widget.TextView
 import com.uwetrottmann.wpdisplay.R
 import java.util.*
 
-abstract class DisplayItem(val id: Int)
+abstract class DisplayItem(val id: Int) {
+    var charSequence: CharSequence = ""
+
+    abstract fun buildCharSequence(context: Context, statusData: StatusData)
+}
 
 class TemperatureItem(
         id: Int,
-        @StringRes val labelResId: Int,
-        val temperature: StatusData.Temperature
+        @StringRes private val labelResId: Int,
+        private val temperature: StatusData.Temperature
 ) : DisplayItem(id) {
 
-    fun setTemperature(view: TextView, statusData: StatusData) {
+    override fun buildCharSequence(context: Context, statusData: StatusData) {
         val value = statusData.getTemperature(temperature)
 
-        val context = view.context
         val builder = SpannableStringBuilder()
 
         builder.append(context.getString(labelResId))
@@ -53,7 +56,7 @@ class TemperatureItem(
         builder.setSpan(TextAppearanceSpan(context,
                 R.style.TextAppearance_App_Unit), lengthOld, builder.length, 0)
 
-        view.text = builder
+        charSequence = builder
     }
 
 }
@@ -64,10 +67,9 @@ class DurationItem(
         val time: StatusData.Time
 ) : DisplayItem(id) {
 
-    fun setDuration(view: TextView, statusData: StatusData) {
+    override fun buildCharSequence(context: Context, statusData: StatusData) {
         val value = statusData.getTime(time)
 
-        val context = view.context
         val builder = SpannableStringBuilder()
 
         builder.append(context.getString(labelResId))
@@ -81,18 +83,17 @@ class DurationItem(
         builder.setSpan(TextAppearanceSpan(context,
                 R.style.TextAppearance_AppCompat_Display1), lengthOld, builder.length, 0)
 
-        view.text = builder
+        charSequence = builder
     }
 
 }
 
 class TextItem(
         id: Int,
-        @StringRes val labelResId: Int
+        @StringRes private val labelResId: Int
 ) : DisplayItem(id) {
 
-    fun setText(view: TextView, statusData: StatusData) {
-        val context = view.context
+    override fun buildCharSequence(context: Context, statusData: StatusData) {
         val value = when (labelResId) {
             R.string.label_operating_state -> context.getString(statusData.operatingState)
             R.string.label_firmware -> statusData.firmwareVersion
@@ -111,7 +112,7 @@ class TextItem(
         builder.setSpan(TextAppearanceSpan(context,
                 R.style.TextAppearance_AppCompat_Display1), lengthOld, builder.length, 0)
 
-        view.text = builder
+        charSequence = builder
     }
 
 }

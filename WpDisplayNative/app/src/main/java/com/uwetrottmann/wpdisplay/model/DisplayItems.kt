@@ -22,7 +22,7 @@ import com.uwetrottmann.wpdisplay.model.StatusData.Time
 
 object DisplayItems {
 
-    val map = HashMap<Int, DisplayItem>()
+    val enabled = mutableListOf<DisplayItem>()
 
     init {
         val items = listOf(
@@ -44,11 +44,7 @@ object DisplayItems {
                 DurationItem(16, R.string.label_time_return_higher, Time.TIME_RETURN_HIGHER),
                 TextItem(17, R.string.label_firmware)
         )
-        items.forEach { map.put(it.id, it) }
-    }
-
-    fun getOrThrow(id: Int): DisplayItem {
-        return map[id] ?: throw IllegalArgumentException("No display item with id $id")
+        enabled.addAll(items)
     }
 
 }

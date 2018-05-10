@@ -24,35 +24,29 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.uwetrottmann.wpdisplay.R
 import com.uwetrottmann.wpdisplay.model.*
-import java.text.DateFormat
 
-class DisplayAdapter(private val itemIds: MutableList<Int>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class DisplayAdapter(private val displayItems: MutableList<DisplayItem>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
-    private var statusData: StatusData = StatusData(IntArray(StatusData.LENGTH_BYTES))
     private var connectionStatus: ConnectionStatus = ConnectionStatus("", false)
+    private var timestamp = ""
 
     fun updateStatus(newConnectionStatus: ConnectionStatus) {
         connectionStatus = newConnectionStatus
         notifyItemChanged(0)
     }
 
-    fun setItems(newItemIds: List<Int>) {
-        itemIds.clear()
-        itemIds.addAll(newItemIds)
+    fun updateDisplayItems(newTimestamp: String, newDisplayItems: List<DisplayItem>) {
+        timestamp = newTimestamp
+        displayItems.clear()
+        displayItems.addAll(newDisplayItems)
         notifyDataSetChanged() // TODO use diff helper
-    }
-
-    fun updateStatusData(newStatusData: StatusData) {
-        statusData = newStatusData
-        notifyItemRangeChanged(0, itemCount)
     }
 
     override fun getItemViewType(position: Int): Int {
         return if (position == 0) {
             VIEW_TYPE_HEADER
         } else {
-            val itemId = itemIds[position - 1]
-            when (DisplayItems.getOrThrow(itemId)) {
+            when (displayItems[position - 1]) {
                 is TemperatureItem -> VIEW_TYPE_TEMPERATURE
                 is DurationItem -> VIEW_TYPE_DURATION
                 is TextItem -> VIEW_TYPE_TEXT
@@ -61,7 +55,7 @@ class DisplayAdapter(private val itemIds: MutableList<Int>) : RecyclerView.Adapt
         }
     }
 
-    override fun getItemCount() = 1 /* header */ + itemIds.size
+    override fun getItemCount() = OFFSET /* header */ + displayItems.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         when (viewType) {
@@ -94,26 +88,23 @@ class DisplayAdapter(private val itemIds: MutableList<Int>) : RecyclerView.Adapt
                             R.style.TextAppearance_App_Body1_Orange
                         else
                             R.style.TextAppearance_App_Body1_Green)
-                holder.textViewDisplayTime.text = DateFormat.getDateTimeInstance().format(statusData.timestamp)
+                holder.textViewDisplayTime.text = timestamp
             }
             is TemperatureViewHolder -> {
-                val temperatureItem = DisplayItems.getOrThrow(itemIds[position - 1]) as TemperatureItem
-                temperatureItem.setTemperature(holder.textView, statusData)
+                holder.textView.text = displayItems[position - OFFSET].charSequence
             }
             is DurationViewHolder -> {
-                val durationItem = DisplayItems.getOrThrow(itemIds[position - 1]) as DurationItem
-                durationItem.setDuration(holder.textView, statusData)
+                holder.textView.text = displayItems[position - OFFSET].charSequence
             }
             is TextViewHolder -> {
-                val textItem = DisplayItems.getOrThrow(itemIds[position - 1]) as TextItem
-                textItem.setText(holder.textView, statusData)
+                holder.textView.text = displayItems[position - OFFSET].charSequence
             }
         }
     }
 
     class StatusViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val textViewDisplayStatus = itemView.findViewById<TextView>(R.id.textViewDisplayStatus)
-        val textViewDisplayTime = itemView.findViewById<TextView>(R.id.textViewDisplayTime)
+        val textViewDisplayStatus = itemView.findViewById<TextView>(R.id.textViewDisplayStatus)!!
+        val textViewDisplayTime = itemView.findViewById<TextView>(R.id.textViewDisplayTime)!!
     }
 
     class TemperatureViewHolder(val textView: TextView) : RecyclerView.ViewHolder(textView)
@@ -121,6 +112,8 @@ class DisplayAdapter(private val itemIds: MutableList<Int>) : RecyclerView.Adapt
     class TextViewHolder(val textView: TextView) : RecyclerView.ViewHolder(textView)
 
     companion object {
+        const val OFFSET = 1
+
         const val VIEW_TYPE_HEADER = 0
         const val VIEW_TYPE_TEMPERATURE = 1
         const val VIEW_TYPE_DURATION = 2
