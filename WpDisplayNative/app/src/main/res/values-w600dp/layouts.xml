@@ -17,7 +17,6 @@
 
 <resources>
 
-    <item name="fragment_display" type="layout">@layout/fragment_display_two_columns</item>
     <item name="layout_status" type="layout">@layout/layout_status_two_columns</item>
 
 </resources>
