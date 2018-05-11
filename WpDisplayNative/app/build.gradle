@@ -51,6 +51,10 @@ dependencies {
     implementation 'com.android.support:appcompat-v7:27.1.1'
     implementation 'com.android.support:recyclerview-v7:27.1.1'
 
+    // ViewModel and LiveData
+    def lifecycle_version = "1.1.1"
+    implementation "android.arch.lifecycle:extensions:$lifecycle_version"
+
     implementation 'com.jakewharton.timber:timber:4.7.0'
     implementation 'org.greenrobot:eventbus:3.1.1'
 }

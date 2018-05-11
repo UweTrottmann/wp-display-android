@@ -24,12 +24,12 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:clipToPadding="false"
         android:orientation="vertical"
         android:paddingBottom="@dimen/activity_vertical_margin"
         android:paddingLeft="@dimen/activity_horizontal_margin"
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin"
-        android:clipToPadding="false"
         tools:context="com.uwetrottmann.wpdisplay.settings.SettingsFragment">
 
         <TextView
@@ -67,6 +67,12 @@
             android:layout_marginBottom="@dimen/padding_large"
             android:text="@string/settings_instructions"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerViewSettings"
+            android:layout_width="300dp"
+            android:layout_height="200dp"
+            android:scrollbars="vertical" />
 
         <TextView
             android:id="@+id/textViewSettingsVersion"

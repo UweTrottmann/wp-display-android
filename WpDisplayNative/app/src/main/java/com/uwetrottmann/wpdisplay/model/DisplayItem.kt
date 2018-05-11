@@ -23,7 +23,8 @@ import android.text.style.TextAppearanceSpan
 import com.uwetrottmann.wpdisplay.R
 import java.util.*
 
-abstract class DisplayItem(val id: Int) {
+abstract class DisplayItem(val id: Int, @StringRes val labelResId: Int) {
+    var enabled: Boolean = true
     var charSequence: CharSequence = ""
 
     abstract fun buildCharSequence(context: Context, statusData: StatusData)
@@ -31,9 +32,9 @@ abstract class DisplayItem(val id: Int) {
 
 class TemperatureItem(
         id: Int,
-        @StringRes private val labelResId: Int,
+        @StringRes labelResId: Int,
         private val temperature: StatusData.Temperature
-) : DisplayItem(id) {
+) : DisplayItem(id, labelResId) {
 
     override fun buildCharSequence(context: Context, statusData: StatusData) {
         val value = statusData.getTemperature(temperature)
@@ -63,9 +64,9 @@ class TemperatureItem(
 
 class DurationItem(
         id: Int,
-        @StringRes val labelResId: Int,
+        @StringRes labelResId: Int,
         val time: StatusData.Time
-) : DisplayItem(id) {
+) : DisplayItem(id, labelResId) {
 
     override fun buildCharSequence(context: Context, statusData: StatusData) {
         val value = statusData.getTime(time)
@@ -90,8 +91,8 @@ class DurationItem(
 
 class TextItem(
         id: Int,
-        @StringRes private val labelResId: Int
-) : DisplayItem(id) {
+        @StringRes labelResId: Int
+) : DisplayItem(id, labelResId) {
 
     override fun buildCharSequence(context: Context, statusData: StatusData) {
         val value = when (labelResId) {

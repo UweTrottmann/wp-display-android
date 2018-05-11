@@ -22,10 +22,11 @@ import com.uwetrottmann.wpdisplay.model.StatusData.Time
 
 object DisplayItems {
 
+    val all: List<DisplayItem>
     val enabled = mutableListOf<DisplayItem>()
 
     init {
-        val items = listOf(
+        all = listOf(
                 TemperatureItem(1, R.string.label_temp_outgoing, Temperature.OUTGOING),
                 TemperatureItem(2, R.string.label_temp_return, Temperature.RETURN),
                 TemperatureItem(3, R.string.label_temp_outdoors, Temperature.OUTDOORS),
@@ -44,7 +45,7 @@ object DisplayItems {
                 DurationItem(16, R.string.label_time_return_higher, Time.TIME_RETURN_HIGHER),
                 TextItem(17, R.string.label_firmware)
         )
-        enabled.addAll(items)
+        enabled.addAll(all)
     }
 
 }
