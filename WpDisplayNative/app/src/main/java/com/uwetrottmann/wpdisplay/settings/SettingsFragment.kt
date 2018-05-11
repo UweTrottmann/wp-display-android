@@ -1,5 +1,5 @@
 /*
- * Copyright 2015 Uwe Trottmann
+ * Copyright 2018 Uwe Trottmann
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package com.uwetrottmann.wpdisplay.ui
+package com.uwetrottmann.wpdisplay.settings
 
 import android.content.Intent
 import android.content.pm.PackageManager
@@ -26,7 +26,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.uwetrottmann.wpdisplay.R
-import com.uwetrottmann.wpdisplay.settings.ConnectionSettings
 import kotlinx.android.synthetic.main.fragment_settings.*
 
 /**

@@ -68,9 +68,8 @@ class DataRequestRunnable(private val listener: ConnectionListener) : Runnable {
             val responseCode = input.readInt()
             if (responseCode != ControllerConstants.COMMAND_REQUEST_STATUS) {
                 // fail
-                Timber.e("run: response code expected "
-                        + ControllerConstants.COMMAND_REQUEST_STATUS
-                        + " but was " + responseCode)
+                Timber.e("run: response code expected %s but was %s",
+                        ControllerConstants.COMMAND_REQUEST_STATUS , responseCode)
                 return
             }
 

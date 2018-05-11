@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <!--
-  ~ Copyright 2017 Uwe Trottmann
+  ~ Copyright 2018 Uwe Trottmann
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@
 
 <resources>
 
-    <item name="fragment_display" type="layout">@layout/fragment_display_four_columns</item>
+    <integer name="spanCount">4</integer>
+    <integer name="spanSizeDurations">2</integer>
 
 </resources>

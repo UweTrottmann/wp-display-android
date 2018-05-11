@@ -16,9 +16,12 @@
   ~ limitations under the License.
   -->
 
-<merge xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    tools:showIn="@layout/fragment_display_one_column">
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginBottom="@dimen/padding_default"
+    android:orientation="vertical">
 
     <!-- Text color changed in code depending on status. -->
     <TextView
@@ -37,4 +40,4 @@
         android:textAppearance="@style/TextAppearance.App.Body1.Secondary"
         tools:text="Nov 16, 2014 17:00:57 PM" />
 
-</merge>
+</LinearLayout>
