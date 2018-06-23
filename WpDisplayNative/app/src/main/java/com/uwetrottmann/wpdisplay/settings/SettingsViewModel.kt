@@ -20,7 +20,6 @@ import android.app.Application
 import android.arch.lifecycle.AndroidViewModel
 import android.arch.lifecycle.MutableLiveData
 import android.os.AsyncTask
-import android.preference.PreferenceManager
 import com.uwetrottmann.wpdisplay.model.DisplayItem
 import com.uwetrottmann.wpdisplay.model.DisplayItems
 
@@ -31,16 +30,8 @@ class SettingsViewModel(application: Application) : AndroidViewModel(application
     init {
         object : AsyncTask<Void?, Void?, List<DisplayItem>>() {
             override fun doInBackground(vararg params: Void?): List<DisplayItem> {
-                val disabledEncoded = PreferenceManager.getDefaultSharedPreferences(application).getString("DISABLED_DISPLAY_ITEMS", "")
-                val disabledIds = disabledEncoded.split(',').mapNotNull {
-                    if (it == "") null else it.toInt()
-                }
-
-                DisplayItems.all.forEach { item ->
-                    item.enabled = disabledIds.find { it == item.id } == null
-                }
-
-                return DisplayItems.all.toList()
+                DisplayItems.readDisabledStateFromPreferences(application)
+                return DisplayItems.all // no copy
             }
 
             override fun onPostExecute(result: List<DisplayItem>) {

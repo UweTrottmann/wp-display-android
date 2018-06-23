@@ -45,7 +45,9 @@ class SettingsListAdapter : ListAdapter<DisplayItem, SettingsListAdapter.Setting
     class SettingsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         val checkBox = view.findViewById<CheckBox>(R.id.checkBoxItemSelectable)
         fun bindTo(item: DisplayItem) {
+            checkBox.setOnCheckedChangeListener(null) // disable while binding
             checkBox.isChecked = item.enabled
+            checkBox.setOnCheckedChangeListener { _, isChecked -> item.enabled = isChecked }
             checkBox.setText(item.labelResId)
         }
     }

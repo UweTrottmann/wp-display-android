@@ -16,36 +16,59 @@
 
 package com.uwetrottmann.wpdisplay.model
 
+import android.content.Context
+import android.preference.PreferenceManager
 import com.uwetrottmann.wpdisplay.R
 import com.uwetrottmann.wpdisplay.model.StatusData.Temperature
 import com.uwetrottmann.wpdisplay.model.StatusData.Time
 
 object DisplayItems {
 
-    val all: List<DisplayItem>
-    val enabled = mutableListOf<DisplayItem>()
+    const val KEY_DISABLED_DISPLAY_ITEMS = "DISABLED_DISPLAY_ITEMS"
 
-    init {
-        all = listOf(
-                TemperatureItem(1, R.string.label_temp_outgoing, Temperature.OUTGOING),
-                TemperatureItem(2, R.string.label_temp_return, Temperature.RETURN),
-                TemperatureItem(3, R.string.label_temp_outdoors, Temperature.OUTDOORS),
-                TemperatureItem(4, R.string.label_temp_return_should, Temperature.RETURN_SHOULD),
-                TemperatureItem(5, R.string.label_temp_outdoors_average, Temperature.OUTDOORS_AVERAGE),
-                TemperatureItem(6, R.string.label_temp_hot_gas, Temperature.HOT_GAS),
-                TemperatureItem(7, R.string.label_temp_water, Temperature.WATER),
-                TemperatureItem(8, R.string.label_temp_water_should, Temperature.WATER_SHOULD),
-                TemperatureItem(9, R.string.label_temp_source_in, Temperature.SOURCE_IN),
-                TemperatureItem(10, R.string.label_temp_source_out, Temperature.SOURCE_OUT),
-                TextItem(11, R.string.label_operating_state),
-                DurationItem(12, R.string.label_time_pump_active, Time.TIME_PUMP_ACTIVE),
-                DurationItem(13, R.string.label_time_compressor_inactive, Time.TIME_COMPRESSOR_NOOP),
-                DurationItem(14, R.string.label_time_rest, Time.TIME_REST),
-                DurationItem(15, R.string.label_time_return_lower, Time.TIME_RETURN_LOWER),
-                DurationItem(16, R.string.label_time_return_higher, Time.TIME_RETURN_HIGHER),
-                TextItem(17, R.string.label_firmware)
-        )
-        enabled.addAll(all)
+    val all: List<DisplayItem> = listOf(
+            TemperatureItem(1, R.string.label_temp_outgoing, Temperature.OUTGOING),
+            TemperatureItem(2, R.string.label_temp_return, Temperature.RETURN),
+            TemperatureItem(3, R.string.label_temp_outdoors, Temperature.OUTDOORS),
+            TemperatureItem(4, R.string.label_temp_return_should, Temperature.RETURN_SHOULD),
+            TemperatureItem(5, R.string.label_temp_outdoors_average, Temperature.OUTDOORS_AVERAGE),
+            TemperatureItem(6, R.string.label_temp_hot_gas, Temperature.HOT_GAS),
+            TemperatureItem(7, R.string.label_temp_water, Temperature.WATER),
+            TemperatureItem(8, R.string.label_temp_water_should, Temperature.WATER_SHOULD),
+            TemperatureItem(9, R.string.label_temp_source_in, Temperature.SOURCE_IN),
+            TemperatureItem(10, R.string.label_temp_source_out, Temperature.SOURCE_OUT),
+            TextItem(11, R.string.label_operating_state),
+            DurationItem(12, R.string.label_time_pump_active, Time.TIME_PUMP_ACTIVE),
+            DurationItem(13, R.string.label_time_compressor_inactive, Time.TIME_COMPRESSOR_NOOP),
+            DurationItem(14, R.string.label_time_rest, Time.TIME_REST),
+            DurationItem(15, R.string.label_time_return_lower, Time.TIME_RETURN_LOWER),
+            DurationItem(16, R.string.label_time_return_higher, Time.TIME_RETURN_HIGHER),
+            TextItem(17, R.string.label_firmware)
+    )
+    /** Returns a copy of all DisplayItems that are enabled. */
+    val enabled: List<DisplayItem>
+        get() = all.filter { it.enabled }.toList()
+
+    @Synchronized
+    fun readDisabledStateFromPreferences(context: Context) {
+        val disabledEncoded = PreferenceManager.getDefaultSharedPreferences(context)
+                .getString(KEY_DISABLED_DISPLAY_ITEMS, "")
+        val disabledIds = disabledEncoded.split(',').mapNotNull {
+            if (it == "") null else it.toInt()
+        }
+        DisplayItems.all.forEach { item ->
+            item.enabled = disabledIds.find { it == item.id } == null
+        }
+    }
+
+    @Synchronized
+    fun saveDisabledStateToPreferences(context: Context) {
+        val disabledEncoded = DisplayItems.all
+                .filter { !it.enabled }
+                .joinToString(",") { it.id.toString() }
+        PreferenceManager.getDefaultSharedPreferences(context).edit()
+                .putString(KEY_DISABLED_DISPLAY_ITEMS, disabledEncoded)
+                .apply()
     }
 
 }

@@ -30,6 +30,7 @@ import android.view.View
 import android.view.ViewGroup
 import com.uwetrottmann.wpdisplay.R
 import com.uwetrottmann.wpdisplay.model.DisplayItem
+import com.uwetrottmann.wpdisplay.model.DisplayItems
 import kotlinx.android.synthetic.main.fragment_settings.*
 
 /**
@@ -103,6 +104,8 @@ class SettingsFragment : Fragment() {
         val host = editTextSettingsHost.text.toString()
         val port = Integer.valueOf(editTextSettingsPort.text.toString())!!
         ConnectionSettings.saveConnectionSettings(requireContext(), host, port)
+
+        DisplayItems.saveDisabledStateToPreferences(requireContext())
     }
 
     private fun openWebPage(url: String) {

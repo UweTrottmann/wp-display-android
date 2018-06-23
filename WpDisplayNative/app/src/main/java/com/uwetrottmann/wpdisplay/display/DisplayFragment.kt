@@ -55,6 +55,8 @@ class DisplayFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        // TODO maybe read state async
+        DisplayItems.readDisabledStateFromPreferences(requireContext())
         viewAdapter = DisplayAdapter(DisplayItems.enabled.toMutableList())
 
         val spanCount = resources.getInteger(R.integer.spanCount)
@@ -242,11 +244,11 @@ class DisplayFragment : Fragment() {
         val runnable = Runnable {
             android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_BACKGROUND)
 
-            DisplayItems.enabled.forEach { it.buildCharSequence(requireContext(), statusData) }
-            val listCopy = DisplayItems.enabled.toList()
+            val displayItems = DisplayItems.enabled
+            displayItems.forEach { it.buildCharSequence(requireContext(), statusData) }
             val timestamp = DateFormat.getDateTimeInstance().format(statusData.timestamp)
             activity?.runOnUiThread {
-                viewAdapter.updateDisplayItems(timestamp, listCopy)
+                viewAdapter.updateDisplayItems(timestamp, displayItems)
             }
         }
         threadPool.execute(runnable)
