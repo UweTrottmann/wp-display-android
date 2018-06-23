@@ -51,6 +51,7 @@
     <string name="action_retry">Retry</string>
 
     <string name="settings_instructions">You can find the IP address of the controller via its settings interface. The default port is 8888 or 8889.\n\nYou have to be connected to the same network as the controller (for example use a VPN connection into your home for remote access).</string>
+    <string name="settings_select_items">Select values to display</string>
     <string name="ask_for_feedback">Enjoy the app? Please rate it on Google Play! Not really? Send feedback at the bottom of the Play Store page.</string>
     <string name="show_on_google_play">Show on Google Play</string>
     <string name="version">Version %s</string>

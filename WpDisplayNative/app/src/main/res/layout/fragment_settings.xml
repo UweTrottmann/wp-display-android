@@ -68,6 +68,12 @@
             android:text="@string/settings_instructions"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
 
+        <TextView
+            android:layout_width="300dp"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+            android:text="@string/settings_select_items"/>
+
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerViewSettings"
             android:layout_width="300dp"
