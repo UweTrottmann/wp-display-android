@@ -16,16 +16,21 @@
 
 package com.uwetrottmann.wpdisplay.settings
 
+import android.arch.lifecycle.Observer
+import android.arch.lifecycle.ViewModelProviders
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v7.app.AppCompatActivity
+import android.support.v7.widget.LinearLayoutManager
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.uwetrottmann.wpdisplay.R
+import com.uwetrottmann.wpdisplay.model.DisplayItem
+import com.uwetrottmann.wpdisplay.model.DisplayItems
 import kotlinx.android.synthetic.main.fragment_settings.*
 
 /**
@@ -39,6 +44,8 @@ class SettingsFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_settings, container, false)
     }
 
+    private lateinit var viewAdapter: SettingsListAdapter
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         buttonSettingsStore.setOnClickListener { openWebPage(getString(R.string.store_page_url)) }
 
@@ -51,6 +58,14 @@ class SettingsFragment : Fragment() {
         }
 
         textViewSettingsVersion.text = getString(R.string.version, version)
+
+        viewAdapter = SettingsListAdapter()
+        val viewManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        recyclerViewSettings.apply {
+            setHasFixedSize(true)
+            layoutManager = viewManager
+            adapter = viewAdapter
+        }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -61,6 +76,11 @@ class SettingsFragment : Fragment() {
             actionBar.setTitle(R.string.title_settings)
             actionBar.setDisplayHomeAsUpEnabled(true)
         }
+
+        val viewModel = ViewModelProviders.of(this)[SettingsViewModel::class.java]
+        viewModel.availableItems.observe(this, Observer<List<DisplayItem>> { list ->
+            viewAdapter.submitList(list)
+        })
     }
 
     override fun onResume() {
@@ -84,6 +104,8 @@ class SettingsFragment : Fragment() {
         val host = editTextSettingsHost.text.toString()
         val port = Integer.valueOf(editTextSettingsPort.text.toString())!!
         ConnectionSettings.saveConnectionSettings(requireContext(), host, port)
+
+        DisplayItems.saveDisabledStateToPreferences(requireContext())
     }
 
     private fun openWebPage(url: String) {
