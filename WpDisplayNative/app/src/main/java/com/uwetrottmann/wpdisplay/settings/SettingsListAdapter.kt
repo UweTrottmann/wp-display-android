@@ -27,11 +27,11 @@ import com.uwetrottmann.wpdisplay.R
 import com.uwetrottmann.wpdisplay.model.DisplayItem
 
 class SettingsListAdapter : ListAdapter<DisplayItem, SettingsListAdapter.SettingsViewHolder>(object : DiffUtil.ItemCallback<DisplayItem>() {
-    override fun areItemsTheSame(oldItem: DisplayItem?, newItem: DisplayItem?): Boolean =
-            oldItem?.id == newItem?.id
+    override fun areItemsTheSame(oldItem: DisplayItem, newItem: DisplayItem): Boolean =
+            oldItem.id == newItem.id
 
-    override fun areContentsTheSame(oldItem: DisplayItem?, newItem: DisplayItem?): Boolean =
-            oldItem?.enabled == newItem?.enabled
+    override fun areContentsTheSame(oldItem: DisplayItem, newItem: DisplayItem): Boolean =
+            oldItem.enabled == newItem.enabled
 }) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SettingsViewHolder {
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_selectable, parent, false)
