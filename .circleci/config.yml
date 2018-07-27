@@ -41,12 +41,6 @@ jobs:
           command: ./gradlew assembleDebug
 
       - run:
-          name: Run Tests
-          command: ./gradlew :app:test
-      - store_test_results:
-          path: app/build/test-results
-
-      - run:
           name: Run Lint
           command: ./gradlew lint
       - store_artifacts:
