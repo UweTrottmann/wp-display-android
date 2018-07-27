@@ -1,6 +1,13 @@
 Heat Pump Display Release Notes
 ===============================
 
+7 (2018-07-27)
+--------------
+
+- Setting to choose which items to display.
+- Tap to copy item text to clipboard.
+- Add solar collector and tank temperature.
+
 6 (2017-10-13)
 --------------
 
