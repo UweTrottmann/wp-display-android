@@ -1,8 +1,27 @@
-#############
-## Custom
+### Gradle
+.gradle/
+build/
 
-app.zip
+## Proguard
+unused.txt
 
+### Android
+local.properties
+gradle.properties
+keystore.properties
+
+# IntelliJ
+*.iml
+.idea/assetWizardSettings.xml
+.idea/caches
+.idea/dictionaries
+.idea/gradle.xml
+.idea/libraries
+.idea/misc.xml
+.idea/tasks.xml
+.idea/workspace.xml
+
+### Windows
 # Windows image file caches
 Thumbs.db
 ehthumbs.db
@@ -13,30 +32,5 @@ Desktop.ini
 # Recycle Bin used on file shares
 $RECYCLE.BIN/
 
-# Windows Installer files
-*.cab
-*.msi
-*.msm
-*.msp
-
-# =========================
-# Operating System Files
-# =========================
-
-# OSX
-# =========================
-
+### OSX
 .DS_Store
-.AppleDouble
-.LSOverride
-
-# Icon must ends with two \r.
-Icon
-
-
-# Thumbnails
-._*
-
-# Files that might appear on external disk
-.Spotlight-V100
-.Trashes

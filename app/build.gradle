@@ -21,6 +21,12 @@ android {
         targetCompatibility JavaVersion.VERSION_1_7
     }
 
+    lintOptions {
+        // for CI server (reports are not public)
+        textReport true
+        textOutput 'stdout'
+    }
+
     signingConfigs {
         release {
             if (rootProject.file('keystore.properties').exists()) {
