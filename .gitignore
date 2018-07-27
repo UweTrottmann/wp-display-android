@@ -12,13 +12,14 @@ keystore.properties
 
 # IntelliJ
 *.iml
-.idea/workspace.xml
-.idea/tasks.xml
-.idea/gradle.xml
 .idea/assetWizardSettings.xml
-.idea/dictionaries
-.idea/libraries
 .idea/caches
+.idea/dictionaries
+.idea/gradle.xml
+.idea/libraries
+.idea/misc.xml
+.idea/tasks.xml
+.idea/workspace.xml
 
 ### Windows
 # Windows image file caches
