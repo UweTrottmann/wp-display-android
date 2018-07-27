@@ -71,13 +71,15 @@
         <TextView
             android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2"
-            android:text="@string/settings_select_items"/>
+            android:text="@string/settings_select_items"
+            android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerViewSettings"
             android:layout_width="300dp"
             android:layout_height="200dp"
+            android:layout_marginTop="@dimen/padding_small"
+            android:background="@drawable/background_border"
             android:scrollbars="vertical" />
 
         <TextView
