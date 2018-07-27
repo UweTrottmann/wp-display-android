@@ -37,6 +37,8 @@ object DisplayItems {
             TemperatureItem(8, R.string.label_temp_water_should, Temperature.WATER_SHOULD),
             TemperatureItem(9, R.string.label_temp_source_in, Temperature.SOURCE_IN),
             TemperatureItem(10, R.string.label_temp_source_out, Temperature.SOURCE_OUT),
+            TemperatureItem(18, R.string.label_temp_solar_collector, Temperature.SOLAR_COLLECTOR),
+            TemperatureItem(19, R.string.label_temp_solar_tank, Temperature.SOLAR_TANK),
             TextItem(11, R.string.label_operating_state),
             DurationItem(12, R.string.label_time_pump_active, Time.TIME_PUMP_ACTIVE),
             DurationItem(13, R.string.label_time_compressor_inactive, Time.TIME_COMPRESSOR_NOOP),

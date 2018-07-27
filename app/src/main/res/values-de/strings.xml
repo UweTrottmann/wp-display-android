@@ -23,6 +23,8 @@
     <string name="label_temp_outdoors_average">Außen Mittel</string>
     <string name="label_temp_source_in">Von Wärmequelle</string>
     <string name="label_temp_source_out">Zur Wärmequelle</string>
+    <string name="label_temp_solar_collector">Solarkollektor</string>
+    <string name="label_temp_solar_tank">Solarspeicher</string>
     <string name="label_time_pump_active">Pumpe aktiv</string>
     <string name="label_time_compressor_inactive">Verdichter Stillstand</string>
     <string name="label_time_rest">Zwangspause</string>
