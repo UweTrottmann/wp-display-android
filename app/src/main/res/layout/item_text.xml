@@ -21,4 +21,6 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:layout_marginBottom="@dimen/padding_default"
+    android:background="?attr/selectableItemBackground"
+    android:focusable="true"
     tools:text="Operating State\nHeating" />

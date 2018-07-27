@@ -24,6 +24,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import com.uwetrottmann.wpdisplay.R
 import com.uwetrottmann.wpdisplay.model.*
+import com.uwetrottmann.wpdisplay.util.copyTextToClipboardOnClick
 
 class DisplayAdapter(private val displayItems: MutableList<DisplayItem>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
@@ -105,11 +106,27 @@ class DisplayAdapter(private val displayItems: MutableList<DisplayItem>) : Recyc
     class StatusViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val textViewDisplayStatus = itemView.findViewById<TextView>(R.id.textViewDisplayStatus)!!
         val textViewDisplayTime = itemView.findViewById<TextView>(R.id.textViewDisplayTime)!!
+        init {
+            textViewDisplayStatus.copyTextToClipboardOnClick()
+            textViewDisplayTime.copyTextToClipboardOnClick()
+        }
     }
 
-    class TemperatureViewHolder(val textView: TextView) : RecyclerView.ViewHolder(textView)
-    class DurationViewHolder(val textView: TextView) : RecyclerView.ViewHolder(textView)
-    class TextViewHolder(val textView: TextView) : RecyclerView.ViewHolder(textView)
+    class TemperatureViewHolder(val textView: TextView) : RecyclerView.ViewHolder(textView) {
+        init {
+            textView.copyTextToClipboardOnClick()
+        }
+    }
+    class DurationViewHolder(val textView: TextView) : RecyclerView.ViewHolder(textView) {
+        init {
+            textView.copyTextToClipboardOnClick()
+        }
+    }
+    class TextViewHolder(val textView: TextView) : RecyclerView.ViewHolder(textView) {
+        init {
+            textView.copyTextToClipboardOnClick()
+        }
+    }
 
     companion object {
         const val OFFSET = 1

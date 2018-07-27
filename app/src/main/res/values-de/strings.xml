@@ -8,6 +8,7 @@
 
     <string name="action_pause">Pause</string>
     <string name="action_resume">Fortsetzen</string>
+    <string name="copy_to_clipboard">In Zwischenablage kopiert</string>
 
     <string name="label_connecting">Verbinde mit %s…</string>
     <string name="label_connected">Verbunden mit %s</string>
