@@ -80,9 +80,6 @@ class DisplayFragment : Fragment() {
             adapter = viewAdapter
             (itemAnimator as DefaultItemAnimator).supportsChangeAnimations = false
         }
-
-        // show empty data
-//        setTextSelectable(ConnectionTools.isPaused)
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
@@ -167,22 +164,10 @@ class DisplayFragment : Fragment() {
     private fun togglePause() {
         if (ConnectionTools.isPaused) {
             ConnectionTools.resume()
-            setTextSelectable(false)
         } else {
             ConnectionTools.pause()
-            setTextSelectable(true)
         }
         requireActivity().invalidateOptionsMenu()
-    }
-
-    /**
-     * Only enable text selection if views are not updating. Otherwise scroll state resets.
-     */
-    private fun setTextSelectable(selectable: Boolean) {
-        // TODO
-//        for (textView in selectableViews) {
-//            textView.setTextIsSelectable(selectable)
-//        }
     }
 
     @Suppress("unused")
