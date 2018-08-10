@@ -111,6 +111,7 @@
 
         <Button
             android:id="@+id/buttonSettingsStore"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/padding_default"
