@@ -50,7 +50,7 @@ class TemperatureItem(
         var lengthOld = builder.length
         builder.append(String.format(Locale.getDefault(), "%.1f", value))
         builder.setSpan(TextAppearanceSpan(context,
-                R.style.TextAppearance_MaterialComponents_Headline2), lengthOld, builder.length, 0)
+                R.style.TextAppearance_App_Temperature), lengthOld, builder.length, 0)
 
         lengthOld = builder.length
         builder.append(context.getString(R.string.unit_celsius))

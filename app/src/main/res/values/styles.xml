@@ -1,4 +1,4 @@
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
@@ -10,12 +10,18 @@
         <item name="colorSecondary">@color/blue_a400</item>
     </style>
 
-    <style name="TextAppearance"/>
+    <style name="TextAppearance" />
 
-    <style name="TextAppearance.App"/>
+    <style name="TextAppearance.App" />
 
     <style name="TextAppearance.App.Unit" parent="TextAppearance.MaterialComponents.Headline5">
         <item name="android:textColor">?android:attr/textColorSecondary</item>
+    </style>
+
+    <style name="TextAppearance.App.Temperature" parent="TextAppearance.MaterialComponents.Headline2">
+        <item name="fontFamily">sans-serif</item>
+        <item name="android:fontFamily" tools:ignore="NewApi">sans-serif</item>
+        <item name="android:textSize">56sp</item>
     </style>
 
     <style name="TextAppearance.App.Body1.Secondary" parent="TextAppearance.MaterialComponents.Body1">
@@ -34,6 +40,6 @@
 
     <style name="Widget.App" />
 
-    <style name="Widget.App.ActionBar"/>
+    <style name="Widget.App.ActionBar" />
 
 </resources>
