@@ -17,9 +17,9 @@
 package com.uwetrottmann.wpdisplay.model
 
 import android.content.Context
-import android.support.annotation.StringRes
 import android.text.SpannableStringBuilder
 import android.text.style.TextAppearanceSpan
+import androidx.annotation.StringRes
 import com.uwetrottmann.wpdisplay.R
 import java.util.*
 

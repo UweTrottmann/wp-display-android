@@ -74,7 +74,7 @@
             android:text="@string/settings_select_items"
             android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
 
-        <android.support.v7.widget.RecyclerView
+        <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewSettings"
             android:layout_width="300dp"
             android:layout_height="200dp"

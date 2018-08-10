@@ -16,7 +16,7 @@
 
 package com.uwetrottmann.wpdisplay.model
 
-import android.support.annotation.StringRes
+import androidx.annotation.StringRes
 import com.uwetrottmann.wpdisplay.R
 import java.util.*
 
