@@ -34,12 +34,12 @@
         android:layout_gravity="center_vertical"
         android:layout_weight="1"
         android:ellipsize="end"
-        android:maxLines="2"
+        android:maxLines="3"
         android:paddingBottom="@dimen/padding_large"
         android:paddingLeft="24dp"
         android:paddingStart="24dp"
         android:paddingTop="@dimen/padding_large"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
         tools:ignore="RtlSymmetry"
         tools:text="@string/setup_missing" />
 
