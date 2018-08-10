@@ -45,14 +45,15 @@
     <string name="state_cooling">Kühlbetrieb</string>
     <string name="state_unknown">Unbekannter Zustand</string>
 
-    <string name="label_host">Kontrollgerät Host/IP-Adresse (etwa 192.168.0.42)</string>
-    <string name="label_port">Kontrollgerät Port (Standardmäßig 8888 oder 8889)</string>
+    <string name="label_host">Host/IP-Adresse (etwa 192.168.0.42)</string>
+    <string name="label_port">Port (meist 8888 oder 8889)</string>
 
     <string name="setup_missing">Einstellungen unvollständig</string>
     <string name="action_setup">Einrichten</string>
     <string name="message_no_connection">Keine Verbindung. Netzwerk und Einstellungen überprüfen.</string>
     <string name="action_retry">Wiederholen</string>
 
+    <string name="settings_controller">Kontrollgerät Einstellungen</string>
     <string name="settings_instructions">Sie finden die IP-Adresse des Kontrollgeräts in dessen Einstellungen. Der Port ist standardmäßig 8888 oder 8889.\n\nSie müssen mit dem gleichen Netzwerk wie das Kontrollgerät verbunden sein (benutzen Sie zum Beispiel eine VPN Verbindung in Ihr Zuhause für Zugriff von unterwegs).</string>
     <string name="settings_select_items">Werte zum Anzeigen auswählen</string>
     <string name="ask_for_feedback">Die App gefällt? Bitte bewerten Sie sie auf Google Play! Nicht wirklich? Schicken Sie mir eine Email am Ende der Play Store-Seite.</string>

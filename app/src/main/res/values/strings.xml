@@ -45,14 +45,15 @@
     <string name="state_cooling">Cooling</string>
     <string name="state_unknown">Unknown state</string>
 
-    <string name="label_host">Controller Host/IP-address (like 192.168.0.42)</string>
-    <string name="label_port">Controller Port (default 8888 or 8889)</string>
+    <string name="label_host">Host/IP-address (like 192.168.0.42)</string>
+    <string name="label_port">Port (default 8888 or 8889)</string>
 
     <string name="setup_missing">Configuration incomplete</string>
     <string name="action_setup">Setup</string>
     <string name="message_no_connection">Could not connect. Check your network connection and settings.</string>
     <string name="action_retry">Retry</string>
 
+    <string name="settings_controller">Controller settings</string>
     <string name="settings_instructions">You can find the IP address of the controller via its settings interface. The default port is 8888 or 8889.\n\nYou have to be connected to the same network as the controller (for example use a VPN connection into your home for remote access).</string>
     <string name="settings_select_items">Select values to display</string>
     <string name="ask_for_feedback">Enjoy the app? Please rate it on Google Play! Not really? Send me an email at the bottom of the Play Store page.</string>

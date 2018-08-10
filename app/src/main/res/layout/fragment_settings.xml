@@ -33,46 +33,57 @@
         tools:context="com.uwetrottmann.wpdisplay.settings.SettingsFragment">
 
         <TextView
-            android:layout_width="wrap_content"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
-            android:text="@string/label_host"
-            android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+            android:layout_marginBottom="4dp"
+            android:text="@string/settings_controller"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2" />
 
-        <EditText
-            android:id="@+id/editTextSettingsHost"
-            android:layout_width="200dp"
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/padding_default"
-            android:inputType="text"
-            tools:text="192.168.0.42" />
+            android:hint="@string/label_host">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/label_port"
-            android:textAppearance="@style/TextAppearance.AppCompat.Caption" />
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextSettingsHost"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="text"
+                tools:text="192.168.0.42" />
 
-        <EditText
-            android:id="@+id/editTextSettingsPort"
-            android:layout_width="100dp"
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+            android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/padding_large"
-            android:inputType="number"
-            android:maxLength="5"
-            tools:text="8888" />
+            android:hint="@string/label_port">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/editTextSettingsPort"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:maxLength="5"
+                tools:text="8888" />
+
+        </com.google.android.material.textfield.TextInputLayout>
 
         <TextView
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/padding_large"
             android:text="@string/settings_instructions"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1" />
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
 
         <TextView
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:text="@string/settings_select_items"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewSettings"
@@ -88,14 +99,14 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/padding_default"
             android:text="@string/version"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body2" />
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/padding_default"
             android:text="@string/ask_for_feedback"
-            android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
             android:textColor="?android:attr/textColorSecondary" />
 
         <Button

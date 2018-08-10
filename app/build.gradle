@@ -60,6 +60,9 @@ dependencies {
     // ViewModel and LiveData
     implementation 'androidx.lifecycle:lifecycle-extensions:2.0.0-rc01'
 
+    // Material Design
+    implementation 'com.google.android.material:material:1.0.0-rc01'
+
     implementation 'com.jakewharton.timber:timber:4.7.1'
     implementation 'org.greenrobot:eventbus:3.1.1'
 }

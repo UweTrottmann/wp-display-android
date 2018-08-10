@@ -43,14 +43,14 @@ class TemperatureItem(
 
         builder.append(context.getString(labelResId))
         builder.setSpan(TextAppearanceSpan(context,
-                R.style.TextAppearance_AppCompat_Caption), 0, builder.length, 0)
+                R.style.TextAppearance_MaterialComponents_Caption), 0, builder.length, 0)
 
         builder.append("\n")
 
         var lengthOld = builder.length
         builder.append(String.format(Locale.getDefault(), "%.1f", value))
         builder.setSpan(TextAppearanceSpan(context,
-                R.style.TextAppearance_AppCompat_Display3), lengthOld, builder.length, 0)
+                R.style.TextAppearance_MaterialComponents_Headline2), lengthOld, builder.length, 0)
 
         lengthOld = builder.length
         builder.append(context.getString(R.string.unit_celsius))
@@ -75,14 +75,14 @@ class DurationItem(
 
         builder.append(context.getString(labelResId))
         builder.setSpan(TextAppearanceSpan(context,
-                R.style.TextAppearance_AppCompat_Caption), 0, builder.length, 0)
+                R.style.TextAppearance_MaterialComponents_Caption), 0, builder.length, 0)
 
         builder.append("\n")
 
         val lengthOld = builder.length
         builder.append(value)
         builder.setSpan(TextAppearanceSpan(context,
-                R.style.TextAppearance_AppCompat_Display1), lengthOld, builder.length, 0)
+                R.style.TextAppearance_MaterialComponents_Headline4), lengthOld, builder.length, 0)
 
         charSequence = builder
     }
@@ -104,14 +104,14 @@ class TextItem(
 
         builder.append(context.getString(labelResId))
         builder.setSpan(TextAppearanceSpan(context,
-                R.style.TextAppearance_AppCompat_Caption), 0, builder.length, 0)
+                R.style.TextAppearance_MaterialComponents_Caption), 0, builder.length, 0)
 
         builder.append("\n")
 
         val lengthOld = builder.length
         builder.append(value)
         builder.setSpan(TextAppearanceSpan(context,
-                R.style.TextAppearance_AppCompat_Display1), lengthOld, builder.length, 0)
+                R.style.TextAppearance_MaterialComponents_Headline4), lengthOld, builder.length, 0)
 
         charSequence = builder
     }

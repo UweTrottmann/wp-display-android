@@ -24,7 +24,7 @@
     android:layout_gravity="bottom"
     android:background="@color/snackbar"
     android:orientation="horizontal"
-    android:theme="@style/ThemeOverlay.AppCompat.Dark"
+    android:theme="@style/ThemeOverlay.MaterialComponents.Dark"
     tools:showIn="@layout/fragment_display_rv">
 
     <TextView
@@ -39,19 +39,18 @@
         android:paddingLeft="24dp"
         android:paddingStart="24dp"
         android:paddingTop="@dimen/padding_large"
-        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
         tools:ignore="RtlSymmetry"
         tools:text="@string/setup_missing" />
 
     <Button
         android:id="@+id/buttonDisplaySnackbar"
-        style="@style/Widget.AppCompat.Button.Borderless.Colored"
+        style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:background="?attr/selectableItemBackgroundBorderless"
-        android:paddingLeft="24dp"
-        android:paddingRight="24dp"
+        android:layout_marginEnd="8dp"
+        android:layout_marginRight="8dp"
         tools:text="@string/action_setup" />
 
 </LinearLayout>
