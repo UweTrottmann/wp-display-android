@@ -37,7 +37,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
             android:text="@string/settings_controller"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2" />
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
@@ -83,7 +83,7 @@
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:text="@string/settings_select_items"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2" />
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewSettings"
@@ -97,17 +97,15 @@
             android:id="@+id/textViewSettingsVersion"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/padding_default"
+            android:layout_marginTop="@dimen/padding_large"
             android:text="@string/version"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2" />
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/padding_default"
             android:text="@string/ask_for_feedback"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
-            android:textColor="?android:attr/textColorSecondary" />
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
 
         <Button
             android:id="@+id/buttonSettingsStore"
