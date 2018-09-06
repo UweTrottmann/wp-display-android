@@ -55,9 +55,10 @@ object DisplayItems {
     fun readDisabledStateFromPreferences(context: Context) {
         val disabledEncoded = PreferenceManager.getDefaultSharedPreferences(context)
                 .getString(KEY_DISABLED_DISPLAY_ITEMS, "")
-        val disabledIds = disabledEncoded.split(',').mapNotNull {
+        // should never be null if there is a non-null default value, annotation issue?
+        val disabledIds = disabledEncoded?.split(',')?.mapNotNull {
             if (it == "") null else it.toInt()
-        }
+        } ?: listOf()
         DisplayItems.all.forEach { item ->
             item.enabled = disabledIds.find { it == item.id } == null
         }
