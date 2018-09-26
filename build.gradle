@@ -24,3 +24,8 @@ allprojects {
         google()
     }
 }
+
+wrapper {
+    //noinspection UnnecessaryQualifiedReference
+    distributionType = Wrapper.DistributionType.ALL
+}
