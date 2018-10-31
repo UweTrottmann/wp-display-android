@@ -35,9 +35,6 @@ import com.uwetrottmann.wpdisplay.util.ConnectionTools
 import com.uwetrottmann.wpdisplay.util.DataRequestRunnable
 import kotlinx.android.synthetic.main.fragment_display_rv.*
 import kotlinx.android.synthetic.main.layout_snackbar.*
-import org.greenrobot.eventbus.EventBus
-import org.greenrobot.eventbus.Subscribe
-import org.greenrobot.eventbus.ThreadMode
 import java.text.DateFormat
 import java.util.concurrent.Executors
 
@@ -97,13 +94,17 @@ class DisplayFragment : Fragment() {
         DataRequestRunnable.statusData.observe(this, Observer {
             buildDataAndUpdateAdapter(it)
         })
+        ConnectionTools.connectionEvent.observe(this, Observer { event ->
+            event.getContentIfNotHandled()?.let {
+                handleConnectionEvent(it)
+            }
+        })
     }
 
     override fun onStart() {
         super.onStart()
 
         showSnackBar(false)
-        EventBus.getDefault().register(this)
         connectOrNotify()
     }
 
@@ -123,7 +124,6 @@ class DisplayFragment : Fragment() {
         super.onStop()
 
         ConnectionTools.disconnect()
-        EventBus.getDefault().unregister(this)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -170,16 +170,10 @@ class DisplayFragment : Fragment() {
         requireActivity().invalidateOptionsMenu()
     }
 
-    @Suppress("unused")
-    @Subscribe(threadMode = ThreadMode.MAIN)
-    fun onEventMainThread(event: ConnectionTools.ConnectionEvent) {
-        if (!isAdded) {
-            return
-        }
-
+    private fun handleConnectionEvent(event: ConnectionTools.ConnectionEvent) {
         // pause button
         isConnected = event.isConnected
-        requireActivity().invalidateOptionsMenu()
+        activity!!.invalidateOptionsMenu()
 
         // status text
         val statusResId: Int

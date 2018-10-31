@@ -18,7 +18,6 @@ package com.uwetrottmann.wpdisplay.util
 
 import androidx.lifecycle.MutableLiveData
 import com.uwetrottmann.wpdisplay.model.StatusData
-import org.greenrobot.eventbus.EventBus
 import timber.log.Timber
 import java.io.IOException
 
@@ -38,7 +37,7 @@ class DataRequestRunnable(private val listener: ConnectionListener) : Runnable {
 
         if (socket == null || !socket.isConnected || input == null || output == null) {
             Timber.e("run: failed, no connection")
-            EventBus.getDefault().post(
+            ConnectionTools.connectionEvent.postEvent(
                     ConnectionTools.ConnectionEvent(false, false, null, 0))
             return
         }
@@ -95,7 +94,7 @@ class DataRequestRunnable(private val listener: ConnectionListener) : Runnable {
             statusData.postValue(StatusData(data))
         } catch (e: IOException) {
             Timber.e(e, "run: failed to request data")
-            EventBus.getDefault().post(
+            ConnectionTools.connectionEvent.postEvent(
                     ConnectionTools.ConnectionEvent(false, false, null, 0))
         }
 

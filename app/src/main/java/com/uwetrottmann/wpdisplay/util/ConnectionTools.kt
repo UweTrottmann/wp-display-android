@@ -44,6 +44,9 @@ object ConnectionTools : ConnectionListener {
      */
     override var isPaused: Boolean = false
 
+    /** LiveData to observe for changes in connection state. */
+    val connectionEvent = EventLiveData<ConnectionEvent>()
+
     class ConnectionEvent(var isConnecting: Boolean, var isConnected: Boolean, var host: String?, var port: Int)
 
     /**

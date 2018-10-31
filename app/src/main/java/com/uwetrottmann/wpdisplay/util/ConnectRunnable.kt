@@ -16,7 +16,6 @@
 
 package com.uwetrottmann.wpdisplay.util
 
-import org.greenrobot.eventbus.EventBus
 import timber.log.Timber
 import java.io.IOException
 import java.net.InetSocketAddress
@@ -43,7 +42,7 @@ internal class ConnectRunnable(
         }
 
         Timber.d("run: connecting")
-        EventBus.getDefault().post(
+        ConnectionTools.connectionEvent.postEvent(
                 ConnectionTools.ConnectionEvent(true, false, host, port))
 
         var socket : Socket? = null
@@ -55,7 +54,7 @@ internal class ConnectRunnable(
             listener.setSocket(socket, socket.getInputStream(), socket.getOutputStream())
 
             // post success
-            EventBus.getDefault().post(
+            ConnectionTools.connectionEvent.postEvent(
                     ConnectionTools.ConnectionEvent(false, true, host, port))
         } catch (e: IOException) {
             Timber.e(e, "run: connection to $host:$port failed")
@@ -65,7 +64,7 @@ internal class ConnectRunnable(
             }
 
             // post failure
-            EventBus.getDefault().post(
+            ConnectionTools.connectionEvent.postEvent(
                     ConnectionTools.ConnectionEvent(false, false, host, port))
         }
 
