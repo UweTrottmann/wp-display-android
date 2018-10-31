@@ -5,9 +5,7 @@
     <color name="teal_700">#00796B</color>
     <color name="blue_a400">#2979FF</color>
     <color name="orange_500">#FF9800</color>
-    <color name="grey_500">#9E9E9E</color>
 
     <color name="snackbar">#323232</color>
-    <color name="sg_primary_text_default_dark">#ffffffff</color>
 
 </resources>
