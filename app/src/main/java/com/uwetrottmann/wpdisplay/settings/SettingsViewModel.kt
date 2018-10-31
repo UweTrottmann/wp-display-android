@@ -16,6 +16,7 @@
 
 package com.uwetrottmann.wpdisplay.settings
 
+import android.annotation.SuppressLint
 import android.app.Application
 import android.os.AsyncTask
 import androidx.lifecycle.AndroidViewModel
@@ -23,6 +24,7 @@ import androidx.lifecycle.MutableLiveData
 import com.uwetrottmann.wpdisplay.model.DisplayItem
 import com.uwetrottmann.wpdisplay.model.DisplayItems
 
+@SuppressLint("StaticFieldLeak")
 class SettingsViewModel(application: Application) : AndroidViewModel(application) {
 
     val availableItems = MutableLiveData<List<DisplayItem>>()
