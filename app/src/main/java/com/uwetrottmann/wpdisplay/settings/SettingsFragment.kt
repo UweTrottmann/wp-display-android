@@ -28,6 +28,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import com.uwetrottmann.wpdisplay.R
 import com.uwetrottmann.wpdisplay.model.DisplayItem
 import com.uwetrottmann.wpdisplay.model.DisplayItems
@@ -60,7 +61,7 @@ class SettingsFragment : Fragment() {
         textViewSettingsVersion.text = getString(R.string.version, version)
 
         viewAdapter = SettingsListAdapter()
-        val viewManager = LinearLayoutManager(context, LinearLayoutManager.VERTICAL, false)
+        val viewManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         recyclerViewSettings.apply {
             setHasFixedSize(true)
             layoutManager = viewManager
