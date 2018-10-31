@@ -27,6 +27,3 @@
 
 # Avoid throws declarations getting removed from retrofit service definitions
 -keepattributes Exceptions
-
-# Do not shrink any of this apps code (unused code should be deleted instead)
--keep class com.uwetrottmann.wpdisplay.** { *; }
