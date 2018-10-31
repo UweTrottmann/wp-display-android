@@ -9,7 +9,7 @@ android {
     defaultConfig {
         applicationId "com.uwetrottmann.wpdisplay"
         minSdkVersion 15
-        targetSdkVersion 27
+        targetSdkVersion 28
         versionCode 12
         versionName "8"
 
