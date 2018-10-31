@@ -22,6 +22,7 @@ import android.view.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
 import com.uwetrottmann.wpdisplay.R
@@ -93,10 +94,9 @@ class DisplayFragment : Fragment() {
 
         setHasOptionsMenu(true)
 
-        // show empty data
-        if (savedInstanceState == null) {
-            buildDataAndUpdateAdapter(StatusData())
-        }
+        DataRequestRunnable.statusData.observe(this, Observer {
+            buildDataAndUpdateAdapter(it)
+        })
     }
 
     override fun onStart() {
@@ -211,16 +211,6 @@ class DisplayFragment : Fragment() {
             getString(statusResId, event.host + ":" + event.port)
         }
         viewAdapter.updateStatus(ConnectionStatus(message, isWarning))
-    }
-
-    @Suppress("unused")
-    @Subscribe(sticky = true, threadMode = ThreadMode.MAIN)
-    fun onEventMainThread(event: DataRequestRunnable.DataEvent) {
-        if (!isAdded) {
-            return
-        }
-
-        buildDataAndUpdateAdapter(event.data)
     }
 
     private val threadPool = Executors.newFixedThreadPool(1)

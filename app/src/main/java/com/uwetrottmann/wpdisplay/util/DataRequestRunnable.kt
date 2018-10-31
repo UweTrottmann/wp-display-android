@@ -16,6 +16,7 @@
 
 package com.uwetrottmann.wpdisplay.util
 
+import androidx.lifecycle.MutableLiveData
 import com.uwetrottmann.wpdisplay.model.StatusData
 import org.greenrobot.eventbus.EventBus
 import timber.log.Timber
@@ -26,8 +27,6 @@ import java.io.IOException
  * event.
  */
 class DataRequestRunnable(private val listener: ConnectionListener) : Runnable {
-
-    class DataEvent(var data: StatusData)
 
     override fun run() {
         // Moves the current Thread into the background
@@ -93,12 +92,20 @@ class DataRequestRunnable(private val listener: ConnectionListener) : Runnable {
                 return
             }
 
-            EventBus.getDefault().postSticky(DataEvent(StatusData(data)))
+            statusData.postValue(StatusData(data))
         } catch (e: IOException) {
             Timber.e(e, "run: failed to request data")
             EventBus.getDefault().post(
                     ConnectionTools.ConnectionEvent(false, false, null, 0))
         }
 
+    }
+
+    class DataEvent(var data: StatusData)
+
+    companion object {
+        val statusData = MutableLiveData<StatusData>().apply {
+            postValue(StatusData())
+        }
     }
 }
