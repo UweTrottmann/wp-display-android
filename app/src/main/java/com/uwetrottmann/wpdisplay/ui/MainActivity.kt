@@ -16,12 +16,15 @@
 
 package com.uwetrottmann.wpdisplay.ui
 
+import android.content.res.Configuration
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.appcompat.widget.Toolbar
 import com.uwetrottmann.wpdisplay.R
 import com.uwetrottmann.wpdisplay.display.DisplayFragment
+import com.uwetrottmann.wpdisplay.settings.ThemeSettings
 
 class MainActivity : AppCompatActivity() {
 
@@ -47,6 +50,23 @@ class MainActivity : AppCompatActivity() {
                 true
             }
             else -> super.onOptionsItemSelected(item)
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        // recreate activity if theme needs to change
+        val currentNightMode = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
+        val isNightMode = currentNightMode == Configuration.UI_MODE_NIGHT_YES
+        val isNight = ThemeSettings.isNight(this)
+        if (isNightMode != isNight) {
+            val nightMode = if (isNight) {
+                AppCompatDelegate.MODE_NIGHT_YES
+            } else {
+                AppCompatDelegate.MODE_NIGHT_NO
+            }
+            delegate.setLocalNightMode(nightMode)
         }
     }
 }

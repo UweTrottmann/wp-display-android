@@ -24,6 +24,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -49,6 +50,9 @@ class SettingsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         buttonSettingsStore.setOnClickListener { openWebPage(getString(R.string.store_page_url)) }
+        radioSettingsColorSchemeLight.setOnClickListener { updateColorScheme() }
+        radioSettingsColorSchemeDark.setOnClickListener { updateColorScheme() }
+        radioSettingsColorSchemeAuto.setOnClickListener { updateColorScheme() }
 
         val version = try {
             val packageInfo = requireContext().packageManager
@@ -96,9 +100,26 @@ class SettingsFragment : Fragment() {
         saveSettings()
     }
 
+    private fun updateColorScheme() {
+        saveSettings()
+
+        val nightMode = if (ThemeSettings.isNight(context!!)) {
+            AppCompatDelegate.MODE_NIGHT_YES
+        } else {
+            AppCompatDelegate.MODE_NIGHT_NO
+        }
+        (activity!! as AppCompatActivity).delegate.setLocalNightMode(nightMode)
+    }
+
     private fun populateViews() {
         editTextSettingsHost.setText(ConnectionSettings.getHost(requireContext()))
         editTextSettingsPort.setText(ConnectionSettings.getPort(requireContext()).toString())
+
+        when (ThemeSettings.getThemeMode(context!!)) {
+            ThemeSettings.THEME_ALWAYS_NIGHT -> radioGroupColorScheme.check(R.id.radioSettingsColorSchemeDark)
+            ThemeSettings.THEME_DAY_NIGHT -> radioGroupColorScheme.check(R.id.radioSettingsColorSchemeAuto)
+            else -> radioGroupColorScheme.check(R.id.radioSettingsColorSchemeLight)
+        }
     }
 
     private fun saveSettings() {
@@ -107,6 +128,13 @@ class SettingsFragment : Fragment() {
         ConnectionSettings.saveConnectionSettings(requireContext(), host, port)
 
         DisplayItems.saveDisabledStateToPreferences(requireContext())
+
+        val themeMode = when (radioGroupColorScheme.checkedRadioButtonId) {
+            R.id.radioSettingsColorSchemeDark -> ThemeSettings.THEME_ALWAYS_NIGHT
+            R.id.radioSettingsColorSchemeAuto -> ThemeSettings.THEME_DAY_NIGHT
+            else -> ThemeSettings.THEME_ALWAYS_DAY
+        }
+        ThemeSettings.saveSettings(context!!, themeMode, 21, 0, 7, 0)
     }
 
     private fun openWebPage(url: String) {

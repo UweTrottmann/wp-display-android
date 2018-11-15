@@ -16,8 +16,10 @@
   ~ limitations under the License.
   -->
 
+<!-- Ensure ScrollView ID so scroll state is restored -->
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/scrollViewSettings"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -92,6 +94,56 @@
             android:layout_marginTop="@dimen/padding_small"
             android:background="@drawable/background_border"
             android:scrollbars="vertical" />
+
+        <TextView
+            android:id="@+id/textViewSettingsColorScheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_large"
+            android:text="@string/color_scheme"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
+
+        <RadioGroup
+            android:id="@+id/radioGroupColorScheme"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            tools:ignore="RtlSymmetry">
+
+            <RadioButton
+                android:id="@+id/radioSettingsColorSchemeLight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/padding_large"
+                android:paddingEnd="@dimen/padding_large"
+                android:paddingRight="@dimen/padding_large"
+                android:paddingTop="@dimen/padding_large"
+                android:text="@string/color_scheme_light"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+
+            <RadioButton
+                android:id="@+id/radioSettingsColorSchemeDark"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/padding_large"
+                android:paddingEnd="@dimen/padding_large"
+                android:paddingRight="@dimen/padding_large"
+                android:paddingTop="@dimen/padding_large"
+                android:text="@string/color_scheme_dark"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+
+            <RadioButton
+                android:id="@+id/radioSettingsColorSchemeAuto"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/padding_large"
+                android:paddingEnd="@dimen/padding_large"
+                android:paddingRight="@dimen/padding_large"
+                android:paddingTop="@dimen/padding_large"
+                android:text="@string/color_scheme_auto"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+
+        </RadioGroup>
 
         <TextView
             android:id="@+id/textViewSettingsVersion"
