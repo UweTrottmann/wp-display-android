@@ -1,6 +1,12 @@
 Heat Pump Display Release Notes
 ===============================
 
+9 (2018-11-16)
+--------------
+
+- Add dark color scheme.
+- Setting to switch to dark scheme at specified hours.
+
 8 (2018-10-31)
 --------------
 
