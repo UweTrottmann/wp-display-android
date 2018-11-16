@@ -50,9 +50,28 @@ class SettingsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         buttonSettingsStore.setOnClickListener { openWebPage(getString(R.string.store_page_url)) }
-        radioSettingsColorSchemeLight.setOnClickListener { updateColorScheme() }
-        radioSettingsColorSchemeDark.setOnClickListener { updateColorScheme() }
-        radioSettingsColorSchemeAuto.setOnClickListener { updateColorScheme() }
+        radioSettingsColorSchemeLight.setOnClickListener {
+            updateColorScheme()
+            linearLayoutSettingsTime.visibility = View.GONE
+        }
+        radioSettingsColorSchemeDark.setOnClickListener {
+            updateColorScheme()
+            linearLayoutSettingsTime.visibility = View.GONE
+        }
+        radioSettingsColorSchemeAuto.setOnClickListener {
+            updateColorScheme()
+            linearLayoutSettingsTime.visibility = View.VISIBLE
+        }
+        buttonSettingsNightFrom.setOnClickListener {
+            NightTimePickerFragment.showIfSafe(fragmentManager!!, true,
+                    ThemeSettings.getNightStartHour(it.context),
+                    ThemeSettings.getNightStartMinute(it.context))
+        }
+        buttonSettingsNightUntil.setOnClickListener {
+            NightTimePickerFragment.showIfSafe(fragmentManager!!, false,
+                    ThemeSettings.getNightEndHour(it.context),
+                    ThemeSettings.getNightEndMinute(it.context))
+        }
 
         val version = try {
             val packageInfo = requireContext().packageManager
@@ -100,7 +119,7 @@ class SettingsFragment : Fragment() {
         saveSettings()
     }
 
-    private fun updateColorScheme() {
+    fun updateColorScheme() {
         saveSettings()
 
         val nightMode = if (ThemeSettings.isNight(context!!)) {
@@ -111,15 +130,27 @@ class SettingsFragment : Fragment() {
         (activity!! as AppCompatActivity).delegate.setLocalNightMode(nightMode)
     }
 
-    private fun populateViews() {
+    fun populateViews() {
         editTextSettingsHost.setText(ConnectionSettings.getHost(requireContext()))
         editTextSettingsPort.setText(ConnectionSettings.getPort(requireContext()).toString())
 
         when (ThemeSettings.getThemeMode(context!!)) {
-            ThemeSettings.THEME_ALWAYS_NIGHT -> radioGroupColorScheme.check(R.id.radioSettingsColorSchemeDark)
-            ThemeSettings.THEME_DAY_NIGHT -> radioGroupColorScheme.check(R.id.radioSettingsColorSchemeAuto)
-            else -> radioGroupColorScheme.check(R.id.radioSettingsColorSchemeLight)
+            ThemeSettings.THEME_ALWAYS_NIGHT -> {
+                radioGroupColorScheme.check(R.id.radioSettingsColorSchemeDark)
+                linearLayoutSettingsTime.visibility = View.GONE
+            }
+            ThemeSettings.THEME_DAY_NIGHT -> {
+                radioGroupColorScheme.check(R.id.radioSettingsColorSchemeAuto)
+                linearLayoutSettingsTime.visibility = View.VISIBLE
+            }
+            else -> {
+                radioGroupColorScheme.check(R.id.radioSettingsColorSchemeLight)
+                linearLayoutSettingsTime.visibility = View.GONE
+            }
         }
+
+        buttonSettingsNightFrom.text = ThemeSettings.getNightStartTime(context!!)
+        buttonSettingsNightUntil.text = ThemeSettings.getNightEndTime(context!!)
     }
 
     private fun saveSettings() {
@@ -134,7 +165,7 @@ class SettingsFragment : Fragment() {
             R.id.radioSettingsColorSchemeAuto -> ThemeSettings.THEME_DAY_NIGHT
             else -> ThemeSettings.THEME_ALWAYS_DAY
         }
-        ThemeSettings.saveSettings(context!!, themeMode, 21, 0, 7, 0)
+        ThemeSettings.saveThemeMode(context!!, themeMode)
     }
 
     private fun openWebPage(url: String) {

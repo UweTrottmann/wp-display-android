@@ -62,6 +62,8 @@
     <string name="color_scheme_light">Hell</string>
     <string name="color_scheme_dark">Dunkel</string>
     <string name="color_scheme_auto">Dunkel bei Nacht</string>
+    <string name="setting_time_from">Von</string>
+    <string name="setting_time_until">bis</string>
     <string name="version">Version %s</string>
 
 </resources>
