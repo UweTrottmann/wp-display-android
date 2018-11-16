@@ -24,6 +24,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -49,6 +50,28 @@ class SettingsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         buttonSettingsStore.setOnClickListener { openWebPage(getString(R.string.store_page_url)) }
+        radioSettingsColorSchemeLight.setOnClickListener {
+            updateColorScheme()
+            linearLayoutSettingsTime.visibility = View.GONE
+        }
+        radioSettingsColorSchemeDark.setOnClickListener {
+            updateColorScheme()
+            linearLayoutSettingsTime.visibility = View.GONE
+        }
+        radioSettingsColorSchemeAuto.setOnClickListener {
+            updateColorScheme()
+            linearLayoutSettingsTime.visibility = View.VISIBLE
+        }
+        buttonSettingsNightFrom.setOnClickListener {
+            NightTimePickerFragment.showIfSafe(fragmentManager!!, true,
+                    ThemeSettings.getNightStartHour(it.context),
+                    ThemeSettings.getNightStartMinute(it.context))
+        }
+        buttonSettingsNightUntil.setOnClickListener {
+            NightTimePickerFragment.showIfSafe(fragmentManager!!, false,
+                    ThemeSettings.getNightEndHour(it.context),
+                    ThemeSettings.getNightEndMinute(it.context))
+        }
 
         val version = try {
             val packageInfo = requireContext().packageManager
@@ -96,9 +119,38 @@ class SettingsFragment : Fragment() {
         saveSettings()
     }
 
-    private fun populateViews() {
+    fun updateColorScheme() {
+        saveSettings()
+
+        val nightMode = if (ThemeSettings.isNight(context!!)) {
+            AppCompatDelegate.MODE_NIGHT_YES
+        } else {
+            AppCompatDelegate.MODE_NIGHT_NO
+        }
+        (activity!! as AppCompatActivity).delegate.setLocalNightMode(nightMode)
+    }
+
+    fun populateViews() {
         editTextSettingsHost.setText(ConnectionSettings.getHost(requireContext()))
         editTextSettingsPort.setText(ConnectionSettings.getPort(requireContext()).toString())
+
+        when (ThemeSettings.getThemeMode(context!!)) {
+            ThemeSettings.THEME_ALWAYS_NIGHT -> {
+                radioGroupColorScheme.check(R.id.radioSettingsColorSchemeDark)
+                linearLayoutSettingsTime.visibility = View.GONE
+            }
+            ThemeSettings.THEME_DAY_NIGHT -> {
+                radioGroupColorScheme.check(R.id.radioSettingsColorSchemeAuto)
+                linearLayoutSettingsTime.visibility = View.VISIBLE
+            }
+            else -> {
+                radioGroupColorScheme.check(R.id.radioSettingsColorSchemeLight)
+                linearLayoutSettingsTime.visibility = View.GONE
+            }
+        }
+
+        buttonSettingsNightFrom.text = ThemeSettings.getNightStartTime(context!!)
+        buttonSettingsNightUntil.text = ThemeSettings.getNightEndTime(context!!)
     }
 
     private fun saveSettings() {
@@ -107,6 +159,13 @@ class SettingsFragment : Fragment() {
         ConnectionSettings.saveConnectionSettings(requireContext(), host, port)
 
         DisplayItems.saveDisabledStateToPreferences(requireContext())
+
+        val themeMode = when (radioGroupColorScheme.checkedRadioButtonId) {
+            R.id.radioSettingsColorSchemeDark -> ThemeSettings.THEME_ALWAYS_NIGHT
+            R.id.radioSettingsColorSchemeAuto -> ThemeSettings.THEME_DAY_NIGHT
+            else -> ThemeSettings.THEME_ALWAYS_DAY
+        }
+        ThemeSettings.saveThemeMode(context!!, themeMode)
     }
 
     private fun openWebPage(url: String) {

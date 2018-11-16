@@ -58,6 +58,12 @@
     <string name="settings_select_items">Select values to display</string>
     <string name="ask_for_feedback">Enjoy the app? Please rate it on Google Play! Not really? Send me an email at the bottom of the Play Store page.</string>
     <string name="show_on_google_play">Show on Google Play</string>
+    <string name="color_scheme">Color scheme</string>
+    <string name="color_scheme_light">Light</string>
+    <string name="color_scheme_dark">Dark</string>
+    <string name="color_scheme_auto">Dark at night</string>
+    <string name="setting_time_from">From</string>
+    <string name="setting_time_until">until</string>
     <string name="version">Version %s</string>
 
 </resources>

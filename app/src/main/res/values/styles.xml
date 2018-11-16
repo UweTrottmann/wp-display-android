@@ -1,7 +1,9 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <!-- Base application theme to enable day/night support. -->
+    <style name="Base.Theme.WpDisplay.DayNight" parent="Theme.MaterialComponents.Light.NoActionBar" />
+
+    <style name="Theme.WpDisplay" parent="Base.Theme.WpDisplay.DayNight">
         <!-- Customize your theme here. -->
         <item name="windowActionModeOverlay">true</item>
 
@@ -9,10 +11,6 @@
         <item name="colorPrimaryDark">@color/teal_700</item>
         <item name="colorSecondary">@color/blue_a400</item>
     </style>
-
-    <style name="TextAppearance" />
-
-    <style name="TextAppearance.App" />
 
     <style name="TextAppearance.App.Unit" parent="TextAppearance.MaterialComponents.Headline5">
         <item name="android:textColor">?android:attr/textColorSecondary</item>

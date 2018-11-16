@@ -17,6 +17,8 @@
 package com.uwetrottmann.wpdisplay
 
 import android.app.Application
+import androidx.appcompat.app.AppCompatDelegate
+import com.uwetrottmann.wpdisplay.settings.ThemeSettings
 import timber.log.Timber
 
 class ApplicationImpl : Application() {
@@ -27,5 +29,12 @@ class ApplicationImpl : Application() {
         if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
         }
+
+        val nightMode = if (ThemeSettings.isNight(this)) {
+            AppCompatDelegate.MODE_NIGHT_YES
+        } else {
+            AppCompatDelegate.MODE_NIGHT_NO
+        }
+        AppCompatDelegate.setDefaultNightMode(nightMode)
     }
 }
