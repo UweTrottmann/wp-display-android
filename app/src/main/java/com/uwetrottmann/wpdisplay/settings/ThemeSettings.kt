@@ -57,7 +57,7 @@ object ThemeSettings {
                 val currentHour = calendar.get(Calendar.HOUR_OF_DAY)
                 val currentMinute = calendar.get(Calendar.MINUTE)
 
-                if (currentHour >= nightStartHour || currentHour < nightEndHour) {
+                if (currentHour > nightStartHour || currentHour < nightEndHour) {
                     true
                 } else if (currentHour == nightStartHour && currentMinute >= nightStartMinute) {
                     true
