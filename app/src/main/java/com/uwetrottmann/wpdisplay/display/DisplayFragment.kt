@@ -27,6 +27,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
+import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
@@ -217,14 +218,18 @@ class DisplayFragment : Fragment() {
     private val threadPool = Executors.newFixedThreadPool(1)
 
     private fun buildDataAndUpdateAdapter(statusData: StatusData) {
+        val context = context!!.applicationContext
         val runnable = Runnable {
             android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_BACKGROUND)
 
             val displayItems = DisplayItems.enabled
-            displayItems.forEach { it.buildCharSequence(requireContext(), statusData) }
+            displayItems.forEach { it.buildCharSequence(context, statusData) }
             val timestamp = DateFormat.getDateTimeInstance().format(statusData.timestamp)
+
             activity?.runOnUiThread {
-                viewAdapter.updateDisplayItems(timestamp, displayItems)
+                if (lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)) {
+                    viewAdapter.updateDisplayItems(timestamp, displayItems)
+                }
             }
         }
         threadPool.execute(runnable)
