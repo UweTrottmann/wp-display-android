@@ -40,7 +40,7 @@ object ThemeSettings {
 
     fun getThemeMode(context: Context): Int {
         return PreferenceManager.getDefaultSharedPreferences(context)
-                .getInt(KEY_THEME_MODE, THEME_ALWAYS_DAY)
+            .getInt(KEY_THEME_MODE, THEME_ALWAYS_DAY)
     }
 
     fun isNight(context: Context): Boolean {
@@ -107,7 +107,9 @@ object ThemeSettings {
     }
 
     fun saveThemeMode(context: Context, themeMode: Int) {
-        if (themeMode !in THEME_ALWAYS_DAY..THEME_DAY_NIGHT) throw java.lang.IllegalArgumentException("themeMode not known")
+        if (themeMode !in THEME_ALWAYS_DAY..THEME_DAY_NIGHT) throw IllegalArgumentException(
+            "themeMode not known"
+        )
 
         PreferenceManager.getDefaultSharedPreferences(context).edit().apply {
             putInt(KEY_THEME_MODE, themeMode)
@@ -122,7 +124,13 @@ object ThemeSettings {
         saveHourAndMinute(context, KEY_NIGHT_END_HOUR, hour, KEY_NIGHT_END_MINUTE, minute)
     }
 
-    private fun saveHourAndMinute(context: Context, keyHour: String, hour: Int, keyMinute: String, minute: Int) {
+    private fun saveHourAndMinute(
+        context: Context,
+        keyHour: String,
+        hour: Int,
+        keyMinute: String,
+        minute: Int
+    ) {
         if (hour !in 0..23) throw IllegalArgumentException("hour not within 0..23")
         if (minute !in 0..59) throw IllegalArgumentException("minute not within 0..59")
 

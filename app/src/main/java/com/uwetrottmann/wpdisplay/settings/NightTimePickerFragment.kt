@@ -48,8 +48,10 @@ class NightTimePickerFragment : AppCompatDialogFragment() {
     }
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
-        return TimePickerDialog(context, onTimeSetListener, initialHour, initialMinute,
-                DateFormat.is24HourFormat(activity))
+        return TimePickerDialog(
+            context, onTimeSetListener, initialHour, initialMinute,
+            DateFormat.is24HourFormat(activity)
+        )
     }
 
     private val onTimeSetListener = TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
@@ -73,8 +75,10 @@ class NightTimePickerFragment : AppCompatDialogFragment() {
         private const val ARG_INITIAL_HOUR = "default.hour"
         private const val ARG_INITIAL_MINUTE = "default.minute"
 
-        fun showIfSafe(fragmentManager: FragmentManager, changeNightStart: Boolean,
-                       initialHour: Int, initialMinute: Int) {
+        fun showIfSafe(
+            fragmentManager: FragmentManager, changeNightStart: Boolean,
+            initialHour: Int, initialMinute: Int
+        ) {
             if (fragmentManager.isStateSaved) return
 
             NightTimePickerFragment().apply {

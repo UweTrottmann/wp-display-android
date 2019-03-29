@@ -51,7 +51,8 @@ class StatusData(private val rawData: IntArray) {
     init {
         if (rawData.size != LENGTH_BYTES) {
             throw IllegalArgumentException(
-                    "array is not size $LENGTH_BYTES but was ${rawData.size}")
+                "array is not size $LENGTH_BYTES but was ${rawData.size}"
+            )
         }
         this.timestamp = Date()
     }
@@ -88,7 +89,8 @@ class StatusData(private val rawData: IntArray) {
     private fun getValueAt(index: Int): Int {
         if (index + 1 > rawData.size) {
             throw IllegalArgumentException(
-                    "offset must be from 0 to array length ${rawData.size}")
+                "offset must be from 0 to array length ${rawData.size}"
+            )
         }
 
         return rawData[index]
@@ -100,12 +102,12 @@ class StatusData(private val rawData: IntArray) {
          * Maximum length of data supported. Sent status data is actually 183 bytes long, but we don't
          * care about the rest, yet.
          */
-        val LENGTH_BYTES = 100
+        const val LENGTH_BYTES = 100
 
-        private val FIRMWARE_VERSION_INDEX_BEGIN = 81
-        private val FIRMWARE_VERSION_LENGTH = 10
+        private const val FIRMWARE_VERSION_INDEX_BEGIN = 81
+        private const val FIRMWARE_VERSION_LENGTH = 10
 
-        private val OPERATING_STATE_INDEX = 80
+        private const val OPERATING_STATE_INDEX = 80
     }
 
     /**
@@ -155,8 +157,7 @@ class StatusData(private val rawData: IntArray) {
         companion object {
 
             fun fromIndex(index: Int): OperatingState {
-                return values().firstOrNull { it.index == index }
-                        ?: UNKNOWN
+                return values().firstOrNull { it.index == index } ?: UNKNOWN
             }
         }
     }

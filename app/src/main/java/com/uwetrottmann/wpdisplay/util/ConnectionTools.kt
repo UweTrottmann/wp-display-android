@@ -47,7 +47,12 @@ object ConnectionTools : ConnectionListener {
     /** LiveData to observe for changes in connection state. */
     val connectionEvent = EventLiveData<ConnectionEvent>()
 
-    class ConnectionEvent(var isConnecting: Boolean, var isConnected: Boolean, var host: String?, var port: Int)
+    class ConnectionEvent(
+        var isConnecting: Boolean,
+        var isConnected: Boolean,
+        var host: String?,
+        var port: Int
+    )
 
     /**
      * Try to establish a connection, async.
@@ -55,8 +60,12 @@ object ConnectionTools : ConnectionListener {
     @Synchronized
     fun connect(context: Context) {
         Timber.d("connect: scheduling")
-        executor.execute(ConnectRunnable(this, ConnectionSettings.getHost(context),
-                ConnectionSettings.getPort(context)))
+        executor.execute(
+            ConnectRunnable(
+                this, ConnectionSettings.getHost(context),
+                ConnectionSettings.getPort(context)
+            )
+        )
     }
 
     /**
@@ -113,8 +122,10 @@ object ConnectionTools : ConnectionListener {
             return
         }
         Timber.d("scheduleStatusDataRequests: scheduling")
-        requestSchedule = executor.scheduleWithFixedDelay(requestRunnable, 0, 2,
-                TimeUnit.SECONDS)
+        requestSchedule = executor.scheduleWithFixedDelay(
+            requestRunnable, 0, 2,
+            TimeUnit.SECONDS
+        )
     }
 
     private fun cancelStatusDataRequests() {

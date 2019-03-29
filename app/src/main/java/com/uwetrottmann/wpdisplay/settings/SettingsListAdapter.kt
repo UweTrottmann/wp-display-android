@@ -26,15 +26,18 @@ import androidx.recyclerview.widget.RecyclerView
 import com.uwetrottmann.wpdisplay.R
 import com.uwetrottmann.wpdisplay.model.DisplayItem
 
-class SettingsListAdapter : ListAdapter<DisplayItem, SettingsListAdapter.SettingsViewHolder>(object : DiffUtil.ItemCallback<DisplayItem>() {
-    override fun areItemsTheSame(oldItem: DisplayItem, newItem: DisplayItem): Boolean =
+class SettingsListAdapter :
+    ListAdapter<DisplayItem, SettingsListAdapter.SettingsViewHolder>(object :
+        DiffUtil.ItemCallback<DisplayItem>() {
+        override fun areItemsTheSame(oldItem: DisplayItem, newItem: DisplayItem): Boolean =
             oldItem.id == newItem.id
 
-    override fun areContentsTheSame(oldItem: DisplayItem, newItem: DisplayItem): Boolean =
+        override fun areContentsTheSame(oldItem: DisplayItem, newItem: DisplayItem): Boolean =
             oldItem.enabled == newItem.enabled
-}) {
+    }) {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SettingsViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_selectable, parent, false)
+        val view =
+            LayoutInflater.from(parent.context).inflate(R.layout.item_selectable, parent, false)
         return SettingsViewHolder(view)
     }
 

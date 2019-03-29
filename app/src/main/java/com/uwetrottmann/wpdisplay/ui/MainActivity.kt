@@ -33,13 +33,13 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         // setup action bar
-        val actionBarToolbar : Toolbar = findViewById(R.id.toolbar)
+        val actionBarToolbar: Toolbar = findViewById(R.id.toolbar)
         setSupportActionBar(actionBarToolbar)
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()
-                    .replace(R.id.container, DisplayFragment())
-                    .commit()
+                .replace(R.id.container, DisplayFragment())
+                .commit()
         }
     }
 

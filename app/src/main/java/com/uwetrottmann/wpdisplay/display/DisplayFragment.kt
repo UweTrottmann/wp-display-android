@@ -18,7 +18,12 @@ package com.uwetrottmann.wpdisplay.display
 
 import android.os.Bundle
 import android.text.TextUtils
-import android.view.*
+import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
+import android.view.View
+import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
@@ -45,8 +50,10 @@ class DisplayFragment : Fragment() {
 
     private var isConnected: Boolean = false
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         return inflater.inflate(R.layout.fragment_display_rv, container, false)
     }
 
@@ -113,7 +120,7 @@ class DisplayFragment : Fragment() {
         val port = ConnectionSettings.getPort(requireContext())
         if (TextUtils.isEmpty(host) || port < 0 || port > 65535) {
             setupSnackBar(R.string.setup_missing, R.string.action_setup,
-                    View.OnClickListener { showSettingsFragment() })
+                View.OnClickListener { showSettingsFragment() })
             showSnackBar(true)
         } else {
             ConnectionTools.connect(requireContext())
@@ -155,10 +162,10 @@ class DisplayFragment : Fragment() {
 
     private fun showSettingsFragment() {
         requireFragmentManager().beginTransaction()
-                .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
-                .replace(R.id.container, SettingsFragment())
-                .addToBackStack(null)
-                .commit()
+            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
+            .replace(R.id.container, SettingsFragment())
+            .addToBackStack(null)
+            .commit()
     }
 
     private fun togglePause() {
@@ -189,10 +196,10 @@ class DisplayFragment : Fragment() {
                 isWarning = true
                 statusResId = R.string.label_connection_error
                 setupSnackBar(R.string.message_no_connection, R.string.action_retry,
-                        View.OnClickListener {
-                            ConnectionTools.connect(requireContext())
-                            showSnackBar(false)
-                        })
+                    View.OnClickListener {
+                        ConnectionTools.connect(requireContext())
+                        showSnackBar(false)
+                    })
                 showSnackBar(true)
                 ConnectionTools.disconnect()
             }

@@ -43,9 +43,9 @@ object ConnectionSettings {
             // default port
             value = 8888
             PreferenceManager.getDefaultSharedPreferences(context)
-                    .edit()
-                    .putInt(KEY_PORT, value)
-                    .apply()
+                .edit()
+                .putInt(KEY_PORT, value)
+                .apply()
         }
         return value
     }

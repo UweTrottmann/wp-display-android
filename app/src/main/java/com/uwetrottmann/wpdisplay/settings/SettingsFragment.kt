@@ -40,8 +40,10 @@ import kotlinx.android.synthetic.main.fragment_settings.*
  */
 class SettingsFragment : Fragment() {
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
-                              savedInstanceState: Bundle?): View? {
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?
+    ): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_settings, container, false)
     }
@@ -63,19 +65,23 @@ class SettingsFragment : Fragment() {
             linearLayoutSettingsTime.visibility = View.VISIBLE
         }
         buttonSettingsNightFrom.setOnClickListener {
-            NightTimePickerFragment.showIfSafe(fragmentManager!!, true,
-                    ThemeSettings.getNightStartHour(it.context),
-                    ThemeSettings.getNightStartMinute(it.context))
+            NightTimePickerFragment.showIfSafe(
+                fragmentManager!!, true,
+                ThemeSettings.getNightStartHour(it.context),
+                ThemeSettings.getNightStartMinute(it.context)
+            )
         }
         buttonSettingsNightUntil.setOnClickListener {
-            NightTimePickerFragment.showIfSafe(fragmentManager!!, false,
-                    ThemeSettings.getNightEndHour(it.context),
-                    ThemeSettings.getNightEndMinute(it.context))
+            NightTimePickerFragment.showIfSafe(
+                fragmentManager!!, false,
+                ThemeSettings.getNightEndHour(it.context),
+                ThemeSettings.getNightEndMinute(it.context)
+            )
         }
 
         val version = try {
             val packageInfo = requireContext().packageManager
-                    .getPackageInfo(requireContext().packageName, 0)
+                .getPackageInfo(requireContext().packageName, 0)
             packageInfo.versionName
         } catch (e: PackageManager.NameNotFoundException) {
             ""

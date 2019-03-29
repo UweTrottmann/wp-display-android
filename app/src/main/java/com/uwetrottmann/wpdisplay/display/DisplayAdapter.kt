@@ -23,10 +23,15 @@ import android.widget.TextView
 import androidx.core.widget.TextViewCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.uwetrottmann.wpdisplay.R
-import com.uwetrottmann.wpdisplay.model.*
+import com.uwetrottmann.wpdisplay.model.ConnectionStatus
+import com.uwetrottmann.wpdisplay.model.DisplayItem
+import com.uwetrottmann.wpdisplay.model.DurationItem
+import com.uwetrottmann.wpdisplay.model.TemperatureItem
+import com.uwetrottmann.wpdisplay.model.TextItem
 import com.uwetrottmann.wpdisplay.util.copyTextToClipboardOnClick
 
-class DisplayAdapter(private val displayItems: MutableList<DisplayItem>) : RecyclerView.Adapter<RecyclerView.ViewHolder>() {
+class DisplayAdapter(private val displayItems: MutableList<DisplayItem>) :
+    RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var connectionStatus: ConnectionStatus = ConnectionStatus("", false)
     private var timestamp = ""
@@ -61,19 +66,23 @@ class DisplayAdapter(private val displayItems: MutableList<DisplayItem>) : Recyc
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         when (viewType) {
             VIEW_TYPE_HEADER -> {
-                val view = LayoutInflater.from(parent.context).inflate(R.layout.layout_status, parent, false)
+                val view = LayoutInflater.from(parent.context)
+                    .inflate(R.layout.layout_status, parent, false)
                 return StatusViewHolder(view)
             }
             VIEW_TYPE_TEMPERATURE -> {
-                val view = LayoutInflater.from(parent.context).inflate(R.layout.item_text, parent, false)
+                val view =
+                    LayoutInflater.from(parent.context).inflate(R.layout.item_text, parent, false)
                 return TemperatureViewHolder(view as TextView)
             }
             VIEW_TYPE_DURATION -> {
-                val view = LayoutInflater.from(parent.context).inflate(R.layout.item_text, parent, false)
+                val view =
+                    LayoutInflater.from(parent.context).inflate(R.layout.item_text, parent, false)
                 return DurationViewHolder(view as TextView)
             }
             VIEW_TYPE_TEXT -> {
-                val view = LayoutInflater.from(parent.context).inflate(R.layout.item_text, parent, false)
+                val view =
+                    LayoutInflater.from(parent.context).inflate(R.layout.item_text, parent, false)
                 return TextViewHolder(view as TextView)
             }
             else -> throw IllegalArgumentException("View type $viewType not supported")
@@ -84,11 +93,13 @@ class DisplayAdapter(private val displayItems: MutableList<DisplayItem>) : Recyc
         when (holder) {
             is StatusViewHolder -> {
                 holder.textViewDisplayStatus.text = connectionStatus.message
-                TextViewCompat.setTextAppearance(holder.textViewDisplayStatus,
-                        if (connectionStatus.isWarning)
-                            R.style.TextAppearance_App_Body1_Orange
-                        else
-                            R.style.TextAppearance_App_Body1_Green)
+                TextViewCompat.setTextAppearance(
+                    holder.textViewDisplayStatus,
+                    if (connectionStatus.isWarning)
+                        R.style.TextAppearance_App_Body1_Orange
+                    else
+                        R.style.TextAppearance_App_Body1_Green
+                )
                 holder.textViewDisplayTime.text = timestamp
             }
             is TemperatureViewHolder -> {
@@ -106,6 +117,7 @@ class DisplayAdapter(private val displayItems: MutableList<DisplayItem>) : Recyc
     class StatusViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         val textViewDisplayStatus = itemView.findViewById<TextView>(R.id.textViewDisplayStatus)!!
         val textViewDisplayTime = itemView.findViewById<TextView>(R.id.textViewDisplayTime)!!
+
         init {
             textViewDisplayStatus.copyTextToClipboardOnClick()
             textViewDisplayTime.copyTextToClipboardOnClick()
@@ -117,11 +129,13 @@ class DisplayAdapter(private val displayItems: MutableList<DisplayItem>) : Recyc
             textView.copyTextToClipboardOnClick()
         }
     }
+
     class DurationViewHolder(val textView: TextView) : RecyclerView.ViewHolder(textView) {
         init {
             textView.copyTextToClipboardOnClick()
         }
     }
+
     class TextViewHolder(val textView: TextView) : RecyclerView.ViewHolder(textView) {
         init {
             textView.copyTextToClipboardOnClick()

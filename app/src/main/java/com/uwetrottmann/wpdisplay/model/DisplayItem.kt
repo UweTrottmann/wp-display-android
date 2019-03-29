@@ -31,9 +31,9 @@ abstract class DisplayItem(val id: Int, @StringRes val labelResId: Int) {
 }
 
 class TemperatureItem(
-        id: Int,
-        @StringRes labelResId: Int,
-        private val temperature: StatusData.Temperature
+    id: Int,
+    @StringRes labelResId: Int,
+    private val temperature: StatusData.Temperature
 ) : DisplayItem(id, labelResId) {
 
     override fun buildCharSequence(context: Context, statusData: StatusData) {
@@ -42,20 +42,32 @@ class TemperatureItem(
         val builder = SpannableStringBuilder()
 
         builder.append(context.getString(labelResId))
-        builder.setSpan(TextAppearanceSpan(context,
-                R.style.TextAppearance_MaterialComponents_Caption), 0, builder.length, 0)
+        builder.setSpan(
+            TextAppearanceSpan(
+                context,
+                R.style.TextAppearance_MaterialComponents_Caption
+            ), 0, builder.length, 0
+        )
 
         builder.append("\n")
 
         var lengthOld = builder.length
         builder.append(String.format(Locale.getDefault(), "%.1f", value))
-        builder.setSpan(TextAppearanceSpan(context,
-                R.style.TextAppearance_App_Temperature), lengthOld, builder.length, 0)
+        builder.setSpan(
+            TextAppearanceSpan(
+                context,
+                R.style.TextAppearance_App_Temperature
+            ), lengthOld, builder.length, 0
+        )
 
         lengthOld = builder.length
         builder.append(context.getString(R.string.unit_celsius))
-        builder.setSpan(TextAppearanceSpan(context,
-                R.style.TextAppearance_App_Unit), lengthOld, builder.length, 0)
+        builder.setSpan(
+            TextAppearanceSpan(
+                context,
+                R.style.TextAppearance_App_Unit
+            ), lengthOld, builder.length, 0
+        )
 
         charSequence = builder
     }
@@ -63,9 +75,9 @@ class TemperatureItem(
 }
 
 class DurationItem(
-        id: Int,
-        @StringRes labelResId: Int,
-        val time: StatusData.Time
+    id: Int,
+    @StringRes labelResId: Int,
+    val time: StatusData.Time
 ) : DisplayItem(id, labelResId) {
 
     override fun buildCharSequence(context: Context, statusData: StatusData) {
@@ -74,15 +86,23 @@ class DurationItem(
         val builder = SpannableStringBuilder()
 
         builder.append(context.getString(labelResId))
-        builder.setSpan(TextAppearanceSpan(context,
-                R.style.TextAppearance_MaterialComponents_Caption), 0, builder.length, 0)
+        builder.setSpan(
+            TextAppearanceSpan(
+                context,
+                R.style.TextAppearance_MaterialComponents_Caption
+            ), 0, builder.length, 0
+        )
 
         builder.append("\n")
 
         val lengthOld = builder.length
         builder.append(value)
-        builder.setSpan(TextAppearanceSpan(context,
-                R.style.TextAppearance_MaterialComponents_Headline4), lengthOld, builder.length, 0)
+        builder.setSpan(
+            TextAppearanceSpan(
+                context,
+                R.style.TextAppearance_MaterialComponents_Headline4
+            ), lengthOld, builder.length, 0
+        )
 
         charSequence = builder
     }
@@ -90,8 +110,8 @@ class DurationItem(
 }
 
 class TextItem(
-        id: Int,
-        @StringRes labelResId: Int
+    id: Int,
+    @StringRes labelResId: Int
 ) : DisplayItem(id, labelResId) {
 
     override fun buildCharSequence(context: Context, statusData: StatusData) {
@@ -103,15 +123,23 @@ class TextItem(
         val builder = SpannableStringBuilder()
 
         builder.append(context.getString(labelResId))
-        builder.setSpan(TextAppearanceSpan(context,
-                R.style.TextAppearance_MaterialComponents_Caption), 0, builder.length, 0)
+        builder.setSpan(
+            TextAppearanceSpan(
+                context,
+                R.style.TextAppearance_MaterialComponents_Caption
+            ), 0, builder.length, 0
+        )
 
         builder.append("\n")
 
         val lengthOld = builder.length
         builder.append(value)
-        builder.setSpan(TextAppearanceSpan(context,
-                R.style.TextAppearance_MaterialComponents_Headline4), lengthOld, builder.length, 0)
+        builder.setSpan(
+            TextAppearanceSpan(
+                context,
+                R.style.TextAppearance_MaterialComponents_Headline4
+            ), lengthOld, builder.length, 0
+        )
 
         charSequence = builder
     }

@@ -22,9 +22,9 @@ import java.net.InetSocketAddress
 import java.net.Socket
 
 internal class ConnectRunnable(
-        private val listener: ConnectionListener,
-        private val host: String?,
-        private val port: Int
+    private val listener: ConnectionListener,
+    private val host: String?,
+    private val port: Int
 ) : Runnable {
 
     override fun run() {
@@ -43,9 +43,10 @@ internal class ConnectRunnable(
 
         Timber.d("run: connecting")
         ConnectionTools.connectionEvent.postEvent(
-                ConnectionTools.ConnectionEvent(true, false, host, port))
+            ConnectionTools.ConnectionEvent(true, false, host, port)
+        )
 
-        var socket : Socket? = null
+        var socket: Socket? = null
         try {
             // connect, create in and out streams
             socket = Socket()
@@ -55,7 +56,8 @@ internal class ConnectRunnable(
 
             // post success
             ConnectionTools.connectionEvent.postEvent(
-                    ConnectionTools.ConnectionEvent(false, true, host, port))
+                ConnectionTools.ConnectionEvent(false, true, host, port)
+            )
         } catch (e: IOException) {
             Timber.e(e, "run: connection to $host:$port failed")
             try {
@@ -65,7 +67,8 @@ internal class ConnectRunnable(
 
             // post failure
             ConnectionTools.connectionEvent.postEvent(
-                    ConnectionTools.ConnectionEvent(false, false, host, port))
+                ConnectionTools.ConnectionEvent(false, false, host, port)
+            )
         }
 
     }

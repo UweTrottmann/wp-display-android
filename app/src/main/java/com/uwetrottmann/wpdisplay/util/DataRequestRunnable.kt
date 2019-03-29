@@ -38,7 +38,8 @@ class DataRequestRunnable(private val listener: ConnectionListener) : Runnable {
         if (socket == null || !socket.isConnected || input == null || output == null) {
             Timber.e("run: failed, no connection")
             ConnectionTools.connectionEvent.postEvent(
-                    ConnectionTools.ConnectionEvent(false, false, null, 0))
+                ConnectionTools.ConnectionEvent(false, false, null, 0)
+            )
             return
         }
 
@@ -66,8 +67,10 @@ class DataRequestRunnable(private val listener: ConnectionListener) : Runnable {
             val responseCode = input.readInt()
             if (responseCode != ControllerConstants.COMMAND_REQUEST_STATUS) {
                 // fail
-                Timber.e("run: response code expected %s but was %s",
-                        ControllerConstants.COMMAND_REQUEST_STATUS , responseCode)
+                Timber.e(
+                    "run: response code expected %s but was %s",
+                    ControllerConstants.COMMAND_REQUEST_STATUS, responseCode
+                )
                 return
             }
 
@@ -95,7 +98,8 @@ class DataRequestRunnable(private val listener: ConnectionListener) : Runnable {
         } catch (e: IOException) {
             Timber.e(e, "run: failed to request data")
             ConnectionTools.connectionEvent.postEvent(
-                    ConnectionTools.ConnectionEvent(false, false, null, 0))
+                ConnectionTools.ConnectionEvent(false, false, null, 0)
+            )
         }
 
     }
