@@ -1,6 +1,12 @@
 Heat Pump Display Release Notes
 ===============================
 
+10 (2019-03-29)
+--------------
+
+- Fix crash when trying to display values.
+- Updated style of message bar.
+
 9 (2018-11-16)
 --------------
 
