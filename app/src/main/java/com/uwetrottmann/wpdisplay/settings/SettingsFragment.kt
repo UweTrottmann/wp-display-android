@@ -30,6 +30,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.uwetrottmann.wpdisplay.BuildConfig
 import com.uwetrottmann.wpdisplay.R
 import com.uwetrottmann.wpdisplay.model.DisplayItem
 import com.uwetrottmann.wpdisplay.model.DisplayItems
@@ -87,7 +88,13 @@ class SettingsFragment : Fragment() {
             ""
         }
 
-        textViewSettingsVersion.text = getString(R.string.version, version)
+        val versionString = if (BuildConfig.DEBUG) {
+            "$version-debug"
+        } else {
+            version
+        }
+
+        textViewSettingsVersion.text = getString(R.string.version, versionString)
 
         viewAdapter = SettingsListAdapter()
         val viewManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
