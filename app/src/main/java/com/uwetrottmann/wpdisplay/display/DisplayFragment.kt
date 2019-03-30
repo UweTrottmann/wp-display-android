@@ -218,12 +218,19 @@ class DisplayFragment : Fragment() {
     private val threadPool = Executors.newFixedThreadPool(1)
 
     private fun buildDataAndUpdateAdapter(statusData: StatusData) {
-        val context = context!!.applicationContext
+        val context = this.context!!
         val runnable = Runnable {
             android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_BACKGROUND)
 
+            if (!lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)) {
+                return@Runnable // no need to build data
+            }
+
             val displayItems = DisplayItems.enabled
-            displayItems.forEach { it.buildCharSequence(context, statusData) }
+            displayItems.forEach {
+                // need to use theme context!
+                it.buildCharSequence(context, statusData)
+            }
             val timestamp = DateFormat.getDateTimeInstance().format(statusData.timestamp)
 
             activity?.runOnUiThread {
