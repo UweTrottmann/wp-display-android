@@ -1,6 +1,11 @@
 Heat Pump Display Release Notes
 ===============================
 
+11 (2019-03-30)
+--------------
+
+- Fix text color in dark mode.
+
 10 (2019-03-29)
 --------------
 
