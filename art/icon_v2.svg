@@ -14,7 +14,7 @@
    height="192"
    id="svg2"
    version="1.1"
-   inkscape:version="0.48.5 r10040"
+   inkscape:version="0.92.4 (5da689c313, 2019-01-14)"
    sodipodi:docname="icon_v2.svg"
    inkscape:export-filename="C:\Users\Uwe\git\wp-display-android\WpDisplayNative\app\src\main\res\drawable-xxxhdpi\ic_launcher.png"
    inkscape:export-xdpi="90"
@@ -92,7 +92,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="2.8284271"
-     inkscape:cx="36.810567"
+     inkscape:cx="-50.340345"
      inkscape:cy="115.53661"
      inkscape:document-units="px"
      inkscape:current-layer="layer1"
@@ -103,36 +103,42 @@
      inkscape:snap-bbox-edge-midpoints="false"
      inkscape:object-paths="true"
      inkscape:snap-global="true"
-     inkscape:window-width="1920"
-     inkscape:window-height="1017"
-     inkscape:window-x="1912"
-     inkscape:window-y="-8"
+     inkscape:window-width="3840"
+     inkscape:window-height="2050"
+     inkscape:window-x="-12"
+     inkscape:window-y="-12"
      inkscape:window-maximized="1"
      inkscape:snap-grids="true">
     <sodipodi:guide
        orientation="1,0"
        position="20,152"
-       id="guide2994" />
+       id="guide2994"
+       inkscape:locked="false" />
     <sodipodi:guide
        orientation="1,0"
        position="172,172"
-       id="guide2996" />
+       id="guide2996"
+       inkscape:locked="false" />
     <sodipodi:guide
        orientation="0,1"
        position="20,172"
-       id="guide2998" />
+       id="guide2998"
+       inkscape:locked="false" />
     <sodipodi:guide
        orientation="0,1"
        position="20,20"
-       id="guide3000" />
+       id="guide3000"
+       inkscape:locked="false" />
     <sodipodi:guide
        orientation="0.70710678,0.70710678"
        position="0,192"
-       id="guide3785" />
+       id="guide3785"
+       inkscape:locked="false" />
     <sodipodi:guide
        orientation="-0.70710678,0.70710678"
        position="0,0"
-       id="guide3791" />
+       id="guide3791"
+       inkscape:locked="false" />
     <inkscape:grid
        type="xygrid"
        id="grid2993"
@@ -141,8 +147,10 @@
        enabled="true"
        snapvisiblegridlinesonly="true"
        dotted="false"
-       originy="0px"
-       originx="0px" />
+       originy="0"
+       originx="0"
+       spacingx="1"
+       spacingy="1" />
   </sodipodi:namedview>
   <metadata
      id="metadata7">
@@ -152,7 +160,7 @@
         <dc:format>image/svg+xml</dc:format>
         <dc:type
            rdf:resource="http://purl.org/dc/dcmitype/StillImage" />
-        <dc:title></dc:title>
+        <dc:title />
       </cc:Work>
     </rdf:RDF>
   </metadata>
