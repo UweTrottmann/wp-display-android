@@ -17,6 +17,7 @@
     <string name="label_temp_outgoing">Vorlauf</string>
     <string name="label_temp_return">Rücklauf</string>
     <string name="label_temp_return_should">Rücklauf Soll</string>
+    <string name="label_temp_return_external">Rücklauf Extern</string>
     <string name="label_temp_hot_gas">Heißgas</string>
     <string name="label_temp_water">Brauchwasser</string>
     <string name="label_temp_water_should">Brauchwasser Soll</string>

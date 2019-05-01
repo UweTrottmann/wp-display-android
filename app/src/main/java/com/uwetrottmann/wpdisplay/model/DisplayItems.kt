@@ -31,6 +31,7 @@ object DisplayItems {
         TemperatureItem(2, R.string.label_temp_return, Temperature.RETURN),
         TemperatureItem(3, R.string.label_temp_outdoors, Temperature.OUTDOORS),
         TemperatureItem(4, R.string.label_temp_return_should, Temperature.RETURN_SHOULD),
+        TemperatureItem(20, R.string.label_temp_return_external, Temperature.RETURN_EXTERNAL),
         TemperatureItem(5, R.string.label_temp_outdoors_average, Temperature.OUTDOORS_AVERAGE),
         TemperatureItem(6, R.string.label_temp_hot_gas, Temperature.HOT_GAS),
         TemperatureItem(7, R.string.label_temp_water, Temperature.WATER),
@@ -59,14 +60,14 @@ object DisplayItems {
         val disabledIds = disabledEncoded?.split(',')?.mapNotNull {
             if (it == "") null else it.toInt()
         } ?: listOf()
-        DisplayItems.all.forEach { item ->
+        all.forEach { item ->
             item.enabled = disabledIds.find { it == item.id } == null
         }
     }
 
     @Synchronized
     fun saveDisabledStateToPreferences(context: Context) {
-        val disabledEncoded = DisplayItems.all
+        val disabledEncoded = all
             .filter { !it.enabled }
             .joinToString(",") { it.id.toString() }
         PreferenceManager.getDefaultSharedPreferences(context).edit()

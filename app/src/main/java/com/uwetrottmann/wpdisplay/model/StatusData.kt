@@ -118,6 +118,7 @@ class StatusData(private val rawData: IntArray) {
         OUTGOING(10),
         RETURN(11),
         RETURN_SHOULD(12),
+        RETURN_EXTERNAL(13),
         HOT_GAS(14),
         OUTDOORS(15),
         OUTDOORS_AVERAGE(16),

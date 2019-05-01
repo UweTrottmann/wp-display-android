@@ -17,6 +17,7 @@
     <string name="label_temp_outgoing">Outgoing</string>
     <string name="label_temp_return">Return</string>
     <string name="label_temp_return_should">Return Target</string>
+    <string name="label_temp_return_external">Return External</string>
     <string name="label_temp_hot_gas">Hot Gas</string>
     <string name="label_temp_water">Hot Water</string>
     <string name="label_temp_water_should">Hot Water Target</string>
