@@ -1,6 +1,11 @@
 Heat Pump Display Release Notes
 ===============================
 
+12 (2019-05-01)
+--------------
+
+- Add return external temperature.
+
 11 (2019-03-30)
 --------------
 
