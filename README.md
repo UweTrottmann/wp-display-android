@@ -4,6 +4,8 @@ by the Alpha-InnoTec Luxtronik 2.0 controller.
 
 Download on [Google Play][1].
 
+<img src="screenshots/phone.png" height="375"/>
+
 I also wrote a [Chrome app][2] doing the same thing. 
 
 Pull requests against `master` welcome.
