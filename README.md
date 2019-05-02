@@ -2,7 +2,7 @@
 Display temperature and status of heat pump, heating and hot water of heat pumps controlled
 by the Alpha-InnoTec Luxtronik 2.0 controller.
 
-Download on [Google Play][1].
+[Download on Google Play][1].
 
 <img src="screenshots/phone.png" height="375"/>
 
