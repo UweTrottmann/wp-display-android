@@ -27,6 +27,7 @@
     <string name="label_temp_source_out">To Heat Source</string>
     <string name="label_temp_solar_collector">Solar Collector</string>
     <string name="label_temp_solar_tank">Solar Tank</string>
+    <string name="label_temp_ext_energy_src">External Energy Source</string>
     <string name="label_time_pump_active">Pump active</string>
     <string name="label_time_compressor_inactive">Compressor inactive</string>
     <string name="label_time_rest">Mandatory rest</string>

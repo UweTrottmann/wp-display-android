@@ -127,7 +127,8 @@ class StatusData(private val rawData: IntArray) {
         SOURCE_IN(19),
         SOURCE_OUT(20),
         SOLAR_COLLECTOR(26),
-        SOLAR_TANK(27)
+        SOLAR_TANK(27),
+        EXTERNAL_ENERGY_SRC(28)
     }
 
     /**

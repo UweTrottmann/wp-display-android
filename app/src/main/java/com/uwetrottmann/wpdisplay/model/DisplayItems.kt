@@ -40,6 +40,7 @@ object DisplayItems {
         TemperatureItem(10, R.string.label_temp_source_out, Temperature.SOURCE_OUT),
         TemperatureItem(18, R.string.label_temp_solar_collector, Temperature.SOLAR_COLLECTOR),
         TemperatureItem(19, R.string.label_temp_solar_tank, Temperature.SOLAR_TANK),
+        TemperatureItem(21, R.string.label_temp_ext_energy_src, Temperature.EXTERNAL_ENERGY_SRC),
         TextItem(11, R.string.label_operating_state),
         DurationItem(12, R.string.label_time_pump_active, Time.TIME_PUMP_ACTIVE),
         DurationItem(13, R.string.label_time_compressor_inactive, Time.TIME_COMPRESSOR_NOOP),
