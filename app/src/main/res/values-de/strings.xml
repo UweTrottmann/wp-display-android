@@ -58,7 +58,7 @@
     <string name="settings_controller">Kontrollgerät Einstellungen</string>
     <string name="settings_instructions">Sie finden die IP-Adresse des Kontrollgeräts in dessen Einstellungen. Der Port ist standardmäßig 8888 oder 8889.\n\nSie müssen mit dem gleichen Netzwerk wie das Kontrollgerät verbunden sein (benutzen Sie zum Beispiel eine VPN Verbindung in Ihr Zuhause für Zugriff von unterwegs).</string>
     <string name="settings_select_items">Werte zum Anzeigen auswählen</string>
-    <string name="ask_for_feedback">Die App gefällt? Bitte bewerten Sie sie auf Google Play! Nicht wirklich? Schicken Sie mir eine Email am Ende der Play Store-Seite.</string>
+    <string name="ask_for_feedback">Die App gefällt? Bitte bewerten Sie sie auf Google Play! Nicht wirklich? Schicken Sie mir eine Email unter Kontaktdaten des Entwicklers auf der Play Store-Seite.</string>
     <string name="show_on_google_play">Auf Google Play anzeigen</string>
     <string name="color_scheme">Farbschema</string>
     <string name="color_scheme_light">Hell</string>
