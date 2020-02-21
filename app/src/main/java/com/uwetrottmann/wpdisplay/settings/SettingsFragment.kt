@@ -27,7 +27,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.uwetrottmann.wpdisplay.BuildConfig
@@ -67,14 +67,14 @@ class SettingsFragment : Fragment() {
         }
         buttonSettingsNightFrom.setOnClickListener {
             NightTimePickerFragment.showIfSafe(
-                fragmentManager!!, true,
+                parentFragmentManager, true,
                 ThemeSettings.getNightStartHour(it.context),
                 ThemeSettings.getNightStartMinute(it.context)
             )
         }
         buttonSettingsNightUntil.setOnClickListener {
             NightTimePickerFragment.showIfSafe(
-                fragmentManager!!, false,
+                parentFragmentManager, false,
                 ThemeSettings.getNightEndHour(it.context),
                 ThemeSettings.getNightEndMinute(it.context)
             )
@@ -114,8 +114,8 @@ class SettingsFragment : Fragment() {
             actionBar.setDisplayHomeAsUpEnabled(true)
         }
 
-        val viewModel = ViewModelProviders.of(this)[SettingsViewModel::class.java]
-        viewModel.availableItems.observe(this, Observer<List<DisplayItem>> { list ->
+        val viewModel = ViewModelProvider(this)[SettingsViewModel::class.java]
+        viewModel.availableItems.observe(viewLifecycleOwner, Observer<List<DisplayItem>> { list ->
             viewAdapter.submitList(list)
         })
     }
@@ -135,19 +135,19 @@ class SettingsFragment : Fragment() {
     fun updateColorScheme() {
         saveSettings()
 
-        val nightMode = if (ThemeSettings.isNight(context!!)) {
+        val nightMode = if (ThemeSettings.isNight(requireContext())) {
             AppCompatDelegate.MODE_NIGHT_YES
         } else {
             AppCompatDelegate.MODE_NIGHT_NO
         }
-        (activity!! as AppCompatActivity).delegate.setLocalNightMode(nightMode)
+        (requireActivity() as AppCompatActivity).delegate.setLocalNightMode(nightMode)
     }
 
     fun populateViews() {
         editTextSettingsHost.setText(ConnectionSettings.getHost(requireContext()))
         editTextSettingsPort.setText(ConnectionSettings.getPort(requireContext()).toString())
 
-        when (ThemeSettings.getThemeMode(context!!)) {
+        when (ThemeSettings.getThemeMode(requireContext())) {
             ThemeSettings.THEME_ALWAYS_NIGHT -> {
                 radioGroupColorScheme.check(R.id.radioSettingsColorSchemeDark)
                 linearLayoutSettingsTime.visibility = View.GONE
@@ -162,8 +162,8 @@ class SettingsFragment : Fragment() {
             }
         }
 
-        buttonSettingsNightFrom.text = ThemeSettings.getNightStartTime(context!!)
-        buttonSettingsNightUntil.text = ThemeSettings.getNightEndTime(context!!)
+        buttonSettingsNightFrom.text = ThemeSettings.getNightStartTime(requireContext())
+        buttonSettingsNightUntil.text = ThemeSettings.getNightEndTime(requireContext())
     }
 
     private fun saveSettings() {
@@ -178,7 +178,7 @@ class SettingsFragment : Fragment() {
             R.id.radioSettingsColorSchemeAuto -> ThemeSettings.THEME_DAY_NIGHT
             else -> ThemeSettings.THEME_ALWAYS_DAY
         }
-        ThemeSettings.saveThemeMode(context!!, themeMode)
+        ThemeSettings.saveThemeMode(requireContext(), themeMode)
     }
 
     private fun openWebPage(url: String) {

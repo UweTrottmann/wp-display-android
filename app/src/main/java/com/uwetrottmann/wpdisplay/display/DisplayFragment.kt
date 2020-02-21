@@ -99,10 +99,10 @@ class DisplayFragment : Fragment() {
 
         setHasOptionsMenu(true)
 
-        DataRequestRunnable.statusData.observe(this, Observer {
+        DataRequestRunnable.statusData.observe(viewLifecycleOwner, Observer {
             buildDataAndUpdateAdapter(it)
         })
-        ConnectionTools.connectionEvent.observe(this, Observer { event ->
+        ConnectionTools.connectionEvent.observe(viewLifecycleOwner, Observer { event ->
             event.getContentIfNotHandled()?.let {
                 handleConnectionEvent(it)
             }
@@ -162,7 +162,7 @@ class DisplayFragment : Fragment() {
     }
 
     private fun showSettingsFragment() {
-        requireFragmentManager().beginTransaction()
+        parentFragmentManager.beginTransaction()
             .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
             .replace(R.id.container, SettingsFragment())
             .addToBackStack(null)
@@ -181,7 +181,7 @@ class DisplayFragment : Fragment() {
     private fun handleConnectionEvent(event: ConnectionTools.ConnectionEvent) {
         // pause button
         isConnected = event.isConnected
-        activity!!.invalidateOptionsMenu()
+        requireActivity().invalidateOptionsMenu()
 
         // status text
         val statusResId: Int
@@ -218,7 +218,7 @@ class DisplayFragment : Fragment() {
     private val threadPool = Executors.newFixedThreadPool(1)
 
     private fun buildDataAndUpdateAdapter(statusData: StatusData) {
-        val context = this.context!!
+        val context = this.requireContext()
         val runnable = Runnable {
             android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_BACKGROUND)
 

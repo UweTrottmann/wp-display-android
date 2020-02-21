@@ -38,7 +38,7 @@ class NightTimePickerFragment : AppCompatDialogFragment() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        arguments!!.run {
+        requireArguments().run {
             changeNightStart = getBoolean(ARG_CHANGE_NIGHT_START)
             initialHour = getInt(ARG_INITIAL_HOUR, -1)
             if (initialHour == -1) throw IllegalArgumentException("Missing $ARG_INITIAL_HOUR argument")
@@ -56,13 +56,13 @@ class NightTimePickerFragment : AppCompatDialogFragment() {
 
     private val onTimeSetListener = TimePickerDialog.OnTimeSetListener { _, hourOfDay, minute ->
         if (changeNightStart) {
-            ThemeSettings.saveNightStart(context!!, hourOfDay, minute)
+            ThemeSettings.saveNightStart(requireContext(), hourOfDay, minute)
         } else {
-            ThemeSettings.saveNightEnd(context!!, hourOfDay, minute)
+            ThemeSettings.saveNightEnd(requireContext(), hourOfDay, minute)
         }
         // post so dialog has time to close (otherwise is re-shown)
         Handler(Looper.getMainLooper()).post {
-            (fragmentManager!!.findFragmentById(R.id.container) as? SettingsFragment)?.run {
+            (parentFragmentManager.findFragmentById(R.id.container) as? SettingsFragment)?.run {
                 populateViews()
                 updateColorScheme()
             }
