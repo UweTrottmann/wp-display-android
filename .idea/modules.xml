@@ -2,8 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/wp-display-android.iml" filepath="$PROJECT_DIR$/wp-display-android.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" group="wp-display-android/app" />
+      <module fileurl="file://$PROJECT_DIR$/wp-display-android.iml" filepath="$PROJECT_DIR$/wp-display-android.iml" group="wp-display-android" />
     </modules>
   </component>
 </project>
