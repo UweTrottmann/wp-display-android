@@ -1,6 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="Base.Theme.WpDisplay.DayNight" parent="Theme.MaterialComponents.NoActionBar" />
+
+    <style name="Widget.WpDisplay.Toolbar" parent="Widget.MaterialComponents.Toolbar.Surface">
+        <item name="android:elevation" tools:ignore="NewApi">4dp</item>
+        <item name="android:background">@color/wp_background_dark_raised_4dp</item>
+        <!-- Note: this theme overlay will only work if the style is applied directly to a Toolbar. -->
+        <item name="android:theme">@style/ThemeOverlay.WpDisplay.Toolbar.Surface</item>
+    </style>
 
 </resources>

@@ -34,10 +34,10 @@
         <item name="android:textColor">@color/orange_500</item>
     </style>
 
-    <style name="Widget" />
+    <style name="Widget.WpDisplay.Toolbar" parent="Widget.MaterialComponents.Toolbar.Primary" />
 
-    <style name="Widget.App" />
-
-    <style name="Widget.App.ActionBar" />
+    <style name="ThemeOverlay.WpDisplay.Toolbar.Surface" parent="ThemeOverlay.MaterialComponents.Toolbar.Surface">
+        <item name="colorOnSurface">?attr/colorPrimary</item>
+    </style>
 
 </resources>

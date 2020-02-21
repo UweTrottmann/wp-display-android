@@ -8,4 +8,7 @@
 
     <color name="wp_snackbar">#323232</color>
 
+    <!-- Determined using MaterialToolbar. -->
+    <color name="wp_background_dark_raised_4dp">#101E1D</color>
+
 </resources>
