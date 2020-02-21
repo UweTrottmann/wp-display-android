@@ -14,9 +14,6 @@ jobs:
     docker:
       - image: circleci/android:api-28
 
-    environment:
-      JVM_OPTS: -Xmx3200m
-
     steps:
       - checkout
 
@@ -24,8 +21,10 @@ jobs:
           <<: *cache_key
 
       - run:
-         name: Chmod permissions
-         command: sudo chmod +x ./gradlew
+         name: Init
+         command: |
+           chmod +x ./gradlew
+           ./gradlew -version
 
       - run:
           name: Download Dependencies

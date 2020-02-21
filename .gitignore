@@ -7,7 +7,6 @@ unused.txt
 
 ### Android
 local.properties
-gradle.properties
 keystore.properties
 
 # IntelliJ
