@@ -33,8 +33,8 @@
         <item name="android:textColor">@color/teal_500</item>
     </style>
 
-    <style name="TextAppearance.App.Body1.Orange" parent="TextAppearance.MaterialComponents.Body1">
-        <item name="android:textColor">@color/orange_500</item>
+    <style name="TextAppearance.App.Body1.Error" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:textColor">?attr/colorError</item>
     </style>
 
     <style name="Widget.WpDisplay.Toolbar" parent="Widget.MaterialComponents.Toolbar.Primary" />
