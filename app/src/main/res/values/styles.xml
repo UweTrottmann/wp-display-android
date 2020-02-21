@@ -1,15 +1,18 @@
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme to enable day/night support. -->
-    <style name="Base.Theme.WpDisplay.DayNight" parent="Theme.MaterialComponents.Light.NoActionBar" />
+    <style name="Base.Theme.WpDisplay.DayNight" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimaryDark">@color/teal_700</item>
+    </style>
 
     <style name="Theme.WpDisplay" parent="Base.Theme.WpDisplay.DayNight">
         <!-- Customize your theme here. -->
         <item name="windowActionModeOverlay">true</item>
 
         <item name="colorPrimary">@color/teal_500</item>
-        <item name="colorPrimaryDark">@color/teal_700</item>
-        <item name="colorSecondary">@color/blue_a400</item>
+        <item name="colorPrimaryVariant">@color/teal_700</item>
+        <item name="colorSecondary">@color/teal_500</item>
+        <item name="colorSecondaryVariant">@color/teal_700</item>
     </style>
 
     <style name="TextAppearance.App.Unit" parent="TextAppearance.MaterialComponents.Headline5">
@@ -30,14 +33,19 @@
         <item name="android:textColor">@color/teal_500</item>
     </style>
 
-    <style name="TextAppearance.App.Body1.Orange" parent="TextAppearance.MaterialComponents.Body1">
-        <item name="android:textColor">@color/orange_500</item>
+    <style name="TextAppearance.App.Body1.Error" parent="TextAppearance.MaterialComponents.Body1">
+        <item name="android:textColor">?attr/colorError</item>
     </style>
 
-    <style name="Widget" />
+    <style name="Widget.WpDisplay.Toolbar" parent="Widget.MaterialComponents.Toolbar.Primary" />
 
-    <style name="Widget.App" />
+    <style name="ThemeOverlay.WpDisplay.Toolbar.Surface" parent="ThemeOverlay.MaterialComponents.Toolbar.Surface">
+        <item name="colorOnSurface">?attr/colorPrimary</item>
+    </style>
 
-    <style name="Widget.App.ActionBar" />
+    <style name="Widget.WpDisplay.Snackbar" parent="">
+        <item name="android:theme">@style/ThemeOverlay.MaterialComponents.Dark</item>
+        <item name="android:background">@drawable/wp_snackbar_background_dark</item>
+    </style>
 
 </resources>

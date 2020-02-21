@@ -31,7 +31,7 @@
         android:layout_weight="1"
         android:background="?attr/selectableItemBackground"
         android:focusable="true"
-        android:textAppearance="@style/TextAppearance.App.Body1.Orange"
+        android:textAppearance="@style/TextAppearance.App.Body1.Error"
         tools:text="Current Status" />
 
     <TextView

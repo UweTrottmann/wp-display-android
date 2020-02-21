@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+    <color name="black">#000000</color>
     <color name="teal_500">#009688</color>
     <color name="teal_700">#00796B</color>
-    <color name="blue_a400">#2979FF</color>
-    <color name="orange_500">#FF9800</color>
 
     <color name="wp_snackbar">#323232</color>
+
+    <!-- 8% primary on #121212. -->
+    <color name="wp_background_dark">#111A19</color>
+    <!-- Determined using MaterialToolbar. -->
+    <color name="wp_background_dark_raised_4dp">#101E1D</color>
 
 </resources>

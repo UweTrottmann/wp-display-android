@@ -20,14 +20,13 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/containerDisplaySnackbar"
+    style="@style/Widget.WpDisplay.Snackbar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="bottom"
     android:layout_margin="8dp"
-    android:background="@drawable/wp_snackbar_background"
     android:elevation="6dp"
     android:orientation="horizontal"
-    android:theme="@style/ThemeOverlay.MaterialComponents.Dark"
     tools:ignore="UnusedAttribute"
     tools:showIn="@layout/fragment_display_rv">
 

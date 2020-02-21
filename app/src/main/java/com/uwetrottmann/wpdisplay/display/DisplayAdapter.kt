@@ -96,7 +96,7 @@ class DisplayAdapter(private val displayItems: MutableList<DisplayItem>) :
                 TextViewCompat.setTextAppearance(
                     holder.textViewDisplayStatus,
                     if (connectionStatus.isWarning)
-                        R.style.TextAppearance_App_Body1_Orange
+                        R.style.TextAppearance_App_Body1_Error
                     else
                         R.style.TextAppearance_App_Body1_Green
                 )
