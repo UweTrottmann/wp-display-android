@@ -43,4 +43,9 @@
         <item name="colorOnSurface">?attr/colorPrimary</item>
     </style>
 
+    <style name="Widget.WpDisplay.Snackbar" parent="">
+        <item name="android:theme">@style/ThemeOverlay.MaterialComponents.Dark</item>
+        <item name="android:background">@drawable/wp_snackbar_background_dark</item>
+    </style>
+
 </resources>
