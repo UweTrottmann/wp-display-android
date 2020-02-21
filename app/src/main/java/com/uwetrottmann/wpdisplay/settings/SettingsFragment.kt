@@ -19,6 +19,7 @@ package com.uwetrottmann.wpdisplay.settings
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -53,6 +54,19 @@ class SettingsFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         buttonSettingsStore.setOnClickListener { openWebPage(getString(R.string.store_page_url)) }
+        radioSettingsColorSchemeSystem.apply {
+            setText(
+                if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
+                    R.string.color_scheme_battery_saver
+                } else {
+                    R.string.color_scheme_system
+                }
+            )
+            setOnClickListener {
+                updateColorScheme()
+                linearLayoutSettingsTime.visibility = View.GONE
+            }
+        }
         radioSettingsColorSchemeLight.setOnClickListener {
             updateColorScheme()
             linearLayoutSettingsTime.visibility = View.GONE
@@ -134,13 +148,7 @@ class SettingsFragment : Fragment() {
 
     fun updateColorScheme() {
         saveSettings()
-
-        val nightMode = if (ThemeSettings.isNight(requireContext())) {
-            AppCompatDelegate.MODE_NIGHT_YES
-        } else {
-            AppCompatDelegate.MODE_NIGHT_NO
-        }
-        (requireActivity() as AppCompatActivity).delegate.setLocalNightMode(nightMode)
+        AppCompatDelegate.setDefaultNightMode(ThemeSettings.getNightMode(requireContext()))
     }
 
     fun populateViews() {
@@ -148,6 +156,10 @@ class SettingsFragment : Fragment() {
         editTextSettingsPort.setText(ConnectionSettings.getPort(requireContext()).toString())
 
         when (ThemeSettings.getThemeMode(requireContext())) {
+            ThemeSettings.THEME_ALWAYS_DAY -> {
+                radioGroupColorScheme.check(R.id.radioSettingsColorSchemeLight)
+                linearLayoutSettingsTime.visibility = View.GONE
+            }
             ThemeSettings.THEME_ALWAYS_NIGHT -> {
                 radioGroupColorScheme.check(R.id.radioSettingsColorSchemeDark)
                 linearLayoutSettingsTime.visibility = View.GONE
@@ -157,7 +169,7 @@ class SettingsFragment : Fragment() {
                 linearLayoutSettingsTime.visibility = View.VISIBLE
             }
             else -> {
-                radioGroupColorScheme.check(R.id.radioSettingsColorSchemeLight)
+                radioGroupColorScheme.check(R.id.radioSettingsColorSchemeSystem)
                 linearLayoutSettingsTime.visibility = View.GONE
             }
         }
@@ -174,9 +186,10 @@ class SettingsFragment : Fragment() {
         DisplayItems.saveDisabledStateToPreferences(requireContext())
 
         val themeMode = when (radioGroupColorScheme.checkedRadioButtonId) {
+            R.id.radioSettingsColorSchemeLight -> ThemeSettings.THEME_ALWAYS_DAY
             R.id.radioSettingsColorSchemeDark -> ThemeSettings.THEME_ALWAYS_NIGHT
             R.id.radioSettingsColorSchemeAuto -> ThemeSettings.THEME_DAY_NIGHT
-            else -> ThemeSettings.THEME_ALWAYS_DAY
+            else -> ThemeSettings.THEME_DAY_NIGHT_SYSTEM
         }
         ThemeSettings.saveThemeMode(requireContext(), themeMode)
     }

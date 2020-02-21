@@ -111,6 +111,17 @@
             tools:ignore="RtlSymmetry">
 
             <RadioButton
+                android:id="@+id/radioSettingsColorSchemeSystem"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingBottom="@dimen/padding_large"
+                android:paddingEnd="@dimen/padding_large"
+                android:paddingRight="@dimen/padding_large"
+                android:paddingTop="@dimen/padding_large"
+                android:text="@string/color_scheme_system"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+
+            <RadioButton
                 android:id="@+id/radioSettingsColorSchemeLight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

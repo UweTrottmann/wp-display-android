@@ -25,6 +25,7 @@ import androidx.appcompat.widget.Toolbar
 import com.uwetrottmann.wpdisplay.R
 import com.uwetrottmann.wpdisplay.display.DisplayFragment
 import com.uwetrottmann.wpdisplay.settings.ThemeSettings
+import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
 
@@ -56,17 +57,17 @@ class MainActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
 
-        // recreate activity if theme needs to change
-        val currentNightMode = resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
-        val isNightMode = currentNightMode == Configuration.UI_MODE_NIGHT_YES
-        val isNight = ThemeSettings.isNight(this)
-        if (isNightMode != isNight) {
-            val nightMode = if (isNight) {
-                AppCompatDelegate.MODE_NIGHT_YES
-            } else {
-                AppCompatDelegate.MODE_NIGHT_NO
+        // Recreate activity if theme changes based on time.
+        if (ThemeSettings.getThemeMode(this) == ThemeSettings.THEME_DAY_NIGHT) {
+            val currentNightMode =
+                resources.configuration.uiMode and Configuration.UI_MODE_NIGHT_MASK
+            val isNightMode = currentNightMode == Configuration.UI_MODE_NIGHT_YES
+            val expectedNightMode = ThemeSettings.getNightMode(this)
+            val isExpectedNightMode = expectedNightMode == AppCompatDelegate.MODE_NIGHT_YES
+            if (isNightMode != isExpectedNightMode) {
+                Timber.d("Changing night mode, is $isNightMode, should be $isExpectedNightMode")
+                AppCompatDelegate.setDefaultNightMode(expectedNightMode)
             }
-            delegate.setLocalNightMode(nightMode)
         }
     }
 }

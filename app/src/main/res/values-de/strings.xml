@@ -61,6 +61,8 @@
     <string name="ask_for_feedback">Die App gefällt? Bitte bewerten Sie sie auf Google Play! Nicht wirklich? Schicken Sie mir eine Email unter Kontaktdaten des Entwicklers auf der Play Store-Seite.</string>
     <string name="show_on_google_play">Auf Google Play anzeigen</string>
     <string name="color_scheme">Farbschema</string>
+    <string name="color_scheme_battery_saver">Durch Energiesparmodus bestimmt</string>
+    <string name="color_scheme_system">Systemstandard verwenden</string>
     <string name="color_scheme_light">Hell</string>
     <string name="color_scheme_dark">Dunkel</string>
     <string name="color_scheme_auto">Dunkel bei Nacht</string>

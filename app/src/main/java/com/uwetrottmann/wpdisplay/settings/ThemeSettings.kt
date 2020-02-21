@@ -17,8 +17,11 @@
 package com.uwetrottmann.wpdisplay.settings
 
 import android.content.Context
+import android.os.Build
 import android.preference.PreferenceManager
 import android.text.format.DateFormat
+import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.content.edit
 import java.util.*
 
 object ThemeSettings {
@@ -32,6 +35,7 @@ object ThemeSettings {
     const val THEME_ALWAYS_DAY = 0
     const val THEME_ALWAYS_NIGHT = 1
     const val THEME_DAY_NIGHT = 2
+    const val THEME_DAY_NIGHT_SYSTEM = 3
 
     private const val NIGHT_START_HOUR_DEFAULT = 21
     private const val NIGHT_START_MINUTE_DEFAULT = 0
@@ -40,13 +44,13 @@ object ThemeSettings {
 
     fun getThemeMode(context: Context): Int {
         return PreferenceManager.getDefaultSharedPreferences(context)
-            .getInt(KEY_THEME_MODE, THEME_ALWAYS_DAY)
+            .getInt(KEY_THEME_MODE, THEME_DAY_NIGHT_SYSTEM)
     }
 
-    fun isNight(context: Context): Boolean {
-        val themeMode = getThemeMode(context)
-        return when (themeMode) {
-            THEME_ALWAYS_NIGHT -> true
+    fun getNightMode(context: Context): Int {
+        return when (getThemeMode(context)) {
+            THEME_ALWAYS_DAY -> AppCompatDelegate.MODE_NIGHT_NO
+            THEME_ALWAYS_NIGHT -> AppCompatDelegate.MODE_NIGHT_YES
             THEME_DAY_NIGHT -> {
                 val nightStartHour = getNightStartHour(context)
                 val nightStartMinute = getNightStartMinute(context)
@@ -58,12 +62,22 @@ object ThemeSettings {
                 val currentMinute = calendar.get(Calendar.MINUTE)
 
                 if (currentHour > nightStartHour || currentHour < nightEndHour) {
-                    true
+                    AppCompatDelegate.MODE_NIGHT_YES
                 } else if (currentHour == nightStartHour && currentMinute >= nightStartMinute) {
-                    true
-                } else currentHour == nightEndHour && currentMinute < nightEndMinute
+                    AppCompatDelegate.MODE_NIGHT_YES
+                } else if (currentHour == nightEndHour && currentMinute < nightEndMinute) {
+                    AppCompatDelegate.MODE_NIGHT_YES
+                } else {
+                    AppCompatDelegate.MODE_NIGHT_NO
+                }
             }
-            else -> false
+            else -> {
+                if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
+                    AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY
+                } else {
+                    AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
+                }
+            }
         }
     }
 
@@ -107,13 +121,13 @@ object ThemeSettings {
     }
 
     fun saveThemeMode(context: Context, themeMode: Int) {
-        if (themeMode !in THEME_ALWAYS_DAY..THEME_DAY_NIGHT) throw IllegalArgumentException(
-            "themeMode not known"
-        )
+        if (themeMode !in THEME_ALWAYS_DAY..THEME_DAY_NIGHT_SYSTEM) {
+            throw IllegalArgumentException("themeMode not known")
+        }
 
-        PreferenceManager.getDefaultSharedPreferences(context).edit().apply {
+        PreferenceManager.getDefaultSharedPreferences(context).edit {
             putInt(KEY_THEME_MODE, themeMode)
-        }.apply()
+        }
     }
 
     fun saveNightStart(context: Context, hour: Int, minute: Int) {
@@ -134,10 +148,10 @@ object ThemeSettings {
         if (hour !in 0..23) throw IllegalArgumentException("hour not within 0..23")
         if (minute !in 0..59) throw IllegalArgumentException("minute not within 0..59")
 
-        PreferenceManager.getDefaultSharedPreferences(context).edit().apply {
+        PreferenceManager.getDefaultSharedPreferences(context).edit {
             putInt(keyHour, hour)
             putInt(keyMinute, minute)
-        }.apply()
+        }
     }
 
 }

@@ -61,6 +61,8 @@
     <string name="ask_for_feedback">Enjoy the app? Please rate it on Google Play! Not really? Send me an email under Developer contact on the Play Store page.</string>
     <string name="show_on_google_play">Show on Google Play</string>
     <string name="color_scheme">Color scheme</string>
+    <string name="color_scheme_battery_saver">Set by Battery Saver</string>
+    <string name="color_scheme_system">Use system default</string>
     <string name="color_scheme_light">Light</string>
     <string name="color_scheme_dark">Dark</string>
     <string name="color_scheme_auto">Dark at night</string>
