@@ -17,13 +17,11 @@
 package com.uwetrottmann.wpdisplay.settings
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.CheckBox
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.uwetrottmann.wpdisplay.R
+import com.uwetrottmann.wpdisplay.databinding.ItemSelectableBinding
 import com.uwetrottmann.wpdisplay.model.DisplayItem
 
 class SettingsListAdapter :
@@ -35,23 +33,26 @@ class SettingsListAdapter :
         override fun areContentsTheSame(oldItem: DisplayItem, newItem: DisplayItem): Boolean =
             oldItem.enabled == newItem.enabled
     }) {
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SettingsViewHolder {
-        val view =
-            LayoutInflater.from(parent.context).inflate(R.layout.item_selectable, parent, false)
-        return SettingsViewHolder(view)
+        val binding =
+            ItemSelectableBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+        return SettingsViewHolder(binding)
     }
 
     override fun onBindViewHolder(holder: SettingsViewHolder, position: Int) {
         holder.bindTo(getItem(position))
     }
 
-    class SettingsViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val checkBox = view.findViewById<CheckBox>(R.id.checkBoxItemSelectable)
+    class SettingsViewHolder(private val binding: ItemSelectableBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         fun bindTo(item: DisplayItem) {
-            checkBox.setOnCheckedChangeListener(null) // disable while binding
-            checkBox.isChecked = item.enabled
-            checkBox.setOnCheckedChangeListener { _, isChecked -> item.enabled = isChecked }
-            checkBox.setText(item.labelResId)
+            binding.checkBoxItemSelectable.apply {
+                setOnCheckedChangeListener(null) // disable while binding
+                isChecked = item.enabled
+                setOnCheckedChangeListener { _, isChecked -> item.enabled = isChecked }
+                setText(item.labelResId)
+            }
         }
     }
 
