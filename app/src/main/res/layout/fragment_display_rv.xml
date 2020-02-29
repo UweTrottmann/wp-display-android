@@ -32,6 +32,8 @@
         android:scrollbarStyle="outsideOverlay"
         android:scrollbars="vertical" />
 
-    <include layout="@layout/layout_snackbar" />
+    <include
+        android:id="@+id/snackbar"
+        layout="@layout/layout_snackbar" />
 
 </FrameLayout>

@@ -32,6 +32,7 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
 import com.uwetrottmann.wpdisplay.R
+import com.uwetrottmann.wpdisplay.databinding.FragmentDisplayRvBinding
 import com.uwetrottmann.wpdisplay.model.ConnectionStatus
 import com.uwetrottmann.wpdisplay.model.DisplayItems
 import com.uwetrottmann.wpdisplay.model.StatusData
@@ -39,8 +40,6 @@ import com.uwetrottmann.wpdisplay.settings.ConnectionSettings
 import com.uwetrottmann.wpdisplay.settings.SettingsFragment
 import com.uwetrottmann.wpdisplay.util.ConnectionTools
 import com.uwetrottmann.wpdisplay.util.DataRequestRunnable
-import kotlinx.android.synthetic.main.fragment_display_rv.*
-import kotlinx.android.synthetic.main.layout_snackbar.*
 import java.text.DateFormat
 import java.util.concurrent.Executors
 
@@ -49,13 +48,18 @@ class DisplayFragment : Fragment() {
     private lateinit var viewAdapter: DisplayAdapter
     private lateinit var viewManager: GridLayoutManager
 
+    private var _binding: FragmentDisplayRvBinding? = null
+    private val binding get() = _binding!!
+
     private var isConnected: Boolean = false
 
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_display_rv, container, false)
+        _binding = FragmentDisplayRvBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -80,7 +84,7 @@ class DisplayFragment : Fragment() {
             }
         }
 
-        recyclerViewDisplay.apply {
+        binding.recyclerViewDisplay.apply {
             setHasFixedSize(true)
             layoutManager = viewManager
             adapter = viewAdapter
@@ -132,6 +136,11 @@ class DisplayFragment : Fragment() {
         super.onStop()
 
         ConnectionTools.disconnect()
+    }
+
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -243,17 +252,21 @@ class DisplayFragment : Fragment() {
     }
 
     private fun showSnackBar(visible: Boolean) {
-        containerDisplaySnackbar.visibility = if (visible) View.VISIBLE else View.GONE
+        binding.snackbar.root.visibility = if (visible) View.VISIBLE else View.GONE
     }
 
     private fun setupSnackBar(titleResId: Int, actionResId: Int, action: View.OnClickListener) {
-        textViewDisplaySnackbar.setText(titleResId)
-        if (actionResId > 0) {
-            buttonDisplaySnackbar.setText(actionResId)
-            buttonDisplaySnackbar.setOnClickListener(action)
-            buttonDisplaySnackbar.visibility = View.VISIBLE
-        } else {
-            buttonDisplaySnackbar.visibility = View.GONE
+        binding.snackbar.apply {
+            textViewDisplaySnackbar.setText(titleResId)
+            buttonDisplaySnackbar.apply {
+                if (actionResId > 0) {
+                    visibility = View.VISIBLE
+                    setText(actionResId)
+                    setOnClickListener(action)
+                } else {
+                    visibility = View.GONE
+                }
+            }
         }
     }
 }
