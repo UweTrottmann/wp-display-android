@@ -17,12 +17,12 @@
 package com.uwetrottmann.wpdisplay.display
 
 import android.view.LayoutInflater
-import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.core.widget.TextViewCompat
 import androidx.recyclerview.widget.RecyclerView
 import com.uwetrottmann.wpdisplay.R
+import com.uwetrottmann.wpdisplay.databinding.ItemTextBinding
+import com.uwetrottmann.wpdisplay.databinding.LayoutStatusBinding
 import com.uwetrottmann.wpdisplay.model.ConnectionStatus
 import com.uwetrottmann.wpdisplay.model.DisplayItem
 import com.uwetrottmann.wpdisplay.model.DurationItem
@@ -66,24 +66,24 @@ class DisplayAdapter(private val displayItems: MutableList<DisplayItem>) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         when (viewType) {
             VIEW_TYPE_HEADER -> {
-                val view = LayoutInflater.from(parent.context)
-                    .inflate(R.layout.layout_status, parent, false)
-                return StatusViewHolder(view)
+                val binding =
+                    LayoutStatusBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                return StatusViewHolder(binding)
             }
             VIEW_TYPE_TEMPERATURE -> {
-                val view =
-                    LayoutInflater.from(parent.context).inflate(R.layout.item_text, parent, false)
-                return TemperatureViewHolder(view as TextView)
+                val binding =
+                    ItemTextBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                return TemperatureViewHolder(binding)
             }
             VIEW_TYPE_DURATION -> {
-                val view =
-                    LayoutInflater.from(parent.context).inflate(R.layout.item_text, parent, false)
-                return DurationViewHolder(view as TextView)
+                val binding =
+                    ItemTextBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                return DurationViewHolder(binding)
             }
             VIEW_TYPE_TEXT -> {
-                val view =
-                    LayoutInflater.from(parent.context).inflate(R.layout.item_text, parent, false)
-                return TextViewHolder(view as TextView)
+                val binding =
+                    ItemTextBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+                return TextViewHolder(binding)
             }
             else -> throw IllegalArgumentException("View type $viewType not supported")
         }
@@ -92,53 +92,52 @@ class DisplayAdapter(private val displayItems: MutableList<DisplayItem>) :
     override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
         when (holder) {
             is StatusViewHolder -> {
-                holder.textViewDisplayStatus.text = connectionStatus.message
+                holder.binding.textViewDisplayStatus.text = connectionStatus.message
                 TextViewCompat.setTextAppearance(
-                    holder.textViewDisplayStatus,
+                    holder.binding.textViewDisplayStatus,
                     if (connectionStatus.isWarning)
                         R.style.TextAppearance_App_Body1_Error
                     else
                         R.style.TextAppearance_App_Body1_Green
                 )
-                holder.textViewDisplayTime.text = timestamp
+                holder.binding.textViewDisplayTime.text = timestamp
             }
             is TemperatureViewHolder -> {
-                holder.textView.text = displayItems[position - OFFSET].charSequence
+                holder.binding.textView.text = displayItems[position - OFFSET].charSequence
             }
             is DurationViewHolder -> {
-                holder.textView.text = displayItems[position - OFFSET].charSequence
+                holder.binding.textView.text = displayItems[position - OFFSET].charSequence
             }
             is TextViewHolder -> {
-                holder.textView.text = displayItems[position - OFFSET].charSequence
+                holder.binding.textView.text = displayItems[position - OFFSET].charSequence
             }
         }
     }
 
-    class StatusViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-        val textViewDisplayStatus = itemView.findViewById<TextView>(R.id.textViewDisplayStatus)!!
-        val textViewDisplayTime = itemView.findViewById<TextView>(R.id.textViewDisplayTime)!!
-
+    class StatusViewHolder(val binding: LayoutStatusBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         init {
-            textViewDisplayStatus.copyTextToClipboardOnClick()
-            textViewDisplayTime.copyTextToClipboardOnClick()
+            binding.textViewDisplayStatus.copyTextToClipboardOnClick()
+            binding.textViewDisplayTime.copyTextToClipboardOnClick()
         }
     }
 
-    class TemperatureViewHolder(val textView: TextView) : RecyclerView.ViewHolder(textView) {
+    class TemperatureViewHolder(val binding: ItemTextBinding) :
+        RecyclerView.ViewHolder(binding.root) {
         init {
-            textView.copyTextToClipboardOnClick()
+            binding.textView.copyTextToClipboardOnClick()
         }
     }
 
-    class DurationViewHolder(val textView: TextView) : RecyclerView.ViewHolder(textView) {
+    class DurationViewHolder(val binding: ItemTextBinding) : RecyclerView.ViewHolder(binding.root) {
         init {
-            textView.copyTextToClipboardOnClick()
+            binding.textView.copyTextToClipboardOnClick()
         }
     }
 
-    class TextViewHolder(val textView: TextView) : RecyclerView.ViewHolder(textView) {
+    class TextViewHolder(val binding: ItemTextBinding) : RecyclerView.ViewHolder(binding.root) {
         init {
-            textView.copyTextToClipboardOnClick()
+            binding.textView.copyTextToClipboardOnClick()
         }
     }
 

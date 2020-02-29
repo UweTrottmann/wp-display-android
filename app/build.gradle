@@ -1,6 +1,5 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 
 android {
@@ -54,6 +53,11 @@ android {
                 signingConfig signingConfigs.release
             }
         }
+    }
+
+    // https://developer.android.com/topic/libraries/view-binding
+    viewBinding {
+        enabled = true
     }
 }
 

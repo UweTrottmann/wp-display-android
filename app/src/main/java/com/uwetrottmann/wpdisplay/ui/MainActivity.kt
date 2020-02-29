@@ -21,21 +21,23 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
-import androidx.appcompat.widget.Toolbar
 import com.uwetrottmann.wpdisplay.R
+import com.uwetrottmann.wpdisplay.databinding.ActivityMainBinding
 import com.uwetrottmann.wpdisplay.display.DisplayFragment
 import com.uwetrottmann.wpdisplay.settings.ThemeSettings
 import timber.log.Timber
 
 class MainActivity : AppCompatActivity() {
 
+    private lateinit var binding: ActivityMainBinding
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
+        binding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         // setup action bar
-        val actionBarToolbar: Toolbar = findViewById(R.id.toolbar)
-        setSupportActionBar(actionBarToolbar)
+        setSupportActionBar(binding.toolbar)
 
         if (savedInstanceState == null) {
             supportFragmentManager.beginTransaction()

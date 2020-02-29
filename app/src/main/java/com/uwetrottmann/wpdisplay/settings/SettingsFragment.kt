@@ -33,28 +33,32 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.uwetrottmann.wpdisplay.BuildConfig
 import com.uwetrottmann.wpdisplay.R
+import com.uwetrottmann.wpdisplay.databinding.FragmentSettingsBinding
 import com.uwetrottmann.wpdisplay.model.DisplayItem
 import com.uwetrottmann.wpdisplay.model.DisplayItems
-import kotlinx.android.synthetic.main.fragment_settings.*
 
 /**
  * App settings.
  */
 class SettingsFragment : Fragment() {
 
+    private var _binding: FragmentSettingsBinding? = null
+    private val binding get() = _binding!!
+
     override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
+        inflater: LayoutInflater,
+        container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_settings, container, false)
+        _binding = FragmentSettingsBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
     private lateinit var viewAdapter: SettingsListAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        buttonSettingsStore.setOnClickListener { openWebPage(getString(R.string.store_page_url)) }
-        radioSettingsColorSchemeSystem.apply {
+        binding.buttonSettingsStore.setOnClickListener { openWebPage(getString(R.string.store_page_url)) }
+        binding.radioSettingsColorSchemeSystem.apply {
             setText(
                 if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
                     R.string.color_scheme_battery_saver
@@ -64,29 +68,29 @@ class SettingsFragment : Fragment() {
             )
             setOnClickListener {
                 updateColorScheme()
-                linearLayoutSettingsTime.visibility = View.GONE
+                binding.linearLayoutSettingsTime.visibility = View.GONE
             }
         }
-        radioSettingsColorSchemeLight.setOnClickListener {
+        binding.radioSettingsColorSchemeLight.setOnClickListener {
             updateColorScheme()
-            linearLayoutSettingsTime.visibility = View.GONE
+            binding.linearLayoutSettingsTime.visibility = View.GONE
         }
-        radioSettingsColorSchemeDark.setOnClickListener {
+        binding.radioSettingsColorSchemeDark.setOnClickListener {
             updateColorScheme()
-            linearLayoutSettingsTime.visibility = View.GONE
+            binding.linearLayoutSettingsTime.visibility = View.GONE
         }
-        radioSettingsColorSchemeAuto.setOnClickListener {
+        binding.radioSettingsColorSchemeAuto.setOnClickListener {
             updateColorScheme()
-            linearLayoutSettingsTime.visibility = View.VISIBLE
+            binding.linearLayoutSettingsTime.visibility = View.VISIBLE
         }
-        buttonSettingsNightFrom.setOnClickListener {
+        binding.buttonSettingsNightFrom.setOnClickListener {
             NightTimePickerFragment.showIfSafe(
                 parentFragmentManager, true,
                 ThemeSettings.getNightStartHour(it.context),
                 ThemeSettings.getNightStartMinute(it.context)
             )
         }
-        buttonSettingsNightUntil.setOnClickListener {
+        binding.buttonSettingsNightUntil.setOnClickListener {
             NightTimePickerFragment.showIfSafe(
                 parentFragmentManager, false,
                 ThemeSettings.getNightEndHour(it.context),
@@ -108,11 +112,11 @@ class SettingsFragment : Fragment() {
             version
         }
 
-        textViewSettingsVersion.text = getString(R.string.version, versionString)
+        binding.textViewSettingsVersion.text = getString(R.string.version, versionString)
 
         viewAdapter = SettingsListAdapter()
         val viewManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
-        recyclerViewSettings.apply {
+        binding.recyclerViewSettings.apply {
             setHasFixedSize(true)
             layoutManager = viewManager
             adapter = viewAdapter
@@ -146,46 +150,51 @@ class SettingsFragment : Fragment() {
         saveSettings()
     }
 
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
+    }
+
     fun updateColorScheme() {
         saveSettings()
         AppCompatDelegate.setDefaultNightMode(ThemeSettings.getNightMode(requireContext()))
     }
 
     fun populateViews() {
-        editTextSettingsHost.setText(ConnectionSettings.getHost(requireContext()))
-        editTextSettingsPort.setText(ConnectionSettings.getPort(requireContext()).toString())
+        binding.editTextSettingsHost.setText(ConnectionSettings.getHost(requireContext()))
+        binding.editTextSettingsPort.setText(ConnectionSettings.getPort(requireContext()).toString())
 
         when (ThemeSettings.getThemeMode(requireContext())) {
             ThemeSettings.THEME_ALWAYS_DAY -> {
-                radioGroupColorScheme.check(R.id.radioSettingsColorSchemeLight)
-                linearLayoutSettingsTime.visibility = View.GONE
+                binding.radioGroupColorScheme.check(R.id.radioSettingsColorSchemeLight)
+                binding.linearLayoutSettingsTime.visibility = View.GONE
             }
             ThemeSettings.THEME_ALWAYS_NIGHT -> {
-                radioGroupColorScheme.check(R.id.radioSettingsColorSchemeDark)
-                linearLayoutSettingsTime.visibility = View.GONE
+                binding.radioGroupColorScheme.check(R.id.radioSettingsColorSchemeDark)
+                binding.linearLayoutSettingsTime.visibility = View.GONE
             }
             ThemeSettings.THEME_DAY_NIGHT -> {
-                radioGroupColorScheme.check(R.id.radioSettingsColorSchemeAuto)
-                linearLayoutSettingsTime.visibility = View.VISIBLE
+                binding.radioGroupColorScheme.check(R.id.radioSettingsColorSchemeAuto)
+                binding.linearLayoutSettingsTime.visibility = View.VISIBLE
             }
             else -> {
-                radioGroupColorScheme.check(R.id.radioSettingsColorSchemeSystem)
-                linearLayoutSettingsTime.visibility = View.GONE
+                binding.radioGroupColorScheme.check(R.id.radioSettingsColorSchemeSystem)
+                binding.linearLayoutSettingsTime.visibility = View.GONE
             }
         }
 
-        buttonSettingsNightFrom.text = ThemeSettings.getNightStartTime(requireContext())
-        buttonSettingsNightUntil.text = ThemeSettings.getNightEndTime(requireContext())
+        binding.buttonSettingsNightFrom.text = ThemeSettings.getNightStartTime(requireContext())
+        binding.buttonSettingsNightUntil.text = ThemeSettings.getNightEndTime(requireContext())
     }
 
     private fun saveSettings() {
-        val host = editTextSettingsHost.text.toString()
-        val port = Integer.valueOf(editTextSettingsPort.text.toString())
+        val host = binding.editTextSettingsHost.text.toString()
+        val port = Integer.valueOf(binding.editTextSettingsPort.text.toString())
         ConnectionSettings.saveConnectionSettings(requireContext(), host, port)
 
         DisplayItems.saveDisabledStateToPreferences(requireContext())
 
-        val themeMode = when (radioGroupColorScheme.checkedRadioButtonId) {
+        val themeMode = when (binding.radioGroupColorScheme.checkedRadioButtonId) {
             R.id.radioSettingsColorSchemeLight -> ThemeSettings.THEME_ALWAYS_DAY
             R.id.radioSettingsColorSchemeDark -> ThemeSettings.THEME_ALWAYS_NIGHT
             R.id.radioSettingsColorSchemeAuto -> ThemeSettings.THEME_DAY_NIGHT
