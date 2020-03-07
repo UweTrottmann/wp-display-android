@@ -9,8 +9,8 @@ android {
         applicationId "com.uwetrottmann.wpdisplay"
         minSdkVersion 15
         targetSdkVersion 29
-        versionCode 17
-        versionName "13"
+        versionCode 18
+        versionName "14"
 
         vectorDrawables.useSupportLibrary = true
     }

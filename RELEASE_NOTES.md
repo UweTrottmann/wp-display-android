@@ -1,6 +1,13 @@
 Heat Pump Display Release Notes
 ===============================
 
+14 (2020-03-07)
+--------------
+
+- By default set dark mode based on system setting (Android 10 or newer) or by battery saver (Android 9 or older).
+- Add various operating hours values.
+- Add compressor impulse count and average runtime.
+
 13 (2019-05-12)
 --------------
 
