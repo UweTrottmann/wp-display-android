@@ -33,6 +33,11 @@
     <string name="label_time_rest">Zwangspause</string>
     <string name="label_time_return_lower">Rücklauf &lt; Soll - Hysterese</string>
     <string name="label_time_return_higher">Rücklauf &gt; Soll + Hysterese</string>
+    <string name="label_hours_compressor">Betriebsstunden Verdichter</string>
+    <string name="label_hours_pump">Betriebsstunden Pumpe</string>
+    <string name="label_hours_heating">Betriebsstunden Heizung</string>
+    <string name="label_hours_water">Betriebsstunden Brauchwasser</string>
+    <string name="label_hours_solar">Betriebsstunden Solar</string>
 
     <string name="label_firmware">Firmware</string>
 

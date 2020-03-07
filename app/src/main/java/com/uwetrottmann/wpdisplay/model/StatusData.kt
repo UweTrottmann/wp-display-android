@@ -128,7 +128,7 @@ class StatusData(private val rawData: IntArray) {
          * Maximum length of data supported. Sent status data is actually 183 bytes long, but we don't
          * care about the rest, yet.
          */
-        const val LENGTH_BYTES = 100
+        const val LENGTH_BYTES = 162
 
         private const val FIRMWARE_VERSION_INDEX_BEGIN = 81
         private const val FIRMWARE_VERSION_LENGTH = 10
@@ -227,7 +227,20 @@ class StatusData(private val rawData: IntArray) {
                 offset: Int, @StringRes labelResId: Int
             ) : TypeWithOffset(labelResId, offset) {
 
-                object OperatingHoursHeatPump : TimeHours(63, R.string.label_hours_heatpump)
+                object OperatingHoursCompressor
+                    : TimeHours(56, R.string.label_hours_compressor)
+
+                object OperatingHoursHeatPump
+                    : TimeHours(63, R.string.label_hours_pump)
+
+                object OperatingHoursHeating
+                    : TimeHours(64, R.string.label_hours_heating)
+
+                object OperatingHoursWater
+                    : TimeHours(65, R.string.label_hours_water)
+
+                object OperatingHoursSolar
+                    : TimeHours(161, R.string.label_hours_solar)
 
             }
         }

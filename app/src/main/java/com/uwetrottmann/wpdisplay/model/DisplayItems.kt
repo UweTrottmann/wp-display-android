@@ -19,12 +19,14 @@ package com.uwetrottmann.wpdisplay.model
 import android.content.Context
 import android.preference.PreferenceManager
 import com.uwetrottmann.wpdisplay.model.StatusData.Type.TypeWithOffset.Temperature
+import com.uwetrottmann.wpdisplay.model.StatusData.Type.TypeWithOffset.TimeHours
 import com.uwetrottmann.wpdisplay.model.StatusData.Type.TypeWithOffset.TimeSeconds
 
 object DisplayItems {
 
     const val KEY_DISABLED_DISPLAY_ITEMS = "DISABLED_DISPLAY_ITEMS"
 
+    // MAX id is 26.
     val all: List<DisplayItem> = listOf(
         TemperatureItem(1, Temperature.Outgoing),
         TemperatureItem(2, Temperature.Return),
@@ -46,6 +48,11 @@ object DisplayItems {
         DurationItem(14, TimeSeconds.Rest),
         DurationItem(15, TimeSeconds.ReturnLower),
         DurationItem(16, TimeSeconds.ReturnHigher),
+        DurationItem(22, TimeHours.OperatingHoursCompressor),
+        DurationItem(23, TimeHours.OperatingHoursHeatPump),
+        DurationItem(24, TimeHours.OperatingHoursHeating),
+        DurationItem(25, TimeHours.OperatingHoursWater),
+        DurationItem(26, TimeHours.OperatingHoursSolar),
         TextItem(17, StatusData.Type.FirmwareVersion)
     )
     /** Returns a copy of all DisplayItems that are enabled. */
