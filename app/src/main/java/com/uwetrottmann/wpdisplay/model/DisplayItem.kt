@@ -72,7 +72,7 @@ class TemperatureItem(
 
 }
 
-class DurationItem(
+open class TextItem(
     id: Int,
     type: StatusData.Type
 ) : DisplayItem(id, type) {
@@ -104,34 +104,7 @@ class DurationItem(
 
 }
 
-class TextItem(
-    id: Int,
-    type: StatusData.Type
-) : DisplayItem(id, type) {
-
-    override fun buildCharSequence(context: Context, statusData: StatusData) {
-        val builder = SpannableStringBuilder()
-
-        builder.append(context.getString(type.labelResId))
-        builder.setSpan(
-            TextAppearanceSpan(
-                context,
-                R.style.TextAppearance_MaterialComponents_Caption
-            ), 0, builder.length, 0
-        )
-
-        builder.append("\n")
-
-        val lengthOld = builder.length
-        builder.append(statusData.getValueFor(type, context))
-        builder.setSpan(
-            TextAppearanceSpan(
-                context,
-                R.style.TextAppearance_MaterialComponents_Headline4
-            ), lengthOld, builder.length, 0
-        )
-
-        charSequence = builder
-    }
-
-}
+/**
+ * Same as [TextItem], but gets less span count (width).
+ */
+class DurationItem(id: Int, type: StatusData.Type) : TextItem(id, type)
