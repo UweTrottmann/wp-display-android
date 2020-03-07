@@ -79,7 +79,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/padding_large"
             android:text="@string/settings_instructions"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
 
         <TextView
             android:layout_width="300dp"
@@ -204,7 +204,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/ask_for_feedback"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
 
         <Button
             android:id="@+id/buttonSettingsStore"
