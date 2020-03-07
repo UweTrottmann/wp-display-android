@@ -66,6 +66,7 @@ dependencies {
     // https://developer.android.com/jetpack/androidx/versions
     implementation "androidx.fragment:fragment-ktx:1.2.2"
     implementation 'androidx.appcompat:appcompat:1.1.0'
+    implementation "androidx.preference:preference-ktx:1.1.0"
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     // ViewModel and LiveData
     def lifecycle_version = "2.2.0"

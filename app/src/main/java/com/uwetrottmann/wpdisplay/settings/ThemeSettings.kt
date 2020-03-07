@@ -18,10 +18,10 @@ package com.uwetrottmann.wpdisplay.settings
 
 import android.content.Context
 import android.os.Build
-import android.preference.PreferenceManager
 import android.text.format.DateFormat
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.edit
+import androidx.preference.PreferenceManager
 import java.util.*
 
 object ThemeSettings {

@@ -17,7 +17,7 @@
 package com.uwetrottmann.wpdisplay.settings
 
 import android.content.Context
-import android.preference.PreferenceManager
+import androidx.preference.PreferenceManager
 
 /**
  * Settings related to the controller connection.

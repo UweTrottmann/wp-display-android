@@ -17,7 +17,7 @@
 package com.uwetrottmann.wpdisplay.model
 
 import android.content.Context
-import android.preference.PreferenceManager
+import androidx.preference.PreferenceManager
 import com.uwetrottmann.wpdisplay.model.StatusData.Type.TypeWithOffset.Temperature
 import com.uwetrottmann.wpdisplay.model.StatusData.Type.TypeWithOffset.TimeHours
 import com.uwetrottmann.wpdisplay.model.StatusData.Type.TypeWithOffset.TimeSeconds
