@@ -38,6 +38,8 @@
     <string name="label_hours_heating">Betriebsstunden Heizung</string>
     <string name="label_hours_water">Betriebsstunden Brauchwasser</string>
     <string name="label_hours_solar">Betriebsstunden Solar</string>
+    <string name="label_compressor_average_runtime">Mittlere Verdichter Laufzeit</string>
+    <string name="label_text_compressor_impulses">Verdichter Impulse</string>
 
     <string name="label_firmware">Firmware</string>
 

@@ -33,11 +33,13 @@
     <string name="label_time_rest">Mandatory rest</string>
     <string name="label_time_return_lower">Return &lt; Target - Hysteresis</string>
     <string name="label_time_return_higher">Return &gt; Target + Hysteresis</string>
-    <string name="label_hours_compressor">Operating Hours Compressor</string>
-    <string name="label_hours_pump">Operating Hours Pump</string>
-    <string name="label_hours_heating">Operating Hours Heating</string>
-    <string name="label_hours_water">Operating Hours Hot Water</string>
-    <string name="label_hours_solar">Operating Hours Solar</string>
+    <string name="label_hours_compressor">Compressor Operating Hours</string>
+    <string name="label_hours_pump">Pump Operating Hours</string>
+    <string name="label_hours_heating">Heating Operating Hours</string>
+    <string name="label_hours_water">Hot Water Operating Hours</string>
+    <string name="label_hours_solar">Solar Operating Hours</string>
+    <string name="label_compressor_average_runtime">Average compressor runtime</string>
+    <string name="label_text_compressor_impulses">Compressor impulses</string>
 
     <string name="label_firmware">Firmware</string>
 

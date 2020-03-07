@@ -19,7 +19,10 @@ package com.uwetrottmann.wpdisplay.model
 import android.content.Context
 import androidx.annotation.StringRes
 import com.uwetrottmann.wpdisplay.R
+import com.uwetrottmann.wpdisplay.model.StatusData.Type.TypeWithOffset.Number
+import com.uwetrottmann.wpdisplay.model.StatusData.Type.TypeWithOffset.TimeHours
 import java.util.*
+import kotlin.math.max
 
 /**
  * Holder object for heat pump controller status data.
@@ -46,8 +49,10 @@ class StatusData(private val rawData: IntArray) {
         return when (type) {
             is Type.TypeWithOffset.Temperature -> getTemperature(type)
             is Type.TypeWithOffset.TimeSeconds -> getHoursMinutesSeconds(type)
-            is Type.TypeWithOffset.TimeHours -> getHours(type)
+            is TimeHours -> getHours(type)
+            is Number -> getValueAt(type.offset).toString()
             is Type.OperatingState -> context.getString(getOperatingStateStringRes())
+            is Type.CompressorAverageRuntime -> getCompressorAverageRuntime()
             is Type.FirmwareVersion -> getFirmwareVersion()
         }
     }
@@ -65,19 +70,25 @@ class StatusData(private val rawData: IntArray) {
      * Get a time duration string with second precision, formatted like "1h 2min 3sec".
      */
     private fun getHoursMinutesSeconds(time: Type.TypeWithOffset.TimeSeconds): String {
-        var elapsedSeconds = getValueAt(time.offset)
+        return buildHoursMinutesSecondsString(getValueAt(time.offset))
+    }
 
+    private fun buildHoursMinutesSecondsString(elapsedSeconds: Int): String {
+        var secondsRemaining = elapsedSeconds
         var hours: Long = 0
         var minutes: Long = 0
-        if (elapsedSeconds >= 3600) {
-            hours = (elapsedSeconds / 3600).toLong()
-            elapsedSeconds -= (hours * 3600).toInt()
+
+        if (secondsRemaining >= 3600) {
+            hours = (secondsRemaining / 3600).toLong()
+            secondsRemaining -= (hours * 3600).toInt()
         }
-        if (elapsedSeconds >= 60) {
-            minutes = (elapsedSeconds / 60).toLong()
-            elapsedSeconds -= (minutes * 60).toInt()
+
+        if (secondsRemaining >= 60) {
+            minutes = (secondsRemaining / 60).toLong()
+            secondsRemaining -= (minutes * 60).toInt()
         }
-        val seconds = elapsedSeconds.toLong()
+
+        val seconds = secondsRemaining.toLong()
 
         return hours.toString() + "h " + minutes + "min " + seconds + "sec"
     }
@@ -85,7 +96,7 @@ class StatusData(private val rawData: IntArray) {
     /**
      * Get a time duration string with hour precision, formatted like "1h".
      */
-    private fun getHours(time: Type.TypeWithOffset.TimeHours): String {
+    private fun getHours(time: TimeHours): String {
         val elapsedSeconds = getValueAt(time.offset)
 
         var hours: Long = 0
@@ -99,6 +110,17 @@ class StatusData(private val rawData: IntArray) {
     private fun getOperatingStateStringRes(): Int {
         val state = getValueAt(OPERATING_STATE_INDEX)
         return OperatingState.fromIndex(state).labelRes
+    }
+
+    private fun getCompressorAverageRuntime(): String {
+        val impulses = max(0, getValueAt(Number.CompressorImpulses.offset))
+        // Avoid division by 0.
+        return if (impulses == 0) {
+            "?"
+        } else {
+            val seconds = getValueAt(TimeHours.OperatingHoursCompressor.offset)
+            buildHoursMinutesSecondsString(seconds / impulses)
+        }
     }
 
     /**
@@ -139,6 +161,7 @@ class StatusData(private val rawData: IntArray) {
     sealed class Type(@StringRes val labelResId: Int) {
 
         object OperatingState : Type(R.string.label_operating_state)
+        object CompressorAverageRuntime : Type(R.string.label_compressor_average_runtime)
         object FirmwareVersion : Type(R.string.label_firmware)
 
         sealed class TypeWithOffset(
@@ -241,6 +264,18 @@ class StatusData(private val rawData: IntArray) {
 
                 object OperatingHoursSolar
                     : TimeHours(161, R.string.label_hours_solar)
+
+            }
+
+            /**
+             * Number values.
+             */
+            sealed class Number(
+                offset: Int, @StringRes labelResId: Int
+            ) : TypeWithOffset(labelResId, offset) {
+
+                object CompressorImpulses
+                    : Number(57, R.string.label_text_compressor_impulses)
 
             }
         }
