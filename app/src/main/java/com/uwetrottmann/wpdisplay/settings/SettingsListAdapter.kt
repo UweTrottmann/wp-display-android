@@ -51,7 +51,7 @@ class SettingsListAdapter :
                 setOnCheckedChangeListener(null) // disable while binding
                 isChecked = item.enabled
                 setOnCheckedChangeListener { _, isChecked -> item.enabled = isChecked }
-                setText(item.labelResId)
+                setText(item.type.labelResId)
             }
         }
     }

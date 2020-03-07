@@ -18,36 +18,35 @@ package com.uwetrottmann.wpdisplay.model
 
 import android.content.Context
 import android.preference.PreferenceManager
-import com.uwetrottmann.wpdisplay.R
-import com.uwetrottmann.wpdisplay.model.StatusData.Temperature
-import com.uwetrottmann.wpdisplay.model.StatusData.Time
+import com.uwetrottmann.wpdisplay.model.StatusData.Type.TypeWithOffset.Temperature
+import com.uwetrottmann.wpdisplay.model.StatusData.Type.TypeWithOffset.TimeSeconds
 
 object DisplayItems {
 
     const val KEY_DISABLED_DISPLAY_ITEMS = "DISABLED_DISPLAY_ITEMS"
 
     val all: List<DisplayItem> = listOf(
-        TemperatureItem(1, R.string.label_temp_outgoing, Temperature.OUTGOING),
-        TemperatureItem(2, R.string.label_temp_return, Temperature.RETURN),
-        TemperatureItem(3, R.string.label_temp_outdoors, Temperature.OUTDOORS),
-        TemperatureItem(4, R.string.label_temp_return_should, Temperature.RETURN_SHOULD),
-        TemperatureItem(20, R.string.label_temp_return_external, Temperature.RETURN_EXTERNAL),
-        TemperatureItem(5, R.string.label_temp_outdoors_average, Temperature.OUTDOORS_AVERAGE),
-        TemperatureItem(6, R.string.label_temp_hot_gas, Temperature.HOT_GAS),
-        TemperatureItem(7, R.string.label_temp_water, Temperature.WATER),
-        TemperatureItem(8, R.string.label_temp_water_should, Temperature.WATER_SHOULD),
-        TemperatureItem(9, R.string.label_temp_source_in, Temperature.SOURCE_IN),
-        TemperatureItem(10, R.string.label_temp_source_out, Temperature.SOURCE_OUT),
-        TemperatureItem(18, R.string.label_temp_solar_collector, Temperature.SOLAR_COLLECTOR),
-        TemperatureItem(19, R.string.label_temp_solar_tank, Temperature.SOLAR_TANK),
-        TemperatureItem(21, R.string.label_temp_ext_energy_src, Temperature.EXTERNAL_ENERGY_SRC),
-        TextItem(11, R.string.label_operating_state),
-        DurationItem(12, R.string.label_time_pump_active, Time.TIME_PUMP_ACTIVE),
-        DurationItem(13, R.string.label_time_compressor_inactive, Time.TIME_COMPRESSOR_NOOP),
-        DurationItem(14, R.string.label_time_rest, Time.TIME_REST),
-        DurationItem(15, R.string.label_time_return_lower, Time.TIME_RETURN_LOWER),
-        DurationItem(16, R.string.label_time_return_higher, Time.TIME_RETURN_HIGHER),
-        TextItem(17, R.string.label_firmware)
+        TemperatureItem(1, Temperature.Outgoing),
+        TemperatureItem(2, Temperature.Return),
+        TemperatureItem(3, Temperature.Outdoors),
+        TemperatureItem(4, Temperature.ReturnShould),
+        TemperatureItem(20, Temperature.ReturnExternal),
+        TemperatureItem(5, Temperature.OutdoorsAverage),
+        TemperatureItem(6, Temperature.HotGas),
+        TemperatureItem(7, Temperature.Water),
+        TemperatureItem(8, Temperature.WaterShould),
+        TemperatureItem(9, Temperature.SourceIn),
+        TemperatureItem(10, Temperature.SourceOut),
+        TemperatureItem(18, Temperature.SolarCollector),
+        TemperatureItem(19, Temperature.SolarTank),
+        TemperatureItem(21, Temperature.ExternalEnergySource),
+        TextItem(11, StatusData.Type.OperatingState),
+        DurationItem(12, TimeSeconds.PumpActive),
+        DurationItem(13, TimeSeconds.CompressorNoOp),
+        DurationItem(14, TimeSeconds.Rest),
+        DurationItem(15, TimeSeconds.ReturnLower),
+        DurationItem(16, TimeSeconds.ReturnHigher),
+        TextItem(17, StatusData.Type.FirmwareVersion)
     )
     /** Returns a copy of all DisplayItems that are enabled. */
     val enabled: List<DisplayItem>

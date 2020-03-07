@@ -33,6 +33,7 @@
     <string name="label_time_rest">Mandatory rest</string>
     <string name="label_time_return_lower">Return &lt; Target - Hysteresis</string>
     <string name="label_time_return_higher">Return &gt; Target + Hysteresis</string>
+    <string name="label_hours_heatpump">Operating hours heat pump</string>
 
     <string name="label_firmware">Firmware</string>
 

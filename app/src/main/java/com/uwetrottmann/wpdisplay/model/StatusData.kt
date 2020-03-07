@@ -16,6 +16,7 @@
 
 package com.uwetrottmann.wpdisplay.model
 
+import android.content.Context
 import androidx.annotation.StringRes
 import com.uwetrottmann.wpdisplay.R
 import java.util.*
@@ -32,22 +33,6 @@ class StatusData(private val rawData: IntArray) {
      */
     val timestamp: Date
 
-    val firmwareVersion: String
-        get() {
-            var version = ""
-            for (i in FIRMWARE_VERSION_INDEX_BEGIN until FIRMWARE_VERSION_INDEX_BEGIN + FIRMWARE_VERSION_LENGTH) {
-                version += getValueAt(i).toChar().toString()
-            }
-            return version
-        }
-
-    val operatingState: Int
-        @StringRes
-        get() {
-            val state = getValueAt(OPERATING_STATE_INDEX)
-            return OperatingState.fromIndex(state).labelRes
-        }
-
     init {
         if (rawData.size != LENGTH_BYTES) {
             throw IllegalArgumentException(
@@ -57,18 +42,29 @@ class StatusData(private val rawData: IntArray) {
         this.timestamp = Date()
     }
 
-    /**
-     * Get a Celsius temperature value.
-     */
-    fun getTemperature(temperature: Temperature): Double {
-        val tempRaw = getValueAt(temperature.offset)
-        return tempRaw / 10.0
+    fun getValueFor(type: Type, context: Context): String {
+        return when (type) {
+            is Type.TypeWithOffset.Temperature -> getTemperature(type)
+            is Type.TypeWithOffset.TimeSeconds -> getHoursMinutesSeconds(type)
+            is Type.TypeWithOffset.TimeHours -> getHours(type)
+            is Type.OperatingState -> context.getString(getOperatingStateStringRes())
+            is Type.FirmwareVersion -> getFirmwareVersion()
+        }
     }
 
     /**
-     * Get a time duration string, formatted like "1h 2min 3sec".
+     * Get a Celsius temperature value.
      */
-    fun getTime(time: Time): String {
+    private fun getTemperature(temperature: Type.TypeWithOffset.Temperature): String {
+        val tempRaw = getValueAt(temperature.offset)
+        val tempValue = tempRaw / 10.0
+        return String.format(Locale.getDefault(), "%.1f", tempValue)
+    }
+
+    /**
+     * Get a time duration string with second precision, formatted like "1h 2min 3sec".
+     */
+    private fun getHoursMinutesSeconds(time: Type.TypeWithOffset.TimeSeconds): String {
         var elapsedSeconds = getValueAt(time.offset)
 
         var hours: Long = 0
@@ -84,6 +80,36 @@ class StatusData(private val rawData: IntArray) {
         val seconds = elapsedSeconds.toLong()
 
         return hours.toString() + "h " + minutes + "min " + seconds + "sec"
+    }
+
+    /**
+     * Get a time duration string with hour precision, formatted like "1h".
+     */
+    private fun getHours(time: Type.TypeWithOffset.TimeHours): String {
+        val elapsedSeconds = getValueAt(time.offset)
+
+        var hours: Long = 0
+        if (elapsedSeconds >= 3600) {
+            hours = (elapsedSeconds / 3600).toLong()
+        }
+
+        return hours.toString() + "h"
+    }
+
+    private fun getOperatingStateStringRes(): Int {
+        val state = getValueAt(OPERATING_STATE_INDEX)
+        return OperatingState.fromIndex(state).labelRes
+    }
+
+    /**
+     * Text like "V1.23".
+     */
+    private fun getFirmwareVersion(): String {
+        var version = ""
+        for (i in FIRMWARE_VERSION_INDEX_BEGIN until FIRMWARE_VERSION_INDEX_BEGIN + FIRMWARE_VERSION_LENGTH) {
+            version += getValueAt(i).toChar().toString()
+        }
+        return version
     }
 
     private fun getValueAt(index: Int): Int {
@@ -110,40 +136,107 @@ class StatusData(private val rawData: IntArray) {
         private const val OPERATING_STATE_INDEX = 80
     }
 
-    /**
-     * Temperature values, factor 10, Celsius.
-     */
-    enum class Temperature(val offset: Int) {
+    sealed class Type(@StringRes val labelResId: Int) {
 
-        OUTGOING(10),
-        RETURN(11),
-        RETURN_SHOULD(12),
-        RETURN_EXTERNAL(13),
-        HOT_GAS(14),
-        OUTDOORS(15),
-        OUTDOORS_AVERAGE(16),
-        WATER(17),
-        WATER_SHOULD(18),
-        SOURCE_IN(19),
-        SOURCE_OUT(20),
-        SOLAR_COLLECTOR(26),
-        SOLAR_TANK(27),
-        EXTERNAL_ENERGY_SRC(28)
+        object OperatingState : Type(R.string.label_operating_state)
+        object FirmwareVersion : Type(R.string.label_firmware)
+
+        sealed class TypeWithOffset(
+            @StringRes labelResId: Int, val offset: Int
+        ) : Type(labelResId) {
+
+            /**
+             * Temperature values, factor 10, Celsius.
+             */
+            sealed class Temperature(
+                offset: Int, @StringRes labelResId: Int
+            ) : TypeWithOffset(labelResId, offset) {
+
+                object Outgoing
+                    : Temperature(10, R.string.label_temp_outgoing)
+
+                object Return
+                    : Temperature(11, R.string.label_temp_return)
+
+                object ReturnShould
+                    : Temperature(12, R.string.label_temp_return_should)
+
+                object ReturnExternal
+                    : Temperature(13, R.string.label_temp_return_external)
+
+                object HotGas
+                    : Temperature(14, R.string.label_temp_hot_gas)
+
+                object Outdoors
+                    : Temperature(15, R.string.label_temp_outdoors)
+
+                object OutdoorsAverage
+                    : Temperature(16, R.string.label_temp_outdoors_average)
+
+                object Water
+                    : Temperature(17, R.string.label_temp_water)
+
+                object WaterShould
+                    : Temperature(18, R.string.label_temp_water_should)
+
+                object SourceIn
+                    : Temperature(19, R.string.label_temp_source_in)
+
+                object SourceOut
+                    : Temperature(20, R.string.label_temp_source_out)
+
+                object SolarCollector
+                    : Temperature(26, R.string.label_temp_solar_collector)
+
+                object SolarTank
+                    : Temperature(27, R.string.label_temp_solar_tank)
+
+                object ExternalEnergySource
+                    : Temperature(28, R.string.label_temp_ext_energy_src)
+
+            }
+
+            /**
+             * Time values, factor 1, second precision.
+             */
+            sealed class TimeSeconds(
+                offset: Int, @StringRes labelResId: Int
+            ) : TypeWithOffset(labelResId, offset) {
+
+                object PumpActive
+                    : TimeSeconds(67, R.string.label_time_pump_active)
+
+                object Rest
+                    : TimeSeconds(71, R.string.label_time_rest)
+
+                object CompressorNoOp
+                    : TimeSeconds(73, R.string.label_time_compressor_inactive)
+
+                object ReturnLower
+                    : TimeSeconds(74, R.string.label_time_return_lower)
+
+                object ReturnHigher
+                    : TimeSeconds(75, R.string.label_time_return_higher)
+
+            }
+
+            /**
+             * Time values, factor 3600, hour precision.
+             */
+            sealed class TimeHours(
+                offset: Int, @StringRes labelResId: Int
+            ) : TypeWithOffset(labelResId, offset) {
+
+                object OperatingHoursHeatPump : TimeHours(63, R.string.label_hours_heatpump)
+
+            }
+        }
     }
 
-    /**
-     * Time values, factor 1, Seconds.
-     */
-    enum class Time(val offset: Int) {
-
-        TIME_PUMP_ACTIVE(67),
-        TIME_REST(71),
-        TIME_COMPRESSOR_NOOP(73),
-        TIME_RETURN_LOWER(74),
-        TIME_RETURN_HIGHER(75)
-    }
-
-    private enum class OperatingState(val index: Int, @param:StringRes @field:StringRes val labelRes: Int) {
+    private enum class OperatingState(
+        val index: Int,
+        @param:StringRes @field:StringRes val labelRes: Int
+    ) {
 
         UNKNOWN(-1, R.string.state_unknown),
         HEATING(0, R.string.state_heating),
