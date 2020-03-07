@@ -72,7 +72,7 @@
     <string name="color_scheme_system">Use system default</string>
     <string name="color_scheme_light">Light</string>
     <string name="color_scheme_dark">Dark</string>
-    <string name="color_scheme_auto">Dark at night</string>
+    <string name="color_scheme_auto">Dark during hours</string>
     <string name="setting_time_from">From</string>
     <string name="setting_time_until">until</string>
     <string name="version">Version %s</string>
