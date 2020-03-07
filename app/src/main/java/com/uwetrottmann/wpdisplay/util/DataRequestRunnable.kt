@@ -104,8 +104,6 @@ class DataRequestRunnable(private val listener: ConnectionListener) : Runnable {
 
     }
 
-    class DataEvent(var data: StatusData)
-
     companion object {
         val statusData = MutableLiveData<StatusData>().apply {
             postValue(StatusData())
