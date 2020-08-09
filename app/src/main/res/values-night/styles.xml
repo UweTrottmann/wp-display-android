@@ -4,6 +4,10 @@
     <style name="Base.Theme.WpDisplay.DayNight" parent="Theme.MaterialComponents.NoActionBar">
         <item name="colorPrimaryDark">@color/black</item>
         <item name="android:colorBackground">@color/wp_background_dark</item>
+
+        <!-- Note: e.g. Samsung devices show white bar despite Dark mode (probably for burn-in protection). -->
+        <!-- Note: nav bar color needs to be opaque! -->
+        <item name="android:navigationBarColor" tools:targetApi="lollipop">@color/wp_black_almost</item>
     </style>
 
     <style name="Widget.WpDisplay.Toolbar" parent="Widget.MaterialComponents.Toolbar.Surface">

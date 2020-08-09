@@ -1,6 +1,11 @@
 Heat Pump Display Release Notes
 ===============================
 
+15 (TBD)
+--------------
+
+- Request black navigation bar when using dark theme.
+
 14 (2020-03-07)
 --------------
 

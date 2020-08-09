@@ -12,4 +12,6 @@
     <!-- Determined using MaterialToolbar. -->
     <color name="wp_background_dark_raised_4dp">#101E1D</color>
 
+    <color name="wp_black_almost">#ff000001</color>
+
 </resources>
