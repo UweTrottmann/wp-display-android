@@ -59,21 +59,26 @@ android {
             }
         }
     }
-    
+
 }
 
 dependencies {
     implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
-    // https://developer.android.com/jetpack/androidx/versions
-    implementation "androidx.fragment:fragment-ktx:1.2.2"
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation "androidx.preference:preference-ktx:1.1.0"
+    // https://developer.android.com/jetpack/androidx/releases/fragment
+    implementation "androidx.fragment:fragment-ktx:1.2.5"
+    // https://developer.android.com/jetpack/androidx/releases/appcompat
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    // https://developer.android.com/jetpack/androidx/releases/preference
+    implementation "androidx.preference:preference-ktx:1.1.1"
+    // https://developer.android.com/jetpack/androidx/releases/recyclerview
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     // ViewModel and LiveData
+    // https://developer.android.com/jetpack/androidx/releases/lifecycle
     def lifecycle_version = "2.2.0"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
     // Material Design
+    // https://github.com/material-components/material-components-android/releases
     implementation 'com.google.android.material:material:1.1.0'
     implementation 'com.jakewharton.timber:timber:4.7.1'
 }
