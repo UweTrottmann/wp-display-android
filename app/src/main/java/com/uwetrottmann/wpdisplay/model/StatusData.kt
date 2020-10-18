@@ -229,6 +229,12 @@ class StatusData(private val rawData: IntArray) {
                 object PumpActive
                     : TimeSeconds(67, R.string.label_time_pump_active)
 
+                object SecondaryHeater1Active
+                    : TimeSeconds(68, R.string.label_time_secondary_heater1_active)
+
+                object SecondaryHeater2Active
+                    : TimeSeconds(69, R.string.label_time_secondary_heater2_active)
+
                 object Rest
                     : TimeSeconds(71, R.string.label_time_rest)
 

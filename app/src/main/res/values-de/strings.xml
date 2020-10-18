@@ -29,6 +29,8 @@
     <string name="label_temp_solar_tank">Solarspeicher</string>
     <string name="label_temp_ext_energy_src">Externe Energiequelle</string>
     <string name="label_time_pump_active">Pumpe aktiv</string>
+    <string name="label_time_secondary_heater1_active">Zweitwärmeerzeuger 1 aktiv</string>
+    <string name="label_time_secondary_heater2_active">Zweitwärmeerzeuger 2 aktiv</string>
     <string name="label_time_compressor_inactive">Verdichter Stillstand</string>
     <string name="label_time_rest">Zwangspause</string>
     <string name="label_time_return_lower">Rücklauf &lt; Soll - Hysterese</string>
