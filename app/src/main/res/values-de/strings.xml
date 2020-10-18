@@ -47,6 +47,7 @@
     <string name="label_text_compressor_impulses">Verdichter Impulse</string>
 
     <string name="label_firmware">Firmware</string>
+    <string name="label_current_time">Datum &amp; Uhrzeit</string>
 
     <string name="label_operating_state">Betriebszustand</string>
     <string name="state_heating">Heizung</string>

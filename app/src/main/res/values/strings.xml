@@ -47,6 +47,7 @@
     <string name="label_text_compressor_impulses">Compressor impulses</string>
 
     <string name="label_firmware">Firmware</string>
+    <string name="label_current_time">Date &amp; time</string>
 
     <string name="label_operating_state">Operating State</string>
     <string name="state_heating">Heating</string>

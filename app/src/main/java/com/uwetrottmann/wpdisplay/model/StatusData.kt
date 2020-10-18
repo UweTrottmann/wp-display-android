@@ -21,6 +21,7 @@ import androidx.annotation.StringRes
 import com.uwetrottmann.wpdisplay.R
 import com.uwetrottmann.wpdisplay.model.StatusData.Type.TypeWithOffset.Number
 import com.uwetrottmann.wpdisplay.model.StatusData.Type.TypeWithOffset.TimeHours
+import java.text.DateFormat
 import java.util.*
 import kotlin.math.max
 
@@ -54,6 +55,7 @@ class StatusData(private val rawData: IntArray) {
             is Type.OperatingState -> context.getString(getOperatingStateStringRes())
             is Type.CompressorAverageRuntime -> getCompressorAverageRuntime()
             is Type.FirmwareVersion -> getFirmwareVersion()
+            is Type.CurrentTime -> getCurrentTime()
         }
     }
 
@@ -134,6 +136,11 @@ class StatusData(private val rawData: IntArray) {
         return version
     }
 
+    private fun getCurrentTime(): String {
+        val unixTimeInSeconds = getValueAt(CURRENT_TIME_INDEX)
+        return DateFormat.getDateTimeInstance().format(Date(unixTimeInSeconds.toLong() * 1000))
+    }
+
     private fun getValueAt(index: Int): Int {
         if (index + 1 > rawData.size) {
             throw IllegalArgumentException(
@@ -156,6 +163,8 @@ class StatusData(private val rawData: IntArray) {
         private const val FIRMWARE_VERSION_LENGTH = 10
 
         private const val OPERATING_STATE_INDEX = 80
+
+        private const val CURRENT_TIME_INDEX = 134
     }
 
     sealed class Type(@StringRes val labelResId: Int) {
@@ -163,6 +172,7 @@ class StatusData(private val rawData: IntArray) {
         object OperatingState : Type(R.string.label_operating_state)
         object CompressorAverageRuntime : Type(R.string.label_compressor_average_runtime)
         object FirmwareVersion : Type(R.string.label_firmware)
+        object CurrentTime : Type(R.string.label_current_time)
 
         sealed class TypeWithOffset(
             @StringRes labelResId: Int, val offset: Int
