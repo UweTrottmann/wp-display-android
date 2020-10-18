@@ -34,6 +34,9 @@
     <string name="label_time_return_lower">Return &lt; Target - Hysteresis</string>
     <string name="label_time_return_higher">Return &gt; Target + Hysteresis</string>
     <string name="label_hours_compressor">Compressor Operating Hours</string>
+    <string name="label_hours_secondary_heater1">Second. Heater 1 Operating Hours</string>
+    <string name="label_hours_secondary_heater2">Second. Heater 2 Operating Hours</string>
+    <string name="label_hours_secondary_heater3">Second. Heater 3 Operating Hours</string>
     <string name="label_hours_pump">Pump Operating Hours</string>
     <string name="label_hours_heating">Heating Operating Hours</string>
     <string name="label_hours_water">Hot Water Operating Hours</string>

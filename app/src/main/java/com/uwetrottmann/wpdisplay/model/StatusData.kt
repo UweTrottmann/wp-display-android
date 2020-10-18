@@ -253,6 +253,15 @@ class StatusData(private val rawData: IntArray) {
                 object OperatingHoursCompressor
                     : TimeHours(56, R.string.label_hours_compressor)
 
+                object OperatingHoursSecondaryHeater1
+                    : TimeHours(60, R.string.label_hours_secondary_heater1)
+
+                object OperatingHoursSecondaryHeater2
+                    : TimeHours(61, R.string.label_hours_secondary_heater2)
+
+                object OperatingHoursSecondaryHeater3
+                    : TimeHours(62, R.string.label_hours_secondary_heater3)
+
                 object OperatingHoursHeatPump
                     : TimeHours(63, R.string.label_hours_pump)
 
