@@ -79,6 +79,6 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
     // Material Design
     // https://github.com/material-components/material-components-android/releases
-    implementation 'com.google.android.material:material:1.1.0'
+    implementation 'com.google.android.material:material:1.2.1'
     implementation 'com.jakewharton.timber:timber:4.7.1'
 }
