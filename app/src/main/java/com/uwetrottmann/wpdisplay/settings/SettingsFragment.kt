@@ -16,6 +16,7 @@
 
 package com.uwetrottmann.wpdisplay.settings
 
+import android.content.ActivityNotFoundException
 import android.content.Intent
 import android.content.pm.PackageManager
 import android.net.Uri
@@ -216,8 +217,13 @@ class SettingsFragment : Fragment() {
     private fun openWebPage(url: String) {
         val webpage = Uri.parse(url)
         val intent = Intent(Intent.ACTION_VIEW, webpage)
-        if (intent.resolveActivity(requireContext().packageManager) != null) {
+        // Note: Android docs suggest to use resolveActivity,
+        // but won't work on Android 11+ due to package visibility changes.
+        // https://developer.android.com/about/versions/11/privacy/package-visibility
+        try {
             startActivity(intent)
+        } catch (e: ActivityNotFoundException) {
+            // Ignored
         }
     }
 }
