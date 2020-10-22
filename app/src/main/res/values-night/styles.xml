@@ -8,6 +8,9 @@
         <!-- Note: e.g. Samsung devices show white bar despite Dark mode (probably for burn-in protection). -->
         <!-- Note: nav bar color needs to be opaque! -->
         <item name="android:navigationBarColor" tools:targetApi="lollipop">@color/wp_black_almost</item>
+
+        <!-- Theme-dependent drawables -->
+        <item name="background_border">@drawable/background_border_light</item>
     </style>
 
     <style name="Widget.WpDisplay.AppBarLayout" parent="Widget.MaterialComponents.AppBarLayout.Surface">

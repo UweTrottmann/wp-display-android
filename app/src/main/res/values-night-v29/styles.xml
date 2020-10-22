@@ -8,6 +8,9 @@
         <!-- On Android 10+ drawing behind the nav and status bar. -->
         <item name="android:navigationBarColor">@android:color/transparent</item>
         <item name="android:statusBarColor">@android:color/transparent</item>
+
+        <!-- Theme-dependent drawables -->
+        <item name="background_border">@drawable/background_border_light</item>
     </style>
 
 </resources>

@@ -93,7 +93,7 @@
             android:layout_width="300dp"
             android:layout_height="200dp"
             android:layout_marginTop="@dimen/padding_small"
-            android:background="@drawable/background_border"
+            android:background="?attr/background_border"
             android:scrollbars="vertical" />
 
         <TextView
