@@ -36,6 +36,7 @@
     <string name="label_time_return_lower">Rücklauf &lt; Soll - Hysterese</string>
     <string name="label_time_return_higher">Rücklauf &gt; Soll + Hysterese</string>
     <string name="label_hours_compressor">Betriebsstunden Verdichter</string>
+    <string name="label_hours_compressor2">Betriebsstunden Verdichter 2</string>
     <string name="label_hours_secondary_heater1">Betriebsstunden Zweitwärmeerzeuger</string>
     <string name="label_hours_secondary_heater2">Betriebsstunden Zweitwärmeerzeuger 2</string>
     <string name="label_hours_secondary_heater3">Betriebsstunden Zweitwärmeerzeuger 3</string>
@@ -44,7 +45,9 @@
     <string name="label_hours_water">Betriebsstunden Brauchwasser</string>
     <string name="label_hours_solar">Betriebsstunden Solar</string>
     <string name="label_compressor_average_runtime">Mittlere Verdichter Laufzeit</string>
+    <string name="label_compressor2_average_runtime">Mittlere Verdichter 2 Laufzeit</string>
     <string name="label_text_compressor_impulses">Verdichter Impulse</string>
+    <string name="label_text_compressor2_impulses">Verdichter 2 Impulse</string>
 
     <string name="label_firmware">Firmware</string>
     <string name="label_current_time">Datum &amp; Uhrzeit</string>

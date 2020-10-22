@@ -53,7 +53,14 @@ class StatusData(private val rawData: IntArray) {
             is TimeHours -> getHours(type)
             is Number -> getValueAt(type.offset).toString()
             is Type.OperatingState -> context.getString(getOperatingStateStringRes())
-            is Type.CompressorAverageRuntime -> getCompressorAverageRuntime()
+            is Type.CompressorAverageRuntime -> getCompressorAverageRuntime(
+                Number.CompressorImpulses,
+                TimeHours.OperatingHoursCompressor
+            )
+            is Type.Compressor2AverageRuntime -> getCompressorAverageRuntime(
+                Number.Compressor2Impulses,
+                TimeHours.OperatingHoursCompressor2
+            )
             is Type.FirmwareVersion -> getFirmwareVersion()
             is Type.CurrentTime -> getCurrentTime()
         }
@@ -114,13 +121,13 @@ class StatusData(private val rawData: IntArray) {
         return OperatingState.fromIndex(state).labelRes
     }
 
-    private fun getCompressorAverageRuntime(): String {
-        val impulses = max(0, getValueAt(Number.CompressorImpulses.offset))
+    private fun getCompressorAverageRuntime(compressorImpulses: Number, compressorHours: TimeHours): String {
+        val impulses = max(0, getValueAt(compressorImpulses.offset))
         // Avoid division by 0.
         return if (impulses == 0) {
             "?"
         } else {
-            val seconds = getValueAt(TimeHours.OperatingHoursCompressor.offset)
+            val seconds = getValueAt(compressorHours.offset)
             buildHoursMinutesSecondsString(seconds / impulses)
         }
     }
@@ -171,6 +178,7 @@ class StatusData(private val rawData: IntArray) {
 
         object OperatingState : Type(R.string.label_operating_state)
         object CompressorAverageRuntime : Type(R.string.label_compressor_average_runtime)
+        object Compressor2AverageRuntime : Type(R.string.label_compressor2_average_runtime)
         object FirmwareVersion : Type(R.string.label_firmware)
         object CurrentTime : Type(R.string.label_current_time)
 
@@ -269,6 +277,9 @@ class StatusData(private val rawData: IntArray) {
                 object OperatingHoursCompressor
                     : TimeHours(56, R.string.label_hours_compressor)
 
+                object OperatingHoursCompressor2
+                    : TimeHours(58, R.string.label_hours_compressor2)
+
                 object OperatingHoursSecondaryHeater1
                     : TimeHours(60, R.string.label_hours_secondary_heater1)
 
@@ -301,6 +312,9 @@ class StatusData(private val rawData: IntArray) {
 
                 object CompressorImpulses
                     : Number(57, R.string.label_text_compressor_impulses)
+
+                object Compressor2Impulses
+                    : Number(59, R.string.label_text_compressor2_impulses)
 
             }
         }
