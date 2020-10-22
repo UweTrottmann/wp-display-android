@@ -5,7 +5,7 @@
 version: 2
 
 cache_key: &cache_key
-  key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
+  key: jars-{{ checksum "build.gradle" }}-{{ checksum "app/build.gradle" }}-{{ checksum "gradle/wrapper/gradle-wrapper.properties" }}
 
 jobs:
   build:
@@ -27,15 +27,6 @@ jobs:
            ./gradlew -version
 
       - run:
-          name: Download Dependencies
-          command: ./gradlew androidDependencies
-
-      - save_cache:
-          paths:
-            - ~/.gradle
-          key: jars-{{ checksum "build.gradle" }}-{{ checksum  "app/build.gradle" }}
-
-      - run:
           name: Assemble
           command: ./gradlew assembleDebug
 
@@ -44,3 +35,9 @@ jobs:
           command: ./gradlew lint
       - store_artifacts:
           path: app/build/reports/lint-results.html
+
+      - save_cache:
+          key: *cache_key
+          paths:
+            - ~/.gradle/caches
+            - ~/.gradle/wrapper
