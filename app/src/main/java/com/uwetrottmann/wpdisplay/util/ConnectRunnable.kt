@@ -43,7 +43,12 @@ internal class ConnectRunnable(
 
         Timber.d("run: connecting")
         ConnectionTools.connectionEvent.postEvent(
-            ConnectionTools.ConnectionEvent(true, false, host, port)
+            ConnectionTools.ConnectionEvent(
+                isConnecting = true,
+                isConnected = false,
+                host = host,
+                port = port
+            )
         )
 
         var socket: Socket? = null
@@ -56,7 +61,12 @@ internal class ConnectRunnable(
 
             // post success
             ConnectionTools.connectionEvent.postEvent(
-                ConnectionTools.ConnectionEvent(false, true, host, port)
+                ConnectionTools.ConnectionEvent(
+                    isConnecting = false,
+                    isConnected = true,
+                    host = host,
+                    port = port
+                )
             )
         } catch (e: IOException) {
             Timber.e(e, "run: connection to $host:$port failed")
@@ -67,7 +77,12 @@ internal class ConnectRunnable(
 
             // post failure
             ConnectionTools.connectionEvent.postEvent(
-                ConnectionTools.ConnectionEvent(false, false, host, port)
+                ConnectionTools.ConnectionEvent(
+                    isConnecting = false,
+                    isConnected = false,
+                    host = host,
+                    port = port
+                )
             )
         }
 

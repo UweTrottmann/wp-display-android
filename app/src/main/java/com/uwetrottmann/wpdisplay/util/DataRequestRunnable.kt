@@ -38,7 +38,12 @@ class DataRequestRunnable(private val listener: ConnectionListener) : Runnable {
         if (socket == null || !socket.isConnected || input == null || output == null) {
             Timber.e("run: failed, no connection")
             ConnectionTools.connectionEvent.postEvent(
-                ConnectionTools.ConnectionEvent(false, false, null, 0)
+                ConnectionTools.ConnectionEvent(
+                    isConnecting = false,
+                    isConnected = false,
+                    host = null,
+                    port = 0
+                )
             )
             return
         }
@@ -78,7 +83,7 @@ class DataRequestRunnable(private val listener: ConnectionListener) : Runnable {
             input.readInt()
             // length (from server, so untrusted!)
             // cap maximum number of bytes read
-            val length = Math.min(input.readInt(), StatusData.LENGTH_BYTES)
+            val length = input.readInt().coerceAtMost(StatusData.LENGTH_BYTES)
 
             // create array with max size
             val data = IntArray(StatusData.LENGTH_BYTES)
@@ -98,7 +103,12 @@ class DataRequestRunnable(private val listener: ConnectionListener) : Runnable {
         } catch (e: IOException) {
             Timber.e(e, "run: failed to request data")
             ConnectionTools.connectionEvent.postEvent(
-                ConnectionTools.ConnectionEvent(false, false, null, 0)
+                ConnectionTools.ConnectionEvent(
+                    isConnecting = false,
+                    isConnected = false,
+                    host = null,
+                    port = 0
+                )
             )
         }
 

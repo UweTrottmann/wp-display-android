@@ -30,14 +30,12 @@ import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.ViewCompat
 import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.uwetrottmann.wpdisplay.BuildConfig
 import com.uwetrottmann.wpdisplay.R
 import com.uwetrottmann.wpdisplay.databinding.FragmentSettingsBinding
-import com.uwetrottmann.wpdisplay.model.DisplayItem
 import com.uwetrottmann.wpdisplay.model.DisplayItems
 
 /**
@@ -144,7 +142,7 @@ class SettingsFragment : Fragment() {
         }
 
         val viewModel = ViewModelProvider(this)[SettingsViewModel::class.java]
-        viewModel.availableItems.observe(viewLifecycleOwner, Observer<List<DisplayItem>> { list ->
+        viewModel.availableItems.observe(viewLifecycleOwner, { list ->
             viewAdapter.submitList(list)
         })
     }

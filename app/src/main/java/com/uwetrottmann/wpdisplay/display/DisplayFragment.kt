@@ -31,7 +31,6 @@ import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Lifecycle
-import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
 import com.uwetrottmann.wpdisplay.R
@@ -118,10 +117,10 @@ class DisplayFragment : Fragment() {
 
         setHasOptionsMenu(true)
 
-        DataRequestRunnable.statusData.observe(viewLifecycleOwner, Observer {
+        DataRequestRunnable.statusData.observe(viewLifecycleOwner, {
             buildDataAndUpdateAdapter(it)
         })
-        ConnectionTools.connectionEvent.observe(viewLifecycleOwner, Observer { event ->
+        ConnectionTools.connectionEvent.observe(viewLifecycleOwner, { event ->
             event.getContentIfNotHandled()?.let {
                 handleConnectionEvent(it)
             }
@@ -139,8 +138,7 @@ class DisplayFragment : Fragment() {
         val host = ConnectionSettings.getHost(requireContext())
         val port = ConnectionSettings.getPort(requireContext())
         if (TextUtils.isEmpty(host) || port < 0 || port > 65535) {
-            setupSnackBar(R.string.setup_missing, R.string.action_setup,
-                View.OnClickListener { showSettingsFragment() })
+            setupSnackBar(R.string.setup_missing, R.string.action_setup) { showSettingsFragment() }
             showSnackBar(true)
         } else {
             ConnectionTools.connect(requireContext())
@@ -220,11 +218,10 @@ class DisplayFragment : Fragment() {
             else -> {
                 isWarning = true
                 statusResId = R.string.label_connection_error
-                setupSnackBar(R.string.message_no_connection, R.string.action_retry,
-                    View.OnClickListener {
-                        ConnectionTools.connect(requireContext())
-                        showSnackBar(false)
-                    })
+                setupSnackBar(R.string.message_no_connection, R.string.action_retry) {
+                    ConnectionTools.connect(requireContext())
+                    showSnackBar(false)
+                }
                 showSnackBar(true)
                 ConnectionTools.disconnect()
             }

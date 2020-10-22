@@ -24,8 +24,8 @@ import androidx.preference.PreferenceManager
  */
 object ConnectionSettings {
 
-    private val KEY_HOST = "host"
-    private val KEY_PORT = "port"
+    private const val KEY_HOST = "host"
+    private const val KEY_PORT = "port"
 
     /**
      * Return the user set host or null.
