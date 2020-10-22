@@ -3,7 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 29
+    compileSdkVersion 30 /* Android 11 (R) */
 
     buildFeatures {
         // https://developer.android.com/topic/libraries/view-binding
@@ -12,8 +12,8 @@ android {
 
     defaultConfig {
         applicationId "com.uwetrottmann.wpdisplay"
-        minSdkVersion 15
-        targetSdkVersion 29
+        minSdkVersion 15 /* Android 4.0.3 (ICE_CREAM_SANDWICH_MR1) */
+        targetSdkVersion 30 /* Android 11 (R) */
         versionCode 18
         versionName "14"
 
