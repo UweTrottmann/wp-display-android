@@ -29,14 +29,14 @@
     <string name="label_temp_solar_tank">Solar Tank</string>
     <string name="label_temp_ext_energy_src">External Energy Source</string>
     <string name="label_time_pump_active">Pump active</string>
-    <string name="label_time_secondary_heater1_active">Second. Heater 1 active</string>
+    <string name="label_time_secondary_heater1_active">Second. Heater active</string>
     <string name="label_time_secondary_heater2_active">Second. Heater 2 active</string>
     <string name="label_time_compressor_inactive">Compressor inactive</string>
     <string name="label_time_rest">Mandatory rest</string>
     <string name="label_time_return_lower">Return &lt; Target - Hysteresis</string>
     <string name="label_time_return_higher">Return &gt; Target + Hysteresis</string>
     <string name="label_hours_compressor">Compressor Operating Hours</string>
-    <string name="label_hours_secondary_heater1">Second. Heater 1 Operating Hours</string>
+    <string name="label_hours_secondary_heater1">Second. Heater Operating Hours</string>
     <string name="label_hours_secondary_heater2">Second. Heater 2 Operating Hours</string>
     <string name="label_hours_secondary_heater3">Second. Heater 3 Operating Hours</string>
     <string name="label_hours_pump">Pump Operating Hours</string>
