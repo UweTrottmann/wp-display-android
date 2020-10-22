@@ -16,43 +16,51 @@
   ~ limitations under the License.
   -->
 
-<!-- Margin should be bigger than elevation so shadows have enough space to draw -->
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<!-- Wrapper layout to inset more easily. -->
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    style="@style/Widget.WpDisplay.Snackbar"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="bottom"
-    android:layout_margin="8dp"
-    android:elevation="6dp"
-    android:orientation="horizontal"
     tools:ignore="UnusedAttribute"
     tools:showIn="@layout/fragment_display_rv">
 
-    <TextView
-        android:id="@+id/textViewDisplaySnackbar"
-        android:layout_width="0dp"
+    <!-- Margin should be bigger than elevation so shadows have enough space to draw -->
+    <LinearLayout
+        style="@style/Widget.WpDisplay.Snackbar"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_weight="1"
-        android:ellipsize="end"
-        android:maxLines="3"
-        android:paddingBottom="@dimen/padding_large"
-        android:paddingLeft="24dp"
-        android:paddingStart="24dp"
-        android:paddingTop="@dimen/padding_large"
-        android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-        tools:ignore="RtlSymmetry"
-        tools:text="@string/setup_missing" />
+        android:layout_margin="8dp"
+        android:elevation="6dp"
+        android:orientation="horizontal"
+        tools:ignore="UnusedAttribute">
 
-    <Button
-        android:id="@+id/buttonDisplaySnackbar"
-        style="@style/Widget.MaterialComponents.Button.TextButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_marginEnd="8dp"
-        android:layout_marginRight="8dp"
-        tools:text="@string/action_setup" />
+        <TextView
+            android:id="@+id/textViewDisplaySnackbar"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_weight="1"
+            android:ellipsize="end"
+            android:maxLines="3"
+            android:paddingStart="24dp"
+            android:paddingLeft="24dp"
+            android:paddingTop="@dimen/padding_large"
+            android:paddingBottom="@dimen/padding_large"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+            tools:ignore="RtlSymmetry"
+            tools:text="@string/setup_missing" />
 
-</LinearLayout>
+        <Button
+            android:id="@+id/buttonDisplaySnackbar"
+            style="@style/Widget.MaterialComponents.Button.TextButton"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:layout_marginEnd="8dp"
+            android:layout_marginRight="8dp"
+            tools:text="@string/action_setup" />
+
+    </LinearLayout>
+
+</FrameLayout>

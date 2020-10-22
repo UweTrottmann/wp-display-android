@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="Base.Theme.WpDisplay.DayNight" parent="Theme.MaterialComponents.NoActionBar">
+        <item name="colorPrimaryDark">@color/black</item>
+        <item name="android:colorBackground">@color/wp_background_dark</item>
+
+        <!-- On Android 10+ drawing behind the nav and status bar. -->
+        <item name="android:navigationBarColor">@android:color/transparent</item>
+        <item name="android:statusBarColor">@android:color/transparent</item>
+    </style>
+
+</resources>

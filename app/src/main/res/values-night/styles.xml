@@ -10,9 +10,14 @@
         <item name="android:navigationBarColor" tools:targetApi="lollipop">@color/wp_black_almost</item>
     </style>
 
-    <style name="Widget.WpDisplay.Toolbar" parent="Widget.MaterialComponents.Toolbar.Surface">
+    <style name="Widget.WpDisplay.AppBarLayout" parent="Widget.MaterialComponents.AppBarLayout.Surface">
         <item name="android:elevation" tools:ignore="NewApi">4dp</item>
         <item name="android:background">@color/wp_background_dark_raised_4dp</item>
+    </style>
+
+    <style name="Widget.WpDisplay.Toolbar" parent="Widget.MaterialComponents.Toolbar.Surface">
+        <item name="android:elevation" tools:ignore="NewApi">0dp</item>
+        <item name="android:background">@android:color/transparent</item>
         <!-- Note: this theme overlay will only work if the style is applied directly to a Toolbar. -->
         <item name="android:theme">@style/ThemeOverlay.WpDisplay.Toolbar.Surface</item>
     </style>

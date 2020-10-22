@@ -23,11 +23,19 @@
     android:orientation="vertical"
     tools:context=".ui.MainActivity">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
-        style="@style/Widget.WpDisplay.Toolbar"
+    <com.google.android.material.appbar.AppBarLayout
+        style="@style/Widget.WpDisplay.AppBarLayout"
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize" />
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true">
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            style="@style/Widget.WpDisplay.Toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize" />
+
+    </com.google.android.material.appbar.AppBarLayout>
 
     <FrameLayout
         android:id="@+id/container"

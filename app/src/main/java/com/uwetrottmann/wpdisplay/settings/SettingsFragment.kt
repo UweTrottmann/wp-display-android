@@ -26,6 +26,8 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.view.ViewCompat
+import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
@@ -57,6 +59,14 @@ class SettingsFragment : Fragment() {
     private lateinit var viewAdapter: SettingsListAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        // Drawing behind navigation bar on Android 10+.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            ViewCompat.setOnApplyWindowInsetsListener(binding.scrollViewSettings) { v, insets ->
+                v.updatePadding(bottom = insets.systemWindowInsetBottom)
+                insets
+            }
+        }
+
         binding.buttonSettingsStore.setOnClickListener { openWebPage(getString(R.string.store_page_url)) }
         binding.radioSettingsColorSchemeSystem.apply {
             setText(

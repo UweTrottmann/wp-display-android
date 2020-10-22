@@ -16,6 +16,7 @@
 
 package com.uwetrottmann.wpdisplay.display
 
+import android.os.Build
 import android.os.Bundle
 import android.text.TextUtils
 import android.view.LayoutInflater
@@ -25,6 +26,8 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.ViewCompat
+import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Lifecycle
@@ -64,6 +67,18 @@ class DisplayFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        // Drawing behind navigation bar on Android 10+.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
+            ViewCompat.setOnApplyWindowInsetsListener(binding.recyclerViewDisplay) { v, insets ->
+                v.updatePadding(bottom = insets.systemWindowInsetBottom)
+                insets
+            }
+            ViewCompat.setOnApplyWindowInsetsListener(binding.snackbar.root) { v, insets ->
+                v.updatePadding(bottom = insets.systemWindowInsetBottom)
+                insets
+            }
+        }
 
         // TODO maybe read state async
         DisplayItems.readDisabledStateFromPreferences(requireContext())

@@ -37,7 +37,14 @@
         <item name="android:textColor">?attr/colorError</item>
     </style>
 
-    <style name="Widget.WpDisplay.Toolbar" parent="Widget.MaterialComponents.Toolbar.Primary" />
+    <style name="Widget.WpDisplay.AppBarLayout" parent="Widget.MaterialComponents.AppBarLayout.Primary">
+        <item name="android:elevation" tools:ignore="NewApi">4dp</item>
+    </style>
+
+    <style name="Widget.WpDisplay.Toolbar" parent="Widget.MaterialComponents.Toolbar.Primary">
+        <item name="android:elevation" tools:ignore="NewApi">0dp</item>
+        <item name="android:background">@android:color/transparent</item>
+    </style>
 
     <style name="ThemeOverlay.WpDisplay.Toolbar.Surface" parent="ThemeOverlay.MaterialComponents.Toolbar.Surface">
         <item name="colorOnSurface">?attr/colorPrimary</item>

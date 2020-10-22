@@ -19,6 +19,7 @@ package com.uwetrottmann.wpdisplay.ui
 import android.content.res.Configuration
 import android.os.Bundle
 import android.view.MenuItem
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import com.uwetrottmann.wpdisplay.R
@@ -35,6 +36,17 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.Q) {
+            @Suppress("DEPRECATION") // Not using R only WindowInsetsController, yet.
+            binding.root.systemUiVisibility =
+                    // Tells the system that the window wishes the content to
+                    // be laid out at the most extreme scenario.
+                View.SYSTEM_UI_FLAG_LAYOUT_STABLE or
+                        // Tells the system that the window wishes the content to
+                        // be laid out as if the navigation bar was hidden.
+                        View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+        }
 
         // setup action bar
         setSupportActionBar(binding.toolbar)
