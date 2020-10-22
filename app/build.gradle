@@ -14,8 +14,8 @@ android {
         applicationId "com.uwetrottmann.wpdisplay"
         minSdkVersion 15 /* Android 4.0.3 (ICE_CREAM_SANDWICH_MR1) */
         targetSdkVersion 30 /* Android 11 (R) */
-        versionCode 18
-        versionName "14"
+        versionCode 19
+        versionName "15"
 
         vectorDrawables.useSupportLibrary = true
     }
