@@ -37,7 +37,7 @@ jobs:
           path: app/build/reports/lint-results.html
 
       - save_cache:
-          key: *cache_key
+          <<: *cache_key
           paths:
             - ~/.gradle/caches
             - ~/.gradle/wrapper
