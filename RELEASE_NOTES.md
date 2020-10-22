@@ -5,6 +5,9 @@ Heat Pump Display Release Notes
 --------------
 
 - Request black navigation bar when using dark theme.
+- Add secondary heater active time (1 + 2), operating hours (1 - 3).
+- Add controller date and time.
+- Add compressor 2 operating hours, impulses and average runtime.
 
 14 (2020-03-07)
 --------------
