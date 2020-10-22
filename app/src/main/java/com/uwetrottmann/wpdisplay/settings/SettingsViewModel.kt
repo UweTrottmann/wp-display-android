@@ -18,29 +18,21 @@ package com.uwetrottmann.wpdisplay.settings
 
 import android.annotation.SuppressLint
 import android.app.Application
-import android.os.AsyncTask
 import androidx.lifecycle.AndroidViewModel
-import androidx.lifecycle.MutableLiveData
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.liveData
+import androidx.lifecycle.viewModelScope
 import com.uwetrottmann.wpdisplay.model.DisplayItem
 import com.uwetrottmann.wpdisplay.model.DisplayItems
+import kotlinx.coroutines.Dispatchers
 
 @SuppressLint("StaticFieldLeak")
 class SettingsViewModel(application: Application) : AndroidViewModel(application) {
 
-    val availableItems = MutableLiveData<List<DisplayItem>>()
-
-    init {
-        object : AsyncTask<Void?, Void?, List<DisplayItem>>() {
-            override fun doInBackground(vararg params: Void?): List<DisplayItem> {
-                DisplayItems.readDisabledStateFromPreferences(application)
-                return DisplayItems.all // no copy
-            }
-
-            override fun onPostExecute(result: List<DisplayItem>) {
-                availableItems.value = result
-            }
-
-        }.execute()
-    }
+    val availableItems: LiveData<List<DisplayItem>> =
+        liveData(context = viewModelScope.coroutineContext + Dispatchers.IO) {
+            DisplayItems.readDisabledStateFromPreferences(application)
+            emit(DisplayItems.all) // no copy
+        }
 
 }
