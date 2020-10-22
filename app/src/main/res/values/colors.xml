@@ -5,8 +5,6 @@
     <color name="teal_500">#009688</color>
     <color name="teal_700">#00796B</color>
 
-    <color name="wp_snackbar">#323232</color>
-
     <!-- 8% primary on #121212. -->
     <color name="wp_background_dark">#111A19</color>
     <!-- Determined using MaterialToolbar. -->
