@@ -28,6 +28,10 @@
     <string name="label_temp_solar_collector">Solar Collector</string>
     <string name="label_temp_solar_tank">Solar Tank</string>
     <string name="label_temp_ext_energy_src">External Energy Source</string>
+    <string name="label_temp_mix_1_outgoing">Mix. Circ. 1 Outgoing</string>
+    <string name="label_temp_mix_1_outgoing_target">Mix. Circ. 1 Outgoing Target</string>
+    <string name="label_temp_mix_2_outgoing">Mix. Circ. 2 Outgoing</string>
+    <string name="label_temp_mix_2_outgoing_target">Mix. Circ. 2 Outgoing Target</string>
     <string name="label_time_pump_active">Pump active</string>
     <string name="label_time_secondary_heater1_active">Second. Heater active</string>
     <string name="label_time_secondary_heater2_active">Second. Heater 2 active</string>

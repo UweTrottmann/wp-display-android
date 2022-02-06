@@ -28,6 +28,10 @@
     <string name="label_temp_solar_collector">Solarkollektor</string>
     <string name="label_temp_solar_tank">Solarspeicher</string>
     <string name="label_temp_ext_energy_src">Externe Energiequelle</string>
+    <string name="label_temp_mix_1_outgoing">Mischkreis 1 Vorlauf</string>
+    <string name="label_temp_mix_1_outgoing_target">Mischkreis 1 Vorlauf Soll</string>
+    <string name="label_temp_mix_2_outgoing">Mischkreis 2 Vorlauf</string>
+    <string name="label_temp_mix_2_outgoing_target">Mischkreis 2 Vorlauf Soll</string>
     <string name="label_time_pump_active">Pumpe aktiv</string>
     <string name="label_time_secondary_heater1_active">Zweitwärmeerzeuger aktiv</string>
     <string name="label_time_secondary_heater2_active">Zweitwärmeerzeuger 2 aktiv</string>

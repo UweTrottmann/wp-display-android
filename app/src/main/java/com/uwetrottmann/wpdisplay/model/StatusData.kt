@@ -226,6 +226,18 @@ class StatusData(private val rawData: IntArray) {
                 object SourceOut
                     : Temperature(20, R.string.label_temp_source_out)
 
+                object MixingCircuit1
+                    : Temperature(21, R.string.label_temp_mix_1_outgoing)
+
+                object MixingCircuit1Target
+                    : Temperature(22, R.string.label_temp_mix_1_outgoing_target)
+
+                object MixingCircuit2
+                    : Temperature(24, R.string.label_temp_mix_2_outgoing)
+
+                object MixingCircuit2Target
+                    : Temperature(25, R.string.label_temp_mix_2_outgoing_target)
+
                 object SolarCollector
                     : Temperature(26, R.string.label_temp_solar_collector)
 

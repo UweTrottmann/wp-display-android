@@ -1,6 +1,10 @@
 Heat Pump Display Release Notes
 ===============================
 
+## next (TBD)
+
+- Add mixing circuit 1+2 outgoing and outgoing target temperatures.
+
 ## 15 (2020-10-22)
 
 - Request black navigation bar when using dark theme.
