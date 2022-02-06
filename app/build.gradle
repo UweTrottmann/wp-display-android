@@ -29,10 +29,10 @@ android {
         jvmTarget = "1.8"
     }
 
-    lintOptions {
+    lint {
         // for CI server (reports are not public)
         textReport true
-        textOutput 'stdout'
+        textOutput file('stdout')
     }
 
     signingConfigs {
