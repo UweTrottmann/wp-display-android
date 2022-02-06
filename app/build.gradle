@@ -3,7 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 30 /* Android 11 (R) */
+    compileSdkVersion 31 /* Android 12 (S) */
 
     buildFeatures {
         // https://developer.android.com/topic/libraries/view-binding
