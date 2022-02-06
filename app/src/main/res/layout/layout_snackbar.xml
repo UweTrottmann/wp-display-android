@@ -47,13 +47,13 @@
             android:paddingLeft="24dp"
             android:paddingTop="@dimen/padding_large"
             android:paddingBottom="@dimen/padding_large"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+            android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
             tools:ignore="RtlSymmetry"
             tools:text="@string/setup_missing" />
 
         <Button
             android:id="@+id/buttonDisplaySnackbar"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
+            style="@style/Widget.Material3.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"

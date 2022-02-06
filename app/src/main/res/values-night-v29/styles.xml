@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Base.Theme.WpDisplay.DayNight" parent="Theme.MaterialComponents.NoActionBar">
+    <style name="Base.Theme.WpDisplay.DayNight" parent="Theme.Material3.Dark.NoActionBar">
         <item name="colorPrimaryDark">@color/black</item>
         <item name="android:colorBackground">@color/wp_background_dark</item>
 

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Base.Theme.WpDisplay.DayNight" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="Base.Theme.WpDisplay.DayNight" parent="Theme.Material3.Light.NoActionBar">
         <item name="colorPrimaryDark">@color/teal_700</item>
 
         <!-- On Android 10+ drawing behind the nav and status bar. -->

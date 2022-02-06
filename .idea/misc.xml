@@ -1,5 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/uwe/git/wp-display-android/app/src/main/res/layout-w600dp/layout_status.xml" value="0.3723958333333333" />
+        <entry key="..\:/Users/uwe/git/wp-display-android/app/src/main/res/layout/activity_main.xml" value="0.26979166666666665" />
+        <entry key="..\:/Users/uwe/git/wp-display-android/app/src/main/res/layout/fragment_display_rv.xml" value="0.26979166666666665" />
+        <entry key="..\:/Users/uwe/git/wp-display-android/app/src/main/res/layout/fragment_settings.xml" value="0.26979166666666665" />
+        <entry key="..\:/Users/uwe/git/wp-display-android/app/src/main/res/layout/item_selectable.xml" value="0.26979166666666665" />
+        <entry key="..\:/Users/uwe/git/wp-display-android/app/src/main/res/layout/item_text.xml" value="0.26979166666666665" />
+        <entry key="..\:/Users/uwe/git/wp-display-android/app/src/main/res/layout/layout_snackbar.xml" value="0.26979166666666665" />
+        <entry key="..\:/Users/uwe/git/wp-display-android/app/src/main/res/layout/layout_status.xml" value="0.26979166666666665" />
+      </map>
+    </option>
+  </component>
   <component name="MarkdownProjectSettings">
     <PreviewSettings splitEditorLayout="SPLIT" splitEditorPreview="PREVIEW" useGrayscaleRendering="false" zoomFactor="1.0" maxImageWidth="0" showGitHubPageIfSynced="false" allowBrowsingInPreview="false" synchronizePreviewPosition="true" highlightPreviewType="NONE" highlightFadeOut="5" highlightOnTyping="true" synchronizeSourcePosition="true" verticallyAlignSourceAndPreviewSyncPosition="true" showSearchHighlightsInPreview="false" showSelectionInPreview="true">
       <PanelProvider>
@@ -73,7 +87,7 @@
     <option name="myDefaultNotNull" value="android.support.annotation.NonNull" />
     <option name="myNullables">
       <value>
-        <list size="12">
+        <list size="13">
           <item index="0" class="java.lang.String" itemvalue="org.jetbrains.annotations.Nullable" />
           <item index="1" class="java.lang.String" itemvalue="javax.annotation.Nullable" />
           <item index="2" class="java.lang.String" itemvalue="javax.annotation.CheckForNull" />
@@ -86,12 +100,13 @@
           <item index="9" class="java.lang.String" itemvalue="org.checkerframework.checker.nullness.compatqual.NullableDecl" />
           <item index="10" class="java.lang.String" itemvalue="org.checkerframework.checker.nullness.compatqual.NullableType" />
           <item index="11" class="java.lang.String" itemvalue="com.android.annotations.Nullable" />
+          <item index="12" class="java.lang.String" itemvalue="org.eclipse.jdt.annotation.Nullable" />
         </list>
       </value>
     </option>
     <option name="myNotNulls">
       <value>
-        <list size="11">
+        <list size="12">
           <item index="0" class="java.lang.String" itemvalue="org.jetbrains.annotations.NotNull" />
           <item index="1" class="java.lang.String" itemvalue="javax.annotation.Nonnull" />
           <item index="2" class="java.lang.String" itemvalue="edu.umd.cs.findbugs.annotations.NonNull" />
@@ -103,6 +118,7 @@
           <item index="8" class="java.lang.String" itemvalue="org.checkerframework.checker.nullness.compatqual.NonNullDecl" />
           <item index="9" class="java.lang.String" itemvalue="org.checkerframework.checker.nullness.compatqual.NonNullType" />
           <item index="10" class="java.lang.String" itemvalue="com.android.annotations.NonNull" />
+          <item index="11" class="java.lang.String" itemvalue="org.eclipse.jdt.annotation.NonNull" />
         </list>
       </value>
     </option>

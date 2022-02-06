@@ -40,10 +40,10 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="4dp"
             android:text="@string/settings_controller"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
+            android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
 
         <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+            style="@style/Widget.Material3.TextInputLayout.FilledBox"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/padding_default"
@@ -59,7 +59,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <com.google.android.material.textfield.TextInputLayout
-            style="@style/Widget.MaterialComponents.TextInputLayout.FilledBox"
+            style="@style/Widget.Material3.TextInputLayout.FilledBox"
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/padding_large"
@@ -80,13 +80,13 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/padding_large"
             android:text="@string/settings_instructions"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
+            android:textAppearance="@style/TextAppearance.Material3.BodyMedium" />
 
         <TextView
             android:layout_width="300dp"
             android:layout_height="wrap_content"
             android:text="@string/settings_select_items"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
+            android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewSettings"
@@ -102,7 +102,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/padding_large"
             android:text="@string/color_scheme"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
+            android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
 
         <RadioGroup
             android:id="@+id/radioGroupColorScheme"
@@ -120,7 +120,7 @@
                 android:paddingRight="@dimen/padding_large"
                 android:paddingTop="@dimen/padding_large"
                 android:text="@string/color_scheme_system"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+                android:textAppearance="@style/TextAppearance.Material3.BodyLarge" />
 
             <RadioButton
                 android:id="@+id/radioSettingsColorSchemeLight"
@@ -131,7 +131,7 @@
                 android:paddingRight="@dimen/padding_large"
                 android:paddingTop="@dimen/padding_large"
                 android:text="@string/color_scheme_light"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+                android:textAppearance="@style/TextAppearance.Material3.BodyLarge" />
 
             <RadioButton
                 android:id="@+id/radioSettingsColorSchemeDark"
@@ -142,7 +142,7 @@
                 android:paddingRight="@dimen/padding_large"
                 android:paddingTop="@dimen/padding_large"
                 android:text="@string/color_scheme_dark"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+                android:textAppearance="@style/TextAppearance.Material3.BodyLarge" />
 
             <RadioButton
                 android:id="@+id/radioSettingsColorSchemeAuto"
@@ -153,7 +153,7 @@
                 android:paddingRight="@dimen/padding_large"
                 android:paddingTop="@dimen/padding_large"
                 android:text="@string/color_scheme_auto"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+                android:textAppearance="@style/TextAppearance.Material3.BodyLarge" />
 
         </RadioGroup>
 
@@ -168,11 +168,11 @@
                 android:layout_height="wrap_content"
                 android:padding="@dimen/padding_default"
                 android:text="@string/setting_time_from"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+                android:textAppearance="@style/TextAppearance.Material3.BodyLarge" />
 
             <Button
                 android:id="@+id/buttonSettingsNightFrom"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                style="@style/Widget.Material3.Button.OutlinedButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="9:00 pm" />
@@ -182,11 +182,11 @@
                 android:layout_height="wrap_content"
                 android:padding="@dimen/padding_default"
                 android:text="@string/setting_time_until"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1" />
+                android:textAppearance="@style/TextAppearance.Material3.BodyLarge" />
 
             <Button
                 android:id="@+id/buttonSettingsNightUntil"
-                style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+                style="@style/Widget.Material3.Button.OutlinedButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 tools:text="7:00 AM" />
@@ -199,17 +199,17 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/padding_large"
             android:text="@string/version"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6" />
+            android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/ask_for_feedback"
-            android:textAppearance="@style/TextAppearance.MaterialComponents.Body2" />
+            android:textAppearance="@style/TextAppearance.Material3.BodyMedium" />
 
         <Button
             android:id="@+id/buttonSettingsStore"
-            style="@style/Widget.MaterialComponents.Button.OutlinedButton"
+            style="@style/Widget.Material3.Button.OutlinedButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/padding_default"
