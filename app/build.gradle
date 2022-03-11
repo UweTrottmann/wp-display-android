@@ -77,9 +77,10 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.2.1'
     // ViewModel and LiveData
     // https://developer.android.com/jetpack/androidx/releases/lifecycle
-    def lifecycle_version = "2.4.0"
+    def lifecycle_version = "2.4.1"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
     // Material Design
     // https://github.com/material-components/material-components-android/releases
     implementation 'com.google.android.material:material:1.5.0'
