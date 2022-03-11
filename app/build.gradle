@@ -65,7 +65,8 @@ android {
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0")
     // https://developer.android.com/jetpack/androidx/releases/fragment
     implementation "androidx.fragment:fragment-ktx:1.4.1"
     // https://developer.android.com/jetpack/androidx/releases/appcompat
