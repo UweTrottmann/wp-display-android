@@ -9,22 +9,22 @@ android {
 
     buildFeatures {
         // https://developer.android.com/topic/libraries/view-binding
-        viewBinding true
+        viewBinding = true
     }
 
     defaultConfig {
-        applicationId "com.uwetrottmann.wpdisplay"
+        applicationId = "com.uwetrottmann.wpdisplay"
         minSdkVersion 15 /* Android 4.0.3 (ICE_CREAM_SANDWICH_MR1) */
         targetSdkVersion 30 /* Android 11 (R) */
-        versionCode 19
-        versionName "15"
+        versionCode = 19
+        versionName = "15"
 
         vectorDrawables.useSupportLibrary = true
     }
 
     compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_8
-        targetCompatibility JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_1_8
+        targetCompatibility = JavaVersion.VERSION_1_8
     }
 
     kotlinOptions {
@@ -33,31 +33,31 @@ android {
 
     lint {
         // for CI server (reports are not public)
-        textReport true
+        textReport = true
         // Note: do not use textOutput = file("stdout"), just set no file.
     }
 
     signingConfigs {
-        release {
-            if (rootProject.file('keystore.properties').exists()) {
+        create("release") {
+            if (rootProject.file("keystore.properties").exists()) {
                 def props = new Properties()
-                props.load(new FileInputStream(rootProject.file('keystore.properties')))
+                props.load(new FileInputStream(rootProject.file("keystore.properties")))
 
-                storeFile = file(props['storeFile'])
-                storePassword = props['storePassword']
-                keyAlias = props['keyAlias']
-                keyPassword = props['keyPassword']
+                storeFile = file(props["storeFile"])
+                storePassword = props["storePassword"]
+                keyAlias = props["keyAlias"]
+                keyPassword = props["keyPassword"]
             }
         }
     }
 
     buildTypes {
-        release {
-            shrinkResources true
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-            if (rootProject.file('keystore.properties').exists()) {
-                signingConfig signingConfigs.release
+        getByName("release") {
+            shrinkResources = true
+            minifyEnabled = true
+            proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
+            if (rootProject.file("keystore.properties").exists()) {
+                signingConfig = signingConfigs.getByName("release")
             }
         }
     }
@@ -65,24 +65,24 @@ android {
 }
 
 dependencies {
-    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version"
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0")
     // https://developer.android.com/jetpack/androidx/releases/fragment
-    implementation "androidx.fragment:fragment-ktx:1.4.1"
+    implementation("androidx.fragment:fragment-ktx:1.4.1")
     // https://developer.android.com/jetpack/androidx/releases/appcompat
-    implementation 'androidx.appcompat:appcompat:1.4.1'
+    implementation("androidx.appcompat:appcompat:1.4.1")
     // https://developer.android.com/jetpack/androidx/releases/preference
-    implementation "androidx.preference:preference-ktx:1.2.0"
+    implementation("androidx.preference:preference-ktx:1.2.0")
     // https://developer.android.com/jetpack/androidx/releases/recyclerview
-    implementation 'androidx.recyclerview:recyclerview:1.2.1'
+    implementation("androidx.recyclerview:recyclerview:1.2.1")
     // ViewModel and LiveData
     // https://developer.android.com/jetpack/androidx/releases/lifecycle
     def lifecycle_version = "2.4.1"
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version"
-    implementation "androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version"
-    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version")
     // Material Design
     // https://github.com/material-components/material-components-android/releases
-    implementation 'com.google.android.material:material:1.5.0'
-    implementation 'com.jakewharton.timber:timber:5.0.1'
+    implementation("com.google.android.material:material:1.5.0")
+    implementation("com.jakewharton.timber:timber:5.0.1")
 }
