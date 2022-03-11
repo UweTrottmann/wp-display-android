@@ -1,7 +1,7 @@
 Heat Pump Display Release Notes
 ===============================
 
-## next (TBD)
+## 16.0.1 (2022-03-11)
 
 - Add mixing circuit 1+2 outgoing and outgoing target temperatures.
 
