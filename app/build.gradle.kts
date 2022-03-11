@@ -1,11 +1,16 @@
+import java.io.FileInputStream
+import java.util.Properties
+
 plugins {
     id("com.android.application")
     id("kotlin-android")
     id("kotlin-kapt")
 }
 
+val kotlinVersion: String by rootProject.extra
+
 android {
-    compileSdkVersion 31 /* Android 12 (S) */
+    compileSdk = 31 /* Android 12 (S) */
 
     buildFeatures {
         // https://developer.android.com/topic/libraries/view-binding
@@ -14,8 +19,8 @@ android {
 
     defaultConfig {
         applicationId = "com.uwetrottmann.wpdisplay"
-        minSdkVersion 15 /* Android 4.0.3 (ICE_CREAM_SANDWICH_MR1) */
-        targetSdkVersion 30 /* Android 11 (R) */
+        minSdk = 15 /* Android 4.0.3 (ICE_CREAM_SANDWICH_MR1) */
+        targetSdk = 30 /* Android 11 (R) */
         versionCode = 19
         versionName = "15"
 
@@ -40,21 +45,21 @@ android {
     signingConfigs {
         create("release") {
             if (rootProject.file("keystore.properties").exists()) {
-                def props = new Properties()
-                props.load(new FileInputStream(rootProject.file("keystore.properties")))
+                val props = Properties()
+                props.load(FileInputStream(rootProject.file("keystore.properties")))
 
-                storeFile = file(props["storeFile"])
-                storePassword = props["storePassword"]
-                keyAlias = props["keyAlias"]
-                keyPassword = props["keyPassword"]
+                storeFile = file(props["storeFile"]!!)
+                storePassword = props["storePassword"]!!.toString()
+                keyAlias = props["keyAlias"]!!.toString()
+                keyPassword = props["keyPassword"]!!.toString()
             }
         }
     }
 
     buildTypes {
         getByName("release") {
-            shrinkResources = true
-            minifyEnabled = true
+            isShrinkResources = true
+            isMinifyEnabled = true
             proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
             if (rootProject.file("keystore.properties").exists()) {
                 signingConfig = signingConfigs.getByName("release")
@@ -65,7 +70,7 @@ android {
 }
 
 dependencies {
-    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlin_version")
+    implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8:$kotlinVersion")
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.0")
     // https://developer.android.com/jetpack/androidx/releases/fragment
     implementation("androidx.fragment:fragment-ktx:1.4.1")
@@ -77,10 +82,10 @@ dependencies {
     implementation("androidx.recyclerview:recyclerview:1.2.1")
     // ViewModel and LiveData
     // https://developer.android.com/jetpack/androidx/releases/lifecycle
-    def lifecycle_version = "2.4.1"
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycle_version")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycle_version")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version")
+    val lifecycleVersion = "2.4.1"
+    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion")
+    implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion")
+    implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion")
     // Material Design
     // https://github.com/material-components/material-components-android/releases
     implementation("com.google.android.material:material:1.5.0")
