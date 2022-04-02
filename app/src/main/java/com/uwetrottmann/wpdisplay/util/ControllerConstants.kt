@@ -13,13 +13,13 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package com.uwetrottmann.wpdisplay.util;
+package com.uwetrottmann.wpdisplay.util
 
 /**
  * Constants used with heat pump controller.
  */
-public interface ControllerConstants {
-
-    int COMMAND_REQUEST_STATUS = 3004;
+interface ControllerConstants {
+    companion object {
+        const val COMMAND_REQUEST_STATUS = 3004
+    }
 }
