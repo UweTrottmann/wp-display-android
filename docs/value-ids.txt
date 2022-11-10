@@ -1,6 +1,6 @@
 Line number == ID (begins at 10)
 
-See also https://www.loxwiki.eu/display/LOX/Java+Webinterface
+See also https://loxwiki.atlassian.net/wiki/spaces/LOX/pages/1533935933/Java+Webinterface
 
 
 
