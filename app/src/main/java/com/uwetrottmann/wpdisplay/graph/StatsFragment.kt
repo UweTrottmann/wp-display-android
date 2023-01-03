@@ -30,6 +30,7 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import com.github.mikephil.charting.components.AxisBase
 import com.github.mikephil.charting.formatter.ValueFormatter
+import com.google.android.material.color.MaterialColors
 import com.uwetrottmann.wpdisplay.R
 import com.uwetrottmann.wpdisplay.databinding.FragmentStatsBinding
 import com.uwetrottmann.wpdisplay.settings.ConnectionSettings
@@ -74,9 +75,14 @@ class StatsFragment : Fragment() {
             }
         }
 
+        val textColor = MaterialColors.getColor(binding.chart, R.attr.colorOnBackground)
         binding.chart.apply {
             isGone = true
             setPinchZoom(false)
+            legend.textColor = textColor
+            axisLeft.textColor = textColor
+            axisRight.textColor = textColor
+            xAxis.textColor = textColor
             xAxis.valueFormatter = object : ValueFormatter() {
                 override fun getAxisLabel(value: Float, axis: AxisBase?): String {
                     val epochTime = value.toLong()
@@ -89,16 +95,17 @@ class StatsFragment : Fragment() {
             isGone = false
         }
 
-        model.chartData.observe(viewLifecycleOwner) {
-            val chartData = it.chartData
+        model.chartData.observe(viewLifecycleOwner) { result ->
+            val chartData = result.chartData
             if (chartData != null) {
+                chartData.dataSets.forEach { it.valueTextColor = textColor }
                 binding.chart.data = chartData
                 binding.chart.isGone = false
                 binding.chart.invalidate()
                 binding.textViewStatsEmpty.isGone = true
             } else {
                 binding.chart.isGone = true
-                binding.textViewStatsEmpty.text = it.errorMessage
+                binding.textViewStatsEmpty.text = result.errorMessage
                 binding.textViewStatsEmpty.isGone = false
             }
         }

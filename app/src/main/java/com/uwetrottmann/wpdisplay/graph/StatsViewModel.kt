@@ -18,6 +18,7 @@ package com.uwetrottmann.wpdisplay.graph
 
 import android.app.Application
 import android.content.Context
+import android.graphics.Color
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
@@ -79,6 +80,7 @@ class StatsViewModel(
     data class FieldToDisplay(
         val field: DtaFileReader.AnalogueField,
         val label: String,
+        val color: Int,
         val entries: MutableList<Entry> = mutableListOf()
     )
 
@@ -87,16 +89,18 @@ class StatsViewModel(
 
         val fieldsToDisplay = mutableListOf<FieldToDisplay>()
         analogueFields.find { it.name == "TVL" }
-            ?.let { FieldToDisplay(it, context.getString(R.string.label_temp_outgoing)) }
+            ?.let { FieldToDisplay(it, context.getString(R.string.label_temp_outgoing), Color.RED) }
             ?.let { fieldsToDisplay.add(it) }
         analogueFields.find { it.name == "TRL" }
-            ?.let { FieldToDisplay(it, context.getString(R.string.label_temp_return)) }
+            ?.let { FieldToDisplay(it, context.getString(R.string.label_temp_return), Color.BLUE) }
             ?.let { fieldsToDisplay.add(it) }
         analogueFields.find { it.name == "TA" }
-            ?.let { FieldToDisplay(it, context.getString(R.string.label_temp_outdoors)) }
+            ?.let {
+                FieldToDisplay(it, context.getString(R.string.label_temp_outdoors), Color.MAGENTA)
+            }
             ?.let { fieldsToDisplay.add(it) }
         analogueFields.find { it.name == "TBW" }
-            ?.let { FieldToDisplay(it, context.getString(R.string.label_temp_water)) }
+            ?.let { FieldToDisplay(it, context.getString(R.string.label_temp_water), Color.CYAN) }
             ?.let { fieldsToDisplay.add(it) }
 
         dtaFile.datasets.forEach { dataset ->
@@ -107,7 +111,13 @@ class StatsViewModel(
         }
 
         return fieldsToDisplay
-            .map { LineDataSet(it.entries, it.label) }
+            .map {
+                LineDataSet(it.entries, it.label)
+                    .apply {
+                        color = it.color
+                        setCircleColor(it.color)
+                    }
+            }
             .let { LineData(it) }
     }
 
