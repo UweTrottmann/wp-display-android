@@ -19,7 +19,7 @@ android {
 
     defaultConfig {
         applicationId = "com.uwetrottmann.wpdisplay"
-        minSdk = 15 /* Android 4.0.3 (ICE_CREAM_SANDWICH_MR1) */
+        minSdk = 21 /* Android 5 (L) */
         targetSdk = 30 /* Android 11 (R) */
         versionCode = 20
         versionName = "16.0.1"
