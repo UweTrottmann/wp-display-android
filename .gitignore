@@ -20,6 +20,7 @@ keystore.properties
 .idea/misc.xml
 .idea/tasks.xml
 .idea/workspace.xml
+.idea/**/shelf
 
 ### Windows
 # Windows image file caches
