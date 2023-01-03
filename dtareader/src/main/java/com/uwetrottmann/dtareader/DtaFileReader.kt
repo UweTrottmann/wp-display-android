@@ -27,6 +27,14 @@ import java.nio.ByteOrder
 import kotlin.experimental.and
 
 /**
+ * Parses a DTA file with version [DtaFileReader.VERSION_9003].
+ *
+ * ```
+ * val reader = DtaFileReader()
+ * val loggerFileStream = reader.getLoggerFileStream()
+ * if (loggerFileStream != null) reader.readLoggerFile(loggerFileStream)
+ * ```
+ *
  * Based upon https://sourceforge.net/p/opendta/git/ci/master/tree/dtafile/dtafile9003.cpp
  */
 class DtaFileReader {
@@ -81,6 +89,7 @@ class DtaFileReader {
         }
 
         val fields = mutableListOf<ReadableField>()
+        var index = 0
         var category = ""
         while (headerBuffer.hasRemaining()) {
             val fieldId = headerBuffer.get()
@@ -96,7 +105,7 @@ class DtaFileReader {
                     val factor = if (fieldId and 0x80.toByte() != 0x0.toByte()) {
                         headerBuffer.short
                     } else 10
-                    fields.add(AnalogueField(category, name, color, factor))
+                    fields.add(AnalogueField(index++, category, name, color, factor))
                 }
                 0x02.toByte(), 0x04.toByte() -> {
                     // Digital field
@@ -139,7 +148,7 @@ class DtaFileReader {
                             )
                         )
                     }
-                    fields.add(DigitalField(values))
+                    fields.add(DigitalField(index++, values))
                 }
                 0x03.toByte() -> {
                     // TODO Appears not used in test file, so not implementing.
@@ -232,10 +241,12 @@ class DtaFileReader {
     }
 
     interface ReadableField {
+        val index: Int
         fun readValue(byteBuffer: ByteBuffer): List<Double>
     }
 
     data class AnalogueField(
+        override val index: Int,
         val category: String,
         val name: String,
         val color: Int,
@@ -248,6 +259,7 @@ class DtaFileReader {
     }
 
     data class DigitalField(
+        override val index: Int,
         val values: List<DigitalValue>
     ) : ReadableField {
         override fun readValue(byteBuffer: ByteBuffer): List<Double> {
@@ -272,5 +284,8 @@ class DtaFileReader {
     data class DataSet(
         val timestampEpochSecond: Long,
         val fieldValues: List<List<Double>>
-    )
+    ) {
+        fun getValue(field: AnalogueField): Double = fieldValues[field.index][0]
+        fun getValue(field: DigitalField): List<Double> = fieldValues[field.index]
+    }
 }
