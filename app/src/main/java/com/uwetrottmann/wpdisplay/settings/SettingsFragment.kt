@@ -50,7 +50,7 @@ class SettingsFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentSettingsBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -132,6 +132,7 @@ class SettingsFragment : Fragment() {
         }
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
@@ -142,9 +143,9 @@ class SettingsFragment : Fragment() {
         }
 
         val viewModel = ViewModelProvider(this)[SettingsViewModel::class.java]
-        viewModel.availableItems.observe(viewLifecycleOwner, { list ->
+        viewModel.availableItems.observe(viewLifecycleOwner) { list ->
             viewAdapter.submitList(list)
-        })
+        }
     }
 
     override fun onResume() {

@@ -59,7 +59,7 @@ class DisplayFragment : Fragment() {
         inflater: LayoutInflater,
         container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentDisplayRvBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -106,6 +106,7 @@ class DisplayFragment : Fragment() {
         }
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
 
@@ -117,14 +118,14 @@ class DisplayFragment : Fragment() {
 
         setHasOptionsMenu(true)
 
-        DataRequestRunnable.statusData.observe(viewLifecycleOwner, {
+        DataRequestRunnable.statusData.observe(viewLifecycleOwner) {
             buildDataAndUpdateAdapter(it)
-        })
-        ConnectionTools.connectionEvent.observe(viewLifecycleOwner, { event ->
+        }
+        ConnectionTools.connectionEvent.observe(viewLifecycleOwner) { event ->
             event.getContentIfNotHandled()?.let {
                 handleConnectionEvent(it)
             }
-        })
+        }
     }
 
     override fun onStart() {
