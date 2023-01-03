@@ -5,6 +5,7 @@
 
     <string name="title_display">Display</string>
     <string name="title_settings">Settings</string>
+    <string name="title_stats">Statistics</string>
 
     <string name="action_pause">Pause</string>
     <string name="action_resume">Resume</string>
@@ -74,6 +75,9 @@
     <string name="action_setup">Setup</string>
     <string name="message_no_connection">Could not connect. Check your network connection and settings.</string>
     <string name="action_retry">Retry</string>
+
+    <string name="stats_empty">Loading DTA file</string>
+    <string name="stats_error_load">Failed to load DTA file (%s)</string>
 
     <string name="settings_controller">Controller settings</string>
     <string name="settings_instructions">You can find the IP address of the controller via its settings interface. The default port is 8888 or 8889.\n\nYou have to be connected to the same network as the controller (for example use a VPN connection into your home for remote access).</string>

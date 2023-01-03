@@ -5,6 +5,7 @@
 
     <string name="title_display">Anzeige</string>
     <string name="title_settings">Einstellungen</string>
+    <string name="title_stats">Statistik</string>
 
     <string name="action_pause">Pause</string>
     <string name="action_resume">Fortsetzen</string>
@@ -74,6 +75,9 @@
     <string name="action_setup">Einrichten</string>
     <string name="message_no_connection">Keine Verbindung. Netzwerk und Einstellungen überprüfen.</string>
     <string name="action_retry">Wiederholen</string>
+
+    <string name="stats_empty">DTA Datei wird geladen</string>
+    <string name="stats_error_load">Konnte DTA Datei nicht laden (%s)</string>
 
     <string name="settings_controller">Kontrollgerät Einstellungen</string>
     <string name="settings_instructions">Sie finden die IP-Adresse des Kontrollgeräts in dessen Einstellungen. Der Port ist standardmäßig 8888 oder 8889.\n\nSie müssen mit dem gleichen Netzwerk wie das Kontrollgerät verbunden sein (benutzen Sie zum Beispiel eine VPN Verbindung in Ihr Zuhause für Zugriff von unterwegs).</string>

@@ -39,11 +39,22 @@ import kotlin.experimental.and
  */
 class DtaFileReader {
 
-    fun getLoggerFileStream(host: String): InputStream? {
+    /**
+     * Opens an HTTP (not encrypted) connection to the host to get the DTA statistics file.
+     *
+     * Throws [java.io.IOException] if opening the connection fails.
+     */
+    fun getLoggerFileStream(host: String): InputStream {
         val url = URL("http://$host/NewProc")
         return url.openConnection().getInputStream()
     }
 
+    /**
+     * Parses the header and data sets into a [DtaFile].
+     *
+     * Throws [java.io.IOException] if reading fails due to any number of reasons (file structure
+     * not as expected, version not as expected, file size not as expected).
+     */
     fun readLoggerFile(inputStream: InputStream): DtaFile {
         inputStream.source().use { source ->
             source.buffer().use { bufferedSource ->
