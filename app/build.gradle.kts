@@ -10,6 +10,7 @@ plugins {
 val kotlinVersion: String by rootProject.extra
 
 android {
+    namespace = "com.uwetrottmann.wpdisplay"
     compileSdk = 31 /* Android 12 (S) */
 
     buildFeatures {
