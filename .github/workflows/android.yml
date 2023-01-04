@@ -27,6 +27,9 @@ jobs:
       - name: Assemble Debug
         run: ./gradlew assembleDebug
 
+      - name: Unit Tests
+        run: ./gradlew :dtareader:test
+
       # To speed up lint check only run for release variant.
       - name: Lint Release
         run: ./gradlew :app:lintRelease
