@@ -161,10 +161,10 @@ class StatusData(private val rawData: IntArray) {
     companion object {
 
         /**
-         * Maximum length of data supported. Sent status data is actually 183 bytes long, but we don't
-         * care about the rest, yet.
+         * Maximum length of data supported. Sent status data is 200 bytes long for my controller,
+         * but values up to 231 are documented (see docs folder).
          */
-        const val LENGTH_BYTES = 162
+        const val LENGTH_BYTES = 232
 
         private const val FIRMWARE_VERSION_INDEX_BEGIN = 81
         private const val FIRMWARE_VERSION_LENGTH = 10
@@ -327,6 +327,9 @@ class StatusData(private val rawData: IntArray) {
 
                 object Compressor2Impulses
                     : Number(59, R.string.label_text_compressor2_impulses)
+
+                object CompressorFrequency
+                    : Number(231, R.string.label_text_compressor_frequency)
 
             }
         }
