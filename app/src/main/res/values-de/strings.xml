@@ -88,6 +88,10 @@
     <string name="stats_visit_opendta">OpenDTA besuchen</string>
     <string name="action_close">Schließen</string>
 
+    <string name="settings_info_software_update">Um die neue Weboberfläche, aktuelle Fehlerbehebungen und Funktionen zu erhalten können Sie die Software Ihres Kontrollgeräts aktualisieren. Besuchen Sie die Herstellerseite für Details.</string>
+    <string name="action_software_update">Software-Seite öffnen</string>
+    <string name="settings_info_web_interface">Wenn Ihr Kontrollgerät auf einem aktuellen Softwarestand ist, können Sie es auch via die Weboberfläche erreichen und einstellen. Es kann kein Passwort eingegeben werden um grundlegende Informationen anzuzeigen.</string>
+    <string name="action_web_interface">Weboberfläche öffnen</string>
     <string name="settings_controller">Kontrollgerät Einstellungen</string>
     <string name="settings_instructions">Sie finden die IP-Adresse des Kontrollgeräts in dessen Einstellungen. Der Port ist standardmäßig 8888 oder 8889.\n\nSie müssen mit dem gleichen Netzwerk wie das Kontrollgerät verbunden sein (benutzen Sie zum Beispiel eine VPN Verbindung in Ihr Zuhause für Zugriff von unterwegs).</string>
     <string name="settings_select_items">Werte zum Anzeigen auswählen</string>
@@ -102,5 +106,7 @@
     <string name="setting_time_from">Von</string>
     <string name="setting_time_until">bis</string>
     <string name="version">Version %s</string>
+    <string name="settings_open_source">Diese App wird als Open Source entwickelt.</string>
+    <string name="action_repo">GitHub Repository öffnen</string>
 
 </resources>

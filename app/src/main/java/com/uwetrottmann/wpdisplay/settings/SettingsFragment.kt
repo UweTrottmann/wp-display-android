@@ -70,6 +70,13 @@ class SettingsFragment : Fragment() {
             }
         }
 
+        binding.buttonSoftwareUpdate.setOnClickListener {
+            openWebPage(requireContext(), getString(R.string.url_software_update))
+        }
+        binding.buttonWebInterface.setOnClickListener {
+            val url = "http://${ConnectionSettings.getHost(requireContext())}"
+            openWebPage(requireContext(), url)
+        }
         binding.buttonSettingsStore.setOnClickListener {
             openWebPage(requireContext(), getString(R.string.store_page_url))
         }
@@ -129,6 +136,10 @@ class SettingsFragment : Fragment() {
 
         binding.textViewSettingsVersion.text = getString(R.string.version, versionString)
 
+        binding.buttonSettingsRepo.setOnClickListener {
+            openWebPage(requireContext(), getString(R.string.url_repo))
+        }
+
         viewAdapter = SettingsListAdapter()
         val viewManager = LinearLayoutManager(context, RecyclerView.VERTICAL, false)
         binding.recyclerViewSettings.apply {
@@ -166,10 +177,12 @@ class SettingsFragment : Fragment() {
     }
 
     fun populateViews() {
-        binding.editTextSettingsHost.setText(ConnectionSettings.getHost(requireContext()))
+        val host = ConnectionSettings.getHost(requireContext())
+        binding.editTextSettingsHost.setText(host)
         binding.editTextSettingsPort.setText(
             ConnectionSettings.getPort(requireContext()).toString()
         )
+        binding.buttonWebInterface.isEnabled = !host.isNullOrEmpty()
 
         when (ThemeSettings.getThemeMode(requireContext())) {
             ThemeSettings.THEME_ALWAYS_DAY -> {

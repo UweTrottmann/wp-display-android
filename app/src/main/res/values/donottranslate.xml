@@ -5,5 +5,7 @@
     <string name="unit_kilowatthours">kWh</string>
     <string name="store_page_url">https://play.google.com/store/apps/details?id=com.uwetrottmann.wpdisplay</string>
     <string name="url_opendta">https://sourceforge.net/projects/opendta/</string>
+    <string name="url_software_update">https://www.alpha-innotec.de/fachkunde/service/software.html</string>
+    <string name="url_repo">https://github.com/UweTrottmann/wp-display-android</string>
 
 </resources>
