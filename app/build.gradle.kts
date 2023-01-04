@@ -11,7 +11,7 @@ val kotlinVersion: String by rootProject.extra
 
 android {
     namespace = "com.uwetrottmann.wpdisplay"
-    compileSdk = 31 /* Android 12 (S) */
+    compileSdk = 33 /* Android 13 (T) */
 
     buildFeatures {
         // https://developer.android.com/topic/libraries/view-binding
