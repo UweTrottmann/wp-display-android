@@ -19,21 +19,28 @@ package com.uwetrottmann.wpdisplay.graph
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
+import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import android.view.ViewGroup.MarginLayoutParams
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.MenuProvider
 import androidx.core.view.ViewCompat
 import androidx.core.view.isGone
 import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.Lifecycle
 import com.github.mikephil.charting.components.AxisBase
 import com.github.mikephil.charting.formatter.ValueFormatter
 import com.google.android.material.color.MaterialColors
+import com.google.android.material.dialog.MaterialAlertDialogBuilder
 import com.uwetrottmann.wpdisplay.R
 import com.uwetrottmann.wpdisplay.databinding.FragmentStatsBinding
 import com.uwetrottmann.wpdisplay.settings.ConnectionSettings
+import com.uwetrottmann.wpdisplay.util.openWebPage
 import java.text.SimpleDateFormat
 import java.util.*
 
@@ -70,7 +77,9 @@ class StatsFragment : Fragment() {
         // Drawing behind navigation bar on Android 10+.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             ViewCompat.setOnApplyWindowInsetsListener(binding.chart) { v, insets ->
-                v.updateLayoutParams<MarginLayoutParams> { bottomMargin = insets.systemWindowInsetBottom }
+                v.updateLayoutParams<MarginLayoutParams> {
+                    bottomMargin = insets.systemWindowInsetBottom
+                }
                 insets
             }
         }
@@ -109,11 +118,44 @@ class StatsFragment : Fragment() {
                 binding.textViewStatsEmpty.isGone = false
             }
         }
+
+        requireActivity().addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.menu_stats, menu)
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                return when (menuItem.itemId) {
+                    R.id.menu_action_stats_info -> {
+                        showInfoDialog()
+                        true
+                    }
+                    else -> false
+                }
+            }
+
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
 
     override fun onDestroyView() {
         super.onDestroyView()
         binding = null
+    }
+
+    private fun showInfoDialog() {
+        MaterialAlertDialogBuilder(requireContext())
+            .setTitle(R.string.title_info)
+            .setMessage(
+                getString(
+                    R.string.stats_info,
+                    ConnectionSettings.getHost(requireContext()) ?: "<host>"
+                )
+            )
+            .setNeutralButton(R.string.stats_visit_opendta) { _, _ ->
+                openWebPage(requireContext(), requireContext().getString(R.string.url_opendta))
+            }
+            .setPositiveButton(R.string.action_close, null)
+            .show()
     }
 
 }
