@@ -36,6 +36,7 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
 import com.uwetrottmann.wpdisplay.R
 import com.uwetrottmann.wpdisplay.databinding.FragmentDisplayRvBinding
+import com.uwetrottmann.wpdisplay.graph.StatsFragment
 import com.uwetrottmann.wpdisplay.model.ConnectionStatus
 import com.uwetrottmann.wpdisplay.model.DisplayItems
 import com.uwetrottmann.wpdisplay.model.StatusData
@@ -140,6 +141,12 @@ class DisplayFragment : Fragment() {
                         togglePause()
                         true
                     }
+                    R.id.menu_action_display_stats -> {
+                        // Disconnect early to not interfere with loading data file.
+                        ConnectionTools.disconnect()
+                        showStatsFragment()
+                        true
+                    }
                     R.id.menu_action_display_settings -> {
                         showSettingsFragment()
                         true
@@ -177,6 +184,14 @@ class DisplayFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun showStatsFragment() {
+        parentFragmentManager.beginTransaction()
+            .setTransition(FragmentTransaction.TRANSIT_FRAGMENT_CLOSE)
+            .replace(R.id.container, StatsFragment())
+            .addToBackStack(null)
+            .commit()
     }
 
     private fun showSettingsFragment() {

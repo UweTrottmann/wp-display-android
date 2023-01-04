@@ -16,10 +16,7 @@
 
 package com.uwetrottmann.wpdisplay.settings
 
-import android.content.ActivityNotFoundException
-import android.content.Intent
 import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -37,6 +34,7 @@ import com.uwetrottmann.wpdisplay.BuildConfig
 import com.uwetrottmann.wpdisplay.R
 import com.uwetrottmann.wpdisplay.databinding.FragmentSettingsBinding
 import com.uwetrottmann.wpdisplay.model.DisplayItems
+import com.uwetrottmann.wpdisplay.util.openWebPage
 
 /**
  * App settings.
@@ -72,7 +70,9 @@ class SettingsFragment : Fragment() {
             }
         }
 
-        binding.buttonSettingsStore.setOnClickListener { openWebPage(getString(R.string.store_page_url)) }
+        binding.buttonSettingsStore.setOnClickListener {
+            openWebPage(requireContext(), getString(R.string.store_page_url))
+        }
         binding.radioSettingsColorSchemeSystem.apply {
             setText(
                 if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
@@ -167,7 +167,9 @@ class SettingsFragment : Fragment() {
 
     fun populateViews() {
         binding.editTextSettingsHost.setText(ConnectionSettings.getHost(requireContext()))
-        binding.editTextSettingsPort.setText(ConnectionSettings.getPort(requireContext()).toString())
+        binding.editTextSettingsPort.setText(
+            ConnectionSettings.getPort(requireContext()).toString()
+        )
 
         when (ThemeSettings.getThemeMode(requireContext())) {
             ThemeSettings.THEME_ALWAYS_DAY -> {
@@ -208,16 +210,4 @@ class SettingsFragment : Fragment() {
         ThemeSettings.saveThemeMode(requireContext(), themeMode)
     }
 
-    private fun openWebPage(url: String) {
-        val webpage = Uri.parse(url)
-        val intent = Intent(Intent.ACTION_VIEW, webpage)
-        // Note: Android docs suggest to use resolveActivity,
-        // but won't work on Android 11+ due to package visibility changes.
-        // https://developer.android.com/about/versions/11/privacy/package-visibility
-        try {
-            startActivity(intent)
-        } catch (e: ActivityNotFoundException) {
-            // Ignored
-        }
-    }
 }

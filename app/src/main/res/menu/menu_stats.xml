@@ -1,7 +1,5 @@
-<?xml version="1.0" encoding="utf-8"?>
-
-<!--
-  ~ Copyright 2015 Uwe Trottmann
+<?xml version="1.0" encoding="utf-8"?><!--
+  ~ Copyright 2023 Uwe Trottmann
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -20,21 +18,9 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/menu_action_display_pause"
-        android:icon="@drawable/ic_pause_white_24dp"
-        android:title="@string/action_pause"
-        app:showAsAction="ifRoom" />
-
-    <item
-        android:id="@+id/menu_action_display_stats"
-        android:icon="@drawable/ic_monitoring_24dp"
-        android:title="@string/title_stats"
-        app:showAsAction="ifRoom" />
-
-    <item
-        android:id="@+id/menu_action_display_settings"
-        android:icon="@drawable/ic_settings_white_24dp"
-        android:title="@string/title_settings"
+        android:id="@+id/menu_action_stats_info"
+        android:icon="@drawable/ic_info_24dp"
+        android:title="@string/title_info"
         app:showAsAction="ifRoom" />
 
 </menu>
