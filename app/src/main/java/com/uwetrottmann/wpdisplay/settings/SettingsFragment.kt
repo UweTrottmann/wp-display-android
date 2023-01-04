@@ -58,6 +58,12 @@ class SettingsFragment : Fragment() {
     private lateinit var viewAdapter: SettingsListAdapter
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        val actionBar = (activity as AppCompatActivity).supportActionBar
+        if (actionBar != null) {
+            actionBar.setTitle(R.string.title_settings)
+            actionBar.setDisplayHomeAsUpEnabled(true)
+        }
+
         // Drawing behind navigation bar on Android 10+.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             ViewCompat.setOnApplyWindowInsetsListener(binding.scrollViewSettings) { v, insets ->
@@ -129,17 +135,6 @@ class SettingsFragment : Fragment() {
             setHasFixedSize(true)
             layoutManager = viewManager
             adapter = viewAdapter
-        }
-    }
-
-    @Deprecated("Deprecated in Java")
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-        val actionBar = (activity as AppCompatActivity).supportActionBar
-        if (actionBar != null) {
-            actionBar.setTitle(R.string.title_settings)
-            actionBar.setDisplayHomeAsUpEnabled(true)
         }
 
         val viewModel = ViewModelProvider(this)[SettingsViewModel::class.java]

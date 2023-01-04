@@ -26,6 +26,7 @@ import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
+import androidx.core.view.MenuProvider
 import androidx.core.view.ViewCompat
 import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
@@ -67,6 +68,12 @@ class DisplayFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        val actionBar = (activity as AppCompatActivity).supportActionBar
+        if (actionBar != null) {
+            actionBar.setTitle(R.string.title_display)
+            actionBar.setDisplayHomeAsUpEnabled(false)
+        }
+
         // Drawing behind navigation bar on Android 10+.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             ViewCompat.setOnApplyWindowInsetsListener(binding.recyclerViewDisplay) { v, insets ->
@@ -104,19 +111,6 @@ class DisplayFragment : Fragment() {
             adapter = viewAdapter
             (itemAnimator as DefaultItemAnimator).supportsChangeAnimations = false
         }
-    }
-
-    @Deprecated("Deprecated in Java")
-    override fun onActivityCreated(savedInstanceState: Bundle?) {
-        super.onActivityCreated(savedInstanceState)
-
-        val actionBar = (activity as AppCompatActivity).supportActionBar
-        if (actionBar != null) {
-            actionBar.setTitle(R.string.title_display)
-            actionBar.setDisplayHomeAsUpEnabled(false)
-        }
-
-        setHasOptionsMenu(true)
 
         DataRequestRunnable.statusData.observe(viewLifecycleOwner) {
             buildDataAndUpdateAdapter(it)
@@ -126,6 +120,34 @@ class DisplayFragment : Fragment() {
                 handleConnectionEvent(it)
             }
         }
+
+        requireActivity().addMenuProvider(object : MenuProvider {
+            override fun onCreateMenu(menu: Menu, menuInflater: MenuInflater) {
+                menuInflater.inflate(R.menu.menu_display, menu)
+
+                val paused = ConnectionTools.isPaused
+                val item = menu.findItem(R.id.menu_action_display_pause)
+                item.setIcon(if (paused) R.drawable.ic_play_arrow_white_24dp else R.drawable.ic_pause_white_24dp)
+                item.setTitle(if (paused) R.string.action_resume else R.string.action_pause)
+
+                item.isEnabled = isConnected
+                item.isVisible = isConnected
+            }
+
+            override fun onMenuItemSelected(menuItem: MenuItem): Boolean {
+                return when (menuItem.itemId) {
+                    R.id.menu_action_display_pause -> {
+                        togglePause()
+                        true
+                    }
+                    R.id.menu_action_display_settings -> {
+                        showSettingsFragment()
+                        true
+                    }
+                    else -> false
+                }
+            }
+        }, viewLifecycleOwner, Lifecycle.State.RESUMED)
     }
 
     override fun onStart() {
@@ -155,33 +177,6 @@ class DisplayFragment : Fragment() {
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
-    }
-
-    override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
-        inflater.inflate(R.menu.menu_display, menu)
-
-        val paused = ConnectionTools.isPaused
-        val item = menu.findItem(R.id.menu_action_display_pause)
-        item.setIcon(if (paused) R.drawable.ic_play_arrow_white_24dp else R.drawable.ic_pause_white_24dp)
-        item.setTitle(if (paused) R.string.action_resume else R.string.action_pause)
-
-        item.isEnabled = isConnected
-        item.isVisible = isConnected
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            R.id.menu_action_display_pause -> {
-                togglePause()
-                return true
-            }
-            R.id.menu_action_display_settings -> {
-                showSettingsFragment()
-                return true
-            }
-        }
-
-        return super.onOptionsItemSelected(item)
     }
 
     private fun showSettingsFragment() {
