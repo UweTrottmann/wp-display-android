@@ -1,6 +1,10 @@
 Heat Pump Display Release Notes
 ===============================
 
+## In development
+
+- Add statistics screen to display some values of the DTA logging file of the controller.
+
 ## 16.0.1 (2022-03-11)
 
 - Add mixing circuit 1+2 outgoing and outgoing target temperatures.
