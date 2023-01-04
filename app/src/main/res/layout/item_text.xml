@@ -23,4 +23,5 @@
     android:layout_marginBottom="@dimen/padding_default"
     android:background="?attr/selectableItemBackground"
     android:focusable="true"
+    tools:ignore="Overdraw"
     tools:text="Operating State\nHeating" />

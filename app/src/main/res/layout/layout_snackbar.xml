@@ -44,7 +44,6 @@
             android:ellipsize="end"
             android:maxLines="3"
             android:paddingStart="24dp"
-            android:paddingLeft="24dp"
             android:paddingTop="@dimen/padding_large"
             android:paddingBottom="@dimen/padding_large"
             android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
@@ -58,7 +57,6 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginEnd="8dp"
-            android:layout_marginRight="8dp"
             tools:text="@string/action_setup" />
 
     </LinearLayout>

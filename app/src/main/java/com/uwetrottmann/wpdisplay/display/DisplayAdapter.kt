@@ -16,6 +16,7 @@
 
 package com.uwetrottmann.wpdisplay.display
 
+import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.core.widget.TextViewCompat
@@ -41,6 +42,7 @@ class DisplayAdapter(private val displayItems: MutableList<DisplayItem>) :
         notifyItemChanged(0)
     }
 
+    @SuppressLint("NotifyDataSetChanged")
     fun updateDisplayItems(newTimestamp: String, newDisplayItems: List<DisplayItem>) {
         timestamp = newTimestamp
         displayItems.clear()

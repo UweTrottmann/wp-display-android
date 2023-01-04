@@ -29,10 +29,10 @@
         android:layout_height="wrap_content"
         android:clipToPadding="false"
         android:orientation="vertical"
-        android:paddingBottom="@dimen/activity_vertical_margin"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingStart="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin"
+        android:paddingEnd="@dimen/activity_horizontal_margin"
+        android:paddingBottom="@dimen/activity_vertical_margin"
         tools:context="com.uwetrottmann.wpdisplay.settings.SettingsFragment">
 
         <TextView
@@ -115,10 +115,9 @@
                 android:id="@+id/radioSettingsColorSchemeSystem"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/padding_large"
-                android:paddingEnd="@dimen/padding_large"
-                android:paddingRight="@dimen/padding_large"
                 android:paddingTop="@dimen/padding_large"
+                android:paddingEnd="@dimen/padding_large"
+                android:paddingBottom="@dimen/padding_large"
                 android:text="@string/color_scheme_system"
                 android:textAppearance="@style/TextAppearance.Material3.BodyLarge" />
 
@@ -126,10 +125,9 @@
                 android:id="@+id/radioSettingsColorSchemeLight"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/padding_large"
-                android:paddingEnd="@dimen/padding_large"
-                android:paddingRight="@dimen/padding_large"
                 android:paddingTop="@dimen/padding_large"
+                android:paddingEnd="@dimen/padding_large"
+                android:paddingBottom="@dimen/padding_large"
                 android:text="@string/color_scheme_light"
                 android:textAppearance="@style/TextAppearance.Material3.BodyLarge" />
 
@@ -137,10 +135,9 @@
                 android:id="@+id/radioSettingsColorSchemeDark"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/padding_large"
-                android:paddingEnd="@dimen/padding_large"
-                android:paddingRight="@dimen/padding_large"
                 android:paddingTop="@dimen/padding_large"
+                android:paddingEnd="@dimen/padding_large"
+                android:paddingBottom="@dimen/padding_large"
                 android:text="@string/color_scheme_dark"
                 android:textAppearance="@style/TextAppearance.Material3.BodyLarge" />
 
@@ -148,10 +145,9 @@
                 android:id="@+id/radioSettingsColorSchemeAuto"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:paddingBottom="@dimen/padding_large"
-                android:paddingEnd="@dimen/padding_large"
-                android:paddingRight="@dimen/padding_large"
                 android:paddingTop="@dimen/padding_large"
+                android:paddingEnd="@dimen/padding_large"
+                android:paddingBottom="@dimen/padding_large"
                 android:text="@string/color_scheme_auto"
                 android:textAppearance="@style/TextAppearance.Material3.BodyLarge" />
 
