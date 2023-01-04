@@ -82,7 +82,7 @@ dependencies {
     implementation("androidx.recyclerview:recyclerview:1.2.1")
     // ViewModel and LiveData
     // https://developer.android.com/jetpack/androidx/releases/lifecycle
-    val lifecycleVersion = "2.4.1"
+    val lifecycleVersion = "2.5.1"
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion")
