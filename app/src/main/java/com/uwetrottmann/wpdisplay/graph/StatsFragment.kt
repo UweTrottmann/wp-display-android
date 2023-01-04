@@ -103,6 +103,14 @@ class StatsFragment : Fragment() {
             setText(R.string.stats_empty)
             isGone = false
         }
+        binding.buttonStatsRetry.apply {
+            isGone = true
+            setOnClickListener {
+                it.isEnabled = false
+                binding.textViewStatsEmpty.setText(R.string.stats_empty)
+                model.loadChartData()
+            }
+        }
 
         model.chartData.observe(viewLifecycleOwner) { result ->
             val chartData = result.chartData
@@ -112,10 +120,13 @@ class StatsFragment : Fragment() {
                 binding.chart.isGone = false
                 binding.chart.invalidate()
                 binding.textViewStatsEmpty.isGone = true
+                binding.buttonStatsRetry.isGone = true
             } else {
                 binding.chart.isGone = true
                 binding.textViewStatsEmpty.text = result.errorMessage
                 binding.textViewStatsEmpty.isGone = false
+                binding.buttonStatsRetry.isEnabled = true
+                binding.buttonStatsRetry.isGone = false
             }
         }
 

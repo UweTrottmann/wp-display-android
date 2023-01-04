@@ -31,6 +31,7 @@ import com.uwetrottmann.dtareader.DtaFileReader
 import com.uwetrottmann.wpdisplay.R
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import timber.log.Timber
 import java.io.IOException
 
 class StatsViewModel(
@@ -49,7 +50,7 @@ class StatsViewModel(
         loadChartData()
     }
 
-    private fun loadChartData() {
+    fun loadChartData() {
         val context = getApplication<Application>().applicationContext
 
         if (host.isNullOrEmpty()) {
@@ -65,6 +66,7 @@ class StatsViewModel(
                 val lineData = buildLineData(context, dtaFile)
                 chartData.postValue(Result(null, lineData))
             } catch (e: IOException) {
+                Timber.e(e, "Failed to read logger file")
                 chartData.postValue(
                     Result(
                         context.getString(
