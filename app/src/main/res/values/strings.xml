@@ -55,6 +55,10 @@
     <string name="label_text_compressor_impulses">Compressor impulses</string>
     <string name="label_text_compressor2_impulses">Compressor 2 impulses</string>
     <string name="label_text_compressor_frequency">Compressor frequency (Hz)</string>
+    <string name="label_text_heat_heating">Heat quantity heating</string>
+    <string name="label_text_heat_water">Heat quantity warm water</string>
+    <string name="label_text_heat_swimming_pool">Heat quantity swimming pool</string>
+    <string name="label_text_heat_total">Heat quantity total</string>
 
     <string name="label_firmware">Firmware</string>
     <string name="label_current_time">Date &amp; time</string>

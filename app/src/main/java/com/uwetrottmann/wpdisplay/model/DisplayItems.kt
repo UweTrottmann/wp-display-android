@@ -18,6 +18,7 @@ package com.uwetrottmann.wpdisplay.model
 
 import android.content.Context
 import androidx.preference.PreferenceManager
+import com.uwetrottmann.wpdisplay.model.StatusData.Type.TypeWithOffset.HeatQuantity
 import com.uwetrottmann.wpdisplay.model.StatusData.Type.TypeWithOffset.Temperature
 import com.uwetrottmann.wpdisplay.model.StatusData.Type.TypeWithOffset.TimeHours
 import com.uwetrottmann.wpdisplay.model.StatusData.Type.TypeWithOffset.TimeSeconds
@@ -26,7 +27,7 @@ object DisplayItems {
 
     const val KEY_DISABLED_DISPLAY_ITEMS = "DISABLED_DISPLAY_ITEMS"
 
-    // Current highest id is 42.
+    // Current highest id is 46.
     val all: List<DisplayItem> = listOf(
         TemperatureItem(1, Temperature.Outgoing),
         TemperatureItem(2, Temperature.Return),
@@ -68,6 +69,10 @@ object DisplayItems {
         DurationItem(26, TimeHours.OperatingHoursHeating),
         DurationItem(27, TimeHours.OperatingHoursWater),
         DurationItem(28, TimeHours.OperatingHoursSolar),
+        DurationItem(43, HeatQuantity.HeatQuantityHeating),
+        DurationItem(44, HeatQuantity.HeatQuantityWater),
+        DurationItem(45, HeatQuantity.HeatQuantitySwimmingPool),
+        DurationItem(46, HeatQuantity.HeatQuantityTotal),
         TextItem(17, StatusData.Type.FirmwareVersion),
         TextItem(34, StatusData.Type.CurrentTime)
     )

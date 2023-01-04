@@ -51,6 +51,7 @@ class StatusData(private val rawData: IntArray) {
             is Type.TypeWithOffset.Temperature -> getTemperature(type)
             is Type.TypeWithOffset.TimeSeconds -> getHoursMinutesSeconds(type)
             is TimeHours -> getHours(type)
+            is Type.TypeWithOffset.HeatQuantity -> "${getValueAt(type.offset)} ${context.getString(R.string.unit_kilowatthours)}"
             is Number -> getValueAt(type.offset).toString()
             is Type.OperatingState -> context.getString(getOperatingStateStringRes())
             is Type.CompressorAverageRuntime -> getCompressorAverageRuntime(
@@ -121,7 +122,10 @@ class StatusData(private val rawData: IntArray) {
         return OperatingState.fromIndex(state).labelRes
     }
 
-    private fun getCompressorAverageRuntime(compressorImpulses: Number, compressorHours: TimeHours): String {
+    private fun getCompressorAverageRuntime(
+        compressorImpulses: Number,
+        compressorHours: TimeHours
+    ): String {
         val impulses = max(0, getValueAt(compressorImpulses.offset))
         // Avoid division by 0.
         return if (impulses == 0) {
@@ -312,6 +316,27 @@ class StatusData(private val rawData: IntArray) {
 
                 object OperatingHoursSolar
                     : TimeHours(161, R.string.label_hours_solar)
+
+            }
+
+            /**
+             * Heat quantity in kWh.
+             */
+            sealed class HeatQuantity(
+                offset: Int, @StringRes labelResId: Int
+            ) : TypeWithOffset(labelResId, offset) {
+
+                object HeatQuantityHeating
+                    : HeatQuantity(151, R.string.label_text_heat_heating)
+
+                object HeatQuantityWater
+                    : HeatQuantity(152, R.string.label_text_heat_water)
+
+                object HeatQuantitySwimmingPool
+                    : HeatQuantity(153, R.string.label_text_heat_swimming_pool)
+
+                object HeatQuantityTotal
+                    : HeatQuantity(154, R.string.label_text_heat_total)
 
             }
 

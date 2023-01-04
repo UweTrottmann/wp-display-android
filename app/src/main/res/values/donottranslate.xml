@@ -2,6 +2,7 @@
 <resources>
 
     <string name="unit_celsius">°C</string>
+    <string name="unit_kilowatthours">kWh</string>
     <string name="store_page_url">https://play.google.com/store/apps/details?id=com.uwetrottmann.wpdisplay</string>
     <string name="url_opendta">https://sourceforge.net/projects/opendta/</string>
 

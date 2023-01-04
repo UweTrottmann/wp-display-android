@@ -55,6 +55,10 @@
     <string name="label_text_compressor_impulses">Verdichter Impulse</string>
     <string name="label_text_compressor2_impulses">Verdichter 2 Impulse</string>
     <string name="label_text_compressor_frequency">Verdichter Frequenz (Hz)</string>
+    <string name="label_text_heat_heating">Wärmemenge Heizung</string>
+    <string name="label_text_heat_water">Wärmemenge Brauchwasser</string>
+    <string name="label_text_heat_swimming_pool">Wärmemenge Schwimmbad</string>
+    <string name="label_text_heat_total">Wärmemenge Gesamt</string>
 
     <string name="label_firmware">Firmware</string>
     <string name="label_current_time">Datum &amp; Uhrzeit</string>
