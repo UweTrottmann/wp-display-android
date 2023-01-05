@@ -88,6 +88,7 @@ class StatsFragment : Fragment() {
         binding.chart.apply {
             isGone = true
             setPinchZoom(false)
+            description.isEnabled = false
             legend.textColor = textColor
             axisLeft.textColor = textColor
             axisRight.textColor = textColor
