@@ -3,7 +3,7 @@ Heat Pump Display Release Notes
 
 ## 17.0.0 (2023-01-04)
 
-- Require at least Android 5.
+- Updates only for Android 5 or newer.
 - Add statistics screen to display some values of the DTA logging file of the controller.
 - Add heat quantities.
 - Add compressor frequency.
