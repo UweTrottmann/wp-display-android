@@ -2,8 +2,6 @@
 
     <!-- Base application theme to enable day/night support. -->
     <style name="Base.Theme.WpDisplay.DayNight" parent="Theme.Material3.Light.NoActionBar">
-        <item name="colorPrimaryDark">@color/teal_700</item>
-
         <!-- Theme-dependent drawables -->
         <item name="background_border">@drawable/background_border_dark</item>
     </style>
@@ -13,9 +11,7 @@
         <item name="windowActionModeOverlay">true</item>
 
         <item name="colorPrimary">@color/teal_500</item>
-        <item name="colorPrimaryVariant">@color/teal_700</item>
         <item name="colorSecondary">@color/teal_500</item>
-        <item name="colorSecondaryVariant">@color/teal_700</item>
     </style>
 
     <style name="TextAppearance.App.Unit" parent="TextAppearance.Material3.TitleLarge">
