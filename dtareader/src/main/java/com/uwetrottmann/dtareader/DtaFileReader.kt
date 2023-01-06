@@ -39,14 +39,15 @@ import kotlin.experimental.and
  */
 class DtaFileReader {
 
+    fun getUrl(host: String) = "http://$host/NewProc"
+
     /**
      * Opens an HTTP (not encrypted) connection to the host to get the DTA statistics file.
      *
      * Throws [java.io.IOException] if opening the connection fails.
      */
     fun getLoggerFileStream(host: String): InputStream {
-        val url = URL("http://$host/NewProc")
-        return url.openConnection().getInputStream()
+        return URL(getUrl(host)).openConnection().getInputStream()
     }
 
     /**

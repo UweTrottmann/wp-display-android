@@ -84,8 +84,9 @@
 
     <string name="stats_empty">DTA Datei wird geladen</string>
     <string name="stats_error_load">Konnte DTA Datei nicht laden (%s)</string>
-    <string name="stats_info">Die DTA Datei wird vom Kontroller von http://%s/NewProc geladen.\n\nFür detailliertere Analysen ist die OpenDTA Desktop App einen Blick wert.</string>
+    <string name="stats_info">Die DTA Datei wird vom Kontroller von %s geladen.\n\nFür detailliertere Analysen ist die OpenDTA Desktop App einen Blick wert.</string>
     <string name="stats_visit_opendta">OpenDTA besuchen</string>
+    <string name="stats_get_dtafile">DTA Datei herunterladen</string>
     <string name="action_close">Schließen</string>
 
     <string name="settings_info_software_update">Um die neue Weboberfläche, aktuelle Fehlerbehebungen und Funktionen zu erhalten können Sie die Software Ihres Kontrollgeräts aktualisieren. Besuchen Sie die Herstellerseite für Details.</string>

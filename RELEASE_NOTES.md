@@ -1,6 +1,8 @@
 Heat Pump Display Release Notes
 ===============================
 
+- Add button to download DTA file.
+
 ## 17.0.0 (2023-01-04)
 
 - Updates only for Android 5 or newer.

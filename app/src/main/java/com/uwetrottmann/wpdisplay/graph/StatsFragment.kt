@@ -37,6 +37,7 @@ import com.github.mikephil.charting.components.AxisBase
 import com.github.mikephil.charting.formatter.ValueFormatter
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.dialog.MaterialAlertDialogBuilder
+import com.uwetrottmann.dtareader.DtaFileReader
 import com.uwetrottmann.wpdisplay.R
 import com.uwetrottmann.wpdisplay.databinding.FragmentStatsBinding
 import com.uwetrottmann.wpdisplay.settings.ConnectionSettings
@@ -155,19 +156,22 @@ class StatsFragment : Fragment() {
     }
 
     private fun showInfoDialog() {
-        MaterialAlertDialogBuilder(requireContext())
+        val dtaUrl = ConnectionSettings.getHost(requireContext())
+            .let { if (it.isNullOrEmpty()) null else DtaFileReader().getUrl(it) }
+
+        val builder = MaterialAlertDialogBuilder(requireContext())
             .setTitle(R.string.title_info)
-            .setMessage(
-                getString(
-                    R.string.stats_info,
-                    ConnectionSettings.getHost(requireContext()) ?: "<host>"
-                )
-            )
-            .setNeutralButton(R.string.stats_visit_opendta) { _, _ ->
+            .setMessage(getString(R.string.stats_info, dtaUrl ?: getString(R.string.setup_missing)))
+            .setNegativeButton(R.string.stats_visit_opendta) { _, _ ->
                 openWebPage(requireContext(), requireContext().getString(R.string.url_opendta))
             }
-            .setPositiveButton(R.string.action_close, null)
-            .show()
+            .setNeutralButton(R.string.action_close, null)
+        if (dtaUrl != null) {
+            builder.setPositiveButton(R.string.stats_get_dtafile) { _, _ ->
+                openWebPage(requireContext(), dtaUrl)
+            }
+        }
+        builder.show()
     }
 
 }

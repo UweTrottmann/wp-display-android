@@ -84,8 +84,9 @@
 
     <string name="stats_empty">Loading DTA file</string>
     <string name="stats_error_load">Failed to load DTA file (%s)</string>
-    <string name="stats_info">The DTA file is loaded from the controller at http://%s/NewProc.\n\nFor more detailed analysis check out the OpenDTA desktop app.</string>
+    <string name="stats_info">The DTA file is loaded from the controller at %s.\n\nFor more detailed analysis check out the OpenDTA desktop app.</string>
     <string name="stats_visit_opendta">Visit OpenDTA</string>
+    <string name="stats_get_dtafile">Download DTA file</string>
     <string name="action_close">Close</string>
 
     <string name="settings_info_software_update">To get the new web interface, the latest fixes and features you can update the software of your controller. Visit the manufacturer website for details.</string>
