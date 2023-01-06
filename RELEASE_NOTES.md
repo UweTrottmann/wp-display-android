@@ -1,6 +1,8 @@
 Heat Pump Display Release Notes
 ===============================
 
+## 17.0.1 (2023-01-06)
+
 - Add button to download DTA file.
 
 ## 17.0.0 (2023-01-04)
