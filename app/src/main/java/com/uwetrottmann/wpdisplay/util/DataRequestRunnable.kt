@@ -58,11 +58,17 @@ class DataRequestRunnable(private val listener: ConnectionListener) : Runnable {
             return
         }
 
-        Timber.d("run: requesting status data")
-
         try {
-            val settingsData = requestSettings(input, output) ?: return
+            val previousData = statusData.value
+            val settingsData = if (previousData == null || previousData.shouldRefreshSettings) {
+                Timber.d("run: requesting settings data")
+                requestSettings(input, output) ?: return
+            } else {
+                Timber.d("run: using previous settings data")
+                previousData.settingsData
+            }
 
+            Timber.d("run: requesting status data")
             val statusData = requestStatusData(input, output, settingsData) ?: return
 
             // don't update data if we have been paused
@@ -151,8 +157,7 @@ class DataRequestRunnable(private val listener: ConnectionListener) : Runnable {
             return null
         }
 
-        // Status: If bigger 0, indicates that parameters have changed.
-        // Currently ignoring this value.
+        // Status: If bigger 0, indicates that settings have changed.
         val status = input.readInt()
         Timber.d("status=$status")
 
@@ -178,7 +183,7 @@ class DataRequestRunnable(private val listener: ConnectionListener) : Runnable {
             data[Type.TypeWithOffset.HeatQuantity.HeatQuantitySince.offset] = 404
         }
 
-        return StatusData(data, settingsData)
+        return StatusData(data, status > 0, settingsData)
     }
 
     companion object {

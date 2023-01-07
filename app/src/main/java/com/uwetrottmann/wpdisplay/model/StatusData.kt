@@ -31,10 +31,11 @@ import kotlin.math.max
  */
 class StatusData(
     private val rawData: IntArray,
-    private val settingsData: SettingsData
+    val shouldRefreshSettings: Boolean,
+    val settingsData: SettingsData
 ) {
 
-    constructor() : this(IntArray(LENGTH_BYTES), SettingsData())
+    constructor() : this(IntArray(LENGTH_BYTES), shouldRefreshSettings = true, SettingsData())
 
     /**
      * Return the [java.util.Date] this status data was stored.
