@@ -1,6 +1,8 @@
 Heat Pump Display Release Notes
 ===============================
 
+- Correct heat quantity values order of magnitude.
+
 ## 17.0.1 (2023-01-06)
 
 - Add button to download DTA file.

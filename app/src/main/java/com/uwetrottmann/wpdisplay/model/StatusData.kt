@@ -51,7 +51,7 @@ class StatusData(private val rawData: IntArray) {
             is Type.TypeWithOffset.Temperature -> getTemperature(type)
             is Type.TypeWithOffset.TimeSeconds -> getHoursMinutesSeconds(type)
             is TimeHours -> getHours(type)
-            is Type.TypeWithOffset.HeatQuantity -> "${getValueAt(type.offset)} ${context.getString(R.string.unit_kilowatthours)}"
+            is Type.TypeWithOffset.HeatQuantity -> getHeatQuantity(context, type)
             is Number -> getValueAt(type.offset).toString()
             is Type.OperatingState -> context.getString(getOperatingStateStringRes())
             is Type.CompressorAverageRuntime -> getCompressorAverageRuntime(
@@ -68,12 +68,22 @@ class StatusData(private val rawData: IntArray) {
     }
 
     /**
-     * Get a Celsius temperature value.
+     * Get a Celsius temperature value with single fractional digit (e.g. "1.5").
      */
     private fun getTemperature(temperature: Type.TypeWithOffset.Temperature): String {
         val tempRaw = getValueAt(temperature.offset)
         val tempValue = tempRaw / 10.0
         return String.format(Locale.getDefault(), "%.1f", tempValue)
+    }
+
+    /**
+     * Get a heat quantity value with single fractional digit and unit (e.g. "100.5 kWh").
+     */
+    private fun getHeatQuantity(context: Context, quantity: Type.TypeWithOffset.HeatQuantity): String {
+        val quantityRaw = getValueAt(quantity.offset)
+        val quantityValue = quantityRaw / 10.0
+        val quantityDisplayValue = String.format(Locale.getDefault(), "%.1f", quantityValue)
+        return "$quantityDisplayValue ${context.getString(R.string.unit_kilowatthours)}"
     }
 
     /**
