@@ -72,7 +72,7 @@ class TemperatureItem(
 
 }
 
-open class TextItem(
+open class FullWidthItem(
     id: Int,
     type: StatusData.Type
 ) : DisplayItem(id, type) {
@@ -105,6 +105,6 @@ open class TextItem(
 }
 
 /**
- * Same as [TextItem], but gets less span count (width).
+ * Same as [FullWidthItem], but gets less span count (width).
  */
-class DurationItem(id: Int, type: StatusData.Type) : TextItem(id, type)
+class HalfWidthItem(id: Int, type: StatusData.Type) : FullWidthItem(id, type)
