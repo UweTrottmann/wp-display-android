@@ -81,8 +81,10 @@ class DataRequestRunnable(private val listener: ConnectionListener) : Runnable {
                 return
             }
 
-            // ignored value
+            // Status: If bigger 0, indicates that parameters have changed.
+            // Currently ignoring this value.
             input.readInt()
+
             // length (from server, so untrusted!)
             // cap maximum number of bytes read
             val lengthByServer = input.readInt()
