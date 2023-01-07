@@ -59,6 +59,7 @@
     <string name="label_text_heat_water">Wärmemenge Brauchwasser</string>
     <string name="label_text_heat_swimming_pool">Wärmemenge Schwimmbad</string>
     <string name="label_text_heat_total">Wärmemenge Gesamt</string>
+    <string name="label_text_heat_since">Wärmemenge Seit</string>
 
     <string name="label_firmware">Firmware</string>
     <string name="label_current_time">Datum &amp; Uhrzeit</string>

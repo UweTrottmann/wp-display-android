@@ -18,6 +18,7 @@ package com.uwetrottmann.wpdisplay.model
 
 import android.content.Context
 import androidx.preference.PreferenceManager
+import com.uwetrottmann.wpdisplay.model.StatusData.Type
 import com.uwetrottmann.wpdisplay.model.StatusData.Type.TypeWithOffset.HeatQuantity
 import com.uwetrottmann.wpdisplay.model.StatusData.Type.TypeWithOffset.Temperature
 import com.uwetrottmann.wpdisplay.model.StatusData.Type.TypeWithOffset.TimeHours
@@ -27,7 +28,7 @@ object DisplayItems {
 
     const val KEY_DISABLED_DISPLAY_ITEMS = "DISABLED_DISPLAY_ITEMS"
 
-    // Current highest id is 46.
+    // Current highest id is 47.
     val all: List<DisplayItem> = listOf(
         TemperatureItem(1, Temperature.Outgoing),
         TemperatureItem(2, Temperature.Return),
@@ -47,7 +48,7 @@ object DisplayItems {
         TemperatureItem(18, Temperature.SolarCollector),
         TemperatureItem(19, Temperature.SolarTank),
         TemperatureItem(21, Temperature.ExternalEnergySource),
-        TextItem(11, StatusData.Type.OperatingState),
+        TextItem(11, Type.OperatingState),
         DurationItem(12, TimeSeconds.PumpActive),
         DurationItem(32, TimeSeconds.SecondaryHeater1Active),
         DurationItem(33, TimeSeconds.SecondaryHeater2Active),
@@ -56,12 +57,12 @@ object DisplayItems {
         DurationItem(15, TimeSeconds.ReturnLower),
         DurationItem(16, TimeSeconds.ReturnHigher),
         DurationItem(22, TimeHours.OperatingHoursCompressor),
-        DurationItem(23, StatusData.Type.TypeWithOffset.Number.CompressorImpulses),
-        DurationItem(24, StatusData.Type.CompressorAverageRuntime),
-        DurationItem(42, StatusData.Type.TypeWithOffset.Number.CompressorFrequency),
+        DurationItem(23, Type.TypeWithOffset.Number.CompressorImpulses),
+        DurationItem(24, Type.CompressorAverageRuntime),
+        DurationItem(42, Type.TypeWithOffset.Number.CompressorFrequency),
         DurationItem(35, TimeHours.OperatingHoursCompressor2),
-        DurationItem(36, StatusData.Type.TypeWithOffset.Number.Compressor2Impulses),
-        DurationItem(37, StatusData.Type.Compressor2AverageRuntime),
+        DurationItem(36, Type.TypeWithOffset.Number.Compressor2Impulses),
+        DurationItem(37, Type.Compressor2AverageRuntime),
         DurationItem(29, TimeHours.OperatingHoursSecondaryHeater1),
         DurationItem(30, TimeHours.OperatingHoursSecondaryHeater2),
         DurationItem(31, TimeHours.OperatingHoursSecondaryHeater3),
@@ -72,9 +73,10 @@ object DisplayItems {
         DurationItem(43, HeatQuantity.HeatQuantityHeating),
         DurationItem(44, HeatQuantity.HeatQuantityWater),
         DurationItem(45, HeatQuantity.HeatQuantitySwimmingPool),
-        DurationItem(46, HeatQuantity.HeatQuantityTotal),
-        TextItem(17, StatusData.Type.FirmwareVersion),
-        TextItem(34, StatusData.Type.CurrentTime)
+        DurationItem(47, Type.HeatQuantityTotal),
+        DurationItem(46, HeatQuantity.HeatQuantitySince),
+        TextItem(17, Type.FirmwareVersion),
+        TextItem(34, Type.CurrentTime)
     )
     /** Returns a copy of all DisplayItems that are enabled. */
     val enabled: List<DisplayItem>

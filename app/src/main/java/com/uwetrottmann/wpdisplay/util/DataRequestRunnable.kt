@@ -17,7 +17,9 @@
 package com.uwetrottmann.wpdisplay.util
 
 import androidx.lifecycle.MutableLiveData
+import com.uwetrottmann.wpdisplay.BuildConfig
 import com.uwetrottmann.wpdisplay.model.StatusData
+import com.uwetrottmann.wpdisplay.model.StatusData.Type
 import timber.log.Timber
 import java.io.IOException
 
@@ -93,6 +95,14 @@ class DataRequestRunnable(private val listener: ConnectionListener) : Runnable {
             // try reading sent data
             for (i in 0 until length) {
                 data[i] = input.readInt()
+            }
+
+            // Set some debug data.
+            if (BuildConfig.DEBUG) {
+                data[Type.TypeWithOffset.HeatQuantity.HeatQuantityHeating.offset] = 101
+                data[Type.TypeWithOffset.HeatQuantity.HeatQuantityWater.offset] = 202
+                data[Type.TypeWithOffset.HeatQuantity.HeatQuantitySwimmingPool.offset] = 303
+                data[Type.TypeWithOffset.HeatQuantity.HeatQuantitySince.offset] = 404
             }
 
             // don't update data if we have been paused

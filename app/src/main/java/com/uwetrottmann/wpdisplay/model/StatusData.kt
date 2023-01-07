@@ -51,7 +51,8 @@ class StatusData(private val rawData: IntArray) {
             is Type.TypeWithOffset.Temperature -> getTemperature(type)
             is Type.TypeWithOffset.TimeSeconds -> getHoursMinutesSeconds(type)
             is TimeHours -> getHours(type)
-            is Type.TypeWithOffset.HeatQuantity -> getHeatQuantity(context, type)
+            is Type.TypeWithOffset.HeatQuantity, is Type.HeatQuantityTotal ->
+                getHeatQuantity(context, type)
             is Number -> getValueAt(type.offset).toString()
             is Type.OperatingState -> context.getString(getOperatingStateStringRes())
             is Type.CompressorAverageRuntime -> getCompressorAverageRuntime(
@@ -79,8 +80,15 @@ class StatusData(private val rawData: IntArray) {
     /**
      * Get a heat quantity value with single fractional digit and unit (e.g. "100.5 kWh").
      */
-    private fun getHeatQuantity(context: Context, quantity: Type.TypeWithOffset.HeatQuantity): String {
-        val quantityRaw = getValueAt(quantity.offset)
+    private fun getHeatQuantity(context: Context, quantity: Type): String {
+        val quantityRaw = if (quantity == Type.HeatQuantityTotal) {
+            getValueAt(Type.TypeWithOffset.HeatQuantity.HeatQuantityHeating.offset) +
+                    getValueAt(Type.TypeWithOffset.HeatQuantity.HeatQuantityWater.offset) +
+                    getValueAt(Type.TypeWithOffset.HeatQuantity.HeatQuantitySwimmingPool.offset)
+        } else if (quantity is Type.TypeWithOffset.HeatQuantity) {
+            getValueAt(quantity.offset)
+        } else throw IllegalArgumentException("Given type is not a heat quantity type.")
+
         val quantityValue = quantityRaw / 10.0
         val quantityDisplayValue = String.format(Locale.getDefault(), "%.1f", quantityValue)
         return "$quantityDisplayValue ${context.getString(R.string.unit_kilowatthours)}"
@@ -193,6 +201,7 @@ class StatusData(private val rawData: IntArray) {
         object OperatingState : Type(R.string.label_operating_state)
         object CompressorAverageRuntime : Type(R.string.label_compressor_average_runtime)
         object Compressor2AverageRuntime : Type(R.string.label_compressor2_average_runtime)
+        object HeatQuantityTotal : Type(R.string.label_text_heat_total)
         object FirmwareVersion : Type(R.string.label_firmware)
         object CurrentTime : Type(R.string.label_current_time)
 
@@ -345,8 +354,8 @@ class StatusData(private val rawData: IntArray) {
                 object HeatQuantitySwimmingPool
                     : HeatQuantity(153, R.string.label_text_heat_swimming_pool)
 
-                object HeatQuantityTotal
-                    : HeatQuantity(154, R.string.label_text_heat_total)
+                object HeatQuantitySince
+                    : HeatQuantity(154, R.string.label_text_heat_since)
 
             }
 

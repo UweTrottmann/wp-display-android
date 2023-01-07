@@ -59,6 +59,7 @@
     <string name="label_text_heat_water">Heat quantity warm water</string>
     <string name="label_text_heat_swimming_pool">Heat quantity swimming pool</string>
     <string name="label_text_heat_total">Heat quantity total</string>
+    <string name="label_text_heat_since">Heat quantity since</string>
 
     <string name="label_firmware">Firmware</string>
     <string name="label_current_time">Date &amp; time</string>
