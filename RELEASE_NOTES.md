@@ -1,6 +1,8 @@
 Heat Pump Display Release Notes
 ===============================
 
+## 17.1.0 (2023-01-07)
+
 - Correct heat quantity values order of magnitude.
 - Add actual total heat quantity.
 - Display heat quantity since date.
