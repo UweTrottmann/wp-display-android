@@ -58,6 +58,7 @@
     <string name="label_text_heat_heating">Heat quantity heating</string>
     <string name="label_text_heat_water">Heat quantity warm water</string>
     <string name="label_text_heat_swimming_pool">Heat quantity swimming pool</string>
+    <string name="label_text_heat_photovoltaics">Heat quantity photovoltaics</string>
     <string name="label_text_heat_total">Heat quantity total</string>
     <string name="label_text_heat_since">Heat quantity since</string>
 
@@ -68,6 +69,7 @@
     <string name="state_heating">Heating</string>
     <string name="state_water">Hot Water</string>
     <string name="state_swimming_pool">Swimming pool</string>
+    <string name="state_photovoltaics">Photovoltaics</string>
     <string name="state_power_supply_company">Power supply company</string>
     <string name="state_defrost">Defrost</string>
     <string name="state_noop">Inactive</string>

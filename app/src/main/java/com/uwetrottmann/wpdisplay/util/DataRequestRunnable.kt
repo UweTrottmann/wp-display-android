@@ -128,6 +128,11 @@ class DataRequestRunnable(private val listener: ConnectionListener) : Runnable {
             data.rawData[i] = input.readInt()
         }
 
+        // Set some debug data.
+        if (BuildConfig.DEBUG) {
+            data.rawData[SettingsData.TypeWithOffset.BooleanType.PhotovoltaicsActive.offset] = 1
+        }
+
         return data
     }
 

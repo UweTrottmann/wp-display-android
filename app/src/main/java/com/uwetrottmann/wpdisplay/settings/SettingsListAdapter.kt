@@ -23,6 +23,8 @@ import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.uwetrottmann.wpdisplay.databinding.ItemSelectableBinding
 import com.uwetrottmann.wpdisplay.model.DisplayItem
+import com.uwetrottmann.wpdisplay.model.StatusData
+import com.uwetrottmann.wpdisplay.util.DataRequestRunnable
 
 class SettingsListAdapter :
     ListAdapter<DisplayItem, SettingsListAdapter.SettingsViewHolder>(object :
@@ -51,7 +53,8 @@ class SettingsListAdapter :
                 setOnCheckedChangeListener(null) // disable while binding
                 isChecked = item.enabled
                 setOnCheckedChangeListener { _, isChecked -> item.enabled = isChecked }
-                setText(item.type.labelResId)
+                val currentData = DataRequestRunnable.statusData.value ?: StatusData()
+                text = currentData.getLabelFor(item.type, this.context)
             }
         }
     }

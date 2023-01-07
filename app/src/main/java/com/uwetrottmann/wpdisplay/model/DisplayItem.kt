@@ -39,7 +39,7 @@ class TemperatureItem(
     override fun buildCharSequence(context: Context, statusData: StatusData) {
         val builder = SpannableStringBuilder()
 
-        builder.append(context.getString(type.labelResId))
+        builder.append(statusData.getLabelFor(type, context))
         builder.setSpan(
             TextAppearanceSpan(
                 context,
@@ -80,7 +80,7 @@ open class FullWidthItem(
     override fun buildCharSequence(context: Context, statusData: StatusData) {
         val builder = SpannableStringBuilder()
 
-        builder.append(context.getString(type.labelResId))
+        builder.append(statusData.getLabelFor(type, context))
         builder.setSpan(
             TextAppearanceSpan(
                 context,

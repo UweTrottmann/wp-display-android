@@ -4,6 +4,7 @@ Heat Pump Display Release Notes
 - Correct heat quantity values order of magnitude.
 - Add actual total heat quantity.
 - Display heat quantity since date.
+- Detect if photovoltaics instead of swimming pool is configured.
 
 ## 17.0.1 (2023-01-06)
 

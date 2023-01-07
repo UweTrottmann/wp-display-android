@@ -17,6 +17,7 @@
 package com.uwetrottmann.wpdisplay.model
 
 import SettingsData
+import SettingsData.TypeWithOffset.BooleanType.PhotovoltaicsActive
 import android.content.Context
 import androidx.annotation.StringRes
 import com.uwetrottmann.wpdisplay.R
@@ -49,6 +50,20 @@ class StatusData(
             )
         }
         this.timestamp = Date()
+    }
+
+    fun getLabelFor(type: Type, context: Context): String {
+        return when (type) {
+            is Type.TypeWithOffset.HeatQuantity.HeatQuantitySwimmingPool -> {
+                // If PV is active, the swimming pool becomes PV (:
+                if (PhotovoltaicsActive.getValue(settingsData)) {
+                    context.getString(R.string.label_text_heat_photovoltaics)
+                } else {
+                    context.getString(type.labelResId)
+                }
+            }
+            else -> context.getString(type.labelResId)
+        }
     }
 
     fun getValueFor(type: Type, context: Context): String {
@@ -145,8 +160,14 @@ class StatusData(
     }
 
     private fun getOperatingStateStringRes(): Int {
-        val state = getValueAt(OPERATING_STATE_INDEX)
-        return OperatingState.fromIndex(state).labelRes
+        val stateIndex = getValueAt(OPERATING_STATE_INDEX)
+        val state = OperatingState.fromIndex(stateIndex)
+        // If PV is active, the swimming pool becomes PV (:
+        return if (state == OperatingState.SWB && PhotovoltaicsActive.getValue(settingsData)) {
+            R.string.state_photovoltaics
+        } else {
+            state.labelRes
+        }
     }
 
     private fun getCompressorAverageRuntime(
