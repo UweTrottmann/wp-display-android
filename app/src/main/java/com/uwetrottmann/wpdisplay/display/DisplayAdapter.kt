@@ -26,9 +26,9 @@ import com.uwetrottmann.wpdisplay.databinding.ItemTextBinding
 import com.uwetrottmann.wpdisplay.databinding.LayoutStatusBinding
 import com.uwetrottmann.wpdisplay.model.ConnectionStatus
 import com.uwetrottmann.wpdisplay.model.DisplayItem
-import com.uwetrottmann.wpdisplay.model.DurationItem
+import com.uwetrottmann.wpdisplay.model.HalfWidthItem
 import com.uwetrottmann.wpdisplay.model.TemperatureItem
-import com.uwetrottmann.wpdisplay.model.TextItem
+import com.uwetrottmann.wpdisplay.model.FullWidthItem
 import com.uwetrottmann.wpdisplay.util.copyTextToClipboardOnClick
 
 class DisplayAdapter(private val displayItems: MutableList<DisplayItem>) :
@@ -56,8 +56,8 @@ class DisplayAdapter(private val displayItems: MutableList<DisplayItem>) :
         } else {
             when (displayItems[position - 1]) {
                 is TemperatureItem -> VIEW_TYPE_TEMPERATURE
-                is DurationItem -> VIEW_TYPE_DURATION
-                is TextItem -> VIEW_TYPE_TEXT
+                is HalfWidthItem -> VIEW_TYPE_DURATION
+                is FullWidthItem -> VIEW_TYPE_TEXT
                 else -> throw IllegalArgumentException("View type unknown for position $position")
             }
         }

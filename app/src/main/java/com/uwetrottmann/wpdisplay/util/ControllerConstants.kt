@@ -20,6 +20,7 @@ package com.uwetrottmann.wpdisplay.util
  */
 interface ControllerConstants {
     companion object {
+        const val COMMAND_REQUEST_SETTINGS = 3003
         const val COMMAND_REQUEST_STATUS = 3004
     }
 }

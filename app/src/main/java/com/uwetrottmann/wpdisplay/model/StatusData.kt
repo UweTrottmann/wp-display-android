@@ -16,6 +16,8 @@
 
 package com.uwetrottmann.wpdisplay.model
 
+import SettingsData
+import SettingsData.TypeWithOffset.BooleanType.PhotovoltaicsActive
 import android.content.Context
 import androidx.annotation.StringRes
 import com.uwetrottmann.wpdisplay.R
@@ -28,9 +30,13 @@ import kotlin.math.max
 /**
  * Holder object for heat pump controller status data.
  */
-class StatusData(private val rawData: IntArray) {
+class StatusData(
+    private val rawData: IntArray,
+    val shouldRefreshSettings: Boolean,
+    val settingsData: SettingsData
+) {
 
-    constructor() : this(IntArray(LENGTH_BYTES))
+    constructor() : this(IntArray(LENGTH_BYTES), shouldRefreshSettings = true, SettingsData())
 
     /**
      * Return the [java.util.Date] this status data was stored.
@@ -46,6 +52,20 @@ class StatusData(private val rawData: IntArray) {
         this.timestamp = Date()
     }
 
+    fun getLabelFor(type: Type, context: Context): String {
+        return when (type) {
+            is Type.TypeWithOffset.HeatQuantity.HeatQuantitySwimmingPool -> {
+                // If PV is active, the swimming pool becomes PV (:
+                if (PhotovoltaicsActive.getValue(settingsData)) {
+                    context.getString(R.string.label_text_heat_photovoltaics)
+                } else {
+                    context.getString(type.labelResId)
+                }
+            }
+            else -> context.getString(type.labelResId)
+        }
+    }
+
     fun getValueFor(type: Type, context: Context): String {
         return when (type) {
             is Type.TypeWithOffset.Temperature -> getTemperature(type)
@@ -53,6 +73,7 @@ class StatusData(private val rawData: IntArray) {
             is TimeHours -> getHours(type)
             is Type.TypeWithOffset.HeatQuantity, is Type.HeatQuantityTotal ->
                 getHeatQuantity(context, type)
+            is Type.HeatQuantitySinceDate -> getHeatQuantitySinceDate()
             is Number -> getValueAt(type.offset).toString()
             is Type.OperatingState -> context.getString(getOperatingStateStringRes())
             is Type.CompressorAverageRuntime -> getCompressorAverageRuntime(
@@ -93,6 +114,9 @@ class StatusData(private val rawData: IntArray) {
         val quantityDisplayValue = String.format(Locale.getDefault(), "%.1f", quantityValue)
         return "$quantityDisplayValue ${context.getString(R.string.unit_kilowatthours)}"
     }
+
+    private fun getHeatQuantitySinceDate(): String =
+        SettingsData.TypeWithOffset.DateType.HeatQuantitySinceDate.getValue(settingsData)
 
     /**
      * Get a time duration string with second precision, formatted like "1h 2min 3sec".
@@ -136,8 +160,14 @@ class StatusData(private val rawData: IntArray) {
     }
 
     private fun getOperatingStateStringRes(): Int {
-        val state = getValueAt(OPERATING_STATE_INDEX)
-        return OperatingState.fromIndex(state).labelRes
+        val stateIndex = getValueAt(OPERATING_STATE_INDEX)
+        val state = OperatingState.fromIndex(stateIndex)
+        // If PV is active, the swimming pool becomes PV (:
+        return if (state == OperatingState.SWB && PhotovoltaicsActive.getValue(settingsData)) {
+            R.string.state_photovoltaics
+        } else {
+            state.labelRes
+        }
     }
 
     private fun getCompressorAverageRuntime(
@@ -202,6 +232,7 @@ class StatusData(private val rawData: IntArray) {
         object CompressorAverageRuntime : Type(R.string.label_compressor_average_runtime)
         object Compressor2AverageRuntime : Type(R.string.label_compressor2_average_runtime)
         object HeatQuantityTotal : Type(R.string.label_text_heat_total)
+        object HeatQuantitySinceDate : Type(R.string.label_text_heat_since)
         object FirmwareVersion : Type(R.string.label_firmware)
         object CurrentTime : Type(R.string.label_current_time)
 

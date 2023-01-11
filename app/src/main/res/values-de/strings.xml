@@ -58,6 +58,7 @@
     <string name="label_text_heat_heating">Wärmemenge Heizung</string>
     <string name="label_text_heat_water">Wärmemenge Brauchwasser</string>
     <string name="label_text_heat_swimming_pool">Wärmemenge Schwimmbad</string>
+    <string name="label_text_heat_photovoltaics">Wärmemenge Photovoltaik</string>
     <string name="label_text_heat_total">Wärmemenge Gesamt</string>
     <string name="label_text_heat_since">Wärmemenge Seit</string>
 
@@ -68,6 +69,7 @@
     <string name="state_heating">Heizung</string>
     <string name="state_water">Brauchwasser</string>
     <string name="state_swimming_pool">Schwimmbad</string>
+    <string name="state_photovoltaics">Photovoltaik</string>
     <string name="state_power_supply_company">Energieversorger</string>
     <string name="state_defrost">Abtauen</string>
     <string name="state_noop">Inaktiv</string>
