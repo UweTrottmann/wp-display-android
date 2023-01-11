@@ -67,4 +67,49 @@ class DtaFileReaderTest {
         assertEquals(11.0, lastDataSet.getValue(lastField))
     }
 
+    @Test
+    fun getAndReadLoggerFileStream_enums() {
+        val testFileInputStream = File("src/test/testdata/NewProc-enums.dta").inputStream()
+
+        val loader = DtaFileReader()
+        val readLoggerFile = loader.readLoggerFile(testFileInputStream)
+
+        readLoggerFile.fields.forEach { println(it) }
+        assertEquals(76, readLoggerFile.fields.size)
+        assertEquals(69, readLoggerFile.analogueFields.size)
+        assertEquals(6, readLoggerFile.digitalFields.size)
+        assertEquals(1, readLoggerFile.enumFields.size)
+
+        val firstField = readLoggerFile.analogueFields.first()
+        assertEquals("Text_Vorlauf", firstField.name)
+        val lastField = readLoggerFile.analogueFields.last()
+        assertEquals("Text_WP_Typ", lastField.name)
+
+        // Check fields used by the app exist
+        // Note this file uses different names
+        assertNotNull(readLoggerFile.analogueFields.find { it.name == "Text_Vorlauf" })
+        assertNotNull(readLoggerFile.analogueFields.find { it.name == "Text_Rucklauf" })
+        assertNotNull(readLoggerFile.analogueFields.find { it.name == "Text_Aussent" })
+        assertNotNull(readLoggerFile.analogueFields.find { it.name == "Text_BW_Ist" })
+
+        assertEquals(2880, readLoggerFile.datasets.size)
+        readLoggerFile.datasets.forEach { dataSet ->
+            assertEquals(69 + 6 + 1, dataSet.fieldValues.size)
+//            println("${Instant.ofEpochSecond(dataSet.timestampEpochSecond)} ${dataSet.fieldValues}")
+            readLoggerFile.analogueFields.forEach {
+                dataSet.getValue(it)
+            }
+            readLoggerFile.digitalFields.forEach {
+                dataSet.getValue(it)
+            }
+        }
+
+        val firstDataSet = readLoggerFile.datasets.first()
+        assertEquals(38.1, firstDataSet.getValue(firstField))
+        assertEquals(75.0, firstDataSet.getValue(lastField))
+        val lastDataSet = readLoggerFile.datasets.last()
+        assertEquals(36.8, lastDataSet.getValue(firstField))
+        assertEquals(75.0, lastDataSet.getValue(lastField))
+    }
+
 }
