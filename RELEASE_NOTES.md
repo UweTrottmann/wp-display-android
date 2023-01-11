@@ -1,6 +1,8 @@
 Heat Pump Display Release Notes
 ===============================
 
+## 17.1.1 (2023-01-11)
+
 - Statistics: support DTA files with different value names.
 - Statistics: support DTA files containing enums.
 
