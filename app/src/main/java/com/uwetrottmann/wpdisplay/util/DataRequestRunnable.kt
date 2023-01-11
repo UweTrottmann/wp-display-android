@@ -16,9 +16,9 @@
 
 package com.uwetrottmann.wpdisplay.util
 
-import SettingsData
 import androidx.lifecycle.MutableLiveData
 import com.uwetrottmann.wpdisplay.BuildConfig
+import com.uwetrottmann.wpdisplay.model.SettingsData
 import com.uwetrottmann.wpdisplay.model.StatusData
 import com.uwetrottmann.wpdisplay.model.StatusData.Type
 import timber.log.Timber

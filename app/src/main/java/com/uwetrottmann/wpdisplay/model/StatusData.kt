@@ -16,11 +16,10 @@
 
 package com.uwetrottmann.wpdisplay.model
 
-import SettingsData
-import SettingsData.TypeWithOffset.BooleanType.PhotovoltaicsActive
 import android.content.Context
 import androidx.annotation.StringRes
 import com.uwetrottmann.wpdisplay.R
+import com.uwetrottmann.wpdisplay.model.SettingsData.TypeWithOffset.BooleanType.PhotovoltaicsActive
 import com.uwetrottmann.wpdisplay.model.StatusData.Type.TypeWithOffset.Number
 import com.uwetrottmann.wpdisplay.model.StatusData.Type.TypeWithOffset.TimeHours
 import java.text.DateFormat

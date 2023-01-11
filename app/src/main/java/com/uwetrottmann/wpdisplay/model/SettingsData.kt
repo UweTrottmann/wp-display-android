@@ -1,3 +1,5 @@
+package com.uwetrottmann.wpdisplay.model
+
 import java.text.DateFormat
 import java.util.*
 
