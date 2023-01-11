@@ -163,18 +163,17 @@ class DtaFileReader {
                     fields.add(DigitalField(index++, values))
                 }
                 0x03.toByte() -> {
-                    // TODO Appears not used in test file, so not implementing.
-                    //   Ask users to send in their file to add to this project for testing.
-                    throw IOException("Enum fields are not supported, please send your DTA file for testing.")
-//                            // Enum field
-//                            val name = readString(headerBuffer)
-//                            val count = headerBuffer.get()
-//
-//                            val enumValues = mutableListOf<String>()
-//                            for (i in 0 until count) {
-//                                val enumValue = readString(headerBuffer)
-//                                enumValues.add(enumValue)
-//                            }
+                    // Enum field
+                    val name = readString(headerBuffer)
+                    val count = headerBuffer.get()
+
+                    val enumValues = mutableListOf<String>()
+                    for (i in 0 until count) {
+                        val enumValue = readString(headerBuffer)
+                        enumValues.add(enumValue)
+                    }
+
+                    fields.add(EnumField(index++, name, enumValues))
                 }
                 else -> throw IOException("Unknown field type $fieldType")
             }
@@ -250,6 +249,7 @@ class DtaFileReader {
     ) {
         val analogueFields: List<AnalogueField> = fields.filterIsInstance<AnalogueField>()
         val digitalFields: List<DigitalField> = fields.filterIsInstance<DigitalField>()
+        val enumFields: List<EnumField> = fields.filterIsInstance<EnumField>()
     }
 
     interface ReadableField {
@@ -292,6 +292,18 @@ class DtaFileReader {
     )
 
     enum class DigitalType { INPUT, OUTPUT }
+
+    data class EnumField(
+        override val index: Int,
+        val name: String,
+        val values: List<String>
+    ) : ReadableField {
+        override fun readValue(byteBuffer: ByteBuffer): List<Double> {
+            // Not sure what to do with the value, in a test file it is always 0
+            // (is it the enum ordinal?)
+            return listOf(byteBuffer.short.toDouble())
+        }
+    }
 
     data class DataSet(
         val timestampEpochSecond: Long,

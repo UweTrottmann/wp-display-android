@@ -1,6 +1,8 @@
 Heat Pump Display Release Notes
 ===============================
 
+- Statistics: support DTA files containing enums.
+
 ## 17.1.0 (2023-01-07)
 
 - Correct heat quantity values order of magnitude.

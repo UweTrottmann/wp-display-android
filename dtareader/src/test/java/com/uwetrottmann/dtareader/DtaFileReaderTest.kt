@@ -19,6 +19,7 @@ package com.uwetrottmann.dtareader
 import org.junit.Test
 import java.io.File
 import kotlin.test.assertEquals
+import kotlin.test.assertNotNull
 
 class DtaFileReaderTest {
 
@@ -33,11 +34,18 @@ class DtaFileReaderTest {
         assertEquals(22, readLoggerFile.fields.size)
         assertEquals(20, readLoggerFile.analogueFields.size)
         assertEquals(2, readLoggerFile.digitalFields.size)
+        assertEquals(0, readLoggerFile.enumFields.size)
 
         val firstField = readLoggerFile.analogueFields.first()
         assertEquals("TVL", firstField.name)
         val lastField = readLoggerFile.analogueFields.last()
         assertEquals("Text_WP_Typ", lastField.name)
+
+        // Check fields used by the app exist
+        assertNotNull(readLoggerFile.analogueFields.find { it.name == "TVL" })
+        assertNotNull(readLoggerFile.analogueFields.find { it.name == "TRL" })
+        assertNotNull(readLoggerFile.analogueFields.find { it.name == "TA" })
+        assertNotNull(readLoggerFile.analogueFields.find { it.name == "TBW" })
 
         assertEquals(2880, readLoggerFile.datasets.size)
         readLoggerFile.datasets.forEach { dataSet ->
