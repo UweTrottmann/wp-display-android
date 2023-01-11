@@ -61,6 +61,7 @@ class StatsViewModel(
         viewModelScope.launch(Dispatchers.IO) {
             val reader = DtaFileReader()
             try {
+//                val input = context.resources.assets.open("NewProc-Test.dta")
                 val input = reader.getLoggerFileStream(host)
                 val dtaFile = reader.readLoggerFile(input)
                 val lineData = buildLineData(context, dtaFile)
@@ -90,18 +91,18 @@ class StatsViewModel(
         val analogueFields = dtaFile.analogueFields
 
         val fieldsToDisplay = mutableListOf<FieldToDisplay>()
-        analogueFields.find { it.name == "TVL" }
+        analogueFields.find { it.name == "TVL" || it.name == "Text_Vorlauf" }
             ?.let { FieldToDisplay(it, context.getString(R.string.label_temp_outgoing), Color.RED) }
             ?.let { fieldsToDisplay.add(it) }
-        analogueFields.find { it.name == "TRL" }
+        analogueFields.find { it.name == "TRL" || it.name == "Text_Rucklauf" }
             ?.let { FieldToDisplay(it, context.getString(R.string.label_temp_return), Color.BLUE) }
             ?.let { fieldsToDisplay.add(it) }
-        analogueFields.find { it.name == "TA" }
+        analogueFields.find { it.name == "TA" || it.name == "Text_Aussent" }
             ?.let {
                 FieldToDisplay(it, context.getString(R.string.label_temp_outdoors), Color.MAGENTA)
             }
             ?.let { fieldsToDisplay.add(it) }
-        analogueFields.find { it.name == "TBW" }
+        analogueFields.find { it.name == "TBW" || it.name == "Text_BW_Ist" }
             ?.let { FieldToDisplay(it, context.getString(R.string.label_temp_water), Color.CYAN) }
             ?.let { fieldsToDisplay.add(it) }
 
