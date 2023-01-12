@@ -1,11 +1,12 @@
-== Display temperature and status of heat pump, heating and hot water
+== Display temperature and status of heat pump, heating and water
 
-Display temperature and status of heat pump, heating and hot water of heat pumps controlled by the Alpha-InnoTec Luxtronik 2.0 controller.
+Display temperature and status of heating and hot water of a heat pump controlled by the alpha innotec Luxtronik 2.0 controller.
 
-This is an OSS alternative to the controller-provided Java applet, which does not work on mobile devices. You must be connected to the same network as the controller (so for remote access you may use a VPN connection into your home network).
+You must be connected to the same network as the controller (so for remote access you may use a VPN connection into your home network).
 
 You can currently only display values, not change settings.
 
-Notice:
-The purchase price is to protect against uninformed use ("Schutzgebühr").
+Notices:
+The purchase price is to protect against uninformed use.
 The source code is freely available on GitHub (see the Website button).
+alpha innotec is a trademark of ait–deutschland GmbH.
