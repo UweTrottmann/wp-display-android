@@ -1,4 +1,4 @@
-== Temperatur und Status von Wärmepumpe, Heizung, Warmwasser anzeigen
+== Temperatur und Status von Luxtronik 2.0 Wärmepumpe, Heizung, Warmwasser anzeigen
 
 Zeigt Temperatur und Status von Heizung und Warmwasser einer Wärmepumpe, die mit dem alpha innotec Luxtronik 2.0 Kontrollgerät gesteuert wird.
 

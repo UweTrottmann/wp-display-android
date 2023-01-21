@@ -1,4 +1,4 @@
-== Display temperature and status of heat pump, heating and water
+== Display temperature and status of Luxtronik 2.0 heat pump, heating and water
 
 Display temperature and status of heating and hot water of a heat pump controlled by the alpha innotec Luxtronik 2.0 controller.
 
