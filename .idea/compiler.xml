@@ -12,7 +12,7 @@
       <entry name="!?*.clj" />
     </wildcardResourcePatterns>
     <bytecodeTargetLevel target="1.8">
-      <module name="wp-display-android.app" target="11" />
+      <module name="wp-display-android.app" target="17" />
     </bytecodeTargetLevel>
   </component>
 </project>
