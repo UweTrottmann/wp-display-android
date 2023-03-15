@@ -41,7 +41,8 @@ object ConnectionSettings {
         var value = PreferenceManager.getDefaultSharedPreferences(context).getInt(KEY_PORT, -1)
         if (value == -1) {
             // default port
-            value = 8888
+            // 8889 seems to be used on newer firmwares and returns more data, so default to it.
+            value = 8889
             PreferenceManager.getDefaultSharedPreferences(context)
                 .edit()
                 .putInt(KEY_PORT, value)

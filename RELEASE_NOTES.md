@@ -1,6 +1,10 @@
 Heat Pump Display Release Notes
 ===============================
 
+## next
+
+- Default to port 8889 which appears to return more data.
+
 ## 17.1.1 (2023-01-11)
 
 - Statistics: support DTA files with different value names.

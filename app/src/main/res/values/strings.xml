@@ -78,7 +78,7 @@
     <string name="state_unknown">Unknown state</string>
 
     <string name="label_host">Host/IP-address (like 192.168.0.42)</string>
-    <string name="label_port">Port (default 8888 or 8889)</string>
+    <string name="label_port">Port (default 8889 or 8888)</string>
 
     <string name="setup_missing">Configuration incomplete</string>
     <string name="action_setup">Setup</string>
