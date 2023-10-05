@@ -1,5 +1,5 @@
 import java.io.FileInputStream
-import java.util.*
+import java.util.Properties
 
 plugins {
     id("com.android.application")
@@ -22,8 +22,8 @@ android {
         applicationId = "com.uwetrottmann.wpdisplay"
         minSdk = 21 /* Android 5 (L) */
         targetSdk = 33 /* Android 13 (T) */
-        versionCode = 25
-        versionName = "17.1.1"
+        versionCode = 26
+        versionName = "17.2.0"
 
         vectorDrawables.useSupportLibrary = true
     }

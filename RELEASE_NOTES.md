@@ -1,7 +1,7 @@
 Heat Pump Display Release Notes
 ===============================
 
-## next
+## 17.2.0 (2023-10-05)
 
 - Default to port 8889 which appears to return more data.
 - Increase label font sizes to be more readable.
