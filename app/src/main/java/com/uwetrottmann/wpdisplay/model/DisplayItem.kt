@@ -43,7 +43,7 @@ class TemperatureItem(
         builder.setSpan(
             TextAppearanceSpan(
                 context,
-                R.style.TextAppearance_MaterialComponents_Caption
+                R.style.TextAppearance_App_Caption
             ), 0, builder.length, 0
         )
 
@@ -84,7 +84,7 @@ open class FullWidthItem(
         builder.setSpan(
             TextAppearanceSpan(
                 context,
-                R.style.TextAppearance_MaterialComponents_Caption
+                R.style.TextAppearance_App_Caption
             ), 0, builder.length, 0
         )
 
@@ -95,7 +95,7 @@ open class FullWidthItem(
         builder.setSpan(
             TextAppearanceSpan(
                 context,
-                R.style.TextAppearance_MaterialComponents_Headline4
+                R.style.TextAppearance_App_TextItem
             ), lengthOld, builder.length, 0
         )
 

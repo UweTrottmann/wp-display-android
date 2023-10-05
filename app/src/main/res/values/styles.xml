@@ -24,6 +24,8 @@
         <item name="android:textSize">56sp</item>
     </style>
 
+    <style name="TextAppearance.App.TextItem" parent="TextAppearance.Material3.HeadlineLarge" />
+
     <style name="TextAppearance.App.Body1.Secondary" parent="TextAppearance.Material3.BodyLarge">
         <item name="android:textColor">?android:attr/textColorSecondary</item>
     </style>
@@ -34,6 +36,12 @@
 
     <style name="TextAppearance.App.Body1.Error" parent="TextAppearance.Material3.BodyLarge">
         <item name="android:textColor">?attr/colorError</item>
+    </style>
+
+    <style name="TextAppearance.App.Caption" parent="TextAppearance.Material3.LabelLarge">
+        <item name="fontFamily">sans-serif</item>
+        <item name="android:fontFamily" tools:ignore="NewApi">sans-serif</item>
+        <item name="android:textColor">?android:attr/textColorSecondary</item>
     </style>
 
     <style name="Widget.WpDisplay.AppBarLayout" parent="Widget.MaterialComponents.AppBarLayout.Primary">
