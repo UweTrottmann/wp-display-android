@@ -43,7 +43,7 @@ import com.uwetrottmann.wpdisplay.databinding.FragmentStatsBinding
 import com.uwetrottmann.wpdisplay.settings.ConnectionSettings
 import com.uwetrottmann.wpdisplay.util.openWebPage
 import java.text.SimpleDateFormat
-import java.util.*
+import java.util.Date
 
 /**
  * Displays historical values from the DTA file provided by the controller.
@@ -89,11 +89,19 @@ class StatsFragment : Fragment() {
         binding.chart.apply {
             isGone = true
             setPinchZoom(false)
+            extraTopOffset = 4.0f
             description.isEnabled = false
             legend.textColor = textColor
+            legend.textSize = 12.0f
+            legend.isWordWrapEnabled = true
             axisLeft.textColor = textColor
+            axisLeft.textSize = 12.0f
             axisRight.textColor = textColor
+            axisRight.textSize = 12.0f
             xAxis.textColor = textColor
+            xAxis.textSize = 12.0f
+            // Use 4 to avoid overlapping labels due to larger font size somewhat.
+            xAxis.labelCount = 4
             xAxis.valueFormatter = object : ValueFormatter() {
                 override fun getAxisLabel(value: Float, axis: AxisBase?): String {
                     val epochTime = value.toLong()
