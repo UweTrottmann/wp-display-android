@@ -1,7 +1,7 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 plugins {
-    id("com.github.ben-manes.versions") version("0.44.0")
+    id("com.github.ben-manes.versions") version("0.51.0")
     id("org.jetbrains.kotlin.jvm") version "1.7.21" apply false
     id("com.android.application") version "8.5.0" apply false
 }
