@@ -11,7 +11,7 @@ val kotlinVersion: String by rootProject.extra
 
 android {
     namespace = "com.uwetrottmann.wpdisplay"
-    compileSdk = 34 /* Android 14 (T) */
+    compileSdk = 34 /* Android 14 */
 
     buildFeatures {
         buildConfig = true
@@ -22,7 +22,7 @@ android {
     defaultConfig {
         applicationId = "com.uwetrottmann.wpdisplay"
         minSdk = 21 /* Android 5 (L) */
-        targetSdk = 33 /* Android 13 (T) */
+        targetSdk = 34 /* Android 14 */
         versionCode = 26
         versionName = "17.2.0"
 
