@@ -11,7 +11,7 @@ val kotlinVersion: String by rootProject.extra
 
 android {
     namespace = "com.uwetrottmann.wpdisplay"
-    compileSdk = 33 /* Android 13 (T) */
+    compileSdk = 34 /* Android 14 (T) */
 
     buildFeatures {
         buildConfig = true
