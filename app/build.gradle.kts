@@ -74,7 +74,7 @@ android {
 dependencies {
     implementation(project(":dtareader"))
 
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1")
     // https://developer.android.com/jetpack/androidx/releases/fragment
     implementation("androidx.fragment:fragment-ktx:1.5.5")
     // https://developer.android.com/jetpack/androidx/releases/appcompat
