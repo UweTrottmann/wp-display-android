@@ -14,6 +14,7 @@ android {
     compileSdk = 33 /* Android 13 (T) */
 
     buildFeatures {
+        buildConfig = true
         // https://developer.android.com/topic/libraries/view-binding
         viewBinding = true
     }

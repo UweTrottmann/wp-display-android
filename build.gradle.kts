@@ -1,31 +1,9 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
-buildscript {
-    repositories {
-        google()
-        mavenCentral()
-    }
-    dependencies {
-        classpath("com.android.tools.build:gradle:7.3.1")
-    }
-}
-
 plugins {
     id("com.github.ben-manes.versions") version("0.44.0")
     id("org.jetbrains.kotlin.jvm") version "1.7.21" apply false
-}
-
-allprojects {
-    repositories {
-        google()
-        mavenCentral()
-        maven { url = uri("https://jitpack.io") }
-    }
-}
-
-tasks.register("clean", Delete::class) {
-    group = "build"
-    delete(rootProject.buildDir)
+    id("com.android.application") version "8.5.0" apply false
 }
 
 tasks.wrapper {
@@ -34,7 +12,7 @@ tasks.wrapper {
 
 // reject preview releases for dependencyUpdates task
 fun isNonStable(version: String): Boolean {
-    val stableKeyword = listOf("RELEASE", "FINAL", "GA").any { version.toUpperCase().contains(it) }
+    val stableKeyword = listOf("RELEASE", "FINAL", "GA").any { version.uppercase().contains(it) }
     val regex = "^[0-9,.v-]+(-r)?$".toRegex()
     val isStable = stableKeyword || regex.matches(version)
     return isStable.not()
