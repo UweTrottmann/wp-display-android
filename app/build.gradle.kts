@@ -11,9 +11,10 @@ val kotlinVersion: String by rootProject.extra
 
 android {
     namespace = "com.uwetrottmann.wpdisplay"
-    compileSdk = 33 /* Android 13 (T) */
+    compileSdk = 34 /* Android 14 */
 
     buildFeatures {
+        buildConfig = true
         // https://developer.android.com/topic/libraries/view-binding
         viewBinding = true
     }
@@ -21,9 +22,9 @@ android {
     defaultConfig {
         applicationId = "com.uwetrottmann.wpdisplay"
         minSdk = 21 /* Android 5 (L) */
-        targetSdk = 33 /* Android 13 (T) */
-        versionCode = 26
-        versionName = "17.2.0"
+        targetSdk = 34 /* Android 14 */
+        versionCode = 27
+        versionName = "17.3.0"
 
         vectorDrawables.useSupportLibrary = true
     }
@@ -73,24 +74,26 @@ android {
 dependencies {
     implementation(project(":dtareader"))
 
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.6.4")
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1")
+    // https://developer.android.com/jetpack/androidx/releases/core
+    implementation("androidx.core:core:1.13.1")
     // https://developer.android.com/jetpack/androidx/releases/fragment
-    implementation("androidx.fragment:fragment-ktx:1.5.5")
+    implementation("androidx.fragment:fragment-ktx:1.8.1")
     // https://developer.android.com/jetpack/androidx/releases/appcompat
-    implementation("androidx.appcompat:appcompat:1.5.1")
+    implementation("androidx.appcompat:appcompat:1.7.0")
     // https://developer.android.com/jetpack/androidx/releases/preference
-    implementation("androidx.preference:preference-ktx:1.2.0")
+    implementation("androidx.preference:preference-ktx:1.2.1")
     // https://developer.android.com/jetpack/androidx/releases/recyclerview
-    implementation("androidx.recyclerview:recyclerview:1.2.1")
+    implementation("androidx.recyclerview:recyclerview:1.3.2")
     // ViewModel and LiveData
     // https://developer.android.com/jetpack/androidx/releases/lifecycle
-    val lifecycleVersion = "2.5.1"
+    val lifecycleVersion = "2.8.3"
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion")
     // Material Design
     // https://github.com/material-components/material-components-android/releases
-    implementation("com.google.android.material:material:1.7.0")
+    implementation("com.google.android.material:material:1.12.0")
     implementation("com.jakewharton.timber:timber:5.0.1")
 
     implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
