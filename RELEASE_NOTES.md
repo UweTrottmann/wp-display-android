@@ -1,6 +1,10 @@
 Heat Pump Display Release Notes
 ===============================
 
+## 17.3.0 (2024-07-11)
+
+- Android 15: enable predictive-back animations.
+
 ## 17.2.0 (2023-10-05)
 
 - Default to port 8889 which appears to return more data.
