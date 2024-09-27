@@ -1,6 +1,10 @@
 Heat Pump Display Release Notes
 ===============================
 
+## next
+
+- Android 13+: support per-app language configuration.
+
 ## 17.3.0 (2024-07-11)
 
 - Android 15: enable predictive-back animations.
