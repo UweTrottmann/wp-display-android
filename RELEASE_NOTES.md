@@ -1,7 +1,7 @@
 Heat Pump Display Release Notes
 ===============================
 
-## next
+## 17.4.0 (2024-09-27)
 
 - Android 13+: support per-app language configuration.
 
