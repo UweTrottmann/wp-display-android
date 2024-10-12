@@ -19,12 +19,16 @@ android {
         viewBinding = true
     }
 
+    androidResources {
+        generateLocaleConfig = true
+    }
+
     defaultConfig {
         applicationId = "com.uwetrottmann.wpdisplay"
         minSdk = 21 /* Android 5 (L) */
         targetSdk = 34 /* Android 14 */
-        versionCode = 27
-        versionName = "17.3.0"
+        versionCode = 28
+        versionName = "17.4.0"
 
         vectorDrawables.useSupportLibrary = true
     }
