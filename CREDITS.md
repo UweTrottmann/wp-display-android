@@ -1,7 +1,8 @@
+# Credits and licenses
+
 WP Display for Android does exist thanks to the following libraries and resources.
 
-Licensed under the Apache License, Version 2.0
-----------------------------------------------
+## Licensed under the Apache License, Version 2.0
 
 Android Support Libraries (https://developer.android.com/topic/libraries/support-library/index.html)
 Copyright 2013 The Android Open Source Project
@@ -35,9 +36,7 @@ WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
 
-
-Licensed under the Eclipse Public License - v 1.0
--------------------------------------------------
+## Licensed under the Eclipse Public License - v 1.0
 
 JUnit 4
 https://github.com/junit-team/junit4
