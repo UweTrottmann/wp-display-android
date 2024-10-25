@@ -4,7 +4,7 @@ plugins {
     id("com.github.ben-manes.versions") version("0.51.0")
     // 2.0.0 not officially supported by coroutines
     id("org.jetbrains.kotlin.jvm") version "1.9.24" apply false
-    id("com.android.application") version "8.5.0" apply false
+    id("com.android.application") version "8.7.1" apply false
 }
 
 tasks.wrapper {
