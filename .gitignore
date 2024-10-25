@@ -11,6 +11,7 @@ keystore.properties
 
 # IntelliJ
 *.iml
+.idea/appInsightsSettings.xml
 .idea/assetWizardSettings.xml
 .idea/caches
 .idea/deploymentTargetDropDown.xml
@@ -22,6 +23,7 @@ keystore.properties
 .idea/migrations.xml
 .idea/misc.xml
 .idea/other.xml
+.idea/runConfigurations.xml
 .idea/tasks.xml
 .idea/workspace.xml
 .idea/**/shelf
