@@ -13,6 +13,6 @@ See `docs` folder for useful information.
 
 ## License
 
-Except where noted otherwise, this work by [Uwe Trottmann](https://uwetrottmann.com) is licensed under the [Apache License 2.0](LICENSE.txt).
+Except where noted otherwise, this work by [Uwe Trottmann](https://www.uwetrottmann.com) is licensed under the [Apache License 2.0](LICENSE.txt).
 
 Code [contributors](https://github.com/UweTrottmann/wp-display-android/graphs/contributors) and changes are tracked by Git.
