@@ -38,7 +38,7 @@ jobs:
         run: ./gradlew :app:lintRelease
 
       - name: Upload Lint Reports
-        uses: actions/upload-artifact@604373da6381bf24206979c74d06a550515601b9 # v4.4.1
+        uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b # v4.5.0
         if: ${{ always() }} # Also upload if lint errors.
         with:
           name: Lint reports
