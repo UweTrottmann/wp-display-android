@@ -84,18 +84,18 @@ dependencies {
     // 1.10 is using Kotlin 2.1
     implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.2")
     // https://developer.android.com/jetpack/androidx/releases/core
-    implementation("androidx.core:core:1.13.1")
+    implementation("androidx.core:core:1.16.0")
     // https://developer.android.com/jetpack/androidx/releases/fragment
-    implementation("androidx.fragment:fragment-ktx:1.8.1")
+    implementation("androidx.fragment:fragment-ktx:1.8.8")
     // https://developer.android.com/jetpack/androidx/releases/appcompat
-    implementation("androidx.appcompat:appcompat:1.7.0")
+    implementation("androidx.appcompat:appcompat:1.7.1")
     // https://developer.android.com/jetpack/androidx/releases/preference
     implementation("androidx.preference:preference-ktx:1.2.1")
     // https://developer.android.com/jetpack/androidx/releases/recyclerview
-    implementation("androidx.recyclerview:recyclerview:1.3.2")
+    implementation("androidx.recyclerview:recyclerview:1.4.0")
     // ViewModel and LiveData
     // https://developer.android.com/jetpack/androidx/releases/lifecycle
-    val lifecycleVersion = "2.8.3"
+    val lifecycleVersion = "2.9.2"
     implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion")
     implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion")
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion")
