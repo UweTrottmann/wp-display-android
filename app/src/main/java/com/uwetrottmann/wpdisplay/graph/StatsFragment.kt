@@ -85,7 +85,7 @@ class StatsFragment : Fragment() {
             }
         }
 
-        val textColor = MaterialColors.getColor(binding.chart, R.attr.colorOnBackground)
+        val textColor = MaterialColors.getColor(binding.chart, com.google.android.material.R.attr.colorOnBackground)
         binding.chart.apply {
             isGone = true
             setPinchZoom(false)
