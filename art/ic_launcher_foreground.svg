@@ -63,11 +63,11 @@
      borderopacity="1.0"
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
-     inkscape:zoom="2"
-     inkscape:cx="216"
-     inkscape:cy="215.75"
+     inkscape:zoom="2.8284271"
+     inkscape:cx="181.37289"
+     inkscape:cy="221.14765"
      inkscape:document-units="px"
-     inkscape:current-layer="layer1"
+     inkscape:current-layer="svg4579"
      showgrid="true"
      units="px"
      scale-x="0.66"
@@ -98,35 +98,47 @@
        spacingx="1"
        units="px" />
     <sodipodi:guide
-       position="48.00024,288.00144"
-       orientation="1,0"
+       position="48,288"
+       orientation="-1,0"
        id="guide5126"
-       inkscape:locked="false" />
+       inkscape:locked="false"
+       inkscape:label="left margin"
+       inkscape:color="rgb(0,134,229)" />
     <sodipodi:guide
-       position="240.0012,0"
-       orientation="1,0"
+       position="240,288"
+       orientation="-1,0"
        id="guide5128"
-       inkscape:locked="false" />
+       inkscape:locked="false"
+       inkscape:label="right margin"
+       inkscape:color="rgb(0,134,229)" />
     <sodipodi:guide
-       position="0,48.00024"
+       position="0,48"
        orientation="0,1"
        id="guide5130"
-       inkscape:locked="false" />
+       inkscape:locked="false"
+       inkscape:label="bottom margin"
+       inkscape:color="rgb(0,134,229)" />
     <sodipodi:guide
-       position="0,240.0012"
+       position="0,240"
        orientation="0,1"
        id="guide5132"
-       inkscape:locked="false" />
+       inkscape:locked="false"
+       inkscape:label="top margin"
+       inkscape:color="rgb(0,134,229)" />
     <sodipodi:guide
        position="0,0"
        orientation="-0.70710678,0.70710678"
        id="guide5183"
-       inkscape:locked="false" />
+       inkscape:locked="false"
+       inkscape:label="bottom diagonal"
+       inkscape:color="rgb(0,134,229)" />
     <sodipodi:guide
-       position="288.00144,0"
+       position="0,288"
        orientation="0.70710678,0.70710678"
        id="guide5187"
-       inkscape:locked="false" />
+       inkscape:locked="false"
+       inkscape:label="top diagonal"
+       inkscape:color="rgb(0,134,229)" />
   </sodipodi:namedview>
   <metadata
      id="metadata4576">
