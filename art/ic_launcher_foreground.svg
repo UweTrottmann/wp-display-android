@@ -4,7 +4,7 @@
 <svg
    width="432"
    height="432"
-   viewBox="72 72 288.00144 288.00144"
+   viewBox="72 72 288 288"
    version="1.1"
    id="svg4579"
    sodipodi:docname="ic_launcher_foreground.svg"
@@ -64,7 +64,7 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="0.98379632"
-     inkscape:cx="71.152939"
+     inkscape:cx="70.644704"
      inkscape:cy="241.41176"
      inkscape:document-units="px"
      inkscape:current-layer="svg4579"
