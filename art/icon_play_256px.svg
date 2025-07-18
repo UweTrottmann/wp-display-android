@@ -8,7 +8,7 @@
    version="1.1"
    inkscape:version="1.4.2 (f4327f4, 2025-05-13)"
    sodipodi:docname="icon_play_256px.svg"
-   inkscape:export-filename="C:\Users\uwe\git\wp-display-android\art\icon-play-512px.png"
+   inkscape:export-filename="icon-play-512px.png"
    inkscape:export-xdpi="192"
    inkscape:export-ydpi="192"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
@@ -30,7 +30,7 @@
       <stop
          id="stop3817"
          offset="0.33000001"
-         style="stop-color:#ffffff;stop-opacity:0.05098039;" />
+         style="stop-color:#ffffff;stop-opacity:0.1;" />
       <stop
          style="stop-color:#ffffff;stop-opacity:0;"
          offset="1"
@@ -89,10 +89,10 @@
      inkscape:pageopacity="0.0"
      inkscape:pageshadow="2"
      inkscape:zoom="4"
-     inkscape:cx="71.500001"
-     inkscape:cy="96.875001"
+     inkscape:cx="71.5"
+     inkscape:cy="96.875"
      inkscape:document-units="px"
-     inkscape:current-layer="layer2"
+     inkscape:current-layer="g3803"
      showgrid="true"
      showguides="true"
      inkscape:guide-bbox="true"
@@ -194,9 +194,9 @@
      inkscape:groupmode="layer"
      id="layer3"
      inkscape:label="Shadow 45"
-     style="display:inline">
+     style="display:none">
     <path
-       style="opacity:0.2;fill:url(#linearGradient3777);fill-opacity:1;stroke:none;stroke-width:1.33333004"
+       style="opacity:0.2;fill:url(#linearGradient3777);fill-opacity:1;stroke:none;stroke-width:1.33333"
        d="m 256,180 -52,-52 -33.33325,-5.33332 -37.33324,-37.333242 -35.999905,-5.33332 -37.333241,31.999922 10.66664,53.3332 93.374836,90.74984 55.95812,-26.75 z"
        id="path3783"
        inkscape:connector-curvature="0"
@@ -204,7 +204,7 @@
        inkscape:label="pathShadow45" />
   </g>
   <g
-     style="display:inline"
+     style="display:none"
      inkscape:label="Icon Shadow"
      id="g3779"
      inkscape:groupmode="layer">
@@ -212,7 +212,7 @@
        sodipodi:nodetypes="ccsccscccccccsccccccccccc"
        d="m 116.07517,89.883961 c -20.119247,1.02346 -36.059404,17.783839 -36.059772,38.126519 3.68e-4,21.00121 17.104364,38.12725 38.126512,38.12725 17.11906,0 31.5007,-11.43476 36.2898,-26.98796 h -7.57967 c -4.48276,11.43183 -15.65647,19.52355 -28.71013,19.52355 -17.01176,0 -30.892021,-13.67313 -30.891409,-30.66284 3.68e-4,-16.45649 13.015319,-29.949169 29.283769,-30.776759 0.48019,-0.049 1.02897,-6.1e-4 1.60764,0 0.57917,0 1.01537,-0.049 1.49311,0 12.36266,0.62706 22.91213,8.639269 27.21702,19.637459 h 7.69434 c -4.58981,-14.98421 -18.17413,-26.161109 -34.45237,-26.987219 -0.69566,-0.049 -1.34097,0 -1.9521,0 -0.61003,0 -1.37036,-0.049 -2.06675,0 z m 53.05607,15.158519 -4.59361,5.97204 13.46236,12.98544 h -62 v 8 h 62 l -13.46236,13.12187 4.59361,5.85665 22.86875,-22.97852 z"
        id="path3781"
-       style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:medium;line-height:normal;font-family:Sans;-inkscape-font-specification:Sans;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:start;display:inline;overflow:visible;visibility:visible;fill:#000000;fill-opacity:0.21176471;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;filter:url(#filter3783);enable-background:new"
+       style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:medium;line-height:normal;font-family:Sans;-inkscape-font-specification:Sans;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:start;display:inline;overflow:visible;visibility:visible;fill:#000000;fill-opacity:0.211765;fill-rule:nonzero;stroke:none;stroke-width:1;marker:none;filter:url(#filter3783);enable-background:new"
        inkscape:connector-curvature="0"
        transform="matrix(1.33333,0,0,1.33333,-51.99934,-37.33287)"
        inkscape:label="pathIconShadow" />
