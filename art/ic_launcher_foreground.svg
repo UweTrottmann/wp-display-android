@@ -67,7 +67,7 @@
      inkscape:cx="210.01071"
      inkscape:cy="191.44916"
      inkscape:document-units="px"
-     inkscape:current-layer="svg4579"
+     inkscape:current-layer="layer1"
      showgrid="true"
      units="px"
      scale-x="0.66"
@@ -192,7 +192,7 @@
        inkscape:connector-curvature="0"
        style="color:#000000;font-style:normal;font-variant:normal;font-weight:normal;font-stretch:normal;font-size:medium;line-height:normal;font-family:Sans;-inkscape-font-specification:Sans;text-indent:0;text-align:start;text-decoration:none;text-decoration-line:none;letter-spacing:normal;word-spacing:normal;text-transform:none;writing-mode:lr-tb;direction:ltr;baseline-shift:baseline;text-anchor:start;display:inline;overflow:visible;visibility:visible;fill:#ffffff;fill-opacity:1;fill-rule:nonzero;stroke:none;stroke-width:1.77426;marker:none;enable-background:new"
        id="path10838"
-       d="m 183.74,148.37417 c -35.7,1.815 -63.975,31.56 -63.975,67.65 0,37.26 30.345,67.65 67.65,67.65 30.375,0 55.89,-20.295 64.38,-47.88 H 238.34 c -7.95,20.28 -27.78,34.635 -50.94,34.635 -30.18,0 -54.81,-24.255 -54.81,-54.405 0,-29.205 23.085,-53.13 51.96,-54.6 0.855,-0.09 1.83,0 2.85,0 1.035,0 1.8,-0.09 2.655,0 21.93,1.11 40.65,15.33 48.285,34.845 h 13.65 c -8.145,-26.58 -32.25,-46.41 -61.125,-47.88 -1.23,-0.09 -2.385,0 -3.465,0 -1.08,0 -2.43,-0.09 -3.66,0 z m 94.14,26.895 -8.145,10.59 23.88,23.04 h -110.01 v 14.19 h 110.01 l -23.88,23.28 8.145,10.395 40.575,-40.77 z"
+       d="m 183.74,148.37 c -35.7,1.81 -63.98,31.56 -63.98,67.65 0,37.26 30.34,67.65 67.65,67.65 30.38,0 55.89,-20.3 64.38,-47.88 H 238.34 c -7.95,20.28 -27.78,34.63 -50.94,34.63 -30.18,0 -54.81,-24.25 -54.81,-54.41 0,-29.2 23.09,-53.13 51.96,-54.6 0.85,-0.09 1.83,0 2.85,0 1.03,0 1.8,-0.09 2.65,0 21.93,1.11 40.65,15.33 48.28,34.84 h 13.65 c -8.14,-26.58 -32.25,-46.41 -61.12,-47.88 -1.23,-0.09 -2.38,0 -3.46,0 -1.08,0 -2.43,-0.09 -3.66,0 z m 94.14,26.89 -8.14,10.59 23.88,23.04 h -110.01 v 14.19 h 110.01 l -23.88,23.28 8.14,10.39 40.58,-40.77 z"
        sodipodi:nodetypes="ccsccscccccccsccccccccccc"
        inkscape:label="pathIcon" />
   </g>
