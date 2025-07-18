@@ -80,7 +80,9 @@ android {
 dependencies {
     implementation(project(":dtareader"))
 
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1")
+    // https://github.com/Kotlin/kotlinx.coroutines/blob/master/CHANGES.md
+    // 1.10 is using Kotlin 2.1
+    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.2")
     // https://developer.android.com/jetpack/androidx/releases/core
     implementation("androidx.core:core:1.13.1")
     // https://developer.android.com/jetpack/androidx/releases/fragment
