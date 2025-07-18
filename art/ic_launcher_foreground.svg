@@ -184,35 +184,4 @@
        sodipodi:nodetypes="ccsccscccccccsccccccccccc"
        inkscape:label="pathIcon" />
   </g>
-  <g
-     id="layer2"
-     inkscape:label="Instructions"
-     style="display:inline">
-    <text
-       xml:space="preserve"
-       style="font-style:normal;font-weight:normal;font-size:40px;line-height:25px;font-family:Sans;letter-spacing:0px;word-spacing:0px;fill:#000000;fill-opacity:1;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
-       x="-30.263378"
-       y="-73.285927"
-       id="text5136"><tspan
-         sodipodi:role="line"
-         id="tspan5134"
-         x="-30.263378"
-         y="-73.285927">4px=1dp (432px=108dp)</tspan><tspan
-         sodipodi:role="line"
-         x="-30.263378"
-         y="-48.285927"
-         id="tspan4503" /><tspan
-         sodipodi:role="line"
-         x="-30.263378"
-         y="-23.285927"
-         id="tspan4505">inner 72dp instead of 48dp</tspan><tspan
-         sodipodi:role="line"
-         x="-30.263378"
-         y="1.7140732"
-         id="tspan4507" /><tspan
-         sodipodi:role="line"
-         x="-30.263378"
-         y="26.714073"
-         id="tspan4509">set via viewbox scaling</tspan></text>
-  </g>
 </svg>
