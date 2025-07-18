@@ -14,7 +14,7 @@ Only draw in inner 72 dp = 288 px
 So margin of 18 dp = 72 px
 
 So set viewbox:
-x = 72 px
-y = 72 px
+x = 0 px
+y = 0 px
 width = 288 px
 height = 288 px
