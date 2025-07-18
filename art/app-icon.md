@@ -9,12 +9,8 @@ Recommended size of 108 dp = 432 px
 So set page size:
 width = 432 px
 height = 432 px
+scale = 1,0 (so viewbox is same size)
 
-Only draw in inner 72 dp = 288 px
-So margin of 18 dp = 72 px
-
-So set viewbox:
-x = 0 px
-y = 0 px
-width = 288 px
-height = 288 px
+Add guides to help:
+Only draw in inner 72 dp = 288 px,
+so margin of 18 dp = 72 px
