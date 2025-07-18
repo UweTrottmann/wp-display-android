@@ -1,7 +1,8 @@
 // Top-level build file where you can add configuration options common to all sub-projects/modules.
 
 plugins {
-    id("com.github.ben-manes.versions") version("0.51.0")
+    // https://github.com/ben-manes/gradle-versions-plugin/releases
+    id("com.github.ben-manes.versions") version("0.52.0")
     // https://kotlinlang.org/docs/releases.html#release-details
     // https://kotlinlang.org/docs/gradle-configure-project.html#apply-the-plugin
     // Before updating look for compatible coroutines, Gradle and Android plugin version
