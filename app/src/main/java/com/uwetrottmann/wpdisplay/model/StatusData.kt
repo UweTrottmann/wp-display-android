@@ -291,6 +291,12 @@ class StatusData(
                 object MixingCircuit2Target
                     : Temperature(25, R.string.label_temp_mix_2_outgoing_target)
 
+                object MixingCircuit3
+                    : Temperature(137, R.string.label_temp_mix_3_outgoing)
+
+                object MixingCircuit3Target
+                    : Temperature(136, R.string.label_temp_mix_3_outgoing_target)
+
                 object SolarCollector
                     : Temperature(26, R.string.label_temp_solar_collector)
 
