@@ -34,6 +34,8 @@
     <string name="label_temp_mix_1_outgoing_target">Mix. Circ. 1 Outgoing Target</string>
     <string name="label_temp_mix_2_outgoing">Mix. Circ. 2 Outgoing</string>
     <string name="label_temp_mix_2_outgoing_target">Mix. Circ. 2 Outgoing Target</string>
+    <string name="label_temp_mix_3_outgoing">Mix. Circ. 3 Outgoing</string>
+    <string name="label_temp_mix_3_outgoing_target">Mix. Circ. 3 Outgoing Target</string>
     <string name="label_time_pump_active">Pump active</string>
     <string name="label_time_secondary_heater1_active">Second. Heater active</string>
     <string name="label_time_secondary_heater2_active">Second. Heater 2 active</string>

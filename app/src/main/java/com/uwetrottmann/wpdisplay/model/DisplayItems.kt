@@ -45,6 +45,8 @@ object DisplayItems {
         TemperatureItem(39, Temperature.MixingCircuit1Target),
         TemperatureItem(40, Temperature.MixingCircuit2),
         TemperatureItem(41, Temperature.MixingCircuit2Target),
+        TemperatureItem(42, Temperature.MixingCircuit3),
+        TemperatureItem(43, Temperature.MixingCircuit3Target),
         TemperatureItem(18, Temperature.SolarCollector),
         TemperatureItem(19, Temperature.SolarTank),
         TemperatureItem(21, Temperature.ExternalEnergySource),
