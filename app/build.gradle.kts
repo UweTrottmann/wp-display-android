@@ -7,8 +7,6 @@ plugins {
     kotlin("kapt")
 }
 
-val kotlinVersion: String by rootProject.extra
-
 android {
     namespace = "com.uwetrottmann.wpdisplay"
     compileSdk = 35 /* Android 15 */
