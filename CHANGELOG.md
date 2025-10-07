@@ -1,5 +1,9 @@
 # Heat Pump Display Release Notes
 
+## Next release
+
+- Improved: avoid showing content behind display cutouts or navigation bars.
+
 ## 17.4.0 (2024-10-12)
 
 - Android 13+: support per-app language configuration.

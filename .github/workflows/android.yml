@@ -16,11 +16,11 @@ jobs:
 
     steps:
       - name: Check out
-        uses: actions/checkout@eef61447b9ff4aafe5dcd4e0bbf5d482be7e7871 # v4.2.1
-      - name: Set up JDK 17
-        uses: actions/setup-java@b36c23c0d998641eff861008f374ee103c25ac73 # v4.4.0
+        uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+      - name: Set up JDK 21
+        uses: actions/setup-java@7a6d8a8234af8eb26422e24e3006232cccaa061b # v4.6.0
         with:
-          java-version: '17'
+          java-version: '21'
           distribution: 'temurin'
           cache: gradle
 
@@ -33,20 +33,12 @@ jobs:
       - name: Run Unit Tests
         run: ./gradlew :dtareader:test
 
-      - name: Upload Unit Test Reports
-        uses: dorny/test-reporter@31a54ee7ebcacc03a09ea97a7e5465a47b84aea5 # v1.9.1
-        if: always() # also run if tests failed
-        with:
-          name: JUnit Report
-          path: dtareader/build/test-results/**/*.xml
-          reporter: java-junit
-
       # To speed up lint check only run for release variant.
       - name: Lint Release
         run: ./gradlew :app:lintRelease
 
       - name: Upload Lint Reports
-        uses: actions/upload-artifact@604373da6381bf24206979c74d06a550515601b9 # v4.4.1
+        uses: actions/upload-artifact@6f51ac03b9356f520e9adb1b1b7802705f340c2b # v4.5.0
         if: ${{ always() }} # Also upload if lint errors.
         with:
           name: Lint reports

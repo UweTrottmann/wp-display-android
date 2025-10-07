@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Uwe Trottmann
+ * Copyright 2014-2025 Uwe Trottmann
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -28,6 +28,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.MenuProvider
 import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
@@ -78,11 +79,31 @@ class DisplayFragment : Fragment() {
         // Drawing behind navigation bar on Android 10+.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             ViewCompat.setOnApplyWindowInsetsListener(binding.recyclerViewDisplay) { v, insets ->
-                v.updatePadding(bottom = insets.systemWindowInsetBottom)
+                val bars = insets.getInsets(
+                    WindowInsetsCompat.Type.systemBars()
+                            or WindowInsetsCompat.Type.displayCutout()
+                )
+                val basePaddingHorizontal =
+                    resources.getDimensionPixelSize(R.dimen.activity_horizontal_margin)
+                val basePaddingVertical =
+                    resources.getDimensionPixelSize(R.dimen.activity_vertical_margin)
+                v.updatePadding(
+                    left = basePaddingHorizontal + bars.left,
+                    right = basePaddingHorizontal + bars.right,
+                    bottom = basePaddingVertical + bars.bottom,
+                )
                 insets
             }
             ViewCompat.setOnApplyWindowInsetsListener(binding.snackbar.root) { v, insets ->
-                v.updatePadding(bottom = insets.systemWindowInsetBottom)
+                val bars = insets.getInsets(
+                    WindowInsetsCompat.Type.systemBars()
+                            or WindowInsetsCompat.Type.displayCutout()
+                )
+                v.updatePadding(
+                    left = bars.left,
+                    right = bars.right,
+                    bottom = bars.bottom,
+                )
                 insets
             }
         }
@@ -141,16 +162,19 @@ class DisplayFragment : Fragment() {
                         togglePause()
                         true
                     }
+
                     R.id.menu_action_display_stats -> {
                         // Disconnect early to not interfere with loading data file.
                         ConnectionTools.disconnect()
                         showStatsFragment()
                         true
                     }
+
                     R.id.menu_action_display_settings -> {
                         showSettingsFragment()
                         true
                     }
+
                     else -> false
                 }
             }
@@ -226,6 +250,7 @@ class DisplayFragment : Fragment() {
                 // start requesting data
                 ConnectionTools.requestStatusData(true)
             }
+
             else -> {
                 isWarning = true
                 statusResId = R.string.label_connection_error

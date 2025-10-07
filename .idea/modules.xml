@@ -2,14 +2,10 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/wp-display-android.iml" filepath="$PROJECT_DIR$/wp-display-android.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/wp-display-android.app.iml" filepath="$PROJECT_DIR$/.idea/modules/app/wp-display-android.app.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/wp-display-android.app.androidTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/wp-display-android.app.androidTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/wp-display-android.app.main.iml" filepath="$PROJECT_DIR$/.idea/modules/app/wp-display-android.app.main.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/app/wp-display-android.app.unitTest.iml" filepath="$PROJECT_DIR$/.idea/modules/app/wp-display-android.app.unitTest.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/modules/dtareader/wp-display-android.dtareader.iml" filepath="$PROJECT_DIR$/.idea/modules/dtareader/wp-display-android.dtareader.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/dtareader/wp-display-android.dtareader.main.iml" filepath="$PROJECT_DIR$/.idea/modules/dtareader/wp-display-android.dtareader.main.iml" />
-      <module fileurl="file://$PROJECT_DIR$/.idea/modules/dtareader/wp-display-android.dtareader.test.iml" filepath="$PROJECT_DIR$/.idea/modules/dtareader/wp-display-android.dtareader.test.iml" />
     </modules>
   </component>
 </project>

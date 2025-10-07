@@ -1,3 +1,5 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
+
 plugins {
     id("java-library")
     kotlin("jvm")
@@ -11,18 +13,19 @@ java {
     targetCompatibility = JavaVersion.VERSION_1_8
 }
 
-dependencies {
-    // https://github.com/square/okio/blob/master/CHANGELOG.md
-    implementation("com.squareup.okio:okio:3.9.0")
+kotlin {
+    compilerOptions {
+        jvmTarget = JvmTarget.JVM_1_8
+    }
+}
 
-    testImplementation("junit:junit:4.13.2")
+dependencies {
+    implementation(libs.okio)
+
+    testImplementation(libs.junit)
     testImplementation(kotlin("test"))
 }
 
 tasks.test {
     useJUnit()
-}
-
-tasks.withType<org.jetbrains.kotlin.gradle.tasks.KotlinCompile> {
-    kotlinOptions.jvmTarget = "1.8"
 }

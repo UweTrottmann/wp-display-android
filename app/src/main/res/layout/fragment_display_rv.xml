@@ -1,5 +1,7 @@
-<?xml version="1.0" encoding="utf-8"?><!--
-  ~ Copyright 2018 Uwe Trottmann
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--
+  ~ Copyright 2018-2025 Uwe Trottmann
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -20,6 +22,7 @@
     android:layout_height="match_parent"
     tools:context="com.uwetrottmann.wpdisplay.display.DisplayFragment">
 
+    <!-- Padding overwritten by OnApplyWindowInsetsListener -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerViewDisplay"
         android:layout_width="match_parent"
@@ -32,6 +35,7 @@
         android:scrollbarStyle="outsideOverlay"
         android:scrollbars="vertical" />
 
+    <!-- Padding overwritten by OnApplyWindowInsetsListener -->
     <include
         android:id="@+id/snackbar"
         layout="@layout/layout_snackbar" />

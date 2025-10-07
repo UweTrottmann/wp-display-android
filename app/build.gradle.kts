@@ -1,3 +1,4 @@
+import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import java.io.FileInputStream
 import java.util.Properties
 
@@ -7,11 +8,15 @@ plugins {
     kotlin("kapt")
 }
 
-val kotlinVersion: String by rootProject.extra
+kotlin {
+    compilerOptions {
+        jvmTarget = JvmTarget.JVM_1_8
+    }
+}
 
 android {
     namespace = "com.uwetrottmann.wpdisplay"
-    compileSdk = 34 /* Android 14 */
+    compileSdk = 35 /* Android 15 */
 
     buildFeatures {
         buildConfig = true
@@ -26,7 +31,7 @@ android {
     defaultConfig {
         applicationId = "com.uwetrottmann.wpdisplay"
         minSdk = 21 /* Android 5 (L) */
-        targetSdk = 34 /* Android 14 */
+        targetSdk = 35 /* Android 15 */
         versionCode = 28
         versionName = "17.4.0"
 
@@ -36,10 +41,6 @@ android {
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
-    }
-
-    kotlinOptions {
-        jvmTarget = "1.8"
     }
 
     lint {
@@ -80,27 +81,23 @@ android {
 dependencies {
     implementation(project(":dtareader"))
 
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1")
-    // https://developer.android.com/jetpack/androidx/releases/core
-    implementation("androidx.core:core:1.13.1")
-    // https://developer.android.com/jetpack/androidx/releases/fragment
-    implementation("androidx.fragment:fragment-ktx:1.8.1")
-    // https://developer.android.com/jetpack/androidx/releases/appcompat
-    implementation("androidx.appcompat:appcompat:1.7.0")
-    // https://developer.android.com/jetpack/androidx/releases/preference
-    implementation("androidx.preference:preference-ktx:1.2.1")
-    // https://developer.android.com/jetpack/androidx/releases/recyclerview
-    implementation("androidx.recyclerview:recyclerview:1.3.2")
-    // ViewModel and LiveData
-    // https://developer.android.com/jetpack/androidx/releases/lifecycle
-    val lifecycleVersion = "2.8.3"
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion")
-    // Material Design
-    // https://github.com/material-components/material-components-android/releases
-    implementation("com.google.android.material:material:1.12.0")
-    implementation("com.jakewharton.timber:timber:5.0.1")
+    implementation(libs.kotlinx.coroutines.android)
 
-    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
+    implementation(libs.androidx.core)
+    implementation(libs.androidx.fragment)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.preference)
+    implementation(libs.androidx.recyclerview)
+
+    implementation(libs.androidx.lifecycle.viewmodel)
+    implementation(libs.androidx.lifecycle.livedata)
+    implementation(libs.androidx.lifecycle.runtime)
+
+    implementation(libs.material)
+
+    implementation(libs.timber)
+    // https://github.com/PhilJay/MPAndroidChart
+    // Included in project because it's hosted on jitpack.io and I don't want to host my own Maven
+    // repository.
+    implementation(files("libs/MPAndroidChart-v3.1.0.aar"))
 }
