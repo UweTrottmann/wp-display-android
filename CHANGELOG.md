@@ -2,6 +2,7 @@
 
 ## Next release
 
+- Temperatures: add Mixing Circuit 3. Thanks @sim-san!
 - Improved: avoid showing content behind display cutouts or navigation bars.
 
 ## 17.4.0 (2024-10-12)
