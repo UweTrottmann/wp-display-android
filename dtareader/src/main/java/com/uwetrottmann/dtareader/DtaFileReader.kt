@@ -25,6 +25,7 @@ import java.net.URL
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
 import kotlin.experimental.and
+import kotlin.time.ExperimentalTime
 
 /**
  * Parses a DTA file with version [DtaFileReader.VERSION_9003].
@@ -192,9 +193,14 @@ class DtaFileReader {
         )
     }
 
+    @OptIn(ExperimentalStdlibApi::class, ExperimentalTime::class)
     private fun parseDataSets(bufferedSource: BufferedSource, header: Header): List<DataSet> {
         val dataSetLength = header.datasetLength
         val datasets = mutableListOf<DataSet>()
+
+        val leadingValues = bufferedSource.readByteArray(22)
+        println(leadingValues.toHexString())
+
         for (i in 0 until header.datasetsToRead) {
             if (!bufferedSource.request(dataSetLength.toLong())) {
                 throw IOException("Data set $i is not $dataSetLength bytes long.")
@@ -202,11 +208,16 @@ class DtaFileReader {
             val bytes = bufferedSource.readByteArray(dataSetLength.toLong())
             val buffer = ByteBuffer.wrap(bytes).order(ByteOrder.LITTLE_ENDIAN)
 
+//            println(bytes.toHexString())
+
             // First 4 bytes are unix time in seconds
             val epochSecond = buffer.int
             // Then for each field 2 bytes
             val fieldValues = mutableListOf<List<Double>>()
             header.fields.forEach { fieldValues.add(it.readValue(buffer)) }
+
+//            Instant.fromEpochSeconds(epochSecond.toLong())
+//                .let { println("epochSecond=$epochSecond time=${it}") }
 
             datasets.add(
                 DataSet(

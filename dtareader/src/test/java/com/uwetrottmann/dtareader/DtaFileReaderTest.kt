@@ -25,12 +25,13 @@ class DtaFileReaderTest {
 
     @Test
     fun getAndReadLoggerFileStream() {
-        val testFileInputStream = File("src/test/testdata/NewProc-2022-04-02.dta").inputStream()
+//        val testFileInputStream = File("src/test/testdata/NewProc-2022-04-02.dta").inputStream()
+        val testFileInputStream = File("src/test/testdata/NewProc-only-one-hour.dta").inputStream()
 
         val loader = DtaFileReader()
         val readLoggerFile = loader.readLoggerFile(testFileInputStream)
 
-//        readLoggerFile.fields.forEach { println(it) }
+        readLoggerFile.fields.forEach { println(it) }
         assertEquals(22, readLoggerFile.fields.size)
         assertEquals(20, readLoggerFile.analogueFields.size)
         assertEquals(2, readLoggerFile.digitalFields.size)
