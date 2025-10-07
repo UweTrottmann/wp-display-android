@@ -80,29 +80,21 @@ android {
 dependencies {
     implementation(project(":dtareader"))
 
-    // https://github.com/Kotlin/kotlinx.coroutines/blob/master/CHANGES.md
-    // 1.10 is using Kotlin 2.1
-    implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.10.2")
-    // https://developer.android.com/jetpack/androidx/releases/core
-    implementation("androidx.core:core:1.16.0")
-    // https://developer.android.com/jetpack/androidx/releases/fragment
-    implementation("androidx.fragment:fragment-ktx:1.8.8")
-    // https://developer.android.com/jetpack/androidx/releases/appcompat
-    implementation("androidx.appcompat:appcompat:1.7.1")
-    // https://developer.android.com/jetpack/androidx/releases/preference
-    implementation("androidx.preference:preference-ktx:1.2.1")
-    // https://developer.android.com/jetpack/androidx/releases/recyclerview
-    implementation("androidx.recyclerview:recyclerview:1.4.0")
-    // ViewModel and LiveData
-    // https://developer.android.com/jetpack/androidx/releases/lifecycle
-    val lifecycleVersion = "2.9.2"
-    implementation("androidx.lifecycle:lifecycle-viewmodel-ktx:$lifecycleVersion")
-    implementation("androidx.lifecycle:lifecycle-livedata-ktx:$lifecycleVersion")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:$lifecycleVersion")
-    // Material Design
-    // https://github.com/material-components/material-components-android/releases
-    implementation("com.google.android.material:material:1.12.0")
-    implementation("com.jakewharton.timber:timber:5.0.1")
+    implementation(libs.kotlinx.coroutines.android)
 
-    implementation("com.github.PhilJay:MPAndroidChart:v3.1.0")
+    implementation(libs.androidx.core)
+    implementation(libs.androidx.fragment)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.androidx.preference)
+    implementation(libs.androidx.recyclerview)
+
+    implementation(libs.androidx.lifecycle.viewmodel)
+    implementation(libs.androidx.lifecycle.livedata)
+    implementation(libs.androidx.lifecycle.runtime)
+
+    implementation(libs.material)
+
+    implementation(libs.timber)
+    implementation(libs.mpandroidchart)
+
 }

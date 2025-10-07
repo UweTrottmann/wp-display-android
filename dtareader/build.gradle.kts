@@ -14,10 +14,9 @@ java {
 }
 
 dependencies {
-    // https://github.com/square/okio/blob/master/CHANGELOG.md
-    implementation("com.squareup.okio:okio:3.15.0")
+    implementation(libs.okio)
 
-    testImplementation("junit:junit:4.13.2")
+    testImplementation(libs.junit)
     testImplementation(kotlin("test"))
 }
 
