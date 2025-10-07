@@ -1,5 +1,5 @@
 /*
- * Copyright 2018 Uwe Trottmann
+ * Copyright 2014-2025 Uwe Trottmann
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -25,6 +25,7 @@ import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -65,7 +66,15 @@ class SettingsFragment : Fragment() {
         // Drawing behind navigation bar on Android 10+.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             ViewCompat.setOnApplyWindowInsetsListener(binding.scrollViewSettings) { v, insets ->
-                v.updatePadding(bottom = insets.systemWindowInsetBottom)
+                val bars = insets.getInsets(
+                    WindowInsetsCompat.Type.systemBars()
+                            or WindowInsetsCompat.Type.displayCutout()
+                )
+                v.updatePadding(
+                    left = bars.left,
+                    right = bars.right,
+                    bottom = bars.bottom,
+                )
                 insets
             }
         }

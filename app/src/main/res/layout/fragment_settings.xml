@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!--
-  ~ Copyright 2015 Uwe Trottmann
+  ~ Copyright 2014-2025 Uwe Trottmann
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -17,6 +17,7 @@
   -->
 
 <!-- Ensure ScrollView ID so scroll state is restored -->
+<!-- Padding overwritten by OnApplyWindowInsetsListener -->
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/scrollViewSettings"

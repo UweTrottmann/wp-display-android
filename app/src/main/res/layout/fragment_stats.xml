@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <!--
-  ~ Copyright 2023 Uwe Trottmann
+  ~ Copyright 2023-2025 Uwe Trottmann
   ~
   ~ Licensed under the Apache License, Version 2.0 (the "License");
   ~ you may not use this file except in compliance with the License.
@@ -23,6 +23,7 @@
     android:layout_height="match_parent"
     tools:context=".graph.StatsFragment">
 
+    <!-- Margin overwritten by OnApplyWindowInsetsListener -->
     <com.github.mikephil.charting.charts.LineChart
         android:id="@+id/chart"
         android:layout_width="match_parent"

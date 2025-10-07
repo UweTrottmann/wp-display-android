@@ -1,5 +1,5 @@
 /*
- * Copyright 2023 Uwe Trottmann
+ * Copyright 2023-2025 Uwe Trottmann
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -24,10 +24,10 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.view.View
 import android.view.ViewGroup
-import android.view.ViewGroup.MarginLayoutParams
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.MenuProvider
 import androidx.core.view.ViewCompat
+import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.isGone
 import androidx.core.view.updateLayoutParams
 import androidx.fragment.app.Fragment
@@ -78,14 +78,24 @@ class StatsFragment : Fragment() {
         // Drawing behind navigation bar on Android 10+.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q) {
             ViewCompat.setOnApplyWindowInsetsListener(binding.chart) { v, insets ->
-                v.updateLayoutParams<MarginLayoutParams> {
-                    bottomMargin = insets.systemWindowInsetBottom
+                val bars = insets.getInsets(
+                    WindowInsetsCompat.Type.systemBars()
+                            or WindowInsetsCompat.Type.displayCutout()
+                )
+                val baseMargin = resources.getDimensionPixelSize(R.dimen.padding_default)
+                v.updateLayoutParams<ViewGroup.MarginLayoutParams> {
+                    leftMargin = baseMargin + bars.left
+                    bottomMargin = bars.bottom
+                    rightMargin = baseMargin + bars.right
                 }
                 insets
             }
         }
 
-        val textColor = MaterialColors.getColor(binding.chart, com.google.android.material.R.attr.colorOnBackground)
+        val textColor = MaterialColors.getColor(
+            binding.chart,
+            com.google.android.material.R.attr.colorOnBackground
+        )
         binding.chart.apply {
             isGone = true
             setPinchZoom(false)
@@ -151,6 +161,7 @@ class StatsFragment : Fragment() {
                         showInfoDialog()
                         true
                     }
+
                     else -> false
                 }
             }
