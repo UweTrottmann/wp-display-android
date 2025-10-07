@@ -3,7 +3,9 @@
 Display temperature and status of heat pump, heating and hot water of heat pumps controlled
 by the Alpha-InnoTec Luxtronik 2.0 controller.
 
-<img src="screenshots/phone.png" height="375"/>
+| Display screen                                  | Statistics screen                                     |
+|-------------------------------------------------|-------------------------------------------------------|
+| <img src="screenshots/phone.png" height="375"/> | <img src="screenshots/phone-stats.png" height="375"/> |
 
 Pull requests against `main` welcome.
 
