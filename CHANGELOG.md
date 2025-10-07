@@ -1,6 +1,6 @@
 # Heat Pump Display Release Notes
 
-## Next release
+## 17.5.0 (2025-10-07)
 
 - Temperatures: add Mixing Circuit 3. Thanks @sim-san!
 - Improved: avoid showing content behind display cutouts or navigation bars.
