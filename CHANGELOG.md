@@ -2,8 +2,9 @@
 
 ## 17.5.1 (2026-01-15)
 
-- Resolved: compressor frequency and heating quantity are again displayed, if enabled. Note: If done
-  before, it is necessary to hide the new mixing circuit 3 values again.
+- Resolved: hiding the new mixing circuit 3 values no longer also hides compressor frequency and 
+  heating heat quantity. It is necessary to hide or show these values as needed again. Sorry about
+  that.
 
 ## 17.5.0 (2025-10-07)
 
