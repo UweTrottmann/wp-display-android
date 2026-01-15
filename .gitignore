@@ -14,12 +14,15 @@ keystore.properties
 .idea/appInsightsSettings.xml
 .idea/assetWizardSettings.xml
 .idea/caches
+.idea/copilot*.xml
 .idea/deploymentTargetDropDown.xml
 .idea/deploymentTargetSelector.xml
+.idea/deviceManager.xml
 .idea/dictionaries
 .idea/gradle.xml
 .idea/kotlinc.xml
 .idea/libraries
+.idea/markdown.xml
 .idea/migrations.xml
 .idea/misc.xml
 .idea/other.xml
