@@ -28,7 +28,8 @@ object DisplayItems {
 
     const val KEY_DISABLED_DISPLAY_ITEMS = "DISABLED_DISPLAY_ITEMS"
 
-    // Current highest id is 48.
+    // Current highest id is 50.
+    // Make sure to assign the next highest available id when adding a new item.
     val all: List<DisplayItem> = listOf(
         TemperatureItem(1, Temperature.Outgoing),
         TemperatureItem(2, Temperature.Return),
@@ -45,8 +46,8 @@ object DisplayItems {
         TemperatureItem(39, Temperature.MixingCircuit1Target),
         TemperatureItem(40, Temperature.MixingCircuit2),
         TemperatureItem(41, Temperature.MixingCircuit2Target),
-        TemperatureItem(42, Temperature.MixingCircuit3),
-        TemperatureItem(43, Temperature.MixingCircuit3Target),
+        TemperatureItem(49, Temperature.MixingCircuit3),
+        TemperatureItem(50, Temperature.MixingCircuit3Target),
         TemperatureItem(18, Temperature.SolarCollector),
         TemperatureItem(19, Temperature.SolarTank),
         TemperatureItem(21, Temperature.ExternalEnergySource),

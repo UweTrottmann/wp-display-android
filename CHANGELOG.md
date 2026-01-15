@@ -1,5 +1,9 @@
 # Heat Pump Display Release Notes
 
+## Next release
+
+- Resolved: compressor frequency and heating quantity are again displayed, if enabled.
+
 ## 17.5.0 (2025-10-07)
 
 - Temperatures: add Mixing Circuit 3. Thanks @sim-san!
