@@ -1,6 +1,6 @@
 # Heat Pump Display Release Notes
 
-## Next release
+## 17.5.1 (2026-01-15)
 
 - Resolved: compressor frequency and heating quantity are again displayed, if enabled.
 
