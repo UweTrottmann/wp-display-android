@@ -45,8 +45,7 @@ android {
 
     lint {
         // for CI server (reports are not public)
-        textReport = true
-        // Note: do not use textOutput = file("stdout"), just set no file.
+        printTextReport = true
     }
 
     val keystoreConfigFile = rootProject.file("../upload-keystore-uwe-trottmann.properties")
@@ -69,7 +68,10 @@ android {
         getByName("release") {
             isShrinkResources = true
             isMinifyEnabled = true
-            proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
             if (hasKeystoreConfig) {
                 signingConfig = signingConfigs.getByName("release")
             }
