@@ -51,5 +51,5 @@ To help identify licenses and copyright holders, files contain
 - comments that identify the copyright holders of that file, at best using the
   `SPDX-FileCopyrightText` tag
 
-Code [contributors](https://github.com/UweTrottmann/SeriesGuide/graphs/contributors) and changes are
-also tracked by Git.
+Code [contributors](https://github.com/UweTrottmann/wp-display-android/graphs/contributors) and 
+changes are also tracked by Git.
