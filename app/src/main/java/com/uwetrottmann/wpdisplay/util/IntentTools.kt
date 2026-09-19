@@ -1,3 +1,6 @@
+// SPDX-License-Identifier: GPL-3.0-or-later
+// SPDX-FileCopyrightText: Copyright © 2023 Uwe Trottmann <uwe@uwetrottmann.com>
+
 package com.uwetrottmann.wpdisplay.util
 
 import android.content.ActivityNotFoundException

@@ -37,6 +37,19 @@ https://github.com/UweTrottmann/wp-display-android
 
 ## License
 
-Except where noted otherwise, this work by [Uwe Trottmann](https://www.uwetrottmann.com) is licensed under the [Apache License 2.0](LICENSE.txt).
+This program by [Uwe Trottmann](https://www.uwetrottmann.com) is licensed under
+the [GPL 3.0 or later](LICENSES/GPL-3.0-or-later.txt).
 
-Code [contributors](https://github.com/UweTrottmann/wp-display-android/graphs/contributors) and changes are tracked by Git.
+To get an overview of what this license allows you to do, check choosealicense.com for
+[GPL 3.0](https://choosealicense.com/licenses/gpl-3.0/).
+
+To help identify licenses and copyright holders, files contain
+
+- at the first possible line an `SPDX-License-Identifier` tag that identifies the licenses using
+  their [SPDX short-form identifier](https://spdx.dev/learn/handling-license-info/), matching a
+  license file in the [licenses](LICENSES) directory
+- comments that identify the copyright holders of that file, at best using the
+  `SPDX-FileCopyrightText` tag
+
+Code [contributors](https://github.com/UweTrottmann/SeriesGuide/graphs/contributors) and changes are
+also tracked by Git.
