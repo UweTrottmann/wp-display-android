@@ -4,6 +4,7 @@
 package com.uwetrottmann.wpdisplay.settings
 
 import android.content.Context
+import androidx.core.content.edit
 import androidx.preference.PreferenceManager
 
 /**
@@ -31,9 +32,9 @@ object ConnectionSettings {
             // 8889 seems to be used on newer firmwares and returns more data, so default to it.
             value = 8889
             PreferenceManager.getDefaultSharedPreferences(context)
-                .edit()
-                .putInt(KEY_PORT, value)
-                .apply()
+                .edit {
+                    putInt(KEY_PORT, value)
+                }
         }
         return value
     }
@@ -44,11 +45,11 @@ object ConnectionSettings {
      * @param port Needs to be a valid port.
      */
     fun saveConnectionSettings(context: Context, host: String, port: Int) {
-        val editor = PreferenceManager.getDefaultSharedPreferences(context).edit()
-        editor.putString(KEY_HOST, host)
-        if (port > 0 || port <= 65535) {
-            editor.putInt(KEY_PORT, port)
+        PreferenceManager.getDefaultSharedPreferences(context).edit {
+            putString(KEY_HOST, host)
+            if (port > 0 || port <= 65535) {
+                putInt(KEY_PORT, port)
+            }
         }
-        editor.apply()
     }
 }

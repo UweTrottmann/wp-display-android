@@ -6,10 +6,10 @@ package com.uwetrottmann.wpdisplay.util
 import android.content.ActivityNotFoundException
 import android.content.Context
 import android.content.Intent
-import android.net.Uri
+import androidx.core.net.toUri
 
 fun openWebPage(context: Context, url: String) {
-    val webpage = Uri.parse(url)
+    val webpage = url.toUri()
     val intent = Intent(Intent.ACTION_VIEW, webpage)
     // Note: Android docs suggest to use resolveActivity,
     // but won't work on Android 11+ due to package visibility changes.
