@@ -2,6 +2,8 @@
 
 ## Next release
 
+- Supports only Android 6 or newer going forward.
+
 ## 17.5.1 (2026-01-15)
 
 - Resolved: hiding the new mixing circuit 3 values no longer also hides compressor frequency and 
