@@ -23,8 +23,9 @@ android {
         applicationId = "com.uwetrottmann.wpdisplay"
         minSdk = 23 /* Android 6 (M) */
         targetSdk = 37 /* Android 17 */
-        versionCode = 30
-        versionName = "17.5.1"
+        // Use large version codes to allow releasing updates for older versions, if necessary.
+        versionCode = 23180000 // <min-sdk><major-version><minor-version><build>
+        versionName = "18.0.0"
 
         vectorDrawables.useSupportLibrary = true
     }

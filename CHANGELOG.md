@@ -1,6 +1,6 @@
 # Heat Pump Display Release Notes
 
-## Next release
+## 18.0.0 (2026-10-03)
 
 - Supports only Android 6 or newer going forward.
 - Support requesting "nearby devices" permission on Android 17 to access local network.
