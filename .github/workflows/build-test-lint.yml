@@ -1,18 +1,17 @@
-name: Android CI
+name: Build Test Lint
 
 on:
-  push:
   pull_request:
-  workflow_dispatch:
+    branches:
+      - 'dev'
+      - 'main'
+      - 'releases/**'
+  workflow_dispatch: # Allow running manually from web UI
 
 jobs:
   build:
-    name: Build and Lint
+    name: Build, Test and Lint
     runs-on: ubuntu-latest
-    # Only run on pushes or if pull request from fork
-    if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name != github.event.pull_request.base.repo.full_name
-    permissions:
-      checks: write # to publish unit test results
 
     steps:
       - name: Check out
