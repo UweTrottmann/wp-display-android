@@ -3,6 +3,7 @@
 
 package com.uwetrottmann.wpdisplay.settings
 
+import android.annotation.SuppressLint
 import android.content.pm.PackageManager
 import android.os.Build
 import android.os.Bundle
@@ -175,6 +176,8 @@ class SettingsFragment : Fragment() {
     fun populateViews() {
         val host = ConnectionSettings.getHost(requireContext())
         binding.editTextSettingsHost.setText(host)
+        // Don't use a local format for the port number
+        @SuppressLint("SetTextI18n")
         binding.editTextSettingsPort.setText(
             ConnectionSettings.getPort(requireContext()).toString()
         )
