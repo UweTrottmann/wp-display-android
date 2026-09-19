@@ -7,7 +7,7 @@ plugins {
 
 android {
     namespace = "com.uwetrottmann.wpdisplay"
-    compileSdk = 35 /* Android 15 */
+    compileSdk = 37 /* Android 17 */
 
     buildFeatures {
         buildConfig = true
