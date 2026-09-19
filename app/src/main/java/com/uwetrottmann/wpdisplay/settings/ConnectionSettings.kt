@@ -47,7 +47,7 @@ object ConnectionSettings {
     fun saveConnectionSettings(context: Context, host: String, port: Int) {
         PreferenceManager.getDefaultSharedPreferences(context).edit {
             putString(KEY_HOST, host)
-            if (port > 0 || port <= 65535) {
+            if (port in 1..65535) {
                 putInt(KEY_PORT, port)
             }
         }
