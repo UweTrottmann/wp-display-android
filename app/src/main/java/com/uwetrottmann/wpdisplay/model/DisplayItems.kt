@@ -4,6 +4,7 @@
 package com.uwetrottmann.wpdisplay.model
 
 import android.content.Context
+import androidx.core.content.edit
 import androidx.preference.PreferenceManager
 import com.uwetrottmann.wpdisplay.model.StatusData.Type
 import com.uwetrottmann.wpdisplay.model.StatusData.Type.TypeWithOffset.HeatQuantity
@@ -91,9 +92,9 @@ object DisplayItems {
         val disabledEncoded = all
             .filter { !it.enabled }
             .joinToString(",") { it.id.toString() }
-        PreferenceManager.getDefaultSharedPreferences(context).edit()
-            .putString(KEY_DISABLED_DISPLAY_ITEMS, disabledEncoded)
-            .apply()
+        PreferenceManager.getDefaultSharedPreferences(context).edit {
+            putString(KEY_DISABLED_DISPLAY_ITEMS, disabledEncoded)
+        }
     }
 
 }
