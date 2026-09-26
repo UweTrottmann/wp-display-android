@@ -94,6 +94,13 @@
     <string name="stats_get_dtafile">Download DTA file</string>
     <string name="action_close">Close</string>
 
+    <string name="settings_app_permissions">App permissions</string>
+    <string name="settings_info_local_network_permission">To access IP addresses in your local network, the app needs to be given permission to connect to \"nearby devices\".</string>
+    <string name="local_network_permission_given">\"Nearby devices\" permission given</string>
+    <string name="local_network_permission_required">\"Nearby devices\" permission required</string>
+    <string name="action_request_permission">Request permission</string>
+    <string name="settings_info_permission_grant_manually">If you have previously denied the permission, you must allow it manually in your device\'s settings:</string>
+    <string name="action_manage_permissions">Manage permissions</string>
     <string name="settings_info_software_update">To get the new web interface, the latest fixes and features you can update the software of your controller. Visit the manufacturer website for details.</string>
     <string name="action_software_update">Open software update page</string>
     <string name="settings_info_web_interface">If your controller has a recent software version, you can also access and configure it via a web interface. Enter no password to access basic information.</string>

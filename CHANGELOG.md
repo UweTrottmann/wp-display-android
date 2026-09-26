@@ -3,7 +3,7 @@
 ## Next release
 
 - Supports only Android 6 or newer going forward.
-- Ensure future availability on Android 17.
+- Support requesting "nearby devices" permission on Android 17 to access local network.
 
 ## 17.5.1 (2026-01-15)
 

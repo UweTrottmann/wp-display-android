@@ -18,14 +18,70 @@
         android:clipToPadding="false"
         android:orientation="vertical"
         android:paddingStart="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin"
         android:paddingEnd="@dimen/activity_horizontal_margin"
         android:paddingBottom="@dimen/activity_vertical_margin"
         tools:context="com.uwetrottmann.wpdisplay.settings.SettingsFragment">
 
+        <!--
+        Only shown on Android 17 by code. So set top margin on headers instead of parent layout top
+        padding.
+        -->
+        <LinearLayout
+            android:id="@+id/permissionsLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_large"
+                android:text="@string/settings_app_permissions"
+                android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
+
+            <TextView
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:text="@string/settings_info_local_network_permission"
+                android:textAppearance="@style/TextAppearance.Material3.BodyMedium" />
+
+            <TextView
+                android:id="@+id/textViewLocalNetworkPermission"
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_default"
+                android:textAppearance="@style/TextAppearance.Material3.BodyMedium.Emphasized"
+                tools:text="@string/local_network_permission_required" />
+
+            <Button
+                android:id="@+id/buttonRequestLocalNetworkPermission"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/action_request_permission" />
+
+            <TextView
+                android:layout_width="300dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/padding_default"
+                android:text="@string/settings_info_permission_grant_manually"
+                android:textAppearance="@style/TextAppearance.Material3.BodyMedium" />
+
+            <Button
+                android:id="@+id/buttonManagePermissions"
+                style="@style/Widget.Material3.Button.OutlinedButton"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/action_manage_permissions" />
+
+        </LinearLayout>
+
         <TextView
             android:layout_width="300dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding_large"
             android:text="@string/settings_controller"
             android:textAppearance="@style/TextAppearance.Material3.TitleMedium" />
 
