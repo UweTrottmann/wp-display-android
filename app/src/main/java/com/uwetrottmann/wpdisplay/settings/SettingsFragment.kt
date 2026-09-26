@@ -3,17 +3,24 @@
 
 package com.uwetrottmann.wpdisplay.settings
 
+import android.Manifest
 import android.annotation.SuppressLint
+import android.content.Intent
 import android.content.pm.PackageManager
+import android.net.Uri
 import android.os.Build
 import android.os.Bundle
+import android.provider.Settings
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.app.AppCompatDelegate
+import androidx.core.content.ContextCompat
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import androidx.core.view.isVisible
 import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -24,6 +31,7 @@ import com.uwetrottmann.wpdisplay.R
 import com.uwetrottmann.wpdisplay.databinding.FragmentSettingsBinding
 import com.uwetrottmann.wpdisplay.model.DisplayItems
 import com.uwetrottmann.wpdisplay.util.openWebPage
+import com.uwetrottmann.wpdisplay.util.tryStartActivity
 
 /**
  * App settings.
@@ -64,6 +72,18 @@ class SettingsFragment : Fragment() {
                     bottom = bars.bottom,
                 )
                 insets
+            }
+        }
+
+        // Local network permission (only shown on Android 17 and up)
+        val isAtLeastAndroid17 = Build.VERSION.SDK_INT >= Build.VERSION_CODES.CINNAMON_BUN
+        binding.permissionsLayout.isVisible = isAtLeastAndroid17
+        if (isAtLeastAndroid17) {
+            binding.buttonRequestLocalNetworkPermission.setOnClickListener {
+                requestLocalNetworkPermission()
+            }
+            binding.buttonManagePermissions.setOnClickListener {
+                openSystemAppSettings()
             }
         }
 
@@ -174,6 +194,8 @@ class SettingsFragment : Fragment() {
     }
 
     fun populateViews() {
+        updateLocalNetworkPermissionUi()
+
         val host = ConnectionSettings.getHost(requireContext())
         binding.editTextSettingsHost.setText(host)
         // Don't use a local format for the port number
@@ -188,14 +210,17 @@ class SettingsFragment : Fragment() {
                 binding.radioGroupColorScheme.check(R.id.radioSettingsColorSchemeLight)
                 binding.linearLayoutSettingsTime.visibility = View.GONE
             }
+
             ThemeSettings.THEME_ALWAYS_NIGHT -> {
                 binding.radioGroupColorScheme.check(R.id.radioSettingsColorSchemeDark)
                 binding.linearLayoutSettingsTime.visibility = View.GONE
             }
+
             ThemeSettings.THEME_DAY_NIGHT -> {
                 binding.radioGroupColorScheme.check(R.id.radioSettingsColorSchemeAuto)
                 binding.linearLayoutSettingsTime.visibility = View.VISIBLE
             }
+
             else -> {
                 binding.radioGroupColorScheme.check(R.id.radioSettingsColorSchemeSystem)
                 binding.linearLayoutSettingsTime.visibility = View.GONE
@@ -220,6 +245,69 @@ class SettingsFragment : Fragment() {
             else -> ThemeSettings.THEME_DAY_NIGHT_SYSTEM
         }
         ThemeSettings.saveThemeMode(requireContext(), themeMode)
+    }
+
+    private val requestLocalNetworkPermissionLauncher = registerForActivityResult(
+        ActivityResultContracts.RequestPermission()
+    ) { _ ->
+        updateLocalNetworkPermissionUi()
+    }
+
+    /**
+     * On Android 17 and up requests the local network permission. Otherwise, does nothing.
+     */
+    private fun requestLocalNetworkPermission() {
+        // Double check to avoid lint error
+        if (Build.VERSION.SDK_INT < Build.VERSION_CODES.CINNAMON_BUN) {
+            return
+        }
+        if (!isLocalNetworkPermissionGranted()) {
+            requestLocalNetworkPermissionLauncher.launch(Manifest.permission.ACCESS_LOCAL_NETWORK)
+        }
+    }
+
+    /**
+     * On Android 17 and up returns whether the local network permission is granted. Otherwise,
+     * returns true.
+     */
+    private fun isLocalNetworkPermissionGranted(): Boolean {
+        return if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.CINNAMON_BUN) {
+            ContextCompat.checkSelfPermission(
+                requireContext(),
+                Manifest.permission.ACCESS_LOCAL_NETWORK
+            ) == PackageManager.PERMISSION_GRANTED
+        } else {
+            true
+        }
+    }
+
+    private fun updateLocalNetworkPermissionUi() {
+        val isGranted = isLocalNetworkPermissionGranted()
+        binding.textViewLocalNetworkPermission.setText(
+            if (isGranted) {
+                R.string.local_network_permission_given
+            } else {
+                R.string.local_network_permission_required
+            }
+        )
+        binding.buttonRequestLocalNetworkPermission.isEnabled = !isGranted
+    }
+
+    private fun getPackageNameUri() = Uri.fromParts("package", requireContext().packageName, null)
+
+    /**
+     * Tries to open system app settings where users can configure permissions for this app. If not
+     * possible, tries to open the manage all apps screen.
+     */
+    private fun openSystemAppSettings() {
+        // Try to open app info where user can clear app cache folders
+        val detailsIntent = Intent(Settings.ACTION_APPLICATION_DETAILS_SETTINGS)
+            .apply { data = getPackageNameUri() }
+        if (!requireActivity().tryStartActivity(detailsIntent)) {
+            // Try to open all apps view if detail view not available
+            val allIntent = Intent(Settings.ACTION_MANAGE_APPLICATIONS_SETTINGS)
+            requireActivity().tryStartActivity(allIntent)
+        }
     }
 
 }
