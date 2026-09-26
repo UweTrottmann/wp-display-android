@@ -1,3 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- SPDX-License-Identifier: GPL-3.0-or-later -->
+<!-- SPDX-FileCopyrightText: Copyright © 2014 Uwe Trottmann <uwe@uwetrottmann.com> -->
+
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme to enable day/night support. -->
