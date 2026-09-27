@@ -24,7 +24,7 @@
 
     <!-- Padding overwritten by OnApplyWindowInsetsListener -->
     <include
-        android:id="@+id/snackbar"
-        layout="@layout/layout_snackbar" />
+        android:id="@+id/message_banner"
+        layout="@layout/layout_message_banner" />
 
 </FrameLayout>

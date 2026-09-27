@@ -81,7 +81,7 @@ class DisplayFragment : Fragment() {
                 )
                 insets
             }
-            ViewCompat.setOnApplyWindowInsetsListener(binding.snackbar.root) { v, insets ->
+            ViewCompat.setOnApplyWindowInsetsListener(binding.messageBanner.root) { v, insets ->
                 val bars = insets.getInsets(
                     WindowInsetsCompat.Type.systemBars()
                             or WindowInsetsCompat.Type.displayCutout()
@@ -171,7 +171,7 @@ class DisplayFragment : Fragment() {
     override fun onStart() {
         super.onStart()
 
-        showSnackBar(false)
+        showMessageBanner(false)
         connectOrNotify()
     }
 
@@ -179,8 +179,11 @@ class DisplayFragment : Fragment() {
         val host = ConnectionSettings.getHost(requireContext())
         val port = ConnectionSettings.getPort(requireContext())
         if (TextUtils.isEmpty(host) || port < 0 || port > 65535) {
-            setupSnackBar(R.string.setup_missing, R.string.action_setup) { showSettingsFragment() }
-            showSnackBar(true)
+            setupMessageBanner(
+                R.string.setup_missing,
+                R.string.action_setup
+            ) { showSettingsFragment() }
+            showMessageBanner(true)
         } else {
             ConnectionTools.connect(requireContext())
         }
@@ -249,11 +252,11 @@ class DisplayFragment : Fragment() {
                 } else {
                     R.string.message_no_connection
                 }
-                setupSnackBar(messageId, R.string.action_retry) {
+                setupMessageBanner(messageId, R.string.action_retry) {
                     ConnectionTools.connect(requireContext())
-                    showSnackBar(false)
+                    showMessageBanner(false)
                 }
-                showSnackBar(true)
+                showMessageBanner(true)
                 ConnectionTools.disconnect()
             }
         }
@@ -294,14 +297,18 @@ class DisplayFragment : Fragment() {
         threadPool.execute(runnable)
     }
 
-    private fun showSnackBar(visible: Boolean) {
-        binding.snackbar.root.visibility = if (visible) View.VISIBLE else View.GONE
+    private fun showMessageBanner(visible: Boolean) {
+        binding.messageBanner.root.visibility = if (visible) View.VISIBLE else View.GONE
     }
 
-    private fun setupSnackBar(titleResId: Int, actionResId: Int, action: View.OnClickListener) {
-        binding.snackbar.apply {
-            textViewDisplaySnackbar.setText(titleResId)
-            buttonDisplaySnackbar.apply {
+    private fun setupMessageBanner(
+        titleResId: Int,
+        actionResId: Int,
+        action: View.OnClickListener
+    ) {
+        binding.messageBanner.apply {
+            textViewMessage.setText(titleResId)
+            buttonAction.apply {
                 if (actionResId > 0) {
                     visibility = View.VISIBLE
                     setText(actionResId)

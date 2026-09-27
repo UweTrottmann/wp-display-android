@@ -32,9 +32,9 @@
         <item name="colorOnSurfaceVariant">?attr/colorPrimary</item>
     </style>
 
-    <style name="Widget.WpDisplay.Snackbar" parent="">
+    <style name="Widget.WpDisplay.MessageBanner" parent="">
         <item name="android:theme">@style/ThemeOverlay.MaterialComponents.Light</item>
-        <item name="android:background">@drawable/wp_snackbar_background_light</item>
+        <item name="android:background">@drawable/wp_message_banner_background_light</item>
     </style>
 
 </resources>

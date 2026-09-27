@@ -14,7 +14,7 @@
 
     <!-- Margin should be bigger than elevation so shadows have enough space to draw -->
     <LinearLayout
-        style="@style/Widget.WpDisplay.Snackbar"
+        style="@style/Widget.WpDisplay.MessageBanner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="8dp"
@@ -23,7 +23,7 @@
         tools:ignore="UnusedAttribute">
 
         <TextView
-            android:id="@+id/textViewDisplaySnackbar"
+            android:id="@+id/textViewMessage"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
@@ -35,16 +35,16 @@
             android:paddingBottom="@dimen/padding_large"
             android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
             tools:ignore="RtlSymmetry"
-            tools:text="@string/setup_missing" />
+            tools:text="@string/message_no_connection_permission" />
 
         <Button
-            android:id="@+id/buttonDisplaySnackbar"
+            android:id="@+id/buttonAction"
             style="@style/Widget.Material3.Button.TextButton"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_marginEnd="8dp"
-            tools:text="@string/action_setup" />
+            tools:text="@string/action_retry" />
 
     </LinearLayout>
 
