@@ -32,14 +32,12 @@ Parent layout may apply padding for nav bar, so don't clip to avoid cutting off 
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:layout_weight="1"
-            android:ellipsize="end"
-            android:maxLines="3"
             android:paddingStart="24dp"
             android:paddingTop="@dimen/padding_large"
             android:paddingBottom="@dimen/padding_large"
             android:textAppearance="@style/TextAppearance.Material3.BodyMedium"
             tools:ignore="RtlSymmetry"
-            tools:text="@string/message_no_connection_permission" />
+            tools:text="@string/message_connection_error" />
 
         <Button
             android:id="@+id/buttonAction"

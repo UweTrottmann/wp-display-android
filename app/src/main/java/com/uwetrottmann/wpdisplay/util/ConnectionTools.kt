@@ -8,8 +8,6 @@ import com.uwetrottmann.wpdisplay.settings.ConnectionSettings
 import timber.log.Timber
 import java.io.DataInputStream
 import java.io.DataOutputStream
-import java.io.InputStream
-import java.io.OutputStream
 import java.net.Socket
 import java.util.concurrent.Executors
 import java.util.concurrent.ScheduledFuture
@@ -21,11 +19,10 @@ object ConnectionTools : ConnectionListener {
     private val disconnectRunnable: DisconnectRunnable = DisconnectRunnable(this)
     private val requestRunnable: DataRequestRunnable = DataRequestRunnable(this)
 
-    override var socket: Socket? = null
-    override var inputStream: DataInputStream? = null
-    override var outputStream: DataOutputStream? = null
+    override var connection: Connection? = null
 
     private var requestSchedule: ScheduledFuture<*>? = null
+
     /**
      * Whether request calls are currently ignored.
      */
@@ -34,12 +31,12 @@ object ConnectionTools : ConnectionListener {
     /** LiveData to observe for changes in connection state. */
     val connectionEvent = EventLiveData<ConnectionEvent>()
 
-    class ConnectionEvent(
-        var isConnecting: Boolean,
-        var isConnected: Boolean,
-        var host: String?,
-        var port: Int
-    )
+    sealed interface ConnectionEvent
+    object MissingSettingsEvent : ConnectionEvent
+    data class ConnectingEvent(val host: String, val port: Int) : ConnectionEvent
+    data class ConnectedEvent(val host: String, val port: Int) : ConnectionEvent
+    data class ConnectionErrorEvent(val host: String, val port: Int, val errorCause: String?) :
+        ConnectionEvent
 
     /**
      * Try to establish a connection, async.
@@ -121,10 +118,23 @@ object ConnectionTools : ConnectionListener {
     }
 
     @Synchronized
-    override fun setSocket(socket: Socket?, `in`: InputStream?, out: OutputStream?) {
-        this.socket = socket
-        this.inputStream = DataInputStream(`in`)
-        this.outputStream = DataOutputStream(out)
+    override fun setConnection(
+        host: String,
+        port: Int,
+        socket: Socket
+    ) {
+        connection = Connection(
+            host = host,
+            port = port,
+            socket = socket,
+            inputStream = DataInputStream(socket.getInputStream()),
+            outputStream = DataOutputStream(socket.getOutputStream())
+        )
+    }
+
+    @Synchronized
+    override fun clearConnection() {
+        connection = null
     }
 
 }

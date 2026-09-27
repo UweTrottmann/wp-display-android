@@ -227,32 +227,46 @@ class DisplayFragment : Fragment() {
 
     private fun handleConnectionEvent(event: ConnectionTools.ConnectionEvent) {
         // pause button
-        isConnected = event.isConnected
+        isConnected = event is ConnectionTools.ConnectedEvent
         requireActivity().invalidateOptionsMenu()
 
         // status text
-        val statusResId: Int
+        val message: String
         var isWarning = false
-        when {
-            event.isConnecting -> statusResId = R.string.label_connecting
-            event.isConnected -> {
-                statusResId = R.string.label_connected
+        when (event) {
+            is ConnectionTools.MissingSettingsEvent -> {
+                isWarning = true
+                message = getString(R.string.setup_missing)
+            }
+
+            is ConnectionTools.ConnectingEvent -> {
+                message = getString(R.string.label_connecting, event.host + ":" + event.port)
+            }
+
+            is ConnectionTools.ConnectedEvent -> {
+                message = getString(R.string.label_connected, event.host + ":" + event.port)
                 // start requesting data
                 ConnectionTools.requestStatusData(true)
             }
 
-            else -> {
+            is ConnectionTools.ConnectionErrorEvent -> {
                 isWarning = true
-                statusResId = R.string.label_connection_error
                 // Use different message on Android 17 and up, where a missing local network
                 // permission can also cause a connection timeout (it won't have a cause).
                 // https://developer.android.com/privacy-and-security/local-network-permission#errors
                 val messageId = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.CINNAMON_BUN) {
-                    R.string.message_no_connection_permission
+                    R.string.label_no_connection_permission
                 } else {
-                    R.string.message_no_connection
+                    R.string.label_no_connection
                 }
-                setupMessageBanner(messageId, R.string.action_retry) {
+                // like "Could not connect to 192.168.0.42:8889 (SocketTimeoutException)."
+                val optionalCause = event.errorCause?.let { " ($it)" } ?: ""
+                message = getString(
+                    messageId,
+                    "${event.host}:${event.port}$optionalCause"
+                )
+
+                setupMessageBanner(R.string.message_connection_error, R.string.action_retry) {
                     ConnectionTools.connect(requireContext())
                     showMessageBanner(false)
                 }
@@ -261,12 +275,6 @@ class DisplayFragment : Fragment() {
             }
         }
 
-        val message = if (TextUtils.isEmpty(event.host) || event.port < 1) {
-            // display generic connection error if host or port not sent
-            getString(R.string.message_no_connection)
-        } else {
-            getString(statusResId, event.host + ":" + event.port)
-        }
         viewAdapter.updateStatus(ConnectionStatus(message, isWarning))
     }
 

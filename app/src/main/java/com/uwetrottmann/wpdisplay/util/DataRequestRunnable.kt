@@ -23,18 +23,24 @@ class DataRequestRunnable(private val listener: ConnectionListener) : Runnable {
         // Moves the current Thread into the background
         android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_BACKGROUND)
 
-        val socket = listener.socket
-        val input = listener.inputStream
-        val output = listener.outputStream
+        val connection = listener.connection
 
-        if (socket == null || !socket.isConnected || input == null || output == null) {
-            Timber.e("run: failed, no connection")
+        if (connection == null) {
+            Timber.d("run: disconnected")
+            return
+        }
+
+        val socket = connection.socket
+        val input = connection.inputStream
+        val output = connection.outputStream
+
+        if (!socket.isConnected) {
+            Timber.d("run: no connection")
             ConnectionTools.connectionEvent.postEvent(
-                ConnectionTools.ConnectionEvent(
-                    isConnecting = false,
-                    isConnected = false,
-                    host = null,
-                    port = 0
+                ConnectionTools.ConnectionErrorEvent(
+                    connection.host,
+                    connection.port,
+                    errorCause = null
                 )
             )
             return
@@ -68,11 +74,10 @@ class DataRequestRunnable(private val listener: ConnectionListener) : Runnable {
         } catch (e: IOException) {
             Timber.e(e, "run: failed to request data")
             ConnectionTools.connectionEvent.postEvent(
-                ConnectionTools.ConnectionEvent(
-                    isConnecting = false,
-                    isConnected = false,
-                    host = null,
-                    port = 0
+                ConnectionTools.ConnectionErrorEvent(
+                    connection.host,
+                    connection.port,
+                    errorCause = e.javaClass.simpleName,
                 )
             )
         }

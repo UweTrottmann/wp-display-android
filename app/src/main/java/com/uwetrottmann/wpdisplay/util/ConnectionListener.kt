@@ -5,21 +5,24 @@ package com.uwetrottmann.wpdisplay.util
 
 import java.io.DataInputStream
 import java.io.DataOutputStream
-import java.io.InputStream
-import java.io.OutputStream
 import java.net.Socket
 
 /**
  * Interfaces for [com.uwetrottmann.wpdisplay.util.ConnectionTools] runnables.
  */
 interface ConnectionListener {
-    val socket: Socket?
-
-    val inputStream: DataInputStream?
-
-    val outputStream: DataOutputStream?
+    val connection: Connection?
 
     val isPaused: Boolean
 
-    fun setSocket(socket: Socket?, `in`: InputStream?, out: OutputStream?)
+    fun setConnection(host: String, port: Int, socket: Socket)
+    fun clearConnection()
 }
+
+data class Connection(
+    val host: String,
+    val port: Int,
+    val socket: Socket,
+    val inputStream: DataInputStream,
+    val outputStream: DataOutputStream
+)

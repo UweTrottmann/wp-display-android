@@ -18,7 +18,7 @@ internal class ConnectRunnable(
         // Moves the current Thread into the background
         android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_BACKGROUND)
 
-        val existingSocket = listener.socket
+        val existingSocket = listener.connection?.socket
         if (existingSocket != null && existingSocket.isConnected) {
             Timber.d("run: already connected")
             return
@@ -29,10 +29,13 @@ internal class ConnectRunnable(
         }
 
         Timber.d("run: connecting")
+        if (host == null || port < 1) {
+            ConnectionTools.connectionEvent.postEvent(ConnectionTools.MissingSettingsEvent)
+            return
+        }
+
         ConnectionTools.connectionEvent.postEvent(
-            ConnectionTools.ConnectionEvent(
-                isConnecting = true,
-                isConnected = false,
+            ConnectionTools.ConnectingEvent(
                 host = host,
                 port = port
             )
@@ -44,13 +47,11 @@ internal class ConnectRunnable(
             socket = Socket()
             socket.connect(InetSocketAddress(host, port), 15 * 1000) // 15 sec
             socket.soTimeout = 20 * 1000 // 20 sec
-            listener.setSocket(socket, socket.getInputStream(), socket.getOutputStream())
+            listener.setConnection(host, port, socket)
 
             // post success
             ConnectionTools.connectionEvent.postEvent(
-                ConnectionTools.ConnectionEvent(
-                    isConnecting = false,
-                    isConnected = true,
+                ConnectionTools.ConnectedEvent(
                     host = host,
                     port = port
                 )
@@ -59,16 +60,15 @@ internal class ConnectRunnable(
             Timber.e(e, "run: connection to $host:$port failed")
             try {
                 socket?.close()
-            } catch (ignored: IOException) {
+            } catch (_: IOException) {
             }
 
             // post failure
             ConnectionTools.connectionEvent.postEvent(
-                ConnectionTools.ConnectionEvent(
-                    isConnecting = false,
-                    isConnected = false,
+                ConnectionTools.ConnectionErrorEvent(
                     host = host,
-                    port = port
+                    port = port,
+                    errorCause = e.javaClass.simpleName
                 )
             )
         }
