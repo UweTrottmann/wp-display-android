@@ -3,12 +3,16 @@
 <!-- SPDX-License-Identifier: GPL-3.0-or-later -->
 <!-- SPDX-FileCopyrightText: Copyright © 2016 Uwe Trottmann <uwe@uwetrottmann.com> -->
 
-<!-- Wrapper layout to inset more easily. -->
+<!--
+Wrapper layout to inset more easily.
+Parent layout may apply padding for nav bar, so don't clip to avoid cutting off shadow.
+-->
 <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_gravity="bottom"
+    android:clipToPadding="false"
     tools:ignore="UnusedAttribute"
     tools:showIn="@layout/fragment_display_rv">
 
