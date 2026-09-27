@@ -84,7 +84,8 @@
 
     <string name="setup_missing">Einstellungen unvollständig</string>
     <string name="action_setup">Einrichten</string>
-    <string name="message_no_connection">Keine Verbindung. Netzwerk und Einstellungen überprüfen.</string>
+    <string name="message_no_connection">Keine Verbindung möglich. Netzwerk und Einstellungen überprüfen.</string>
+    <string name="message_no_connection_permission">Keine Verbindung möglich. Netzwerk, Einstellungen und App Berechtigungen überprüfen.</string>
     <string name="action_retry">Wiederholen</string>
 
     <string name="stats_empty">DTA Datei wird geladen</string>

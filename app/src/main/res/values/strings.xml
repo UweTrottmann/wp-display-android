@@ -85,6 +85,7 @@
     <string name="setup_missing">Configuration incomplete</string>
     <string name="action_setup">Setup</string>
     <string name="message_no_connection">Could not connect. Check your network connection and settings.</string>
+    <string name="message_no_connection_permission">Could not connect. Check your network connection, settings and app permissions.</string>
     <string name="action_retry">Retry</string>
 
     <string name="stats_empty">Loading DTA file</string>

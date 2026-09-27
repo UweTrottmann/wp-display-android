@@ -241,7 +241,15 @@ class DisplayFragment : Fragment() {
             else -> {
                 isWarning = true
                 statusResId = R.string.label_connection_error
-                setupSnackBar(R.string.message_no_connection, R.string.action_retry) {
+                // Use different message on Android 17 and up, where a missing local network
+                // permission can also cause a connection timeout (it won't have a cause).
+                // https://developer.android.com/privacy-and-security/local-network-permission#errors
+                val messageId = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.CINNAMON_BUN) {
+                    R.string.message_no_connection_permission
+                } else {
+                    R.string.message_no_connection
+                }
+                setupSnackBar(messageId, R.string.action_retry) {
                     ConnectionTools.connect(requireContext())
                     showSnackBar(false)
                 }
