@@ -43,7 +43,7 @@ Parent layout may apply padding for nav bar, so don't clip to avoid cutting off 
 
         <Button
             android:id="@+id/buttonAction"
-            style="@style/Widget.Material3.Button.TextButton"
+            style="@style/Widget.WpDisplay.MessageBanner.Button"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"

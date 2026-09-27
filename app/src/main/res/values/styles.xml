@@ -68,4 +68,12 @@
         <item name="android:background">@drawable/wp_message_banner_background_dark</item>
     </style>
 
+    <style name="Widget.WpDisplay.MessageBanner.Button" parent="Widget.Material3.Button.TextButton">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.WpDisplay.MessageBanner.Button</item>
+    </style>
+
+    <style name="ThemeOverlay.WpDisplay.MessageBanner.Button" parent="ThemeOverlay.Material3.Button.TextButton">
+        <item name="colorOnContainer">?android:attr/textColorPrimary</item>
+    </style>
+
 </resources>
