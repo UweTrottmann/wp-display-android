@@ -2,7 +2,7 @@
 
 ## 18.0.0 (2026-10-03)
 
-- Supports only Android 6 or newer going forward.
+- Updates only for Android 6 or newer going forward.
 - Support requesting "nearby devices" permission on Android 17 to access local network.
 - Statistics: fix values switching around, support timestamps from 2038-01-19.
 - Settings: dark during hours works if time range is past midnight.
