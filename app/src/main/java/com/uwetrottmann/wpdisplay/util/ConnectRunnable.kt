@@ -45,8 +45,8 @@ internal class ConnectRunnable(
         try {
             // connect, create in and out streams
             socket = Socket()
-            socket.connect(InetSocketAddress(host, port), 15 * 1000) // 15 sec
-            socket.soTimeout = 20 * 1000 // 20 sec
+            socket.connect(InetSocketAddress(host, port), NetworkTimeouts.CONNECT_TIMEOUT_MS)
+            socket.soTimeout = NetworkTimeouts.READ_TIMEOUT_MS
             listener.setConnection(host, port, socket)
 
             // post success

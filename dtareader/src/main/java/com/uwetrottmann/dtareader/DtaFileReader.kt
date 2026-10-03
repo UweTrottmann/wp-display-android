@@ -19,8 +19,8 @@ import kotlin.experimental.and
  *
  * ```
  * val reader = DtaFileReader()
- * val loggerFileStream = reader.getLoggerFileStream()
- * if (loggerFileStream != null) reader.readLoggerFile(loggerFileStream)
+ * val loggerFileStream = reader.getLoggerFileStream(host, 15_000, 20_000)
+ * val dtaFile = reader.readLoggerFile(loggerFileStream)
  * ```
  *
  * Based upon https://sourceforge.net/p/opendta/git/ci/master/tree/dtafile/dtafile9003.cpp
@@ -32,10 +32,16 @@ class DtaFileReader {
     /**
      * Opens an HTTP (not encrypted) connection to the host to get the DTA statistics file.
      *
-     * Throws [java.io.IOException] if opening the connection fails.
+     * Throws [java.io.IOException] if opening the connection fails, also if connecting or a read
+     * takes longer than the given timeouts.
      */
-    fun getLoggerFileStream(host: String): InputStream {
-        return URL(getUrl(host)).openConnection().getInputStream()
+    fun getLoggerFileStream(host: String, connectTimeoutMs: Int, readTimeoutMs: Int): InputStream {
+        return URL(getUrl(host)).openConnection()
+            .apply {
+                connectTimeout = connectTimeoutMs
+                readTimeout = readTimeoutMs
+            }
+            .getInputStream()
     }
 
     /**

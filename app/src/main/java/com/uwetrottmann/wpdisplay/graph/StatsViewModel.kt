@@ -16,6 +16,7 @@ import com.github.mikephil.charting.data.LineData
 import com.github.mikephil.charting.data.LineDataSet
 import com.uwetrottmann.dtareader.DtaFileReader
 import com.uwetrottmann.wpdisplay.R
+import com.uwetrottmann.wpdisplay.util.NetworkTimeouts
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import timber.log.Timber
@@ -53,7 +54,11 @@ class StatsViewModel(
             val reader = DtaFileReader()
             try {
 //                val input = context.resources.assets.open("NewProc-Test.dta")
-                val input = reader.getLoggerFileStream(host)
+                val input = reader.getLoggerFileStream(
+                    host,
+                    NetworkTimeouts.CONNECT_TIMEOUT_MS,
+                    NetworkTimeouts.READ_TIMEOUT_MS
+                )
                 val dtaFile = reader.readLoggerFile(input)
                 chartData.postValue(buildResult(context, dtaFile))
             } catch (e: Exception) {
