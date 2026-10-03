@@ -119,6 +119,7 @@ class DataRequestRunnable(private val listener: ConnectionListener) : Runnable {
         for (i in 0 until length) {
             data.rawData[i] = input.readInt()
         }
+        skipExcessInts(input, lengthByServer, length)
 
         // Set some debug data.
         if (BuildConfig.DEBUG) {
@@ -171,6 +172,7 @@ class DataRequestRunnable(private val listener: ConnectionListener) : Runnable {
         for (i in 0 until length) {
             data[i] = input.readInt()
         }
+        skipExcessInts(input, lengthByServer, length)
 
         // Set some debug data.
         if (BuildConfig.DEBUG) {
@@ -181,6 +183,19 @@ class DataRequestRunnable(private val listener: ConnectionListener) : Runnable {
         }
 
         return StatusData(data, status > 0, settingsData)
+    }
+
+    /**
+     * If the server sent more ints than were read, reads and discards the rest. Otherwise, if not
+     * all of them have arrived yet, skipping using [DataInputStream.available] before the next
+     * request misses them and the next response would be read starting at the wrong position.
+     */
+    private fun skipExcessInts(input: DataInputStream, lengthByServer: Int, lengthRead: Int) {
+        val excess = lengthByServer - lengthRead
+        if (excess > 0) {
+            Timber.d("skipping $excess ints")
+            repeat(excess) { input.readInt() }
+        }
     }
 
     companion object {
