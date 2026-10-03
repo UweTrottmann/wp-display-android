@@ -93,4 +93,6 @@ dependencies {
     // Included in project because it's hosted on jitpack.io and I don't want to host my own Maven
     // repository.
     implementation(files("libs/MPAndroidChart-v3.1.0.aar"))
+
+    testImplementation(libs.junit)
 }
