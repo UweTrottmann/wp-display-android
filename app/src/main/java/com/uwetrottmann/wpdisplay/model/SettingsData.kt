@@ -11,7 +11,7 @@ import java.util.Date
  */
 class SettingsData(val rawData: IntArray) {
 
-    constructor() : this(IntArray(LENGTH_BYTES))
+    constructor() : this(IntArray(MAX_VALUES))
 
     private fun getValueAt(index: Int): Int {
         if (index + 1 > rawData.size) {
@@ -48,9 +48,9 @@ class SettingsData(val rawData: IntArray) {
 
     companion object {
         /**
-         * Maximum length of data supported. Sent data is 1123 bytes long for my controller,
+         * Maximum number of values (32-bit integers) supported. My controller sends 1123 values,
          * but only values up to 1061 are documented (see docs folder).
          */
-        const val LENGTH_BYTES = 1061
+        const val MAX_VALUES = 1061
     }
 }

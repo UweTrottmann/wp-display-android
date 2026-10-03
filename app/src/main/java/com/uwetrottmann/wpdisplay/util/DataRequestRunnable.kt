@@ -110,7 +110,7 @@ class DataRequestRunnable(private val listener: ConnectionListener) : Runnable {
         val data = SettingsData()
 
         // length (from server, so untrusted!)
-        // cap maximum number of bytes read
+        // cap maximum number of ints read
         val lengthByServer = input.readInt()
         Timber.d("settings length=$lengthByServer")
         val length = lengthByServer.coerceAtMost(data.rawData.size)
@@ -160,13 +160,13 @@ class DataRequestRunnable(private val listener: ConnectionListener) : Runnable {
         Timber.d("status=$status")
 
         // length (from server, so untrusted!)
-        // cap maximum number of bytes read
+        // cap maximum number of ints read
         val lengthByServer = input.readInt()
         Timber.d("status data length=$lengthByServer")
-        val length = lengthByServer.coerceAtMost(StatusData.LENGTH_BYTES)
+        val length = lengthByServer.coerceAtMost(StatusData.MAX_VALUES)
 
         // create array with max size
-        val data = IntArray(StatusData.LENGTH_BYTES)
+        val data = IntArray(StatusData.MAX_VALUES)
 
         // try reading sent data
         for (i in 0 until length) {

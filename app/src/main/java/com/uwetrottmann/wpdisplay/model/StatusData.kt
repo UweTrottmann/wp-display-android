@@ -22,7 +22,7 @@ class StatusData(
     val settingsData: SettingsData
 ) {
 
-    constructor() : this(IntArray(LENGTH_BYTES), shouldRefreshSettings = true, SettingsData())
+    constructor() : this(IntArray(MAX_VALUES), shouldRefreshSettings = true, SettingsData())
 
     /**
      * Return the [java.util.Date] this status data was stored.
@@ -30,9 +30,9 @@ class StatusData(
     val timestamp: Date
 
     init {
-        if (rawData.size != LENGTH_BYTES) {
+        if (rawData.size != MAX_VALUES) {
             throw IllegalArgumentException(
-                "array is not size $LENGTH_BYTES but was ${rawData.size}"
+                "array is not size $MAX_VALUES but was ${rawData.size}"
             )
         }
         this.timestamp = Date()
@@ -199,10 +199,10 @@ class StatusData(
     companion object {
 
         /**
-         * Maximum length of data supported. Sent status data is 200 bytes long for my controller,
-         * but values up to 231 are documented (see docs folder).
+         * Maximum number of values (32-bit integers) supported. My controller sends 200 values,
+         * but values up to index 231 are documented (see docs folder).
          */
-        const val LENGTH_BYTES = 232
+        const val MAX_VALUES = 232
 
         private const val FIRMWARE_VERSION_INDEX_BEGIN = 81
         private const val FIRMWARE_VERSION_LENGTH = 10
