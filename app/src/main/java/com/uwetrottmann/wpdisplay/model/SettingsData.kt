@@ -49,8 +49,8 @@ class SettingsData(val rawData: IntArray) {
     companion object {
         /**
          * Maximum number of values (32-bit integers) supported. My controller sends 1123 values,
-         * but only values up to 1061 are documented (see docs folder).
+         * but only values up to index 1061 are documented (see docs folder).
          */
-        const val MAX_VALUES = 1061
+        const val MAX_VALUES = 1062
     }
 }
