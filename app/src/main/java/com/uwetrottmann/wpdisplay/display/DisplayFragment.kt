@@ -20,6 +20,7 @@ import androidx.core.view.updatePadding
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.Lifecycle
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.GridLayoutManager
 import com.uwetrottmann.wpdisplay.R
@@ -27,13 +28,18 @@ import com.uwetrottmann.wpdisplay.databinding.FragmentDisplayRvBinding
 import com.uwetrottmann.wpdisplay.graph.StatsFragment
 import com.uwetrottmann.wpdisplay.model.ConnectionStatus
 import com.uwetrottmann.wpdisplay.model.DisplayItems
+import com.uwetrottmann.wpdisplay.model.DisplayRow
 import com.uwetrottmann.wpdisplay.model.StatusData
 import com.uwetrottmann.wpdisplay.settings.ConnectionSettings
 import com.uwetrottmann.wpdisplay.settings.SettingsFragment
 import com.uwetrottmann.wpdisplay.util.ConnectionTools
 import com.uwetrottmann.wpdisplay.util.DataRequestRunnable
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.ensureActive
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import java.text.DateFormat
-import java.util.concurrent.Executors
 
 class DisplayFragment : Fragment() {
 
@@ -97,7 +103,8 @@ class DisplayFragment : Fragment() {
 
         // TODO maybe read state async
         DisplayItems.readDisabledStateFromPreferences(requireContext())
-        viewAdapter = DisplayAdapter(DisplayItems.enabled.toMutableList())
+        // Empty text until the first status data is built
+        viewAdapter = DisplayAdapter(DisplayItems.enabled.map { DisplayRow(it, "") })
 
         val spanCount = resources.getInteger(R.integer.spanCount)
         val spanSizeTemperatures = resources.getInteger(R.integer.spanSizeTemperatures)
@@ -278,31 +285,26 @@ class DisplayFragment : Fragment() {
         viewAdapter.updateStatus(ConnectionStatus(message, isWarning))
     }
 
-    private val threadPool = Executors.newFixedThreadPool(1)
+    private var buildJob: Job? = null
 
     private fun buildDataAndUpdateAdapter(statusData: StatusData) {
         val context = this.requireContext()
-        val runnable = Runnable {
-            android.os.Process.setThreadPriority(android.os.Process.THREAD_PRIORITY_BACKGROUND)
-
-            if (!lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)) {
-                return@Runnable // no need to build data
-            }
-
+        // Only the latest data needs to be displayed
+        buildJob?.cancel()
+        // Canceled when the view is destroyed
+        buildJob = viewLifecycleOwner.lifecycleScope.launch {
             val displayItems = DisplayItems.enabled
-            displayItems.forEach {
-                // need to use theme context!
-                it.buildCharSequence(context, statusData)
-            }
-            val timestamp = DateFormat.getDateTimeInstance().format(statusData.timestamp)
-
-            activity?.runOnUiThread {
-                if (lifecycle.currentState.isAtLeast(Lifecycle.State.STARTED)) {
-                    viewAdapter.updateDisplayItems(timestamp, displayItems)
+            // Only builds new objects, so builds can run in parallel
+            val (timestamp, displayRows) = withContext(Dispatchers.Default) {
+                val rows = displayItems.map {
+                    ensureActive()
+                    // need to use theme context!
+                    it.toDisplayRow(context, statusData)
                 }
+                DateFormat.getDateTimeInstance().format(statusData.timestamp) to rows
             }
+            viewAdapter.updateDisplayRows(timestamp, displayRows)
         }
-        threadPool.execute(runnable)
     }
 
     private fun showMessageBanner(visible: Boolean) {

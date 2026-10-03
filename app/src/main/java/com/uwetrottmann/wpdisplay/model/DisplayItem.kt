@@ -12,18 +12,31 @@ abstract class DisplayItem(
     val id: Int,
     val type: StatusData.Type
 ) {
+    /** Read on the main thread, but changed on a background thread when loading preferences. */
+    @Volatile
     var enabled: Boolean = true
-    var charSequence: CharSequence = ""
 
-    abstract fun buildCharSequence(context: Context, statusData: StatusData)
+    /**
+     * Returns a [DisplayRow] with the text to display for this item built from [statusData].
+     * Does not modify this item, so it is safe to call on any thread.
+     */
+    abstract fun toDisplayRow(context: Context, statusData: StatusData): DisplayRow
 }
+
+/**
+ * A [DisplayItem] and its text built from a specific [StatusData].
+ */
+class DisplayRow(
+    val item: DisplayItem,
+    val text: CharSequence
+)
 
 class TemperatureItem(
     id: Int,
     type: StatusData.Type
 ) : DisplayItem(id, type) {
 
-    override fun buildCharSequence(context: Context, statusData: StatusData) {
+    override fun toDisplayRow(context: Context, statusData: StatusData): DisplayRow {
         val builder = SpannableStringBuilder()
 
         builder.append(statusData.getLabelFor(type, context))
@@ -54,7 +67,7 @@ class TemperatureItem(
             ), lengthOld, builder.length, 0
         )
 
-        charSequence = builder
+        return DisplayRow(this, builder)
     }
 
 }
@@ -64,7 +77,7 @@ open class FullWidthItem(
     type: StatusData.Type
 ) : DisplayItem(id, type) {
 
-    override fun buildCharSequence(context: Context, statusData: StatusData) {
+    override fun toDisplayRow(context: Context, statusData: StatusData): DisplayRow {
         val builder = SpannableStringBuilder()
 
         builder.append(statusData.getLabelFor(type, context))
@@ -86,7 +99,7 @@ open class FullWidthItem(
             ), lengthOld, builder.length, 0
         )
 
-        charSequence = builder
+        return DisplayRow(this, builder)
     }
 
 }
