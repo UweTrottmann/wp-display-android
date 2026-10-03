@@ -7,6 +7,7 @@ import okio.Buffer
 import org.junit.Test
 import java.io.File
 import java.io.IOException
+import java.io.InputStream
 import java.nio.BufferUnderflowException
 import java.nio.ByteBuffer
 import kotlin.test.assertEquals
@@ -192,6 +193,196 @@ class DtaFileReaderTest {
                 writeByte('A'.code)
                 writeByte(0x00)
             })
+        }
+    }
+
+    /**
+     * Version and header size (calculated from the written header bytes), followed by the header
+     * and data set bytes.
+     */
+    private fun fakeDtaStreamWithHeader(
+        header: Buffer.() -> Unit,
+        dataSets: Buffer.() -> Unit = {}
+    ): InputStream {
+        val headerBytes = Buffer().apply(header)
+        return Buffer()
+            .writeIntLe(DtaFileReader.VERSION_9003)
+            .writeIntLe(headerBytes.size.toInt())
+            .apply { writeAll(headerBytes) }
+            .apply(dataSets)
+            .inputStream()
+    }
+
+    /** Analogue field with name and red color, optionally with a factor. */
+    private fun Buffer.writeAnalogueField(name: String, factor: Int? = null) {
+        writeByte(if (factor != null) 0x81 else 0x01)
+        writeUtf8(name)
+        writeByte(0x00)
+        writeByte(0xFF)
+        writeByte(0x00)
+        writeByte(0x00)
+        if (factor != null) writeShortLe(factor)
+    }
+
+    @Test
+    fun readLoggerFile_moreThan32767DataSets_readsAll() {
+        // Count is an unsigned short, 0x8000 would be negative if signed
+        val dataSetCount = 0x8000
+        val dtaFile = DtaFileReader().readLoggerFile(fakeDtaStreamWithHeader(
+            header = {
+                writeShortLe(dataSetCount)
+                writeShortLe(6) // 4 byte time stamp + 1 field
+                writeAnalogueField("TA")
+            },
+            dataSets = {
+                repeat(dataSetCount) {
+                    writeIntLe(it) // time stamp
+                    writeShortLe(it) // value
+                }
+            }
+        ))
+        assertEquals(dataSetCount, dtaFile.datasets.size)
+    }
+
+    @Test
+    fun readLoggerFile_enumWithMoreThan127Values_readsAll() {
+        // Count is an unsigned byte, 200 would be negative if signed
+        val valueCount = 200
+        val dtaFile = DtaFileReader().readLoggerFile(fakeDtaStreamWithHeader(
+            header = {
+                writeShortLe(0) // data sets
+                writeShortLe(6) // 4 byte time stamp + 1 field
+                writeByte(0x03) // enum field
+                writeUtf8("Enum")
+                writeByte(0x00)
+                writeByte(valueCount)
+                repeat(valueCount) {
+                    writeUtf8("V$it")
+                    writeByte(0x00)
+                }
+            }
+        ))
+        val enumField = dtaFile.enumFields.single()
+        assertEquals(valueCount, enumField.values.size)
+        assertEquals("V199", enumField.values.last())
+    }
+
+    @Test
+    fun readLoggerFile_analogueFactorZero_throwsIOException() {
+        assertFailsWith<IOException> {
+            DtaFileReader().readLoggerFile(fakeDtaStreamWithHeader(
+                header = {
+                    writeShortLe(0)
+                    writeShortLe(6)
+                    writeAnalogueField("TA", factor = 0)
+                }
+            ))
+        }
+    }
+
+    @Test
+    fun readLoggerFile_analogueFactorAbove32767_isUnsigned() {
+        // Factor is an unsigned short, 0x8000 would be negative if signed
+        val dtaFile = DtaFileReader().readLoggerFile(fakeDtaStreamWithHeader(
+            header = {
+                writeShortLe(1)
+                writeShortLe(6)
+                writeAnalogueField("TA", factor = 0x8000)
+            },
+            dataSets = {
+                writeIntLe(0) // time stamp
+                writeShortLe(0x4000) // value
+            }
+        ))
+        val field = dtaFile.analogueFields.single()
+        assertEquals(32768, field.factor)
+        assertEquals(0.5, dtaFile.datasets.single().getValue(field))
+    }
+
+    @Test
+    fun readLoggerFile_timestampAfter2038_isUnsigned() {
+        // Time stamp is an unsigned int, 0x80000000 (2038-01-19) would be negative if signed
+        val dtaFile = DtaFileReader().readLoggerFile(fakeDtaStreamWithHeader(
+            header = {
+                writeShortLe(1)
+                writeShortLe(6)
+                writeAnalogueField("TA")
+            },
+            dataSets = {
+                writeIntLe(0x80000000.toInt()) // time stamp
+                writeShortLe(0) // value
+            }
+        ))
+        assertEquals(2147483648L, dtaFile.datasets.single().timestampEpochSecond)
+    }
+
+    @Test
+    fun readLoggerFile_analogueValue_isSigned() {
+        // Unlike other values, analogue values are signed (e.g. negative temperatures)
+        val dtaFile = DtaFileReader().readLoggerFile(fakeDtaStreamWithHeader(
+            header = {
+                writeShortLe(1)
+                writeShortLe(6)
+                writeAnalogueField("TA")
+            },
+            dataSets = {
+                writeIntLe(0) // time stamp
+                writeShortLe(-55) // value
+            }
+        ))
+        val field = dtaFile.analogueFields.single()
+        assertEquals(-5.5, dtaFile.datasets.single().getValue(field))
+    }
+
+    @Test
+    fun readLoggerFile_enumValueAbove32767_isUnsigned() {
+        val dtaFile = DtaFileReader().readLoggerFile(fakeDtaStreamWithHeader(
+            header = {
+                writeShortLe(1)
+                writeShortLe(6)
+                writeByte(0x03) // enum field
+                writeUtf8("Enum")
+                writeByte(0x00)
+                writeByte(0) // no values
+            },
+            dataSets = {
+                writeIntLe(0) // time stamp
+                writeShortLe(0xFFFF) // value, -1 if signed
+            }
+        ))
+        val field = dtaFile.enumFields.single()
+        assertEquals(65535.0, dtaFile.datasets.single().fieldValues[field.index][0])
+    }
+
+    @Test
+    fun readLoggerFile_nameWithLatin1Character() {
+        val dtaFile = DtaFileReader().readLoggerFile(fakeDtaStreamWithHeader(
+            header = {
+                writeShortLe(0)
+                writeShortLe(6)
+                writeByte(0x01) // analogue field
+                writeByte('R'.code)
+                writeByte(0xFC) // ü in Latin-1, negative if signed
+                writeByte(0x00)
+                writeByte(0xFF) // color
+                writeByte(0x00)
+                writeByte(0x00)
+            }
+        ))
+        assertEquals("Rü", dtaFile.analogueFields.single().name)
+    }
+
+    @Test
+    fun readLoggerFile_digitalFieldMoreThan16Values_throwsIOException() {
+        assertFailsWith<IOException> {
+            DtaFileReader().readLoggerFile(fakeDtaStreamWithHeader(
+                header = {
+                    writeShortLe(0)
+                    writeShortLe(6)
+                    writeByte(0x02) // digital field
+                    writeByte(17) // count, but only 16 bits available
+                }
+            ))
         }
     }
 

@@ -4,7 +4,7 @@
 
 - Supports only Android 6 or newer going forward.
 - Support requesting "nearby devices" permission on Android 17 to access local network.
-- Statistics: fix values switching around.
+- Statistics: fix values switching around, support timestamps from 2038-01-19.
 - Settings: dark during hours works if time range is past midnight.
 - On connection error, display details on display screen and use a short message for banner.
 - Instead of crashing when clearing the port, switch to the default.

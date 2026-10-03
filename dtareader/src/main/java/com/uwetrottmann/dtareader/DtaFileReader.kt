@@ -77,8 +77,8 @@ class DtaFileReader {
 
     private data class Header(
         val fields: List<ReadableField>,
-        val datasetsToRead: Short,
-        val datasetLength: Short
+        val datasetsToRead: Int,
+        val datasetLength: Int
     )
 
     /**
@@ -98,10 +98,10 @@ class DtaFileReader {
         val headerBytes = bufferedSource.readByteArray(headerSize.toLong())
         val headerBuffer = ByteBuffer.wrap(headerBytes).order(ByteOrder.LITTLE_ENDIAN)
 
-        // Byte [8:9]: number of data sets
-        val datasetsToRead = headerBuffer.short
-        // Byte [10:11]: length of a data set
-        val datasetLength = headerBuffer.short
+        // Byte [8:9]: number of data sets (unsigned)
+        val datasetsToRead = headerBuffer.short.toUShort().toInt()
+        // Byte [10:11]: length of a data set (unsigned)
+        val datasetLength = headerBuffer.short.toUShort().toInt()
         if (datasetLength < 6) {
             throw IOException("Data set length is smaller than 6 bytes (at least timestamp + 2 byte field)")
         }
@@ -122,14 +122,23 @@ class DtaFileReader {
                     val name = readString(headerBuffer)
                     val color = readColor(headerBuffer)
                     val factor = if (fieldId and 0x80.toByte() != 0x0.toByte()) {
-                        headerBuffer.short
+                        // unsigned
+                        headerBuffer.short.toUShort().toInt()
                     } else 10
+                    if (factor == 0) {
+                        // Don't allow infinite values (values are divided by the factor)
+                        throw IOException("Analogue field $name has factor 0")
+                    }
                     fields.add(AnalogueField(index++, category, name, color, factor))
                 }
 
                 0x02.toByte(), 0x04.toByte() -> {
                     // Digital field
-                    val count = headerBuffer.get()
+                    val count = headerBuffer.get().toUByte().toInt()
+                    if (count > MAX_DIGITAL_VALUES) {
+                        // Each value is a bit of a 2 byte data set value
+                        throw IOException("Digital field has $count values, more than $MAX_DIGITAL_VALUES")
+                    }
                     val visibility = if (fieldId and 0x40.toByte() != 0x0.toByte()) {
                         headerBuffer.short
                     } else 0xFFFF.toShort() // All visible.
@@ -174,7 +183,7 @@ class DtaFileReader {
                 0x03.toByte() -> {
                     // Enum field
                     val name = readString(headerBuffer)
-                    val count = headerBuffer.get()
+                    val count = headerBuffer.get().toUByte().toInt()
 
                     val enumValues = mutableListOf<String>()
                     for (i in 0 until count) {
@@ -191,7 +200,7 @@ class DtaFileReader {
 
         // Check number of fields * 2 (length of value) == data set length
         val expectedDataSetLength = fields.size * 2 + 4 // 4 byte time stamp
-        if (expectedDataSetLength != datasetLength.toInt()) {
+        if (expectedDataSetLength != datasetLength) {
             throw IOException("Announced data set length ($datasetLength bytes) does not match fields ($expectedDataSetLength bytes)")
         }
 
@@ -212,15 +221,15 @@ class DtaFileReader {
             val bytes = bufferedSource.readByteArray(dataSetLength.toLong())
             val buffer = ByteBuffer.wrap(bytes).order(ByteOrder.LITTLE_ENDIAN)
 
-            // First 4 bytes are unix time in seconds
-            val epochSecond = buffer.int
+            // First 4 bytes are unix time in seconds (unsigned, so works after 2038)
+            val epochSecond = buffer.int.toUInt().toLong()
             // Then for each field 2 bytes
             val fieldValues = mutableListOf<List<Double>>()
             header.fields.forEach { fieldValues.add(it.readValue(buffer)) }
 
             datasets.add(
                 DataSet(
-                    epochSecond.toLong(),
+                    epochSecond,
                     fieldValues
                 )
             )
@@ -238,7 +247,8 @@ class DtaFileReader {
             if (char == 0x0.toByte()) {
                 break
             } else {
-                string += char.toInt().toChar()
+                // Unsigned, so bytes >= 0x80 map to Latin-1 characters (like 0xFC to ü)
+                string += char.toUByte().toInt().toChar()
             }
         }
         return string
@@ -250,15 +260,18 @@ class DtaFileReader {
      * @throws java.nio.BufferUnderflowException Thrown by [ByteBuffer.get].
      */
     internal fun readColor(buffer: ByteBuffer): Int {
-        // Mask with 0xFF to avoid sign extension of bytes >= 0x80
-        val r = buffer.get().toInt() and 0xFF
-        val g = buffer.get().toInt() and 0xFF
-        val b = buffer.get().toInt() and 0xFF
+        // Unsigned to avoid sign extension of bytes >= 0x80
+        val r = buffer.get().toUByte().toInt()
+        val g = buffer.get().toUByte().toInt()
+        val b = buffer.get().toUByte().toInt()
         return (0xFF shl 24) or (r shl 16) or (g shl 8) or b
     }
 
     companion object {
         const val VERSION_9003 = 9003
+
+        /** A digital field stores one bit per value in a 2 byte data set value. */
+        private const val MAX_DIGITAL_VALUES = 16
     }
 
     data class DtaFile(
@@ -281,7 +294,8 @@ class DtaFileReader {
         val category: String,
         val name: String,
         val color: Int,
-        val factor: Short
+        /** Unsigned 16-bit value, the raw value is divided by it. */
+        val factor: Int
     ) : ReadableField {
         override fun readValue(byteBuffer: ByteBuffer): List<Double> {
             val value = byteBuffer.short
@@ -320,7 +334,7 @@ class DtaFileReader {
         override fun readValue(byteBuffer: ByteBuffer): List<Double> {
             // Not sure what to do with the value, in a test file it is always 0
             // (is it the enum ordinal?)
-            return listOf(byteBuffer.short.toDouble())
+            return listOf(byteBuffer.short.toUShort().toInt().toDouble())
         }
     }
 
