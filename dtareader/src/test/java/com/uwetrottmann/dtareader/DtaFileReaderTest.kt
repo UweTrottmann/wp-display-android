@@ -7,6 +7,8 @@ import okio.Buffer
 import org.junit.Test
 import java.io.File
 import java.io.IOException
+import java.nio.BufferUnderflowException
+import java.nio.ByteBuffer
 import kotlin.test.assertEquals
 import kotlin.test.assertFailsWith
 import kotlin.test.assertNotNull
@@ -28,14 +30,29 @@ class DtaFileReaderTest {
 
         val firstField = readLoggerFile.analogueFields.first()
         assertEquals("TVL", firstField.name)
+        assertEquals(0xFFFF0000.toInt(), firstField.color) // red
         val lastField = readLoggerFile.analogueFields.last()
         assertEquals("Text_WP_Typ", lastField.name)
+        assertEquals(0xFF0000FF.toInt(), lastField.color) // blue
 
         // Check fields used by the app exist
         assertNotNull(readLoggerFile.analogueFields.find { it.name == "TVL" })
         assertNotNull(readLoggerFile.analogueFields.find { it.name == "TRL" })
         assertNotNull(readLoggerFile.analogueFields.find { it.name == "TA" })
         assertNotNull(readLoggerFile.analogueFields.find { it.name == "TBW" })
+
+        // Colors (not used by the app, but still verify; compare with OpenDTA!)
+        assertAnalogueColor(readLoggerFile, "TRL", 0xFF0000FF) // blue
+        assertAnalogueColor(readLoggerFile, "TA", 0xFF808000) // olive
+        assertAnalogueColor(readLoggerFile, "TBW", 0xFF800080) // purple
+        readLoggerFile.digitalFields.first().values.first().let {
+            assertEquals("HDin", it.name)
+            assertEquals(0xFFFF0000.toInt(), it.color) // red
+        }
+        readLoggerFile.digitalFields.last().values.last().let {
+            assertEquals("ZW1out", it.name)
+            assertEquals(0xFF00FFFF.toInt(), it.color) // cyan
+        }
 
         assertEquals(2880, readLoggerFile.datasets.size)
         readLoggerFile.datasets.forEach { dataSet ->
@@ -72,8 +89,10 @@ class DtaFileReaderTest {
 
         val firstField = readLoggerFile.analogueFields.first()
         assertEquals("Text_Vorlauf", firstField.name)
+        assertEquals(0xFFFF0000.toInt(), firstField.color) // red
         val lastField = readLoggerFile.analogueFields.last()
         assertEquals("Text_WP_Typ", lastField.name)
+        assertEquals(0xFF0000FF.toInt(), lastField.color) // blue
 
         // Check fields used by the app exist
         // Note this file uses different names
@@ -81,6 +100,21 @@ class DtaFileReaderTest {
         assertNotNull(readLoggerFile.analogueFields.find { it.name == "Text_Rucklauf" })
         assertNotNull(readLoggerFile.analogueFields.find { it.name == "Text_Aussent" })
         assertNotNull(readLoggerFile.analogueFields.find { it.name == "Text_BW_Ist" })
+
+        // Colors (not used by the app, but still verify; compare with OpenDTA!)
+        assertAnalogueColor(readLoggerFile, "Text_Rucklauf", 0xFF0000FF) // blue
+        assertAnalogueColor(readLoggerFile, "Text_Aussent", 0xFF808000) // olive
+        assertAnalogueColor(readLoggerFile, "Text_BW_Ist", 0xFF800080) // purple
+        // Color with high bit set in channels
+        assertAnalogueColor(readLoggerFile, "Text_MK2VL_Soll", 0xFFA6CAF0)
+        readLoggerFile.digitalFields.first().values.first().let {
+            assertEquals("Text_EVU", it.name)
+            assertEquals(0xFF008080.toInt(), it.color) // teal
+        }
+        readLoggerFile.digitalFields.last().values.last().let {
+            assertEquals("Text_Zwangsbrauchwasser", it.name)
+            assertEquals(0xFF800080.toInt(), it.color) // purple
+        }
 
         assertEquals(2880, readLoggerFile.datasets.size)
         readLoggerFile.datasets.forEach { dataSet ->
@@ -100,6 +134,12 @@ class DtaFileReaderTest {
         val lastDataSet = readLoggerFile.datasets.last()
         assertEquals(36.8, lastDataSet.getValue(firstField))
         assertEquals(75.0, lastDataSet.getValue(lastField))
+    }
+
+    private fun assertAnalogueColor(dtaFile: DtaFileReader.DtaFile, name: String, color: Long) {
+        val field = dtaFile.analogueFields.find { it.name == name }
+        assertNotNull(field, "Field $name not found")
+        assertEquals(color.toInt(), field.color, "Color of $name")
     }
 
     /** Version and header size, followed by the given header bytes. */
@@ -152,6 +192,36 @@ class DtaFileReaderTest {
                 writeByte('A'.code)
                 writeByte(0x00)
             })
+        }
+    }
+
+    private fun readColor(vararg bytes: Int): Int =
+        DtaFileReader().readColor(ByteBuffer.wrap(ByteArray(bytes.size) { bytes[it].toByte() }))
+
+    @Test
+    fun readColor() {
+        assertEquals(0xFF123456.toInt(), readColor(0x12, 0x34, 0x56))
+        // black and white
+        assertEquals(0xFF000000.toInt(), readColor(0x00, 0x00, 0x00))
+        assertEquals(0xFFFFFFFF.toInt(), readColor(0xFF, 0xFF, 0xFF))
+        // each channel in its place, bytes >= 0x80 must not sign extend
+        assertEquals(0xFFFF0000.toInt(), readColor(0xFF, 0x00, 0x00))
+        assertEquals(0xFF00FF00.toInt(), readColor(0x00, 0xFF, 0x00))
+        assertEquals(0xFF0000FF.toInt(), readColor(0x00, 0x00, 0xFF))
+        assertEquals(0xFF80807F.toInt(), readColor(0x80, 0x80, 0x7F))
+    }
+
+    @Test
+    fun readColor_readsExactly3Bytes() {
+        val buffer = ByteBuffer.wrap(byteArrayOf(0x01, 0x02, 0x03, 0x04))
+        DtaFileReader().readColor(buffer)
+        assertEquals(3, buffer.position())
+    }
+
+    @Test
+    fun readColor_tooFewBytes_throws() {
+        assertFailsWith<BufferUnderflowException> {
+            readColor(0x01, 0x02)
         }
     }
 

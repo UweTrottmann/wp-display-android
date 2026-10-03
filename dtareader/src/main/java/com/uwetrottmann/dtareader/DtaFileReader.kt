@@ -245,13 +245,16 @@ class DtaFileReader {
     }
 
     /**
+     * Reads 3 bytes (red, green, blue) and returns them as an opaque ARGB color.
+     *
      * @throws java.nio.BufferUnderflowException Thrown by [ByteBuffer.get].
      */
-    private fun readColor(buffer: ByteBuffer): Int {
-        val r = buffer.get().toLong()
-        val g = buffer.get().toLong()
-        val b = buffer.get().toLong()
-        return (0xFF000000 or r shl 16 or g shl 8 or b).toInt()
+    internal fun readColor(buffer: ByteBuffer): Int {
+        // Mask with 0xFF to avoid sign extension of bytes >= 0x80
+        val r = buffer.get().toInt() and 0xFF
+        val g = buffer.get().toInt() and 0xFF
+        val b = buffer.get().toInt() and 0xFF
+        return (0xFF shl 24) or (r shl 16) or (g shl 8) or b
     }
 
     companion object {
