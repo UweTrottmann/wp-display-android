@@ -19,7 +19,6 @@ import com.uwetrottmann.wpdisplay.R
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import timber.log.Timber
-import java.io.IOException
 
 class StatsViewModel(
     private val host: String?,
@@ -53,18 +52,23 @@ class StatsViewModel(
                 val dtaFile = reader.readLoggerFile(input)
                 val lineData = buildLineData(context, dtaFile)
                 chartData.postValue(Result(null, lineData))
-            } catch (e: IOException) {
+            } catch (e: Exception) {
                 Timber.e(e, "Failed to read logger file")
+                val cause: String = e.cause?.let { " cause: ${it.toMessage()}" } ?: ""
                 chartData.postValue(
                     Result(
                         context.getString(
                             R.string.stats_error_load,
-                            "${e::class.simpleName} ${e.message}"
+                            "${e.toMessage()}$cause"
                         ), null
                     )
                 )
             }
         }
+    }
+
+    private fun Throwable.toMessage(): String {
+        return "${this::class.simpleName}: ${this.message}"
     }
 
     data class FieldToDisplay(
