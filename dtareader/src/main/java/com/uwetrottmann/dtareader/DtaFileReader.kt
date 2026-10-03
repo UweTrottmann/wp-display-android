@@ -9,6 +9,7 @@ import okio.buffer
 import okio.source
 import java.io.InputStream
 import java.net.URL
+import java.nio.BufferUnderflowException
 import java.nio.ByteBuffer
 import java.nio.ByteOrder
 import kotlin.experimental.and
@@ -40,27 +41,31 @@ class DtaFileReader {
     /**
      * Parses the header and data sets into a [DtaFile].
      *
-     * Throws [java.io.IOException] if reading fails due to any number of reasons (file structure
+     * @throws java.io.IOException If reading fails due to any number of reasons (file structure
      * not as expected, version not as expected, file size not as expected).
      */
     fun readLoggerFile(inputStream: InputStream): DtaFile {
-        inputStream.source().use { source ->
-            source.buffer().use { bufferedSource ->
-                // Byte [0:3]: version
-                val version = bufferedSource.readIntLe()
-                if (version != VERSION_9003) {
-                    throw IOException("Version is not $VERSION_9003")
+        try {
+            inputStream.source().use { source ->
+                source.buffer().use { bufferedSource ->
+                    // Byte [0:3]: version
+                    val version = bufferedSource.readIntLe()
+                    if (version != VERSION_9003) {
+                        throw IOException("Version is not $VERSION_9003")
+                    }
+
+                    val header = parseHeader(bufferedSource)
+                    val datasets = parseDataSets(bufferedSource, header)
+
+                    return DtaFile(
+                        version,
+                        header.fields,
+                        datasets
+                    )
                 }
-
-                val header = parseHeader(bufferedSource)
-                val datasets = parseDataSets(bufferedSource, header)
-
-                return DtaFile(
-                    version,
-                    header.fields,
-                    datasets
-                )
             }
+        } catch (e: BufferUnderflowException) {
+            throw IOException("File structure not as expected", e)
         }
     }
 
@@ -70,9 +75,17 @@ class DtaFileReader {
         val datasetLength: Short
     )
 
+    /**
+     * @throws java.nio.BufferUnderflowException Thrown by [ByteBuffer.get], [readString] or
+     * [readColor].
+     */
     private fun parseHeader(bufferedSource: BufferedSource): Header {
         // Byte [4:7]: size of header
         val headerSize = bufferedSource.readIntLe()
+        if (headerSize < 4) {
+            // At least number and length (each short, 2 bytes) of datasets should be there
+            throw IOException("Header size $headerSize is too small")
+        }
         if (!bufferedSource.request(headerSize.toLong())) {
             throw IOException("Header is not $headerSize bytes long")
         }
@@ -97,6 +110,7 @@ class DtaFileReader {
                     // Category
                     category = readString(headerBuffer)
                 }
+
                 0x01.toByte() -> {
                     // Analogue field
                     val name = readString(headerBuffer)
@@ -106,6 +120,7 @@ class DtaFileReader {
                     } else 10
                     fields.add(AnalogueField(index++, category, name, color, factor))
                 }
+
                 0x02.toByte(), 0x04.toByte() -> {
                     // Digital field
                     val count = headerBuffer.get()
@@ -149,6 +164,7 @@ class DtaFileReader {
                     }
                     fields.add(DigitalField(index++, values))
                 }
+
                 0x03.toByte() -> {
                     // Enum field
                     val name = readString(headerBuffer)
@@ -162,6 +178,7 @@ class DtaFileReader {
 
                     fields.add(EnumField(index++, name, enumValues))
                 }
+
                 else -> throw IOException("Unknown field type $fieldType")
             }
         }
@@ -205,6 +222,9 @@ class DtaFileReader {
         return datasets
     }
 
+    /**
+     * @throws java.nio.BufferUnderflowException Thrown by [ByteBuffer.get].
+     */
     private fun readString(buffer: ByteBuffer): String {
         var string = ""
         while (true) {
@@ -218,6 +238,9 @@ class DtaFileReader {
         return string
     }
 
+    /**
+     * @throws java.nio.BufferUnderflowException Thrown by [ByteBuffer.get].
+     */
     private fun readColor(buffer: ByteBuffer): Int {
         val r = buffer.get().toLong()
         val g = buffer.get().toLong()

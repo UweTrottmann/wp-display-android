@@ -6,6 +6,7 @@
 - Support requesting "nearby devices" permission on Android 17 to access local network.
 - On connection error, display details on display screen and use a short message for banner.
 - Instead of crashing when clearing the port, switch to the default.
+- Don't crash if DTA file is too short or has unexpected header.
 
 ## 17.5.1 (2026-01-15)
 
