@@ -25,6 +25,7 @@ keystore.properties
 .idea/markdown.xml
 .idea/migrations.xml
 .idea/misc.xml
+.idea/modules.xml
 .idea/other.xml
 .idea/runConfigurations.xml
 .idea/tasks.xml
