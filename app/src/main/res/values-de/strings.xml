@@ -121,6 +121,6 @@
     <string name="setting_time_until">bis</string>
     <string name="version">Version %s</string>
     <string name="settings_open_source">Diese App wird als Open Source entwickelt.</string>
-    <string name="action_repo">GitHub Repository öffnen</string>
+    <string name="action_repo">Quellcode-Repository öffnen</string>
 
 </resources>
