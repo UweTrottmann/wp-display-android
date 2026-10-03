@@ -233,7 +233,7 @@ class SettingsFragment : Fragment() {
 
     private fun saveSettings() {
         val host = binding.editTextSettingsHost.text.toString()
-        val port = Integer.valueOf(binding.editTextSettingsPort.text.toString())
+        val port = binding.editTextSettingsPort.text.toString().toIntOrNull() ?: 0
         ConnectionSettings.saveConnectionSettings(requireContext(), host, port)
 
         DisplayItems.saveDisabledStateToPreferences(requireContext())
