@@ -14,14 +14,19 @@ class DisconnectRunnable(private val listener: ConnectionListener) : Runnable {
 
         Timber.d("run: disconnecting")
 
+        val connection = listener.connection
+        if (connection == null) {
+            Timber.d("run: not connected")
+            return
+        }
+
         try {
-            listener.inputStream?.close()
-            listener.outputStream?.close()
-            listener.socket?.close()
+            // Closing the socket also closes its input and output streams
+            connection.socket.close()
         } catch (e: IOException) {
             Timber.e(e, "run: disconnecting failed")
         }
 
-        listener.setSocket(null, null, null)
+        listener.clearConnection()
     }
 }

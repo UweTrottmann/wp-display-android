@@ -81,7 +81,7 @@ class DisplayFragment : Fragment() {
                 )
                 insets
             }
-            ViewCompat.setOnApplyWindowInsetsListener(binding.snackbar.root) { v, insets ->
+            ViewCompat.setOnApplyWindowInsetsListener(binding.messageBanner.root) { v, insets ->
                 val bars = insets.getInsets(
                     WindowInsetsCompat.Type.systemBars()
                             or WindowInsetsCompat.Type.displayCutout()
@@ -171,7 +171,7 @@ class DisplayFragment : Fragment() {
     override fun onStart() {
         super.onStart()
 
-        showSnackBar(false)
+        showMessageBanner(false)
         connectOrNotify()
     }
 
@@ -179,8 +179,11 @@ class DisplayFragment : Fragment() {
         val host = ConnectionSettings.getHost(requireContext())
         val port = ConnectionSettings.getPort(requireContext())
         if (TextUtils.isEmpty(host) || port < 0 || port > 65535) {
-            setupSnackBar(R.string.setup_missing, R.string.action_setup) { showSettingsFragment() }
-            showSnackBar(true)
+            setupMessageBanner(
+                R.string.setup_missing,
+                R.string.action_setup
+            ) { showSettingsFragment() }
+            showMessageBanner(true)
         } else {
             ConnectionTools.connect(requireContext())
         }
@@ -224,38 +227,54 @@ class DisplayFragment : Fragment() {
 
     private fun handleConnectionEvent(event: ConnectionTools.ConnectionEvent) {
         // pause button
-        isConnected = event.isConnected
+        isConnected = event is ConnectionTools.ConnectedEvent
         requireActivity().invalidateOptionsMenu()
 
         // status text
-        val statusResId: Int
+        val message: String
         var isWarning = false
-        when {
-            event.isConnecting -> statusResId = R.string.label_connecting
-            event.isConnected -> {
-                statusResId = R.string.label_connected
+        when (event) {
+            is ConnectionTools.MissingSettingsEvent -> {
+                isWarning = true
+                message = getString(R.string.setup_missing)
+            }
+
+            is ConnectionTools.ConnectingEvent -> {
+                message = getString(R.string.label_connecting, event.host + ":" + event.port)
+            }
+
+            is ConnectionTools.ConnectedEvent -> {
+                message = getString(R.string.label_connected, event.host + ":" + event.port)
                 // start requesting data
                 ConnectionTools.requestStatusData(true)
             }
 
-            else -> {
+            is ConnectionTools.ConnectionErrorEvent -> {
                 isWarning = true
-                statusResId = R.string.label_connection_error
-                setupSnackBar(R.string.message_no_connection, R.string.action_retry) {
-                    ConnectionTools.connect(requireContext())
-                    showSnackBar(false)
+                // Use different message on Android 17 and up, where a missing local network
+                // permission can also cause a connection timeout (it won't have a cause).
+                // https://developer.android.com/privacy-and-security/local-network-permission#errors
+                val messageId = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.CINNAMON_BUN) {
+                    R.string.label_no_connection_permission
+                } else {
+                    R.string.label_no_connection
                 }
-                showSnackBar(true)
+                // like "Could not connect to 192.168.0.42:8889 (SocketTimeoutException)."
+                val optionalCause = event.errorCause?.let { " ($it)" } ?: ""
+                message = getString(
+                    messageId,
+                    "${event.host}:${event.port}$optionalCause"
+                )
+
+                setupMessageBanner(R.string.message_connection_error, R.string.action_retry) {
+                    ConnectionTools.connect(requireContext())
+                    showMessageBanner(false)
+                }
+                showMessageBanner(true)
                 ConnectionTools.disconnect()
             }
         }
 
-        val message = if (TextUtils.isEmpty(event.host) || event.port < 1) {
-            // display generic connection error if host or port not sent
-            getString(R.string.message_no_connection)
-        } else {
-            getString(statusResId, event.host + ":" + event.port)
-        }
         viewAdapter.updateStatus(ConnectionStatus(message, isWarning))
     }
 
@@ -286,14 +305,18 @@ class DisplayFragment : Fragment() {
         threadPool.execute(runnable)
     }
 
-    private fun showSnackBar(visible: Boolean) {
-        binding.snackbar.root.visibility = if (visible) View.VISIBLE else View.GONE
+    private fun showMessageBanner(visible: Boolean) {
+        binding.messageBanner.root.visibility = if (visible) View.VISIBLE else View.GONE
     }
 
-    private fun setupSnackBar(titleResId: Int, actionResId: Int, action: View.OnClickListener) {
-        binding.snackbar.apply {
-            textViewDisplaySnackbar.setText(titleResId)
-            buttonDisplaySnackbar.apply {
+    private fun setupMessageBanner(
+        titleResId: Int,
+        actionResId: Int,
+        action: View.OnClickListener
+    ) {
+        binding.messageBanner.apply {
+            textViewMessage.setText(titleResId)
+            buttonAction.apply {
                 if (actionResId > 0) {
                     visibility = View.VISIBLE
                     setText(actionResId)

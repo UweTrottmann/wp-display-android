@@ -5,6 +5,9 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.INTERNET" />
 
+    <!-- Android 17: to allow connecting to local IP addresses -->
+    <uses-permission android:name="android.permission.ACCESS_LOCAL_NETWORK" />
+
     <!-- enableOnBackInvokedCallback: opt-in to predictive back gesture https://developer.android.com/guide/navigation/custom-back/predictive-back-gesture -->
     <application
         android:name="com.uwetrottmann.wpdisplay.ApplicationImpl"

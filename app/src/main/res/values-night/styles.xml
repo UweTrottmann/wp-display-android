@@ -1,4 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+<!-- SPDX-License-Identifier: GPL-3.0-or-later -->
+<!-- SPDX-FileCopyrightText: Copyright © 2018 Uwe Trottmann <uwe@uwetrottmann.com> -->
+
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <style name="Base.Theme.WpDisplay.DayNight" parent="Theme.Material3.Dark.NoActionBar">
@@ -28,9 +32,9 @@
         <item name="colorOnSurfaceVariant">?attr/colorPrimary</item>
     </style>
 
-    <style name="Widget.WpDisplay.Snackbar" parent="">
+    <style name="Widget.WpDisplay.MessageBanner" parent="">
         <item name="android:theme">@style/ThemeOverlay.MaterialComponents.Light</item>
-        <item name="android:background">@drawable/wp_snackbar_background_light</item>
+        <item name="android:background">@drawable/wp_message_banner_background_light</item>
     </style>
 
 </resources>

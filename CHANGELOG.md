@@ -1,5 +1,11 @@
 # Heat Pump Display Release Notes
 
+## Next release
+
+- Supports only Android 6 or newer going forward.
+- Support requesting "nearby devices" permission on Android 17 to access local network.
+- On connection error, display details on display screen and use a short message for banner.
+
 ## 17.5.1 (2026-01-15)
 
 - Resolved: hiding the new mixing circuit 3 values no longer also hides compressor frequency and 

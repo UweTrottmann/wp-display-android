@@ -1,22 +1,13 @@
-import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import java.io.FileInputStream
 import java.util.Properties
 
 plugins {
-    id("com.android.application")
-    kotlin("android")
-    kotlin("kapt")
-}
-
-kotlin {
-    compilerOptions {
-        jvmTarget = JvmTarget.JVM_1_8
-    }
+    alias(libs.plugins.android)
 }
 
 android {
     namespace = "com.uwetrottmann.wpdisplay"
-    compileSdk = 35 /* Android 15 */
+    compileSdk = 37 /* Android 17 */
 
     buildFeatures {
         buildConfig = true
@@ -30,8 +21,8 @@ android {
 
     defaultConfig {
         applicationId = "com.uwetrottmann.wpdisplay"
-        minSdk = 21 /* Android 5 (L) */
-        targetSdk = 35 /* Android 15 */
+        minSdk = 23 /* Android 6 (M) */
+        targetSdk = 37 /* Android 17 */
         versionCode = 30
         versionName = "17.5.1"
 
@@ -39,14 +30,13 @@ android {
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_11
+        targetCompatibility = JavaVersion.VERSION_11
     }
 
     lint {
         // for CI server (reports are not public)
-        textReport = true
-        // Note: do not use textOutput = file("stdout"), just set no file.
+        printTextReport = true
     }
 
     val keystoreConfigFile = rootProject.file("../upload-keystore-uwe-trottmann.properties")
@@ -69,7 +59,10 @@ android {
         getByName("release") {
             isShrinkResources = true
             isMinifyEnabled = true
-            proguardFiles(getDefaultProguardFile("proguard-android.txt"), "proguard-rules.pro")
+            proguardFiles(
+                getDefaultProguardFile("proguard-android-optimize.txt"),
+                "proguard-rules.pro"
+            )
             if (hasKeystoreConfig) {
                 signingConfig = signingConfigs.getByName("release")
             }

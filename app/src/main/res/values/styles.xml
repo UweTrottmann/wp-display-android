@@ -1,3 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!-- SPDX-License-Identifier: GPL-3.0-or-later -->
+<!-- SPDX-FileCopyrightText: Copyright © 2014 Uwe Trottmann <uwe@uwetrottmann.com> -->
+
 <resources xmlns:tools="http://schemas.android.com/tools">
 
     <!-- Base application theme to enable day/night support. -->
@@ -58,9 +63,17 @@
         <item name="colorOnSurfaceVariant">?attr/colorOnPrimary</item>
     </style>
 
-    <style name="Widget.WpDisplay.Snackbar" parent="">
+    <style name="Widget.WpDisplay.MessageBanner" parent="">
         <item name="android:theme">@style/ThemeOverlay.MaterialComponents.Dark</item>
-        <item name="android:background">@drawable/wp_snackbar_background_dark</item>
+        <item name="android:background">@drawable/wp_message_banner_background_dark</item>
+    </style>
+
+    <style name="Widget.WpDisplay.MessageBanner.Button" parent="Widget.Material3.Button.TextButton">
+        <item name="materialThemeOverlay">@style/ThemeOverlay.WpDisplay.MessageBanner.Button</item>
+    </style>
+
+    <style name="ThemeOverlay.WpDisplay.MessageBanner.Button" parent="ThemeOverlay.Material3.Button.TextButton">
+        <item name="colorOnContainer">?android:attr/textColorPrimary</item>
     </style>
 
 </resources>
