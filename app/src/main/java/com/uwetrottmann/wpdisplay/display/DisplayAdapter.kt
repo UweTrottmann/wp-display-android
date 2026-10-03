@@ -12,13 +12,13 @@ import com.uwetrottmann.wpdisplay.R
 import com.uwetrottmann.wpdisplay.databinding.ItemTextBinding
 import com.uwetrottmann.wpdisplay.databinding.LayoutStatusBinding
 import com.uwetrottmann.wpdisplay.model.ConnectionStatus
-import com.uwetrottmann.wpdisplay.model.DisplayItem
+import com.uwetrottmann.wpdisplay.model.DisplayRow
 import com.uwetrottmann.wpdisplay.model.HalfWidthItem
 import com.uwetrottmann.wpdisplay.model.TemperatureItem
 import com.uwetrottmann.wpdisplay.model.FullWidthItem
 import com.uwetrottmann.wpdisplay.util.copyTextToClipboardOnClick
 
-class DisplayAdapter(private val displayItems: MutableList<DisplayItem>) :
+class DisplayAdapter(private var displayRows: List<DisplayRow>) :
     RecyclerView.Adapter<RecyclerView.ViewHolder>() {
 
     private var connectionStatus: ConnectionStatus = ConnectionStatus("", false)
@@ -30,10 +30,9 @@ class DisplayAdapter(private val displayItems: MutableList<DisplayItem>) :
     }
 
     @SuppressLint("NotifyDataSetChanged")
-    fun updateDisplayItems(newTimestamp: String, newDisplayItems: List<DisplayItem>) {
+    fun updateDisplayRows(newTimestamp: String, newDisplayRows: List<DisplayRow>) {
         timestamp = newTimestamp
-        displayItems.clear()
-        displayItems.addAll(newDisplayItems)
+        displayRows = newDisplayRows
         notifyDataSetChanged() // TODO use diff helper
     }
 
@@ -41,7 +40,7 @@ class DisplayAdapter(private val displayItems: MutableList<DisplayItem>) :
         return if (position == 0) {
             VIEW_TYPE_HEADER
         } else {
-            when (displayItems[position - 1]) {
+            when (displayRows[position - 1].item) {
                 is TemperatureItem -> VIEW_TYPE_TEMPERATURE
                 is HalfWidthItem -> VIEW_TYPE_DURATION
                 is FullWidthItem -> VIEW_TYPE_TEXT
@@ -50,7 +49,7 @@ class DisplayAdapter(private val displayItems: MutableList<DisplayItem>) :
         }
     }
 
-    override fun getItemCount() = OFFSET /* header */ + displayItems.size
+    override fun getItemCount() = OFFSET /* header */ + displayRows.size
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
         when (viewType) {
@@ -92,13 +91,13 @@ class DisplayAdapter(private val displayItems: MutableList<DisplayItem>) :
                 holder.binding.textViewDisplayTime.text = timestamp
             }
             is TemperatureViewHolder -> {
-                holder.binding.textView.text = displayItems[position - OFFSET].charSequence
+                holder.binding.textView.text = displayRows[position - OFFSET].text
             }
             is DurationViewHolder -> {
-                holder.binding.textView.text = displayItems[position - OFFSET].charSequence
+                holder.binding.textView.text = displayRows[position - OFFSET].text
             }
             is TextViewHolder -> {
-                holder.binding.textView.text = displayItems[position - OFFSET].charSequence
+                holder.binding.textView.text = displayRows[position - OFFSET].text
             }
         }
     }

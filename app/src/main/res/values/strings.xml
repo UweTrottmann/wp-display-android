@@ -57,7 +57,7 @@
     <string name="label_compressor2_average_runtime">Average compressor 2 runtime</string>
     <string name="label_text_compressor_impulses">Compressor impulses</string>
     <string name="label_text_compressor2_impulses">Compressor 2 impulses</string>
-    <string name="label_text_compressor_frequency">Compressor frequency (Hz)</string>
+    <string name="label_text_compressor_frequency">Compressor frequency</string>
     <string name="label_text_heat_heating">Heat quantity heating</string>
     <string name="label_text_heat_water">Heat quantity warm water</string>
     <string name="label_text_heat_swimming_pool">Heat quantity swimming pool</string>

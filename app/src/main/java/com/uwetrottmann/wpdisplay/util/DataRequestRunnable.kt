@@ -110,7 +110,7 @@ class DataRequestRunnable(private val listener: ConnectionListener) : Runnable {
         val data = SettingsData()
 
         // length (from server, so untrusted!)
-        // cap maximum number of bytes read
+        // cap maximum number of ints read
         val lengthByServer = input.readInt()
         Timber.d("settings length=$lengthByServer")
         val length = lengthByServer.coerceAtMost(data.rawData.size)
@@ -119,6 +119,7 @@ class DataRequestRunnable(private val listener: ConnectionListener) : Runnable {
         for (i in 0 until length) {
             data.rawData[i] = input.readInt()
         }
+        skipExcessInts(input, lengthByServer, length)
 
         // Set some debug data.
         if (BuildConfig.DEBUG) {
@@ -159,18 +160,19 @@ class DataRequestRunnable(private val listener: ConnectionListener) : Runnable {
         Timber.d("status=$status")
 
         // length (from server, so untrusted!)
-        // cap maximum number of bytes read
+        // cap maximum number of ints read
         val lengthByServer = input.readInt()
         Timber.d("status data length=$lengthByServer")
-        val length = lengthByServer.coerceAtMost(StatusData.LENGTH_BYTES)
+        val length = lengthByServer.coerceAtMost(StatusData.MAX_VALUES)
 
         // create array with max size
-        val data = IntArray(StatusData.LENGTH_BYTES)
+        val data = IntArray(StatusData.MAX_VALUES)
 
         // try reading sent data
         for (i in 0 until length) {
             data[i] = input.readInt()
         }
+        skipExcessInts(input, lengthByServer, length)
 
         // Set some debug data.
         if (BuildConfig.DEBUG) {
@@ -181,6 +183,19 @@ class DataRequestRunnable(private val listener: ConnectionListener) : Runnable {
         }
 
         return StatusData(data, status > 0, settingsData)
+    }
+
+    /**
+     * If the server sent more ints than were read, reads and discards the rest. Otherwise, if not
+     * all of them have arrived yet, skipping using [DataInputStream.available] before the next
+     * request misses them and the next response would be read starting at the wrong position.
+     */
+    private fun skipExcessInts(input: DataInputStream, lengthByServer: Int, lengthRead: Int) {
+        val excess = lengthByServer - lengthRead
+        if (excess > 0) {
+            Timber.d("skipping $excess ints")
+            repeat(excess) { input.readInt() }
+        }
     }
 
     companion object {

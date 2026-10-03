@@ -99,12 +99,6 @@ class StatsFragment : Fragment() {
             xAxis.textSize = 12.0f
             // Use 4 to avoid overlapping labels due to larger font size somewhat.
             xAxis.labelCount = 4
-            xAxis.valueFormatter = object : ValueFormatter() {
-                override fun getAxisLabel(value: Float, axis: AxisBase?): String {
-                    val epochTime = value.toLong()
-                    return SimpleDateFormat.getTimeInstance().format(Date(epochTime * 1000))
-                }
-            }
         }
         binding.textViewStatsEmpty.apply {
             setText(R.string.stats_empty)
@@ -123,6 +117,15 @@ class StatsFragment : Fragment() {
             val chartData = result.chartData
             if (chartData != null) {
                 chartData.dataSets.forEach { it.valueTextColor = textColor }
+                // Must set x-axis value formatter on demand as x-values are seconds relative to a
+                // base timestamp.
+                val timestampBase = result.timestampBaseEpochSecond
+                binding.chart.xAxis.valueFormatter = object : ValueFormatter() {
+                    override fun getAxisLabel(value: Float, axis: AxisBase?): String {
+                        val epochTime = timestampBase + value.toLong()
+                        return SimpleDateFormat.getTimeInstance().format(Date(epochTime * 1000))
+                    }
+                }
                 binding.chart.data = chartData
                 binding.chart.isGone = false
                 binding.chart.invalidate()

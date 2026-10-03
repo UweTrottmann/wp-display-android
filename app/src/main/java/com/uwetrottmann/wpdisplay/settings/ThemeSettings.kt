@@ -9,7 +9,7 @@ import android.text.format.DateFormat
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.core.content.edit
 import androidx.preference.PreferenceManager
-import java.util.*
+import java.util.Calendar
 
 object ThemeSettings {
 
@@ -39,25 +39,19 @@ object ThemeSettings {
             THEME_ALWAYS_DAY -> AppCompatDelegate.MODE_NIGHT_NO
             THEME_ALWAYS_NIGHT -> AppCompatDelegate.MODE_NIGHT_YES
             THEME_DAY_NIGHT -> {
-                val nightStartHour = getNightStartHour(context)
-                val nightStartMinute = getNightStartMinute(context)
-                val nightEndHour = getNightEndHour(context)
-                val nightEndMinute = getNightEndMinute(context)
+                val nightStart = getNightStartHour(context) * 60 + getNightStartMinute(context)
+                val nightEnd = getNightEndHour(context) * 60 + getNightEndMinute(context)
 
                 val calendar = Calendar.getInstance()
-                val currentHour = calendar.get(Calendar.HOUR_OF_DAY)
-                val currentMinute = calendar.get(Calendar.MINUTE)
+                val now = calendar.get(Calendar.HOUR_OF_DAY) * 60 + calendar.get(Calendar.MINUTE)
 
-                if (currentHour > nightStartHour || currentHour < nightEndHour) {
-                    AppCompatDelegate.MODE_NIGHT_YES
-                } else if (currentHour == nightStartHour && currentMinute >= nightStartMinute) {
-                    AppCompatDelegate.MODE_NIGHT_YES
-                } else if (currentHour == nightEndHour && currentMinute < nightEndMinute) {
+                if (isNightTime(now, nightStart, nightEnd)) {
                     AppCompatDelegate.MODE_NIGHT_YES
                 } else {
                     AppCompatDelegate.MODE_NIGHT_NO
                 }
             }
+
             else -> {
                 if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.P) {
                     AppCompatDelegate.MODE_NIGHT_AUTO_BATTERY
@@ -65,6 +59,20 @@ object ThemeSettings {
                     AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
                 }
             }
+        }
+    }
+
+    /**
+     * Returns whether [now] is within the night from [nightStart] (inclusive) to [nightEnd]
+     * (exclusive). All values are minutes of the day. The night may span midnight
+     * (like 21:00 to 07:00) or not (like 01:00 to 06:00). If start and end are equal, there is
+     * no night.
+     */
+    internal fun isNightTime(now: Int, nightStart: Int, nightEnd: Int): Boolean {
+        return if (nightStart <= nightEnd) {
+            now in nightStart until nightEnd
+        } else {
+            now !in nightEnd..<nightStart
         }
     }
 
