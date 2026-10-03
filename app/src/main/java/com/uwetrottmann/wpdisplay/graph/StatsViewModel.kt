@@ -25,9 +25,14 @@ class StatsViewModel(
     application: Application
 ) : AndroidViewModel(application) {
 
+    /**
+     * The x values of [chartData] are seconds relative to [timestampBaseEpochSecond]. See notes in
+     * [buildResult].
+     */
     data class Result(
         val errorMessage: String?,
-        val chartData: LineData?
+        val chartData: LineData?,
+        val timestampBaseEpochSecond: Long = 0
     )
 
     val chartData = MutableLiveData<Result>()
@@ -50,8 +55,7 @@ class StatsViewModel(
 //                val input = context.resources.assets.open("NewProc-Test.dta")
                 val input = reader.getLoggerFileStream(host)
                 val dtaFile = reader.readLoggerFile(input)
-                val lineData = buildLineData(context, dtaFile)
-                chartData.postValue(Result(null, lineData))
+                chartData.postValue(buildResult(context, dtaFile))
             } catch (e: Exception) {
                 Timber.e(e, "Failed to read logger file")
                 val cause: String = e.cause?.let { " cause: ${it.toMessage()}" } ?: ""
@@ -78,7 +82,7 @@ class StatsViewModel(
         val entries: MutableList<Entry> = mutableListOf()
     )
 
-    private fun buildLineData(context: Context, dtaFile: DtaFileReader.DtaFile): LineData {
+    private fun buildResult(context: Context, dtaFile: DtaFileReader.DtaFile): Result {
         val analogueFields = dtaFile.analogueFields
 
         val fieldsToDisplay = mutableListOf<FieldToDisplay>()
@@ -97,14 +101,22 @@ class StatsViewModel(
             ?.let { FieldToDisplay(it, context.getString(R.string.label_temp_water), Color.CYAN) }
             ?.let { fieldsToDisplay.add(it) }
 
+        // The chart requires Float coordinates. But a Float can not represent current epoch seconds
+        // precisely enough (current values of 1.7e9 only in steps of 128 seconds).
+        // So shift the x values so the first timestamp is at x-value zero. This is enough precision
+        // for 48 hours of values.
+        // The "downside" is that the chart must adjust its x-axis description accordingly.
+        val timestampBase = dtaFile.datasets.firstOrNull()?.timestampEpochSecond ?: 0
         dtaFile.datasets.forEach { dataset ->
-            val timestamp = dataset.timestampEpochSecond
+            val timestampRelative = dataset.timestampEpochSecond - timestampBase
             fieldsToDisplay.forEach {
-                it.entries.add(Entry(timestamp.toFloat(), dataset.getValue(it.field).toFloat()))
+                it.entries.add(
+                    Entry(timestampRelative.toFloat(), dataset.getValue(it.field).toFloat())
+                )
             }
         }
 
-        return fieldsToDisplay
+        val lineData = fieldsToDisplay
             .map {
                 LineDataSet(it.entries, it.label)
                     .apply {
@@ -113,6 +125,8 @@ class StatsViewModel(
                     }
             }
             .let { LineData(it) }
+
+        return Result(null, lineData, timestampBase)
     }
 
     class Factory(
