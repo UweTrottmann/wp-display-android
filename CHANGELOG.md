@@ -7,6 +7,7 @@
 - Statistics: fix values switching around, support timestamps from 2038-01-19.
 - Settings: dark during hours works if time range is past midnight.
 - On connection error, display details on display screen and use a short message for banner.
+- Display compressor frequency unit next to value.
 - Instead of crashing when clearing the port, switch to the default.
 - Don't crash if DTA file is too short or has unexpected header.
 
